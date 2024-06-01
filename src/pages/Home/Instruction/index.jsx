@@ -1,12 +1,12 @@
 /* eslint-disable quotes */
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect } from "react"
+import { useLocation } from "react-router-dom"
 
 const InstructionPage = () => {
-  const location = useLocation();
+  const location = useLocation()
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0 });
-  }, [location]);
+    window.scrollTo({ top: 0, left: 0 })
+  }, [location])
   return (
     <main id="main" className="">
       <div id="content" className="content-area page-wrapper" role="main">
@@ -382,7 +382,7 @@ const InstructionPage = () => {
         </div>
       </div>
     </main>
-  );
-};
+  )
+}
 
-export default InstructionPage;
+export default InstructionPage

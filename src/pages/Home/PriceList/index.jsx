@@ -1,12 +1,12 @@
 /* eslint-disable quotes */
-import { useEffect } from "react";
-import "../PriceList/index.css";
-import { useLocation } from "react-router-dom";
+import { useEffect } from "react"
+import "../PriceList/index.css"
+import { useLocation } from "react-router-dom"
 const PriceList = () => {
-  const location = useLocation();
+  const location = useLocation()
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0 });
-  }, [location]);
+    window.scrollTo({ top: 0, left: 0 })
+  }, [location])
   return (
     <main id="main" className="">
       <div id="content" className="content-area page-wrapper" role="main">
@@ -461,6 +461,6 @@ const PriceList = () => {
         </div>
       </div>
     </main>
-  );
-};
-export default PriceList;
+  )
+}
+export default PriceList

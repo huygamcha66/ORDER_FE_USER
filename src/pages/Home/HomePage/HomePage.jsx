@@ -1,27 +1,27 @@
 /* eslint-disable quotes */
-import { useState } from "react";
-import "../HomePage/index.css";
-import { useEffect } from "react";
-import { IoStarOutline } from "react-icons/io5";
-import { IoChevronForward } from "react-icons/io5";
-import { Link } from "react-router-dom";
-import { useLocale } from "antd/es/locale";
+import { useState } from "react"
+import "../HomePage/index.css"
+import { useEffect } from "react"
+import { IoStarOutline } from "react-icons/io5"
+import { IoChevronForward } from "react-icons/io5"
+import { Link } from "react-router-dom"
+import { useLocale } from "antd/es/locale"
 
 // import Swiper core and required modules
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules"
 
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react"
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
+import "swiper/css"
+import "swiper/css/navigation"
+import "swiper/css/pagination"
+import "swiper/css/scrollbar"
 const HomePage = () => {
-  const location = useLocale();
+  const location = useLocale()
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0 });
-  }, [location.pathname]);
+    window.scrollTo({ top: 0, left: 0 })
+  }, [location.pathname])
   return (
     <div>
       {/* class="home page-template page-template-page-blank
@@ -397,7 +397,7 @@ const HomePage = () => {
                               className="icon-inner"
                               style={{
                                 borderWidth: "1px",
-                                color: "rgb(2, 44, 190)",
+                                color: "rgb(2, 44, 190)"
                               }}
                             >
                               <img
@@ -437,7 +437,7 @@ const HomePage = () => {
                               className="icon-inner"
                               style={{
                                 borderWidth: "1px",
-                                color: "rgb(2, 44, 190)",
+                                color: "rgb(2, 44, 190)"
                               }}
                             >
                               <img
@@ -485,7 +485,7 @@ const HomePage = () => {
                               className="icon-inner"
                               style={{
                                 borderWidth: "1px",
-                                color: "rgb(2, 44, 190)",
+                                color: "rgb(2, 44, 190)"
                               }}
                             >
                               <img
@@ -525,7 +525,7 @@ const HomePage = () => {
                               className="icon-inner"
                               style={{
                                 borderWidth: "1px",
-                                color: "rgb(2, 44, 190)",
+                                color: "rgb(2, 44, 190)"
                               }}
                             >
                               <img
@@ -772,7 +772,7 @@ const HomePage = () => {
                             className="section-title-main"
                             style={{
                               fontSize: "145%",
-                              color: "rgb(255, 255, 255)",
+                              color: "rgb(255, 255, 255)"
                             }}
                           >
                             CHÚNG TÔI MANG ĐẾN DỊCH VỤ HOÀN HẢO
@@ -897,13 +897,13 @@ const HomePage = () => {
                             1200: {
                               spaceBetween: 0,
                               slidesPerView: 3,
-                              loop: true,
+                              loop: true
                             },
                             0: {
                               spaceBetween: 0,
                               slidesPerView: 1,
-                              loop: true,
-                            },
+                              loop: true
+                            }
                           }}
                         >
                           <SwiperSlide>
@@ -1194,7 +1194,7 @@ const HomePage = () => {
         </main>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage

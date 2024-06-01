@@ -40,6 +40,7 @@ import TrackingPage from "../pages/Home/TrackingPage"
 import NewPage from "../pages/Home/NewPage"
 import PaymentPage from "../pages/Home/PaymentPage"
 import ConverTxt from "../pages/tuetc/converttxt/ConvertTxt"
+import FillterExcel from "../pages/tuetc/fillterFile/FillterExcel"
 
 const router = createBrowserRouter([
   {
@@ -222,8 +223,11 @@ const router = createBrowserRouter([
       },
       {
         path: "tuetcUploadFile",
-        element: <ConverTxt />,
-       
+        element: <ConverTxt />
+      },
+      {
+        path: "tuetcFillterFile",
+        element: <FillterExcel/>
       }
     ]
   }
