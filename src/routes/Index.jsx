@@ -223,11 +223,11 @@ const router = createBrowserRouter([
       },
       {
         path: "tuetcUploadFile",
-        element: <ConverTxt />,
+        element: <ConverTxt />
       },
       {
         path: "tuetcFillterFile",
-        element: <FillterExcel/>,
+        element: <FillterExcel/>
       }
     ]
   }

@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+
 import { API_ROOT } from '../utils/constants'
 import authorizedAxiosInstance from '../utils/authorizeAxios'
 import { toast } from 'react-toastify'

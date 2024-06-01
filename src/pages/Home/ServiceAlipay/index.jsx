@@ -1,14 +1,14 @@
 /* eslint-disable quotes */
-import { useEffect } from "react";
-import { IoChevronBackSharp, IoChevronForward } from "react-icons/io5";
-import { useLocation } from "react-router-dom";
+import { useEffect } from "react"
+import { IoChevronBackSharp, IoChevronForward } from "react-icons/io5"
+import { useLocation } from "react-router-dom"
 
 /* eslint-disable quotes */
 const ServiceAlipay = () => {
-  const location = useLocation();
+  const location = useLocation()
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0 });
-  }, [location]);
+    window.scrollTo({ top: 0, left: 0 })
+  }, [location])
   return (
     <main id="main" className="">
       <div id="content" className="blog-wrapper blog-single page-wrapper">
@@ -101,7 +101,7 @@ const ServiceAlipay = () => {
                       textDecorationColor: "initial",
                       lineHeight: "24px",
                       textAlign: "justify",
-                      backgroundColor: "#ffffff",
+                      backgroundColor: "#ffffff"
                     }}
                   >
                     <strong>
@@ -172,7 +172,7 @@ const ServiceAlipay = () => {
                               display: "flex",
                               alignItems: "center",
                               marginRight: "10px",
-                              fontSize: "26px ",
+                              fontSize: "26px "
                             }}
                             className="hide-for-small"
                           >
@@ -198,7 +198,7 @@ const ServiceAlipay = () => {
                               display: "flex",
                               alignItems: "center",
                               marginLeft: "10px",
-                              fontSize: "26px ",
+                              fontSize: "26px "
                             }}
                             className="hide-for-small"
                           >
@@ -357,7 +357,7 @@ const ServiceAlipay = () => {
                             style={{
                               background:
                                 "url(https://orderhangquangchau.com/wp-content/uploads/2024/01/tet-giap-thin-150x150.jpg)",
-                              border: "0",
+                              border: "0"
                             }}
                           ></div>
                         </div>
@@ -385,7 +385,7 @@ const ServiceAlipay = () => {
                             style={{
                               background:
                                 "url(https://orderhangquangchau.com/wp-content/uploads/2023/11/Image-1-150x150.jpeg)",
-                              border: "0",
+                              border: "0"
                             }}
                           ></div>
                         </div>
@@ -414,7 +414,7 @@ const ServiceAlipay = () => {
                             style={{
                               background:
                                 "url(https://orderhangquangchau.com/wp-content/uploads/2023/09/109035418_reutersshot-150x150.jpg)",
-                              border: "0",
+                              border: "0"
                             }}
                           ></div>
                         </div>
@@ -442,7 +442,7 @@ const ServiceAlipay = () => {
                             style={{
                               background:
                                 "url(https://orderhangquangchau.com/wp-content/uploads/2023/04/lich-nghi-le1-30-4-06-150x150.jpg)",
-                              border: "0",
+                              border: "0"
                             }}
                           ></div>
                         </div>
@@ -470,7 +470,7 @@ const ServiceAlipay = () => {
                             style={{
                               background:
                                 "url(https://orderhangquangchau.com/wp-content/uploads/2022/12/tt-nguyen-dan-2023-vao-ngay-nao-duong-lch_d559e3ef-150x150.jpg)",
-                              border: "0",
+                              border: "0"
                             }}
                           ></div>
                         </div>
@@ -513,6 +513,6 @@ const ServiceAlipay = () => {
         </div>
       </div>
     </main>
-  );
-};
-export default ServiceAlipay;
+  )
+}
+export default ServiceAlipay
