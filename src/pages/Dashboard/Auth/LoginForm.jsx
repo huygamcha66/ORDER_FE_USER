@@ -13,9 +13,11 @@ import {
 import FieldErrorAlert from "../../../components/Form/FieldErrorAlert";
 // import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from "react-redux";
-// import { login, loginUserAPI, selectCurrentUser } from '../../../redux/user/userSlice'
+// import { login, registerUserAPI, selectCurrentUser } from '../../../redux/user/userSlice'
 // import { login, selectCurrentUser } from "../../../redux/userSlice/userSlice";
 import { useEffect } from "react";
+import { loginUser, resetState } from "../../../redux/userSlice/userSlice";
+import { jwtDecode } from "jwt-decode";
 
 const LoginForm = () => {
   const {
@@ -25,33 +27,38 @@ const LoginForm = () => {
   } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const user = useSelector(selectCurrentUser);
-
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate("/dashboard/member/profile");
-  //   }
-  // }, [user, navigate]);
-
-  // const submitLogIn = (data) => {
-  //   const { email, password } = data
-
-  //   toast.promise(
-  //     dispatch(loginUserAPI({ email, password })),
-  //     { pending: 'Logging in...' }
-  //   ).then(res => {
-  //     if (!res.error) navigate('/dashboard/member/profile')
-  //   })
-  // }
-
+  const { success, user, error } = useSelector((state) => state.users);
   const submitLogIn = (data) => {
-    console.log("««««« data »»»»»", data);
     const { email, password } = data;
-    // dispatch(login({ email, password }));
-    const user = { email };
-    localStorage.setItem("user", JSON.stringify(user));
-    navigate("/dashboard/member/profile");
+    dispatch(loginUser({ email, password }));
+    // const user = { email };
+    // localStorage.setItem("user", JSON.stringify(user));
+    // navigate("/dashboard/member/profile");
   };
+  useEffect(() => {
+    const accessToken = localStorage.getItem("token")
+      ? localStorage.getItem("token")
+      : null;
+    const refreshToken = localStorage.getItem("refreshToken")
+      ? localStorage.getItem("refreshToken")
+      : null;
+
+    if (accessToken && jwtDecode(accessToken).exp < new Date()) {
+      navigate("/dashboard/member/profile");
+    }
+    // if (
+    //   jwtDecode(accessToken).exp < new Date() &&
+    //   jwtDecode(refreshToken).exp < new Date()
+    // ) {
+    // }
+
+    if (success) {
+      localStorage.setItem("token", user.token);
+      localStorage.setItem("refreshToken", user.refreshToken);
+      dispatch(resetState());
+      navigate("/dashboard/member/profile");
+    }
+  }, [success]);
 
   return (
     <div id="content" className="container">
@@ -139,14 +146,17 @@ const LoginForm = () => {
                           fieldName={"password"}
                         />
                       </div>
+                      <div style={{ marginBottom: "0.7em", color: "red" }}>
+                        {error && error}
+                      </div>
                       <input
                         type="submit"
                         className="btn btn-danger"
                         name="login"
                         value="Đăng nhập"
-                        fdprocessedid="dx2u06"
                       />
                     </form>
+                    {/* {success ? "Đăng nhập thành công" : "Chưa đăng nhập"} */}
                   </div>
                 </div>
               </div>

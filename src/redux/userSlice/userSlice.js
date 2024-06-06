@@ -6,6 +6,7 @@ import axios from "axios";
 const initialState = {
   isLoading: false,
   success: false,
+  isSend: false,
   error: "",
   user: {},
 };
@@ -22,8 +23,8 @@ const initialState = {
 //     return response.data
 //   }
 // )
-const loginUser = createAsyncThunk(
-  "user/loginUser",
+const registerUser = createAsyncThunk(
+  "user/registerUser",
   async (data, { rejectWithValue }) => {
     try {
       const config = {
@@ -48,28 +49,81 @@ const loginUser = createAsyncThunk(
   }
 );
 
-// Khởi tạo một cái Slice trong kho lưu trữ - Redux Store
-// export const userSlice = createSlice({
-//   name: 'user',
-//   initialState,
-//   // Reducers: Nơi xử lý dữ liệu đồng bộ
-//   reducers: {},
-//   // ExtraReducers: Nơi xử lý dữ liệu bất đồng bộ
-//   extraReducers: (builder) => {
-//     builder.addCase(loginUser.fulfilled, (state, action) => {
-//       // action.payload ở dây chính là cái response.data trả về ở trên
-//       const user = action.payload
-//       state.currentUser = user
-//     })
-//     builder.addCase(logoutUserAPI.fulfilled, (state) => {
-//       /**
-//        * API logout sau khi gọi thành công thì sẽ clear thông tin currentUser về null ở đây
-//        * Kết hợp ProtectedRoute đã làm ở App.js => code sẽ điều hướng chuẩn về trang Login
-//        */
-//       state.currentUser = null
-//     })
-//   }
-// })
+const loginUser = createAsyncThunk(
+  "user/loginUser",
+  async (data, { rejectWithValue }) => {
+    try {
+      const config = {
+        headers: {
+          "content-type": "application/json",
+        },
+      };
+      const response = await axios.post(
+        `${API_ROOT}/api/v1.0/auth/login`,
+        data,
+        config
+      );
+      console.log("«««««  response»»»»»", response);
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      } else {
+        throw error;
+      }
+    }
+  }
+);
+
+const sendCodeResetPassword = createAsyncThunk(
+  "user/sendCodeResetPassword",
+  async (data, { rejectWithValue }) => {
+    try {
+      const config = {
+        headers: {
+          "content-type": "application/json",
+        },
+      };
+      const response = await axios.post(
+        `${API_ROOT}/api/v1.0/auth/forgot-password`,
+        data,
+        config
+      );
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      } else {
+        throw error;
+      }
+    }
+  }
+);
+
+const changePasswordUser = createAsyncThunk(
+  "user/changePasswordUser",
+  async (value, { rejectWithValue }) => {
+    try {
+      const config = {
+        headers: {
+          "content-type": "application/json",
+        },
+      };
+      const response = await axios.patch(
+        `${API_ROOT}/api/v1.0/auth/reset-password`,
+        value,
+        config
+      );
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      } else {
+        throw error;
+      }
+    }
+  }
+);
 
 export const userSlice = createSlice({
   name: "user",
@@ -88,34 +142,92 @@ export const userSlice = createSlice({
     //     localStorage.removeItem("user");
     //   }
     // },
-    // logout: (state) => {
-    //   state.currentUser = null;
-    //   toast.success("Đăng xuất thành công");
-    //   localStorage.removeItem("user"); // Xóa thông tin người dùng khỏi Local Storage
-    // },
+    resetState: (state) => {
+      state.error = "";
+      state.success = false;
+      state.isSend = false;
+    },
   },
   extraReducers: (builder) => {
-    builder.addCase(loginUser.pending, (state) => {
+    // register
+    builder.addCase(registerUser.pending, (state) => {
       state.isLoading = true;
       state.success = false;
+      state.error = "";
     });
-    builder.addCase(loginUser.rejected, (state, action) => {
+    builder.addCase(registerUser.rejected, (state, action) => {
+      console.log("««««« action »»»»»", action);
       state.isLoading = false;
       state.success = false;
 
-      state.error = action.error.message;
+      state.error = action.payload.error;
+    });
+    builder.addCase(registerUser.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.success = true;
+      state.user = action.payload;
+    });
+
+    // login
+    builder.addCase(loginUser.pending, (state) => {
+      state.isLoading = true;
+      state.success = false;
+      state.error = "";
+    });
+    builder.addCase(loginUser.rejected, (state, action) => {
+      console.log("««««« action »»»»»", action);
+      state.isLoading = false;
+      state.success = false;
+
+      state.error = action.payload.message;
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.isLoading = false;
       state.success = true;
       state.user = action.payload;
     });
+
+    // sendCodeResetPassword
+    builder.addCase(sendCodeResetPassword.pending, (state) => {
+      state.isLoading = true;
+      state.isSend = false;
+      state.error = "";
+    });
+    builder.addCase(sendCodeResetPassword.rejected, (state, action) => {
+      console.log("««««« action »»»»»", action);
+      state.isLoading = false;
+      state.isSend = false;
+      state.error = action.payload.message;
+    });
+    builder.addCase(sendCodeResetPassword.fulfilled, (state) => {
+      state.isLoading = false;
+      state.isSend = true;
+    });
+
+    // changePasswordUser
+    builder.addCase(changePasswordUser.pending, (state) => {
+      state.isLoading = true;
+      state.success = false;
+      state.error = "";
+    });
+    builder.addCase(changePasswordUser.rejected, (state, action) => {
+      console.log("««««« action »»»»»", action);
+      state.isLoading = false;
+      state.success = false;
+      state.error = action.payload.message;
+    });
+    builder.addCase(changePasswordUser.fulfilled, (state, action) => {
+      console.log("««««« action »»»»»", action);
+      state.isLoading = false;
+      state.success = true;
+    });
   },
 });
 
-const { reducer } = userSlice;
+const { reducer, actions } = userSlice;
+export const { resetState } = actions;
 export default reducer;
-export { loginUser };
+export { registerUser, loginUser, sendCodeResetPassword, changePasswordUser };
 // export const { login, logout } = userSlice.actions;
 // // Selectors: Là nơi dành cho các components bên dưới gọi bằng hook useSelector() để lấy dữ liệu từ trong kho redux store ra sử dụng
 // export const selectCurrentUser = (state) => {

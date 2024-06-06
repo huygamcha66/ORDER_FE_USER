@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import { logout, selectCurrentUser } from "../../redux/userSlice/userSlice";
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
+import { jwtDecode } from "jwt-decode";
 
 const ExtraHeader = () => {
   // const user = useSelector(selectCurrentUser);
@@ -38,10 +39,14 @@ const ExtraHeader = () => {
   //       console.log(error)
   //     })
   // }
+  const accessToken = localStorage.getItem("token")
+    ? localStorage.getItem("token")
+    : null;
 
   const handleLogout = () => {
     // dispatch(logout());
-    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
     navigate("login");
   };
   const items = [
@@ -105,7 +110,11 @@ const ExtraHeader = () => {
             <Link to="member/profile">
               Xin chào,
               <span className="red">
-                <b>chaobanhnguyen</b>
+                <b>
+                  {accessToken
+                    ? jwtDecode(accessToken).email.split("@")[0]
+                    : ""}
+                </b>
               </span>
             </Link>
             |<Link onClick={handleLogout}>Thoát</Link>

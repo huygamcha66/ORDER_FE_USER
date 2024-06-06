@@ -5,21 +5,21 @@
 import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineDone } from "react-icons/md";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 import {
-  EMAIL_RULE,
   PASSWORD_RULE,
   FIELD_REQUIRED_MESSAGE,
   PASSWORD_RULE_MESSAGE,
-  EMAIL_RULE_MESSAGE,
-  PHONE_RULE_MESSAGE,
-  PHONE_RULE,
 } from "../../../utils/validators";
 import FieldErrorAlert from "../../../components/Form/FieldErrorAlert";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../../redux/userSlice/userSlice";
-
-const RegisterForm = () => {
+import {
+  changePasswordUser,
+  resetState,
+  sendCodeResetPassword,
+} from "../../../redux/userSlice/userSlice";
+import { useEffect } from "react";
+const ResetForm = () => {
+  const userInfor = JSON.parse(localStorage.getItem("email"));
   const {
     register,
     handleSubmit,
@@ -31,14 +31,24 @@ const RegisterForm = () => {
   const { success, user, error } = useSelector((state) => state.users);
 
   const submitRegister = (data) => {
-    console.log("submit register: ", data);
-    dispatch(registerUser(data));
+    dispatch(resetState());
+    console.log("submit register: ", { ...data, email: userInfor });
+    dispatch(changePasswordUser({ ...data, email: userInfor }));
   };
+
+  const handleSendCodeVerify = () => {
+    dispatch(sendCodeResetPassword({ email: userInfor }));
+  };
+  const direcToLogin = () => {
+    dispatch(resetState());
+    navigate("/dashboard/login");
+  };
+
   return (
     <>
       <div className="col-sm-7">
         <div className="header-login-frm">
-          <h2 className="page-title">Đăng ký thành viên</h2>
+          <h2 className="page-title">Đổi lại mật khẩu</h2>
         </div>
 
         {!success ? (
@@ -54,18 +64,10 @@ const RegisterForm = () => {
                     type="text"
                     className="form-control"
                     name="email"
+                    value={userInfor.split("@")[0]}
+                    disabled
                     placeholder="Email"
-                    required
-                    error={!!errors["email"]}
-                    {...register("email", {
-                      required: FIELD_REQUIRED_MESSAGE,
-                      pattern: {
-                        value: EMAIL_RULE,
-                        message: EMAIL_RULE_MESSAGE,
-                      },
-                    })}
                   />
-                  <FieldErrorAlert errors={errors} fieldName={"email"} />
                 </div>
 
                 {/* dpassword */}
@@ -74,7 +76,7 @@ const RegisterForm = () => {
                     type="password"
                     className="form-control"
                     name="password"
-                    placeholder="Mật khẩu"
+                    placeholder="Mật khẩu mới"
                     required
                     error={!!errors["password"]}
                     {...register("password", {
@@ -88,17 +90,16 @@ const RegisterForm = () => {
                   <FieldErrorAlert errors={errors} fieldName={"password"} />
                 </div>
 
-                {/* password_confirmation */}
+                {/* confirmPassword */}
                 <div className="form-group">
                   <input
                     type="password"
                     className="form-control"
-                    name="passconf"
-                    placeholder="Nhập lại mật khẩu"
+                    name="confirmPassword"
+                    placeholder="Nhập lại mật khẩu mới"
                     required
-                    fdprocessedid="m6w2j"
-                    error={!!errors["password_confirmation"]}
-                    {...register("password_confirmation", {
+                    error={!!errors["confirmPassword"]}
+                    {...register("confirmPassword", {
                       validate: (value) => {
                         if (value === watch("password")) return true;
                         return "Mật khẩu không trùng khớp!";
@@ -107,37 +108,46 @@ const RegisterForm = () => {
                   />
                   <FieldErrorAlert
                     errors={errors}
-                    fieldName={"password_confirmation"}
+                    fieldName={"confirmPassword"}
                   />
                 </div>
 
                 {/* address */}
-                <div className="form-group">
+                {/* <div className="form-group">
                   <input
                     type="text"
                     className="form-control"
                     name="phone"
                     placeholder="Số điện thoại"
                     required=""
+                    // value={userInfor.phoneNumber}
                     error={!!errors["phoneNumber"]}
                     {...register("phoneNumber", {
                       required: FIELD_REQUIRED_MESSAGE,
-                      pattern: {
-                        value: PHONE_RULE,
-                        message: PHONE_RULE_MESSAGE,
-                      },
                     })}
                   />
                   <FieldErrorAlert errors={errors} fieldName={"phoneNumber"} />
+                </div> */}
+
+                {/* code verify */}
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="code"
+                    placeholder="Mã xác thực"
+                    {...register("code", {
+                      required: FIELD_REQUIRED_MESSAGE,
+                    })}
+                  />
                 </div>
 
                 {/* address */}
-                <div className="form-group">
+                {/* <div className="form-group">
                   <select
                     name="store"
                     className="form-control"
                     required=""
-                    fdprocessedid="zddyf"
                     error={!!errors["address"]}
                     {...register("address", {
                       required: FIELD_REQUIRED_MESSAGE,
@@ -150,17 +160,37 @@ const RegisterForm = () => {
                     <option value="3">Quảng Nam</option>
                   </select>
                   <FieldErrorAlert errors={errors} fieldName={"address"} />
-                </div>
-                <div style={{ marginBottom: "0.7em", color: "red" }}>
-                  {error && error}
-                </div>
+                </div> */}
+
+                {error ? (
+                  <div
+                    style={{
+                      marginBottom: "0.7em",
+                      overflow: "hidden",
+                      color: "red",
+                    }}
+                  >
+                    Mã xác thực sai, vui lòng kiểm tra lại email
+                    <span
+                      onClick={handleSendCodeVerify}
+                      style={{
+                        color: "blue",
+                        cursor: "pointer",
+                        marginLeft: "0.7em",
+                      }}
+                    >
+                      Gửi lại mã xác thực
+                    </span>
+                  </div>
+                ) : (
+                  ""
+                )}
                 <div className="form-group pull-left">
                   <input
                     type="submit"
                     className="btn btn-danger"
                     name="save"
-                    value="Đăng ký"
-                    fdprocessedid="2whfz"
+                    value="Lưu"
                   />
                 </div>
                 <div className="form-group pull-right">
@@ -188,7 +218,16 @@ const RegisterForm = () => {
             </form>
           </div>
         ) : (
-          <div style={{ marginTop: "0.7em" }}>{user.message}</div>
+          <div>
+            <span>Thay đổi mật khẩu thành công</span>
+            <span
+              onClick={direcToLogin}
+              style={{ marginLeft: "0.5em", color: "blue", cursor: "pointer" }}
+              to={"/dashboard/login"}
+            >
+              Đăng nhập
+            </span>
+          </div>
         )}
       </div>
 
@@ -231,4 +270,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default ResetForm;
