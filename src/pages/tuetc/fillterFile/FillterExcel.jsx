@@ -99,7 +99,7 @@ const FillterExcel = () => {
   return (
     <div>
       <div>
-        <label htmlFor="fileA">Chọn File A:</label>
+        <label htmlFor="fileA">Chọn File gốc:</label>
         {!fileA ? (
           <input id="fileA" type="file" onChange={handleFileAChange} />
         ) : (
@@ -110,7 +110,7 @@ const FillterExcel = () => {
         )}
       </div>
       <div>
-        <label htmlFor="fileB">Chọn File B:</label>
+        <label htmlFor="fileB">Chọn File đã lọc:</label>
         {!fileB ? (
           <input id="fileB" type="file" onChange={handleFileBChange} />
         ) : (
