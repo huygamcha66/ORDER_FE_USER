@@ -10,3 +10,6 @@ export const PASSWORD_RULE =
   /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
 export const PASSWORD_RULE_MESSAGE =
   "Mật khẩu phải có ít nhất 8 kí tự, 1 kí tự đặt biệt, 1 kí tự ghi hoa, 1 chữ số";
+export const PASSWORD_RULE_LOGIN = /^.{8,20}$/;
+export const PASSWORD_RULE_MESSAGE_LOGIN =
+  "Mật khẩu phải có ít nhất 8 kí tự và nhỏ hơn 20 kí tự";
