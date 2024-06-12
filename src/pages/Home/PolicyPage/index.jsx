@@ -1,12 +1,12 @@
 /* eslint-disable quotes */
-import { useEffect } from "react"
-import { useLocation } from "react-router-dom"
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const PolicyPage = () => {
-  const location = useLocation()
+  const location = useLocation();
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0 })
-  }, [location])
+    window.scrollTo({ top: 0, left: 0 });
+  }, [location]);
   return (
     <main id="main" className="">
       <div id="content" className="content-area page-wrapper" role="main">
@@ -36,9 +36,9 @@ const PolicyPage = () => {
                 </li>
               </ol>
               <p>
-                Các thông tin bắt buộc mà Order hàng Quảng Châucần khi Quý khách
-                đăng ký thành viên trên website của chúng tôi bao gồm: tên đăng
-                nhập, email, số điện thoại, địa chỉ, mật khẩu đăng nhập.
+                Các thông tin bắt buộc mà Order hàng Quảng Châu. cần khi Quý
+                khách đăng ký thành viên trên website của chúng tôi bao gồm: tên
+                đăng nhập, email, số điện thoại, địa chỉ, mật khẩu đăng nhập.
               </p>
               <p>
                 Trong quá trình giao dịch tại website
@@ -177,7 +177,7 @@ const PolicyPage = () => {
         </div>
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default PolicyPage
+export default PolicyPage;
