@@ -18,6 +18,7 @@ import {
   sendCodeResetPassword,
 } from "../../../redux/userSlice/userSlice";
 import { useEffect } from "react";
+import { Spin } from "antd";
 const ResetForm = () => {
   const userInfor = JSON.parse(localStorage.getItem("email"));
   const {
@@ -28,7 +29,9 @@ const ResetForm = () => {
   } = useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { success, user, error } = useSelector((state) => state.users);
+  const { success, user, error, isLoading } = useSelector(
+    (state) => state.users
+  );
 
   const submitRegister = (data) => {
     dispatch(resetState());
@@ -39,7 +42,7 @@ const ResetForm = () => {
   const handleSendCodeVerify = () => {
     dispatch(sendCodeResetPassword({ email: userInfor }));
   };
-  const direcToLogin = () => {
+  const directToLogin = () => {
     dispatch(resetState());
     navigate("/dashboard/login");
   };
@@ -185,14 +188,18 @@ const ResetForm = () => {
                 ) : (
                   ""
                 )}
-                <div className="form-group pull-left">
-                  <input
-                    type="submit"
-                    className="btn btn-danger"
-                    name="save"
-                    value="Lưu"
-                  />
-                </div>
+                {isLoading ? (
+                  <Spin />
+                ) : (
+                  <div className="form-group pull-left">
+                    <input
+                      type="submit"
+                      className="btn btn-danger"
+                      name="save"
+                      value="Lưu"
+                    />
+                  </div>
+                )}
                 <div className="form-group pull-right">
                   <div className="tml-action-links">
                     <Link to="/dashboard/login">Đăng nhập</Link>
@@ -221,7 +228,7 @@ const ResetForm = () => {
           <div>
             <span>Thay đổi mật khẩu thành công</span>
             <span
-              onClick={direcToLogin}
+              onClick={directToLogin}
               style={{ marginLeft: "0.5em", color: "blue", cursor: "pointer" }}
               to={"/dashboard/login"}
             >

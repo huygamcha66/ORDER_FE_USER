@@ -14,9 +14,11 @@ import {
 } from "../../../redux/userSlice/userSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Spin } from "antd";
+import { handleFocus } from "../../../utils";
 const ResetPassword = () => {
   const dispatch = useDispatch();
-  const { error, isSend } = useSelector((state) => state.users);
+  const { error, isSend, isLoading } = useSelector((state) => state.users);
   const navigate = useNavigate();
   const {
     register,
@@ -53,6 +55,7 @@ const ResetPassword = () => {
               <div className="reset_password">
                 <div className="form-group">
                   <input
+                    onFocus={() => handleFocus(dispatch)}
                     type="text"
                     id="username"
                     className="form-control"
@@ -75,13 +78,21 @@ const ResetPassword = () => {
                       color: "red",
                     }}
                   >
-                    {error}
+                    {error && error}
                   </div>
                 </div>
 
-                <div className="form-group pull-left">
-                  <input type="submit" className="btn btn-danger" value="Gửi" />
-                </div>
+                {isLoading ? (
+                  <Spin />
+                ) : (
+                  <div className="form-group pull-left">
+                    <input
+                      type="submit"
+                      className="btn btn-danger"
+                      value="Gửi"
+                    />
+                  </div>
+                )}
               </div>
             </form>
           </div>

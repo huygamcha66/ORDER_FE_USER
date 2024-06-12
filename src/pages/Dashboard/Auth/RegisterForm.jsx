@@ -1,3 +1,4 @@
+/* eslint-disable semi */
 /* eslint-disable quotes */
 /* eslint-disable no-console */
 /* eslint-disable react/no-unknown-property */
@@ -17,9 +18,15 @@ import {
 } from "../../../utils/validators";
 import FieldErrorAlert from "../../../components/Form/FieldErrorAlert";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../../redux/userSlice/userSlice";
+import { registerUser, resetState } from "../../../redux/userSlice/userSlice";
+import { Spin } from "antd";
+import { handleFocus } from "../../../utils";
 
 const RegisterForm = () => {
+  const directToLogin = () => {
+    dispatch(resetState());
+    navigate("/dashboard/login");
+  };
   const {
     register,
     handleSubmit,
@@ -28,7 +35,9 @@ const RegisterForm = () => {
   } = useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { success, user, error } = useSelector((state) => state.users);
+  const { success, user, error, isLoading } = useSelector(
+    (state) => state.users
+  );
 
   const submitRegister = (data) => {
     console.log("submit register: ", data);
@@ -51,6 +60,7 @@ const RegisterForm = () => {
                 {/* email */}
                 <div className="form-group">
                   <input
+                    onFocus={() => handleFocus(dispatch)}
                     type="text"
                     className="form-control"
                     name="email"
@@ -71,6 +81,7 @@ const RegisterForm = () => {
                 {/* dpassword */}
                 <div className="form-group">
                   <input
+                    onFocus={() => handleFocus(dispatch)}
                     type="password"
                     className="form-control"
                     name="password"
@@ -91,6 +102,7 @@ const RegisterForm = () => {
                 {/* password_confirmation */}
                 <div className="form-group">
                   <input
+                    onFocus={() => handleFocus(dispatch)}
                     type="password"
                     className="form-control"
                     name="passconf"
@@ -114,6 +126,7 @@ const RegisterForm = () => {
                 {/* address */}
                 <div className="form-group">
                   <input
+                    onFocus={() => handleFocus(dispatch)}
                     type="text"
                     className="form-control"
                     name="phone"
@@ -154,15 +167,18 @@ const RegisterForm = () => {
                 <div style={{ marginBottom: "0.7em", color: "red" }}>
                   {error && error}
                 </div>
-                <div className="form-group pull-left">
-                  <input
-                    type="submit"
-                    className="btn btn-danger"
-                    name="save"
-                    value="Đăng ký"
-                    fdprocessedid="2whfz"
-                  />
-                </div>
+                {isLoading ? (
+                  <Spin />
+                ) : (
+                  <div className="form-group pull-left">
+                    <input
+                      type="submit"
+                      className="btn btn-danger"
+                      name="save"
+                      value="Đăng ký"
+                    />
+                  </div>
+                )}
                 <div className="form-group pull-right">
                   <div className="tml-action-links">
                     <Link to="/dashboard/login">Đăng nhập</Link>
@@ -188,7 +204,16 @@ const RegisterForm = () => {
             </form>
           </div>
         ) : (
-          <div style={{ marginTop: "0.7em" }}>{user.message}</div>
+          <div style={{ marginTop: "0.7em" }}>
+            {user.message}
+            <span
+              onClick={directToLogin}
+              style={{ marginLeft: "0.5em", color: "blue", cursor: "pointer" }}
+              to={"/dashboard/login"}
+            >
+              Đăng nhập
+            </span>
+          </div>
         )}
       </div>
 
@@ -198,31 +223,31 @@ const RegisterForm = () => {
           <p className="text-success">
             <span>
               <MdOutlineDone />
-            </span>{" "}
+            </span>
             Giao dịch an toàn bảo mật tuyệt đối.
           </p>
           <p className="text-success">
             <span>
               <MdOutlineDone />
-            </span>{" "}
+            </span>
             Vận chuyển nhanh toàn quốc, giá tốt nhất.
           </p>
           <p className="text-success">
             <span>
               <MdOutlineDone />
-            </span>{" "}
+            </span>
             Phong cách phục vụ chuyên nghiệp, tư vấn nhiệt tình, chu đáo.
           </p>
           <p className="text-success">
             <span>
               <MdOutlineDone />
-            </span>{" "}
+            </span>
             Không vì lợi ích bán hàng mà bỏ qua lợi ích khách hàng.
           </p>
           <p className="text-success">
             <span>
               <MdOutlineDone />
-            </span>{" "}
+            </span>
             Giải quyết mọi khúc mắc, khiếu nại nhanh chóng.
           </p>
         </div>

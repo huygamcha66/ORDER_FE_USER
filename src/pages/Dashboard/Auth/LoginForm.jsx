@@ -18,6 +18,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { loginUser, resetState } from "../../../redux/userSlice/userSlice";
 import { jwtDecode } from "jwt-decode";
+import { Spin } from "antd";
+import { handleFocus } from "../../../utils";
 
 const LoginForm = () => {
   const {
@@ -27,7 +29,9 @@ const LoginForm = () => {
   } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { success, user, error } = useSelector((state) => state.users);
+  const { success, user, error, isLoading } = useSelector(
+    (state) => state.users
+  );
   const submitLogIn = (data) => {
     const { email, password } = data;
     dispatch(loginUser({ email, password }));
@@ -59,7 +63,9 @@ const LoginForm = () => {
       navigate("/dashboard/member/profile");
     }
   }, [success]);
-
+  // const handleFocus = () => {
+  //   dispatch(resetState());
+  // };
   return (
     <div id="content" className="container">
       <main className="main" role="main">
@@ -107,10 +113,10 @@ const LoginForm = () => {
                       <div className="form-group">
                         <label htmlFor="username">Tài khoản Hoặc Email</label>
                         <input
+                          onFocus={() => handleFocus(dispatch)}
                           type="text"
                           name="username"
                           className="form-control"
-                          fdprocessedid="9awy6r"
                           required
                           error={!!errors["email"]}
                           {...register("email", {
@@ -127,10 +133,10 @@ const LoginForm = () => {
                       <div className="form-group">
                         <label htmlFor="password">Mật khẩu</label>
                         <input
+                          onFocus={() => handleFocus(dispatch)}
                           type="password"
                           name="password"
                           className="form-control"
-                          fdprocessedid="lxsmtq"
                           required
                           error={!!errors["password"]}
                           {...register("password", {
@@ -147,14 +153,18 @@ const LoginForm = () => {
                         />
                       </div>
                       <div style={{ marginBottom: "0.7em", color: "red" }}>
-                        {error && error}
+                        {error ? error : ""}
                       </div>
-                      <input
-                        type="submit"
-                        className="btn btn-danger"
-                        name="login"
-                        value="Đăng nhập"
-                      />
+                      {isLoading ? (
+                        <Spin />
+                      ) : (
+                        <input
+                          type="submit"
+                          className="btn btn-danger"
+                          name="login"
+                          value="Đăng nhập"
+                        />
+                      )}
                     </form>
                     {/* {success ? "Đăng nhập thành công" : "Chưa đăng nhập"} */}
                   </div>
