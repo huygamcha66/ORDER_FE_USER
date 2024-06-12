@@ -9,6 +9,8 @@ import {
   FIELD_REQUIRED_MESSAGE,
   PASSWORD_RULE_MESSAGE,
   EMAIL_RULE_MESSAGE,
+  PASSWORD_RULE_MESSAGE_LOGIN,
+  PASSWORD_RULE_LOGIN,
 } from "../../../utils/validators";
 import FieldErrorAlert from "../../../components/Form/FieldErrorAlert";
 // import { toast } from 'react-toastify'
@@ -16,25 +18,33 @@ import { useDispatch, useSelector } from "react-redux";
 // import { login, registerUserAPI, selectCurrentUser } from '../../../redux/user/userSlice'
 // import { login, selectCurrentUser } from "../../../redux/userSlice/userSlice";
 import { useEffect } from "react";
-import { loginUser, resetState } from "../../../redux/userSlice/userSlice";
+import {
+  loginUser,
+  resetState,
+  sendLinkActiveUser,
+} from "../../../redux/userSlice/userSlice";
 import { jwtDecode } from "jwt-decode";
 import { Spin } from "antd";
 import { handleFocus } from "../../../utils";
+import Countdown from "../../../components/Countdown";
 
 const LoginForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { success, user, error, isLoading } = useSelector(
+  const { success, user, error, isLoading, isActive } = useSelector(
     (state) => state.users
   );
   const submitLogIn = (data) => {
-    const { email, password } = data;
-    dispatch(loginUser({ email, password }));
+    console.log("««««« 333 »»»»»", 333);
+    const { userName, password } = data;
+    console.log("««««« data »»»»»", data);
+    dispatch(loginUser({ userName, password }));
     // const user = { email };
     // localStorage.setItem("user", JSON.stringify(user));
     // navigate("/dashboard/member/profile");
@@ -66,6 +76,12 @@ const LoginForm = () => {
   // const handleFocus = () => {
   //   dispatch(resetState());
   // };
+  const handleSendLinkActiveUser = () => {
+    const userName = getValues("userName");
+    console.log("««««« userName »»»»»", userName);
+    dispatch(sendLinkActiveUser({ email: userName }));
+  };
+
   return (
     <div id="content" className="container">
       <main className="main" role="main">
@@ -118,13 +134,13 @@ const LoginForm = () => {
                           name="username"
                           className="form-control"
                           required
-                          error={!!errors["email"]}
-                          {...register("email", {
+                          error={!!errors["userName"]}
+                          {...register("userName", {
                             required: FIELD_REQUIRED_MESSAGE,
-                            pattern: {
-                              value: EMAIL_RULE,
-                              message: EMAIL_RULE_MESSAGE,
-                            },
+                            // pattern: {
+                            //   value: EMAIL_RULE,
+                            //   message: EMAIL_RULE_MESSAGE,
+                            // },
                           })}
                         />
                         <FieldErrorAlert errors={errors} fieldName={"email"} />
@@ -142,8 +158,8 @@ const LoginForm = () => {
                           {...register("password", {
                             required: FIELD_REQUIRED_MESSAGE,
                             pattern: {
-                              value: PASSWORD_RULE,
-                              message: PASSWORD_RULE_MESSAGE,
+                              value: PASSWORD_RULE_LOGIN,
+                              message: PASSWORD_RULE_MESSAGE_LOGIN,
                             },
                           })}
                         />
@@ -154,6 +170,33 @@ const LoginForm = () => {
                       </div>
                       <div style={{ marginBottom: "0.7em", color: "red" }}>
                         {error ? error : ""}
+                        {error === "Tài khoản người dùng chưa xác thực" && (
+                          <>
+                            <span>
+                              , vui lòng kích hoạt tài khoản tại email hoặc
+                            </span>
+                            <div
+                              style={{
+                                width: "max-content",
+                                color: "blue",
+                                cursor: "pointer",
+                              }}
+                            >
+                              {!isActive ? (
+                                <span onClick={handleSendLinkActiveUser}>
+                                  Gửi lại mã
+                                </span>
+                              ) : (
+                                <>
+                                  <span style={{ marginRight: "4px" }}>
+                                    Vui lòng kích hoạt trước
+                                  </span>
+                                  <Countdown initialTime={600} />
+                                </>
+                              )}
+                            </div>
+                          </>
+                        )}
                       </div>
                       {isLoading ? (
                         <Spin />

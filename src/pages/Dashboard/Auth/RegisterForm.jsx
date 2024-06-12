@@ -205,7 +205,8 @@ const RegisterForm = () => {
           </div>
         ) : (
           <div style={{ marginTop: "0.7em" }}>
-            {user.message}
+            {user.message}, vui lòng vào gmail để kích hoạt tài khoản tài khoản,
+            thời gian kích hoạt là 10 phút.
             <span
               onClick={directToLogin}
               style={{ marginLeft: "0.5em", color: "blue", cursor: "pointer" }}

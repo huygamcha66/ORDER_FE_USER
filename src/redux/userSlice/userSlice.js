@@ -7,6 +7,7 @@ const initialState = {
   isLoading: false,
   success: false,
   isSend: false,
+  isActive: false,
   error: "",
   user: {},
 };
@@ -125,6 +126,31 @@ const changePasswordUser = createAsyncThunk(
   }
 );
 
+const sendLinkActiveUser = createAsyncThunk(
+  "sendLinkActiveUser/user",
+  async (data, { rejectWithValue }) => {
+    try {
+      const config = {
+        headers: {
+          "content-type": "application/json",
+        },
+      };
+      const response = await axios.post(
+        `${API_ROOT}/api/v1.0/auth/send-link`,
+        data,
+        config
+      );
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      } else {
+        throw error;
+      }
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
@@ -221,13 +247,30 @@ export const userSlice = createSlice({
       state.isLoading = false;
       state.success = true;
     });
+
+    builder.addCase(sendLinkActiveUser.pending, (state, action) => {
+      state.isActive = false;
+    });
+    builder.addCase(sendLinkActiveUser.rejected, (state, action) => {
+      console.log("««««« action »»»»»", action);
+      state.isActive = false;
+    });
+    builder.addCase(sendLinkActiveUser.fulfilled, (state, action) => {
+      state.isActive = true;
+    });
   },
 });
 
 const { reducer, actions } = userSlice;
 export const { resetState } = actions;
 export default reducer;
-export { registerUser, loginUser, sendCodeResetPassword, changePasswordUser };
+export {
+  registerUser,
+  loginUser,
+  sendCodeResetPassword,
+  changePasswordUser,
+  sendLinkActiveUser,
+};
 // export const { login, logout } = userSlice.actions;
 // // Selectors: Là nơi dành cho các components bên dưới gọi bằng hook useSelector() để lấy dữ liệu từ trong kho redux store ra sử dụng
 // export const selectCurrentUser = (state) => {
