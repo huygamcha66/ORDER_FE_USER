@@ -1,5 +1,6 @@
 /* eslint-disable quotes */
 /* eslint-disable react/no-unknown-property */
+import "../../../common/common.css";
 import { useForm } from "react-hook-form";
 import {
   EMAIL_RULE,
@@ -85,10 +86,10 @@ const ResetPassword = () => {
                 {isLoading ? (
                   <Spin />
                 ) : (
-                  <div className="form-group pull-left">
+                  <div className="form-group pull-left ">
                     <input
                       type="submit"
-                      className="btn btn-danger"
+                      className="btn btn-danger customBtn customW30"
                       value="Gửi"
                     />
                   </div>

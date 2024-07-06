@@ -17,6 +17,22 @@ const ProtectedRoute = () => {
       ? localStorage.getItem("refreshToken")
       : null;
     // console.log("««««« accessToken »»»»»", jwtDecode(accessToken).exp);
+
+    // const otherWindow = window.open("https://detail.tmall.com");
+    // console.log("««««« otherWindow»»»»»", otherWindow);
+    // if (otherWindow) {
+    //   console.log("««««« (user.token »»»»»", accessToken);
+    //   otherWindow.onload = () => {
+    //     otherWindow.postMessage(
+    //       {
+    //         type: "AUTH_TOKEN",
+    //         token: accessToken,
+    //         refreshToken: refreshToken,
+    //       },
+    //       "*"
+    //     );
+    //   };
+    // }
     if (
       (accessToken &&
         refreshToken &&

@@ -108,7 +108,7 @@ const ExtraHeader = () => {
           <div style={headerStyles.headerLiStyles}>
             <FaUser style={headerStyles.headerIconStyles} />
             <Link to="member/profile">
-              Xin chào,
+              Xin chào {""}
               <span className="red">
                 <b>
                   {accessToken
@@ -117,7 +117,7 @@ const ExtraHeader = () => {
                 </b>
               </span>
             </Link>
-            |<Link onClick={handleLogout}>Thoát</Link>
+            {accessToken && <Link onClick={handleLogout}> | Thoát</Link>}
           </div>
         </div>
 
