@@ -41,15 +41,24 @@ const LoginForm = () => {
   const { success, user, error, isLoading, isActive } = useSelector(
     (state) => state.users
   );
-  const submitLogIn = (data) => {
-    // console.log("««««« 333 »»»»»", 333);
+  const submitLogIn = async (data) => {
     const { userName, password } = data;
-    // console.log("««««« data »»»»»", data);
-    dispatch(loginUser({ userName, password }));
-    // const user = { email };
-    // localStorage.setItem("user", JSON.stringify(user));
-    // navigate("/dashboard/member/profile");
+
+    // Lấy địa chỉ IP từ API ipify
+    let addressIP = "";
+    try {
+      const response = await fetch("https://api.ipify.org?format=json");
+      const data = await response.json();
+      addressIP = data.ip; // Lấy địa chỉ IP từ response
+    } catch (error) {
+      console.error("Không thể lấy địa chỉ IP từ api.ipify.org", error);
+      // Xử lý lỗi nếu cần thiết
+    }
+
+    // Gọi action loginUser với thông tin đăng nhập và địa chỉ IP
+    dispatch(loginUser({ userName, password, addressIP }));
   };
+
   useEffect(() => {
     const accessToken = localStorage.getItem("token")
       ? localStorage.getItem("token")
@@ -71,7 +80,7 @@ const LoginForm = () => {
       localStorage.setItem("token", user.token);
       localStorage.setItem("refreshToken", user.refreshToken);
       // site-a.com
-      document.cookie = `token=${user.token}; path=/; domain=.tatcadichvu.com; SameSite=None; Secure`;
+      document.cookie = `token=${user.token}; path=/; SameSite=None; Secure`;
 
       console.log("««««« document.cookie »»»»»", document.cookie);
 

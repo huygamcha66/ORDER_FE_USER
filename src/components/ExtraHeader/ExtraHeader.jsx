@@ -22,6 +22,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
 import { jwtDecode } from "jwt-decode";
+import axios from "axios";
+import { API_ROOT } from "../../utils/constants";
 
 const ExtraHeader = () => {
   // const user = useSelector(selectCurrentUser);
@@ -42,8 +44,11 @@ const ExtraHeader = () => {
   const accessToken = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : null;
+  console.log("««««« accessToken logout »»»»»", accessToken);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    const userId = accessToken && jwtDecode(accessToken)._id;
+    axios.patch(`${API_ROOT}/api/v1.0/auth/logout`, userId);
     // dispatch(logout());
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");

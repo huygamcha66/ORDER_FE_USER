@@ -64,7 +64,6 @@ const loginUser = createAsyncThunk(
         data,
         config
       );
-      console.log("«««««  response»»»»»", response);
       return response.data;
     } catch (error) {
       if (error.response && error.response.data) {
