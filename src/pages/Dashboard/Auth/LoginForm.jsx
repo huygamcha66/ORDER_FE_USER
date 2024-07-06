@@ -27,6 +27,7 @@ import { jwtDecode } from "jwt-decode";
 import { Spin } from "antd";
 import { handleFocus } from "../../../utils";
 import Countdown from "../../../components/Countdown";
+import "../../../common/common.css";
 
 const LoginForm = () => {
   const {
@@ -69,6 +70,12 @@ const LoginForm = () => {
     if (success) {
       localStorage.setItem("token", user.token);
       localStorage.setItem("refreshToken", user.refreshToken);
+      // site-a.com
+      document.cookie =
+        "token=12345; path=/; domain=.tatcadichvu.com; SameSite=None; Secure";
+
+      console.log("««««« document.cookie »»»»»", document.cookie);
+
       dispatch(resetState());
       navigate("/dashboard/member/profile");
     }
@@ -98,13 +105,13 @@ const LoginForm = () => {
                     </p>
                     <div className="button">
                       <Link
-                        className="btn btn-success"
+                        className="btn btn-success customBtn"
                         to="/dashboard/register"
                       >
                         Đăng ký tài khoản
                       </Link>{" "}
                       <Link
-                        className="btn btn-danger"
+                        className="btn btn-danger customBtn"
                         to="/dashboard/reset-password"
                       >
                         Khôi phục tài khoản
@@ -203,7 +210,7 @@ const LoginForm = () => {
                       ) : (
                         <input
                           type="submit"
-                          className="btn btn-danger"
+                          className="btn btn-danger customBtn"
                           name="login"
                           value="Đăng nhập"
                         />

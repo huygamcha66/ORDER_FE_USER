@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser, resetState } from "../../../redux/userSlice/userSlice";
 import { Spin } from "antd";
 import { handleFocus } from "../../../utils";
+import "../../../common/common.css";
 
 const RegisterForm = () => {
   const directToLogin = () => {
@@ -173,7 +174,7 @@ const RegisterForm = () => {
                   <div className="form-group pull-left">
                     <input
                       type="submit"
-                      className="btn btn-danger"
+                      className="btn btn-danger customBtn"
                       name="save"
                       value="Đăng ký"
                     />
