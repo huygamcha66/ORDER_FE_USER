@@ -42,9 +42,9 @@ const LoginForm = () => {
     (state) => state.users
   );
   const submitLogIn = (data) => {
-    console.log("««««« 333 »»»»»", 333);
+    // console.log("««««« 333 »»»»»", 333);
     const { userName, password } = data;
-    console.log("««««« data »»»»»", data);
+    // console.log("««««« data »»»»»", data);
     dispatch(loginUser({ userName, password }));
     // const user = { email };
     // localStorage.setItem("user", JSON.stringify(user));
@@ -71,8 +71,7 @@ const LoginForm = () => {
       localStorage.setItem("token", user.token);
       localStorage.setItem("refreshToken", user.refreshToken);
       // site-a.com
-      document.cookie =
-        "token=12345; path=/; domain=.tatcadichvu.com; SameSite=None; Secure";
+      document.cookie = `token=${user.token}; path=/; domain=.tatcadichvu.com; SameSite=None; Secure`;
 
       console.log("««««« document.cookie »»»»»", document.cookie);
 
