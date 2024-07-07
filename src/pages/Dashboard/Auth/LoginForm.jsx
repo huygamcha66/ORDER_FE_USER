@@ -43,18 +43,7 @@ const LoginForm = () => {
   );
   const submitLogIn = async (data) => {
     const { userName, password } = data;
-
-    // Lấy địa chỉ IP từ API ipify
-    let addressIP = "";
-    try {
-      const response = await fetch("https://api.ipify.org?format=json");
-      const data = await response.json();
-      addressIP = data.ip; // Lấy địa chỉ IP từ response
-    } catch (error) {
-      console.error("Không thể lấy địa chỉ IP từ api.ipify.org", error);
-      // Xử lý lỗi nếu cần thiết
-    }
-
+    const addressIP = navigator.userAgent;
     // Gọi action loginUser với thông tin đăng nhập và địa chỉ IP
     dispatch(loginUser({ userName, password, addressIP }));
   };

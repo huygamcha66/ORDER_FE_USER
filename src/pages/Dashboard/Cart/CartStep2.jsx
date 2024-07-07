@@ -3,11 +3,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  deleteProductFromCart,
-  setBuyProduct,
-} from "../../../redux/cartSlice/cartSlice";
+import { deleteProductFromCart } from "../../../redux/cartSlice/cartSlice";
 import { jwtDecode } from "jwt-decode";
+import { createOrder } from "../../../redux/orderSlice/orderSlice";
 
 const ProductItem = ({
   cart,
@@ -28,6 +26,7 @@ const ProductItem = ({
     setQuantity(newQuantity);
     onQuantityChange(index, newQuantity);
   };
+  console.log("««««« cart »»»»»", cart);
 
   // const handleDetele = (value) => {
   //   const userInfor = localStorage.getItem("token")
@@ -41,18 +40,6 @@ const ProductItem = ({
   //     );
   //   }
   // };
-  const handleDelete = (value) => {
-    const userInfor = localStorage.getItem("token")
-      ? jwtDecode(localStorage.getItem("token"))
-      : null;
-    const result = confirm("bạn có muốn xoá không");
-    if (result) {
-      dispatch(
-        deleteProductFromCart({ userId: userInfor.id, productId: value })
-      );
-    }
-    console.log("««««« 8989 »»»»»", 8989);
-  };
 
   return (
     <>
@@ -65,11 +52,6 @@ const ProductItem = ({
       >
         <thead>
           <tr>
-            <th
-              style={{ border: "1px solid #ddd", padding: "8px", width: "5%" }}
-            >
-              Chọn mua
-            </th>
             <th style={{ border: "1px solid #ddd", padding: "8px" }}>
               Sản phẩm
             </th>
@@ -84,25 +66,10 @@ const ProductItem = ({
             <th style={{ border: "1px solid #ddd", padding: "8px" }}>
               Tổng tiền
             </th>
-            <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-              Đơn giá
-            </th>
-            <th
-              style={{ border: "1px solid #ddd", padding: "8px", width: "8%" }}
-            >
-              Hành động
-            </th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-              <input
-                type="checkbox"
-                checked={isCheck}
-                onChange={() => onCheckChange(index, !isCheck)}
-              />
-            </td>
             <td style={{ border: "1px solid #ddd", padding: "8px" }}>
               <div style={{ display: "flex" }}>
                 <img
@@ -118,14 +85,15 @@ const ProductItem = ({
             <td style={{ border: "1px solid #ddd", padding: "8px" }}>
               <input
                 type="number"
-                value={quantity}
+                value={cart.quantity}
                 min={1}
+                disabled
                 onChange={handleQuantityChange}
                 style={{ width: "50px" }}
               />
             </td>
             <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-              {(cart.price * 3625).toLocaleString("vi-VN")} đ<br />¥{cart.price}
+              {(cart.price * 3625).toLocaleString("vi-VN")} đ<br />
             </td>
             <td
               style={{
@@ -134,70 +102,8 @@ const ProductItem = ({
                 fontWeight: "bolder",
               }}
             >
-              {(cart.price * 3625 * quantity).toLocaleString("vi-VN")} đ
-              <br />¥{cart.price * quantity}
-            </td>
-            <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-              <div>
-                <div style={{ marginBottom: "0.5em" }}>
-                  <label>Tiền hàng:</label>
-                  <span style={{ marginLeft: "0.5em", fontWeight: "bold" }}>
-                    {isCheck
-                      ? `${(cart.price * 3625 * quantity).toLocaleString(
-                          "vi-VN"
-                        )}
-                    đ`
-                      : 0}
-                  </span>
-                </div>
-                <div style={{ marginBottom: "0.5em" }}>
-                  <label>Phí tạm tính:</label>
-                  <span style={{ marginLeft: "0.5em", fontWeight: "bold" }}>
-                    {isCheck
-                      ? `${(cart.price * 3625 * quantity * 0.03).toLocaleString(
-                          "vi-VN"
-                        )}
-                    đ`
-                      : 0}
-                  </span>
-                </div>
-                <div style={{ marginBottom: "0.5em" }}>
-                  <label>Đặt cọc:</label>
-                  <span style={{ marginLeft: "0.5em", fontWeight: "bold" }}>
-                    {isCheck
-                      ? `${(cart.price * 3625 * quantity * 0.7).toLocaleString(
-                          "vi-VN"
-                        )}
-                    đ`
-                      : 0}
-                  </span>
-                </div>
-                <div
-                  style={{
-                    fontWeight: "bold",
-                    color: "red",
-                    marginBottom: "0.5em",
-                  }}
-                >
-                  <label>Tổng:</label>
-                  <span style={{ marginLeft: "0.5em", fontWeight: "bold" }}>
-                    {isCheck
-                      ? `${(cart.price * 3625 * quantity * 1.03).toLocaleString(
-                          "vi-VN"
-                        )}
-                    đ`
-                      : 0}
-                  </span>
-                </div>
-              </div>
-            </td>
-            <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-              <button
-                onClick={() => handleDelete(cart.productId)}
-                style={{ background: "none", border: "none", color: "red" }}
-              >
-                <i className="fas fa-trash-alt"></i> Xóa sản phẩm
-              </button>
+              {(cart.price * 3625 * cart.quantity).toLocaleString("vi-VN")} đ
+              <br />
             </td>
           </tr>
         </tbody>
@@ -206,13 +112,16 @@ const ProductItem = ({
   );
 };
 
-const Cart = () => {
-  const { carts } = useSelector((state) => state.carts);
+const CartStep2 = () => {
+  const { carts, buyProduct } = useSelector((state) => state.carts);
 
   const [checkedStates, setCheckedStates] = useState([]);
   const [quantities, setQuantities] = useState([]);
   const [allCheck, setAllCheck] = useState(false);
   const [totalCheckedPrice, setTotalCheckedPrice] = useState(0);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (carts && carts.products) {
@@ -257,23 +166,22 @@ const Cart = () => {
     newQuantities[index] = newQuantity;
     setQuantities(newQuantities);
   };
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const handlePlaceOrder = () => {
-    // Lọc các sản phẩm đã chọn và bao gồm số lượng
-    const selectedProducts = carts.products
-      .map((product, index) => {
-        if (checkedStates[index]) {
-          return {
-            ...product,
-            quantity: quantities[index], // Thêm số lượng
-          };
-        }
-        return null;
+
+  const handleSubmit = () => {
+    const userInfor = localStorage.getItem("token")
+      ? jwtDecode(localStorage.getItem("token"))
+      : null;
+    const updateProduct = buyProduct.map((product) => ({
+      ...product,
+      properties: "",
+    }));
+    dispatch(
+      createOrder({
+        userId: userInfor.id,
+        productList: updateProduct,
+        purchaseFee: totalCheckedPrice,
       })
-      .filter((product) => product !== null); // Lọc các sản phẩm không được chọn
-    dispatch(setBuyProduct(selectedProducts));
-    navigate("/dashboard/cart/step2");
+    );
   };
 
   return (
@@ -283,14 +191,14 @@ const Cart = () => {
           <h2 className="page-title">Giỏ hàng</h2>
           <div className="container">
             <ul className="progressbar">
-              <li className="active">Chọn shop</li>
-              <li>Chọn địa chỉ nhận hàng</li>
+              <li>Chọn shop</li>
+              <li className="active">Chọn địa chỉ nhận hàng</li>
               <li>Lên đơn</li>
             </ul>
           </div>
           <br />
-          {carts && carts.products ? (
-            carts.products.map((cart, index) => (
+          {buyProduct &&
+            buyProduct.map((cart, index) => (
               <ProductItem
                 key={index}
                 cart={cart}
@@ -299,12 +207,7 @@ const Cart = () => {
                 onCheckChange={handleCheckChange}
                 onQuantityChange={handleQuantityChange}
               />
-            ))
-          ) : (
-            <span className="green">
-              Hiện tại không có sản phẩm nào trong giỏ hàng
-            </span>
-          )}
+            ))}
         </div>
       </div>
       <div
@@ -333,17 +236,17 @@ const Cart = () => {
               style={{ width: "25px", height: "25px" }}
             />
             <h4 style={{ lineHeight: "30px", marginLeft: "6px" }}>
-              Chọn mua toàn bộ các sản phẩm
+              Số tiền tạm thời phải trả
             </h4>
           </div>
           <h4 style={{ lineHeight: "30px", marginLeft: "6px" }}>
-            Tổng tiền hàng:{" "}
+            Tổng tiền cọc (70%){" "}
             <span style={{ color: "red" }}>
               {totalCheckedPrice && totalCheckedPrice.toLocaleString("vi-VN")}đ
             </span>
           </h4>
           <button
-            onClick={handlePlaceOrder}
+            onClick={handleSubmit}
             disabled={!totalCheckedPrice}
             style={{
               background: "#008001",
@@ -352,7 +255,7 @@ const Cart = () => {
               padding: "10px",
             }}
           >
-            Đặt hàng ngay
+            Gửi đơn
           </button>
         </div>
       </div>
@@ -360,4 +263,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default CartStep2;

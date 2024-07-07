@@ -29,7 +29,7 @@ const ExtraHeader = () => {
   // const user = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { carts } = useSelector((state) => state.carts);
   // const handleLogout = () => {
   //   // Gọi API đăng xuất người dùng
   //   dispatch(logoutUserAPI())
@@ -44,7 +44,6 @@ const ExtraHeader = () => {
   const accessToken = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : null;
-  console.log("««««« accessToken logout »»»»»", accessToken);
 
   const handleLogout = async () => {
     const userId = accessToken && jwtDecode(accessToken)._id;
@@ -146,7 +145,10 @@ const ExtraHeader = () => {
               <FaShoppingCart style={headerStyles.headerIconStyles} />
               <Link to="cart" style={{ marginRight: "10px" }}>
                 {" "}
-                Giỏ hàng <span className="num_icon">0</span>
+                Giỏ hàng{" "}
+                <span className="num_icon">
+                  {carts && carts.products ? carts.products.length : 0}
+                </span>
               </Link>
               <FaBus style={headerStyles.headerIconStyles} />
               <Link to="ship-orders" style={{ marginRight: "10px" }}>

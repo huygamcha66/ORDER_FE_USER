@@ -5,11 +5,16 @@ import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getCartDetail } from "../../../../redux/cartSlice/cartSlice";
 const Profile = () => {
+  const { carts } = useSelector((state) => state.carts);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const userInfor = localStorage.getItem("token")
     ? jwtDecode(localStorage.getItem("token"))
     : null;
+  console.log("««««« userInforaa »»»»»", userInfor.id);
   // const dispatch = useDispatch();
   // const { user, success } = useSelector((state) => state.users);
   // if (!userInfor) {
@@ -26,8 +31,8 @@ const Profile = () => {
   // useEffect(() => {});
 
   useEffect(() => {
-    console.log("««««« 99 »»»»»", 99);
-  });
+    dispatch(getCartDetail(userInfor.id));
+  }, []);
   // console.log("««««« user »»»»»", userInfor);
   return (
     <>

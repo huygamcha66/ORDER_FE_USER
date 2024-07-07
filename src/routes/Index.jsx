@@ -42,6 +42,7 @@ import PaymentPage from "../pages/Home/PaymentPage";
 import ConverTxt from "../pages/tuetc/converttxt/ConvertTxt";
 import FillterExcel from "../pages/tuetc/fillterFile/FillterExcel";
 import ResetForm from "../pages/Dashboard/Auth/ResetForm";
+import CartStep2 from "../pages/Dashboard/Cart/CartStep2";
 
 const router = createBrowserRouter([
   {
@@ -217,6 +218,10 @@ const router = createBrowserRouter([
               {
                 path: "cart",
                 element: <Cart />,
+              },
+              {
+                path: "cart/step2",
+                element: <CartStep2 />,
               },
             ],
           },

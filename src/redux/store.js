@@ -1,6 +1,8 @@
 /* eslint-disable quotes */
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./userSlice/userSlice";
+import cartReducer from "./cartSlice/cartSlice";
+import orderReducer from "./orderSlice/orderSlice";
 import { combineReducers } from "redux"; // lưu ý chúng ta có sẵn redux trong node_modules bởi vì khi cài @reduxjs/toolkit là đã có luôn
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // default là localstorage
@@ -16,6 +18,8 @@ const rootPersistConfig = {
 // Combine các reducers trong dự án của chúng ta ở đây
 const reducers = combineReducers({
   users: userReducer,
+  carts: cartReducer,
+  orders: orderReducer,
 });
 
 // Thực hiện persist Reducer

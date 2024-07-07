@@ -12,18 +12,6 @@ const initialState = {
   user: {},
 };
 
-// Các hành động gọi api (bất đồng bộ) và cập nhật dữ liệu vào Redux, dùng Middleware createAsyncThunk đi kèm với extraReducers
-
-// export const logoutUserAPI = createAsyncThunk(
-//   'user/logoutUserAPI',
-//   async (showSuccessMessage = true) => {
-//     const response = await authorizedAxiosInstance.delete(`${API_ROOT}/v1/users/logout`)
-//     if (showSuccessMessage) {
-//       toast.success('Logged out successfully!')
-//     }
-//     return response.data
-//   }
-// )
 const registerUser = createAsyncThunk(
   "user/registerUser",
   async (data, { rejectWithValue }) => {
