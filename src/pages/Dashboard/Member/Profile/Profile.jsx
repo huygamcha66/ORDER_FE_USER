@@ -31,6 +31,7 @@ const Profile = () => {
   // useEffect(() => {});
 
   useEffect(() => {
+    console.log("««««« userInfor »»»»»", userInfor);
     dispatch(getCartDetail(userInfor.id));
   }, []);
   // console.log("««««« user »»»»»", userInfor);

@@ -24,6 +24,7 @@ import { Dropdown, Space } from "antd";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import { API_ROOT } from "../../utils/constants";
+import { logoutUser } from "../../redux/userSlice/userSlice";
 
 const ExtraHeader = () => {
   // const user = useSelector(selectCurrentUser);
@@ -46,12 +47,19 @@ const ExtraHeader = () => {
     : null;
 
   const handleLogout = async () => {
-    const userId = accessToken && jwtDecode(accessToken)._id;
-    axios.patch(`${API_ROOT}/api/v1.0/auth/logout`, userId);
-    // dispatch(logout());
-    localStorage.removeItem("token");
-    localStorage.removeItem("refreshToken");
-    navigate("login");
+    if (!accessToken) {
+      console.error("Access token is undefined or null.");
+      return;
+    }
+
+    try {
+      const userId = jwtDecode(accessToken).id; // Giải mã token để lấy userId
+      // await dispatch(logoutUser()); // Gửi request để đăng xuất
+      localStorage.clear(); // Xóa localStorage
+      navigate("login"); // Chuyển hướng đến trang đăng nhập
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
   };
   const items = [
     {

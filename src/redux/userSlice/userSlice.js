@@ -2,6 +2,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { API_ROOT } from "../../utils/constants";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 const initialState = {
   isLoading: false,
@@ -50,6 +51,37 @@ const loginUser = createAsyncThunk(
       const response = await axios.post(
         `${API_ROOT}/api/v1.0/auth/login`,
         data,
+        config
+      );
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      } else {
+        throw error;
+      }
+    }
+  }
+);
+
+const logoutUser = createAsyncThunk(
+  "user/logoutUser",
+
+  async (_, { rejectWithValue }) => {
+    try {
+      const accessToken = localStorage.getItem("token")
+        ? localStorage.getItem("token")
+        : null;
+      console.log("«««««accessToken  »»»»»", accessToken);
+      const userId = jwtDecode(accessToken).id;
+      const config = {
+        headers: {
+          "content-type": "application/json",
+        },
+      };
+      const response = await axios.patch(
+        `${API_ROOT}/api/v1.0/auth/logout`,
+        { userId: userId },
         config
       );
       return response.data;
@@ -195,6 +227,26 @@ export const userSlice = createSlice({
       state.error = action.payload.message;
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
+      console.log("««««« action »»»»»", action);
+      state.isLoading = false;
+      state.success = true;
+      state.user = action.payload;
+    });
+
+    // logout
+    builder.addCase(logoutUser.pending, (state) => {
+      state.isLoading = true;
+      state.success = false;
+      state.error = "";
+    });
+    builder.addCase(logoutUser.rejected, (state, action) => {
+      console.log("««««« action »»»»»", action);
+      state.isLoading = false;
+      state.success = false;
+
+      state.error = action.payload.message;
+    });
+    builder.addCase(logoutUser.fulfilled, (state, action) => {
       state.isLoading = false;
       state.success = true;
       state.user = action.payload;
@@ -257,6 +309,7 @@ export {
   sendCodeResetPassword,
   changePasswordUser,
   sendLinkActiveUser,
+  logoutUser,
 };
 // export const { login, logout } = userSlice.actions;
 // // Selectors: Là nơi dành cho các components bên dưới gọi bằng hook useSelector() để lấy dữ liệu từ trong kho redux store ra sử dụng

@@ -111,7 +111,7 @@ const LoginForm = () => {
                         className="btn btn-danger customBtn"
                         to="/dashboard/reset-password"
                       >
-                        Khôi phục tài khoản
+                        Lấy lại mật khẩu
                       </Link>
                     </div>
                   </div>

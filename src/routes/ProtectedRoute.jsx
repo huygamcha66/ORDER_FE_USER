@@ -13,12 +13,11 @@ const ProtectedRoute = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    const accessToken = localStorage.getItem("token")
-      ? localStorage.getItem("token")
-      : null;
-    const refreshToken = localStorage.getItem("refreshToken")
-      ? localStorage.getItem("refreshToken")
-      : null;
+    const accessToken =
+      localStorage.getItem("token") && localStorage.getItem("token");
+    const refreshToken =
+      localStorage.getItem("refreshToken") &&
+      localStorage.getItem("refreshToken");
 
     if (
       (accessToken &&

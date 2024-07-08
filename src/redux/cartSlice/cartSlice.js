@@ -95,6 +95,7 @@ const cartSlice = createSlice({
         state.carts = action.payload;
       })
       .addCase(getCartDetail.rejected, (state, action) => {
+        console.log("««««« action »»»»»", action);
         state.isLoading = false;
         state.error = action.payload;
       });
