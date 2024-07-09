@@ -1,6 +1,8 @@
 /* eslint-disable quotes */
 /* eslint-disable semi */
 /* eslint-disable react/no-unknown-property */
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
@@ -17,17 +19,18 @@ import FieldErrorAlert from "../../../components/Form/FieldErrorAlert";
 import { useDispatch, useSelector } from "react-redux";
 // import { login, registerUserAPI, selectCurrentUser } from '../../../redux/user/userSlice'
 // import { login, selectCurrentUser } from "../../../redux/userSlice/userSlice";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import {
   loginUser,
   resetState,
   sendLinkActiveUser,
 } from "../../../redux/userSlice/userSlice";
 import { jwtDecode } from "jwt-decode";
-import { Spin } from "antd";
+import { ConfigProvider, message, Spin, Form, Input, Button } from "antd";
 import { handleFocus } from "../../../utils";
 import Countdown from "../../../components/Countdown";
 import "../../../common/common.css";
+import { MESSAGE_TYPE } from "../../../common";
 
 const LoginForm = () => {
   const {
@@ -59,12 +62,6 @@ const LoginForm = () => {
     if (accessToken && jwtDecode(accessToken).exp < new Date()) {
       navigate("/dashboard/member/profile");
     }
-    // if (
-    //   jwtDecode(accessToken).exp < new Date() &&
-    //   jwtDecode(refreshToken).exp < new Date()
-    // ) {
-    // }
-
     if (success) {
       localStorage.setItem("token", user.token);
       localStorage.setItem("refreshToken", user.refreshToken);
@@ -77,151 +74,109 @@ const LoginForm = () => {
       navigate("/dashboard/member/profile");
     }
   }, [success]);
-  // const handleFocus = () => {
-  //   dispatch(resetState());
-  // };
+
   const handleSendLinkActiveUser = () => {
     const userName = getValues("userName");
     console.log("««««« userName »»»»»", userName);
     dispatch(sendLinkActiveUser({ email: userName }));
   };
 
+  const [messageApi, contextHolder] = message.useMessage();
+  const onShowMessage = useCallback(
+    (content, type = MESSAGE_TYPE.SUCCESS) => {
+      messageApi.open({
+        type: type,
+        content: content,
+      });
+    },
+    [messageApi]
+  );
+  const onFinish = async (values) => {
+    console.log("««««« values »»»»»", {
+      ...values,
+      addressIP: navigator.userAgent,
+    });
+    // await dispatch(loginUser(values));
+  };
   return (
-    <div id="content" className="container">
-      <main className="main" role="main">
-        <div className="row main-row">
-          <div className="col-md-12">
-            <div className="dangkytaikhoan dangnhap">
-              <div className="row">
-                <div className="col-sm-6">
-                  <div className="item_1">
-                    <h3 className="title">Đăng ký thành viên mới</h3>
-                    <p className="desc">
-                      Đăng ký thành viên mới chỉ trong vòng 1 phút để có thể đặt
-                      hàng.
-                    </p>
-                    <div className="button">
-                      <Link
-                        className="btn btn-success customBtn"
-                        to="/dashboard/register"
-                      >
-                        Đăng ký tài khoản
-                      </Link>{" "}
-                      <Link
-                        className="btn btn-danger customBtn"
-                        to="/dashboard/reset-password"
-                      >
-                        Lấy lại mật khẩu
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-sm-6">
-                  <div className="item_2">
-                    <h3 className="title">Bạn đã có tài khoản</h3>
-                    <p style={{ color: "red" }}>
-                      Notice: Nếu không thể đăng nhập hệ thống, Nhấn khôi phục
-                      tài khoản để lấy lại thông tin
-                      <br />
-                      hoặc Liện hệ với chúng tôi để nhận mật khẩu mới
-                    </p>
+    <>
+      <ConfigProvider
+        theme={{
+          components: {
+            Message: {
+              zIndexPopup: 99999,
+            },
+          },
+        }}
+      >
+        {contextHolder}
 
-                    <form
-                      className="form_dangnhap"
-                      onSubmit={handleSubmit(submitLogIn)}
-                    >
-                      <div className="form-group">
-                        <label htmlFor="username">Tài khoản Hoặc Email</label>
-                        <input
-                          onFocus={() => handleFocus(dispatch)}
-                          type="text"
-                          name="username"
-                          className="form-control"
-                          required
-                          error={!!errors["userName"]}
-                          {...register("userName", {
-                            required: FIELD_REQUIRED_MESSAGE,
-                            // pattern: {
-                            //   value: EMAIL_RULE,
-                            //   message: EMAIL_RULE_MESSAGE,
-                            // },
-                          })}
-                        />
-                        <FieldErrorAlert errors={errors} fieldName={"email"} />
-                      </div>
+        <Form
+          name="normal_login"
+          className="login-form"
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          wrapperCol={{ span: 8 }}
+          labelCol={{ span: 8 }}
+          style={{ marginTop: "30px" }}
+        >
+          <Form.Item
+            label="Email"
+            name="username"
+            rules={[
+              { required: true, message: "Vui lòng nhập email" },
+              { type: "email", message: "Email không hợp lệ" },
+            ]}
+            style={{ marginBottom: "30px" }}
+          >
+            <Input
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="Email"
+            />
+          </Form.Item>
+          <Form.Item
+            label="Mật khẩu"
+            name="password"
+            rules={[
+              { required: true, message: "Vui lòng điền mật khẩu" },
+              { min: 6, message: "Mật khẩu lớn hơn 6 kí tự" },
+            ]}
+            style={{ marginBottom: "30px" }}
+          >
+            <Input.Password
+              allowClear
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="Password"
+            />
+          </Form.Item>
+          <Form.Item
+            wrapperCol={{ xs: 8, offset: 8 }}
+            style={{ marginBottom: "10px" }}
+          >
+            <a className="login-form-forgot" href="">
+              Quên mật khẩu
+            </a>
+          </Form.Item>
 
-                      <div className="form-group">
-                        <label htmlFor="password">Mật khẩu</label>
-                        <input
-                          onFocus={() => handleFocus(dispatch)}
-                          type="password"
-                          name="password"
-                          className="form-control"
-                          required
-                          error={!!errors["password"]}
-                          {...register("password", {
-                            required: FIELD_REQUIRED_MESSAGE,
-                            pattern: {
-                              value: PASSWORD_RULE_LOGIN,
-                              message: PASSWORD_RULE_MESSAGE_LOGIN,
-                            },
-                          })}
-                        />
-                        <FieldErrorAlert
-                          errors={errors}
-                          fieldName={"password"}
-                        />
-                      </div>
-                      <div style={{ marginBottom: "0.7em", color: "red" }}>
-                        {error ? error : ""}
-                        {error === "Tài khoản người dùng chưa xác thực" && (
-                          <>
-                            <span>
-                              , vui lòng kích hoạt tài khoản tại email hoặc
-                            </span>
-                            <div
-                              style={{
-                                width: "max-content",
-                                color: "blue",
-                                cursor: "pointer",
-                              }}
-                            >
-                              {!isActive ? (
-                                <span onClick={handleSendLinkActiveUser}>
-                                  Gửi lại mã
-                                </span>
-                              ) : (
-                                <>
-                                  <span style={{ marginRight: "4px" }}>
-                                    Vui lòng kích hoạt trước
-                                  </span>
-                                  <Countdown initialTime={600} />
-                                </>
-                              )}
-                            </div>
-                          </>
-                        )}
-                      </div>
-                      {isLoading ? (
-                        <Spin />
-                      ) : (
-                        <input
-                          type="submit"
-                          className="btn btn-danger customBtn"
-                          name="login"
-                          value="Đăng nhập"
-                        />
-                      )}
-                    </form>
-                    {/* {success ? "Đăng nhập thành công" : "Chưa đăng nhập"} */}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
+          <Form.Item
+            wrapperCol={{ xs: 8, offset: 8 }}
+            style={{ marginBottom: "30px" }}
+          >
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              Đăng nhập
+            </Button>
+            <Link style={{ marginLeft: "5px" }} to="/dashboard/register">
+              Đăng kí thành viên
+            </Link>
+          </Form.Item>
+        </Form>
+      </ConfigProvider>
+    </>
   );
 };
 

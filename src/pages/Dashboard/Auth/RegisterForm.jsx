@@ -47,9 +47,9 @@ const RegisterForm = () => {
   return (
     <>
       <div className="col-sm-7">
-        <div className="header-login-frm">
+        {/* <div className="header-login-frm">
           <h2 className="page-title">Đăng ký thành viên</h2>
-        </div>
+        </div> */}
 
         {!success ? (
           <div className="dangkytaikhoan">
@@ -218,7 +218,7 @@ const RegisterForm = () => {
           </div>
         )}
       </div>
-
+      {/* 
       <div className="col-sm-5">
         <div className="introduce">
           <h4 className="uppercase">Tại sao bạn lựa chọn chúng tôi:</h4>
@@ -253,7 +253,7 @@ const RegisterForm = () => {
             Giải quyết mọi khúc mắc, khiếu nại nhanh chóng.
           </p>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
