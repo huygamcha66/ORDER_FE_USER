@@ -7,6 +7,9 @@ import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 // import { selectCurrentUser } from "../../redux/userSlice/userSlice";
 import CustomerSupport from "../../components/CustomerSupport/CustomerSupport";
+import Footer from "../../components/Footer/Footer";
+import HeaderScreen from "../../components/Header";
+import { Space } from "antd";
 
 const Dashboard = () => {
   // const user = useSelector(selectCurrentUser);
@@ -23,7 +26,7 @@ const Dashboard = () => {
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
         />
-        <meta name="author" content="Orderhangquangchau.com" />
+        <meta name="author" content="tatcadichvu.com" />
         <meta name="description" content="OrderHQC application" />
         <link
           rel="shortcut icon"
@@ -112,19 +115,19 @@ const Dashboard = () => {
         <script src="https://www.google.com/recaptcha/api.js?hl=vi"></script>
       </Helmet>
 
-      <ExtraHeader />
+      {/* <ExtraHeader /> */}
+      <HeaderScreen />
 
-      <div id="content">
-        <div className="container">
-          <main className="main" role="main">
-            <div className="row main-row">
-              {/* {user ? <CustomerSupport /> : null} */}
-              <Outlet />
-            </div>
-          </main>
-        </div>
-      </div>
-      <ExtraFooter />
+      <Space
+        style={{
+          display: "block",
+          marginTop: "220px",
+          justifyContent: "center",
+        }}
+      >
+        <Outlet />
+      </Space>
+      <Footer />
     </>
   );
 };

@@ -1,12 +1,12 @@
 /* eslint-disable quotes */
-import { useEffect } from "react"
-import { IoChevronForward } from "react-icons/io5"
-import { useLocation } from "react-router-dom"
+import { useEffect } from "react";
+import { IoChevronForward } from "react-icons/io5";
+import { useLocation } from "react-router-dom";
 const NewPage = () => {
-  const location = useLocation()
+  const location = useLocation();
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0 })
-  }, [location])
+    window.scrollTo({ top: 0, left: 0 });
+  }, [location]);
   return (
     <main id="main" className="">
       <div id="content" className="blog-wrapper blog-archive page-wrapper">
@@ -55,8 +55,8 @@ const NewPage = () => {
                           </h5>
                           <div className="is-divider"></div>
                           <p className="from_the_blog_excerpt ">
-                            Kính gửi Quý Khách hàng! Order hàng Quảng Châu xin
-                            thông báo lịch nghỉ tết [...]
+                            Kính gửi Quý Khách hàng! Order Kiều Nghĩa xin thông
+                            báo lịch nghỉ tết [...]
                           </p>
                         </div>
                       </div>
@@ -148,8 +148,8 @@ const NewPage = () => {
                           <h5 className="post-title is-large "></h5>
                           <div className="is-divider"></div>
                           <p className="from_the_blog_excerpt ">
-                            Kính gửi Quý khách hàng! Order hàng Quảng Châu xin
-                            thông báo tới quý khách [...]
+                            Kính gửi Quý khách hàng! Order Kiều Nghĩa xin thông
+                            báo tới quý khách [...]
                           </p>
                         </div>
                       </div>
@@ -195,8 +195,8 @@ const NewPage = () => {
                           </h5>
                           <div className="is-divider"></div>
                           <p className="from_the_blog_excerpt ">
-                            Kính gửi Quý khách hàng! Order hàng Quảng Châu xin
-                            thông báo lịch nghỉ lễ [...]
+                            Kính gửi Quý khách hàng! Order Kiều Nghĩa xin thông
+                            báo lịch nghỉ lễ [...]
                           </p>
                         </div>
                       </div>
@@ -477,7 +477,7 @@ const NewPage = () => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center"
+                justifyContent: "center",
               }}
               className="page-numbers nav-pagination links text-center"
             >
@@ -531,7 +531,7 @@ const NewPage = () => {
                     style={{
                       display: "flex",
                       justifyContent: "center",
-                      alignContent: "center"
+                      alignContent: "center",
                     }}
                   />
                 </a>
@@ -558,7 +558,7 @@ const NewPage = () => {
                             style={{
                               background:
                                 " url(https://orderhangquangchau.com/wp-content/uploads/2024/01/tet-giap-thin-150x150.jpg)",
-                              border: "0"
+                              border: "0",
                             }}
                           ></div>
                         </div>
@@ -586,7 +586,7 @@ const NewPage = () => {
                             style={{
                               background:
                                 " url(https://orderhangquangchau.com/wp-content/uploads/2023/11/Image-1-150x150.jpeg)",
-                              border: "0"
+                              border: "0",
                             }}
                           ></div>
                         </div>
@@ -615,7 +615,7 @@ const NewPage = () => {
                             style={{
                               background:
                                 " url(https://orderhangquangchau.com/wp-content/uploads/2023/09/109035418_reutersshot-150x150.jpg)",
-                              border: "0"
+                              border: "0",
                             }}
                           ></div>
                         </div>
@@ -643,7 +643,7 @@ const NewPage = () => {
                             style={{
                               background:
                                 " url(https://orderhangquangchau.com/wp-content/uploads/2023/04/lich-nghi-le1-30-4-06-150x150.jpg)",
-                              border: "0"
+                              border: "0",
                             }}
                           ></div>
                         </div>
@@ -671,7 +671,7 @@ const NewPage = () => {
                             style={{
                               background:
                                 " url(https://orderhangquangchau.com/wp-content/uploads/2022/12/tt-nguyen-dan-2023-vao-ngay-nao-duong-lch_d559e3ef-150x150.jpg)",
-                              border: "0"
+                              border: "0",
                             }}
                           ></div>
                         </div>
@@ -714,6 +714,6 @@ const NewPage = () => {
         </div>
       </div>
     </main>
-  )
-}
-export default NewPage
+  );
+};
+export default NewPage;

@@ -36,7 +36,9 @@ const ProtectedRoute = () => {
     const userInfor = localStorage.getItem("token")
       ? jwtDecode(localStorage.getItem("token"))
       : null;
-    dispatch(getCartDetail(userInfor.id));
+    if (userInfor) {
+      dispatch(getCartDetail(userInfor.id));
+    }
   }, []);
   // if (!user) return <Navigate to="/dashboard/login" replace={true} />;
   return <Outlet />;

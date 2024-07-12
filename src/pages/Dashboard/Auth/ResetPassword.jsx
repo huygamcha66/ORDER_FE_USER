@@ -41,7 +41,7 @@ const ResetPassword = () => {
   }, [isSend]);
   return (
     <>
-      <div className="col-sm-12">
+      {/* <div className="col-sm-12">
         <div className="header-login-frm">
           <h2 className="page-title">Lấy lại mật khẩu</h2>
         </div>
@@ -100,7 +100,8 @@ const ResetPassword = () => {
         ) : (
           <div>Hãy truy cập vào email của bạn để đổi lại mật khẩu</div>
         )}
-      </div>
+      </div> */}
+      LIÊN HỆ ĐẾN SỐ HOTLINE: 0703414501 ĐỂ LẤY LẠI MẬT KHẨU.
     </>
   );
 };

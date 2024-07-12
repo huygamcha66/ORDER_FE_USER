@@ -26,7 +26,7 @@ const PaymentPage = () => {
                     </h6>
 
                     <h1 className="entry-title">
-                      Thông tin thanh toán tại Order hàng Quảng Châu
+                      Thông tin thanh toán tại Order Kiều Nghĩa
                     </h1>
                     <div className="entry-divider is-divider small"></div>
 
@@ -74,7 +74,7 @@ const PaymentPage = () => {
                       fetchPriority="high"
                       decoding="async"
                       className="alignnone size-large wp-image-1399"
-                      src='https://res.cloudinary.com/dbk1x83kg/image/upload/v1716528729/demo/z5471362724840_7bcce3f2cbee8a25b2dc4a074f781013_bc00qu.jpg'
+                      src="https://res.cloudinary.com/dbk1x83kg/image/upload/v1716528729/demo/z5471362724840_7bcce3f2cbee8a25b2dc4a074f781013_bc00qu.jpg"
                       alt=""
                       width="535"
                       height="1024"
@@ -103,7 +103,7 @@ const PaymentPage = () => {
                               display: "flex",
                               alignItems: "center",
                               marginRight: "10px",
-                              fontSize: "26px "
+                              fontSize: "26px ",
                             }}
                             className="hide-for-small"
                           >
@@ -130,7 +130,7 @@ const PaymentPage = () => {
                               display: "flex",
                               alignItems: "center",
                               marginLeft: "10px",
-                              fontSize: "26px "
+                              fontSize: "26px ",
                             }}
                             className="hide-for-small"
                           >
@@ -290,7 +290,7 @@ const PaymentPage = () => {
                             style={{
                               background:
                                 "url(https://orderhangquangchau.com/wp-content/uploads/2024/01/tet-giap-thin-150x150.jpg)",
-                              border: "0"
+                              border: "0",
                             }}
                           ></div>
                         </div>
@@ -318,7 +318,7 @@ const PaymentPage = () => {
                             style={{
                               background:
                                 "url(https://orderhangquangchau.com/wp-content/uploads/2023/11/Image-1-150x150.jpeg)",
-                              border: "0"
+                              border: "0",
                             }}
                           ></div>
                         </div>
@@ -347,7 +347,7 @@ const PaymentPage = () => {
                             style={{
                               background:
                                 "url(https://orderhangquangchau.com/wp-content/uploads/2023/09/109035418_reutersshot-150x150.jpg)",
-                              border: "0"
+                              border: "0",
                             }}
                           ></div>
                         </div>
@@ -375,7 +375,7 @@ const PaymentPage = () => {
                             style={{
                               background:
                                 "url(https://orderhangquangchau.com/wp-content/uploads/2023/04/lich-nghi-le1-30-4-06-150x150.jpg)",
-                              border: "0"
+                              border: "0",
                             }}
                           ></div>
                         </div>
@@ -403,7 +403,7 @@ const PaymentPage = () => {
                             style={{
                               background:
                                 "url(https://orderhangquangchau.com/wp-content/uploads/2022/12/tt-nguyen-dan-2023-vao-ngay-nao-duong-lch_d559e3ef-150x150.jpg)",
-                              border: "0"
+                              border: "0",
                             }}
                           ></div>
                         </div>
@@ -446,6 +446,6 @@ const PaymentPage = () => {
         </div>
       </div>
     </main>
-  )
-}
-export default PaymentPage
+  );
+};
+export default PaymentPage;

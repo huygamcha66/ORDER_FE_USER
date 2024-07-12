@@ -310,7 +310,7 @@ const ExtraHeader = () => {
               >
                 <img
                   src="https://my.orderhangquangchau.com/static/images/logo_ex.png"
-                  alt="Orderhangquangchau.com"
+                  alt="tatcadichvu.com"
                 />
               </Link>
             </div>
