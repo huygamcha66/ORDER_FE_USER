@@ -14,7 +14,6 @@ const Profile = () => {
   const userInfor = localStorage.getItem("token")
     ? jwtDecode(localStorage.getItem("token"))
     : null;
-  console.log("««««« userInforaa »»»»»", userInfor.id);
   // const dispatch = useDispatch();
   // const { user, success } = useSelector((state) => state.users);
   // if (!userInfor) {
@@ -31,8 +30,9 @@ const Profile = () => {
   // useEffect(() => {});
 
   useEffect(() => {
-    console.log("««««« userInfor »»»»»", userInfor);
-    dispatch(getCartDetail(userInfor.id));
+    if (userInfor) {
+      dispatch(getCartDetail(userInfor.id));
+    }
   }, []);
   // console.log("««««« user »»»»»", userInfor);
   return (

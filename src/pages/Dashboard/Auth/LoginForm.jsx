@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 /* eslint-disable semi */
 /* eslint-disable react/no-unknown-property */
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -130,7 +130,7 @@ const LoginForm = () => {
             style={{ marginBottom: "30px" }}
           >
             <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
+              prefix={<MailOutlined className="site-form-item-icon" />}
               placeholder="Email"
             />
           </Form.Item>
@@ -154,9 +154,7 @@ const LoginForm = () => {
             wrapperCol={{ xs: 8, offset: 8 }}
             style={{ marginBottom: "10px" }}
           >
-            <a className="login-form-forgot" href="">
-              Quên mật khẩu
-            </a>
+            <Link to={"/dashboard/reset-password"}>Lấy lại mật khẩu</Link>
           </Form.Item>
 
           <Form.Item

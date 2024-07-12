@@ -17,3 +17,10 @@
 .button, button, input[type=submit], input[type=reset], input[type=button] {
     margin-right: 0 !important;
 }
+.wrapper_header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #edecec;
+    z-index: 99;
+}
