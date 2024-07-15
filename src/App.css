@@ -2,6 +2,19 @@ html {
     background-color: white !important;
     scroll-behavior: smooth;
 }
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    color: #fff !important;
+}
+
+a:hover {
+    color: #ccc !important;
+}
 
 .zalo-container img {
 max-width: 100%;

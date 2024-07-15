@@ -12,7 +12,7 @@ const TrackingPage = () => {
   return (
     <Row justify="center">
       <Col xs={24} lg={20}>
-        <article>
+        <div style={{ marginTop: "180px", height: "100vh" }}>
           <div>
             <p>
               <strong>
@@ -30,7 +30,7 @@ const TrackingPage = () => {
               <img src="https://orderhangquangchau.com/wp-content/themes/flatsome-child/images/ic1-1.png"></img>
             </button>
           </div>
-        </article>
+        </div>
       </Col>
     </Row>
   );

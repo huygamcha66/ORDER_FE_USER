@@ -14,7 +14,7 @@ const PriceListCon = () => {
   return (
     <Row justify="center">
       <Col xs={24} lg={20}>
-        <div>
+        <div style={{ marginTop: "180px" }}>
           <div className="entry-content single-page">
             <h1 className="title-page">
               BẢNG GIÁ KÝ GỬI VẬN CHUYỂN TRUNG QUỐC &#8211; VIỆT NAM

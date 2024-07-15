@@ -26,7 +26,16 @@ import {
   sendLinkActiveUser,
 } from "../../../redux/userSlice/userSlice";
 import { jwtDecode } from "jwt-decode";
-import { ConfigProvider, message, Spin, Form, Input, Button } from "antd";
+import {
+  ConfigProvider,
+  message,
+  Spin,
+  Form,
+  Input,
+  Button,
+  Col,
+  Row,
+} from "antd";
 import { handleFocus } from "../../../utils";
 import Countdown from "../../../components/Countdown";
 import "../../../common/common.css";
@@ -99,7 +108,7 @@ const LoginForm = () => {
     // await dispatch(loginUser(values));
   };
   return (
-    <>
+    <div style={{ marginTop: "180px" }}>
       <ConfigProvider
         theme={{
           components: {
@@ -118,7 +127,6 @@ const LoginForm = () => {
           onFinish={onFinish}
           wrapperCol={{ span: 8 }}
           labelCol={{ span: 8 }}
-          style={{ marginTop: "30px" }}
         >
           <Form.Item
             label="Email"
@@ -154,7 +162,7 @@ const LoginForm = () => {
             wrapperCol={{ xs: 8, offset: 8 }}
             style={{ marginBottom: "10px" }}
           >
-            <Link to={"/dashboard/reset-password"}>Lấy lại mật khẩu</Link>
+            <Link to={"/reset-password"}>Lấy lại mật khẩu</Link>
           </Form.Item>
 
           <Form.Item
@@ -168,13 +176,13 @@ const LoginForm = () => {
             >
               Đăng nhập
             </Button>
-            <Link style={{ marginLeft: "5px" }} to="/dashboard/register">
+            <Link style={{ marginLeft: "5px" }} to="/register">
               Đăng kí thành viên
             </Link>
           </Form.Item>
         </Form>
       </ConfigProvider>
-    </>
+    </div>
   );
 };
 

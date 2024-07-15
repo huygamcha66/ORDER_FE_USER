@@ -1,5 +1,5 @@
 /* eslint-disable quotes */
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import App from "../App";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import RegisterForm from "../pages/Dashboard/Auth/RegisterForm";
@@ -29,7 +29,6 @@ import ResetPassword from "../pages/Dashboard/Auth/ResetPassword";
 import NotFound from "../pages/Dashboard/NotFound/NotFound";
 import DeliveryNote from "../pages/Dashboard/StoreVN/DeliveryNote/DeliveryNote";
 import ListComplains from "../pages/Dashboard/Complain/ListComplains/ListComplains";
-import ProtectedRoute from "./ProtectedRoute";
 import HomePage from "../pages/Home/HomePage/HomePage";
 import PolicyPage from "../pages/Home/PolicyPage";
 import InstructionPage from "../pages/Home/Instruction";
@@ -44,6 +43,24 @@ import FillterExcel from "../pages/tuetc/fillterFile/FillterExcel";
 import ResetForm from "../pages/Dashboard/Auth/ResetForm";
 import CartStep2 from "../pages/Dashboard/Cart/CartStep2";
 
+const ProtectedRoute = () => {
+  const userInfor = JSON.parse(localStorage.getItem("userInfor"));
+  if (!userInfor) {
+    return <Navigate to={"/login"} replace={true}></Navigate>;
+  }
+  return <Outlet />;
+};
+
+const UnauthorizeRoute = () => {
+  const userInfor = JSON.parse(localStorage.getItem("userInfor"));
+  if (userInfor) {
+    return (
+      <Navigate to={"/dashboard/profile/member"} replace={true}></Navigate>
+    );
+  }
+  return <Outlet />;
+};
+
 const router = createBrowserRouter([
   {
     path: "",
@@ -56,6 +73,23 @@ const router = createBrowserRouter([
           {
             path: "/",
             element: <HomePage />,
+          },
+          {
+            path: "/login",
+            element: <UnauthorizeRoute />,
+            children: [{ path: "", element: <LoginForm /> }],
+          },
+          {
+            path: "/reset",
+            element: <ResetForm />,
+          },
+          {
+            path: "/register",
+            element: <RegisterForm />,
+          },
+          {
+            path: "/reset-password",
+            element: <ResetPassword />,
           },
 
           {
@@ -100,18 +134,7 @@ const router = createBrowserRouter([
             path: "",
             element: <LoginForm />,
           },
-          {
-            path: "login",
-            element: <LoginForm />,
-          },
-          {
-            path: "reset",
-            element: <ResetForm />,
-          },
-          {
-            path: "register",
-            element: <RegisterForm />,
-          },
+
           {
             path: "reset-password",
             element: <ResetPassword />,

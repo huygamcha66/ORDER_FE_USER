@@ -34,11 +34,11 @@ const Footer = () => {
     localStorage.getItem("token")
   );
   return (
-    <>
+    <div className="footer-wrapper">
       <Row
         justify="center"
         style={{
-          background: "#edecec",
+          background: "#fb5731",
           padding: "20px 0px",
           borderTop: "1px solid rgb(221, 221, 221)",
           boxShadow:
@@ -98,7 +98,7 @@ const Footer = () => {
           </div>
         </Col>
       </Row>
-    </>
+    </div>
 
     // <footer id="footer" className="footer-wrapper">
     //   <section className="section" id="section_970361642">

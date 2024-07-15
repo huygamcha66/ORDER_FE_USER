@@ -11,7 +11,7 @@ const PolicyPage = () => {
   return (
     <Row justify="center">
       <Col xs={24} lg={20}>
-        <Space style={{ display: "block" }}>
+        <div style={{ marginTop: "180px" }}>
           <p>
             <em>
               Với phương châm tôn trọng và bảo vệ quyền lợi khách hàng, giúp Quý
@@ -167,7 +167,7 @@ const PolicyPage = () => {
               <strong> tatcadichvu.com </strong>
             </em>
           </p>
-        </Space>
+        </div>
       </Col>
     </Row>
   );

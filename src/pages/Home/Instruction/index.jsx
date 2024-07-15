@@ -11,7 +11,7 @@ const InstructionPage = () => {
   return (
     <Row justify="center">
       <Col xs={24} lg={20}>
-        <div>
+        <div style={{ marginTop: "180px" }}>
           <h2>HƯỚNG DẪN MUA HÀNG TRÊN TAOBAO, 1688</h2>
           <p>
             <img

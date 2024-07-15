@@ -11,7 +11,7 @@ const PriceList = () => {
   return (
     <Row justify="center">
       <Col xs={24} lg={20}>
-        <div className="col-inner">
+        <div style={{ marginTop: "180px  " }}>
           <h2 className="title-category">
             <span style={{ color: "#555555", fontSize: "14.4px" }}>
               Phí dịch vụ đặt hàng và vận chuyển hàng tại Order Kiều Nghĩa
