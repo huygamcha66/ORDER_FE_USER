@@ -13,10 +13,7 @@ const ServiceAlipay = () => {
   return (
     <Row justify="center">
       <Col xs={24} lg={20}>
-        <article
-          id="post-951"
-          className="post-951 post type-post status-publish format-standard hentry category-tin-tuc"
-        >
+        <div style={{ marginTop: "180px" }}>
           <div className="article-inner has-shadow box-shadow-1">
             <header className="entry-header">
               <div className="entry-header-text entry-header-text-top text-left">
@@ -151,7 +148,7 @@ const ServiceAlipay = () => {
               </p>
             </div>
           </div>
-        </article>
+        </div>
       </Col>
     </Row>
   );

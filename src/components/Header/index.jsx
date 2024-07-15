@@ -1,14 +1,23 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable quotes */
 import { useEffect, useRef, useState } from "react";
+import { FaBars } from "react-icons/fa6";
 import "../Header/index.css";
-import { FaOpencart } from "react-icons/fa6";
 import { IoIosLogIn } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa";
 import { CiPhone } from "react-icons/ci";
 import { MdOutlineMail } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
-import { Col, ConfigProvider, Flex, Input, Row, Space } from "antd";
+import {
+  Button,
+  Col,
+  ConfigProvider,
+  Drawer,
+  Flex,
+  Input,
+  Row,
+  Space,
+} from "antd";
 const { Search } = Input;
 import { Menu } from "antd";
 const items = [
@@ -158,6 +167,15 @@ const HeaderScreen = () => {
     console.log("click ", e);
     setCurrent(e.key);
   };
+
+  // mobile navigation
+  const [open, setOpen] = useState(false);
+  const showDrawer = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
+  };
   return (
     <>
       <ConfigProvider
@@ -175,52 +193,100 @@ const HeaderScreen = () => {
       >
         <div className="wrapper_header">
           <Row justify="center">
-            <Col style={{ margin: "20px 0px" }} xs={23} lg={20}>
+            <Col style={{ margin: "20px 0px" }} xs={22} lg={20}>
               <Row>
-                <Col xs={12} sm={8}>
-                  <img
-                    width="30"
-                    src="https://orderhangquangchau.com/wp-content/uploads/tien-te.png"
-                  />
-                  Tỉ giá: : 3625
-                </Col>
-                <Col xs={0} sm={8}>
-                  <a
-                    href="mailto:orderkieunghia@gmail.com"
-                    className="tooltip"
-                    title="orderkieunghia@gmail.com"
-                    style={{ display: "flex", alignItems: "center" }}
-                  >
-                    <MdOutlineMail
-                      style={{
-                        fontSize: "20px",
-                        marginRight: "2px",
-                      }}
-                    />
-                    <span>orderkieunghia@gmail.com </span>
-                  </a>
-                </Col>
-                <Col xs={12} sm={8}>
-                  <a
-                    href="tel:0931.943.439"
-                    className="tooltip"
-                    title="0931.943.439"
-                    style={{ display: "flex", justifyContent: "center" }}
-                  >
-                    <CiPhone
-                      style={{
-                        marginRight: "2px",
-                        fontSize: "20px",
-                      }}
-                    />
-                    <span>0931.943.439</span>
-                  </a>
+                <Col xs={0} sm={24}>
+                  <Flex justify="space-between">
+                    <Flex align="center">
+                      <Space>
+                        <img
+                          className="icon"
+                          width="30"
+                          src="https://orderhangquangchau.com/wp-content/uploads/tien-te.png"
+                        />
+                      </Space>
+                      <Space> Tỉ giá: : 3625</Space>
+                    </Flex>
+                    <Flex>
+                      <a
+                        href="mailto:orderkieunghia@gmail.com"
+                        className="tooltip"
+                        title="orderkieunghia@gmail.com"
+                        style={{ display: "flex", alignItems: "center" }}
+                      >
+                        <Flex align="center">
+                          <MdOutlineMail className="icon" />
+                          <span>orderkieunghia@gmail.com </span>
+                        </Flex>
+                      </a>
+                    </Flex>
+                    <Flex>
+                      <a
+                        href="tel:0931.943.439"
+                        className="tooltip"
+                        title="0931.943.439"
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
+                        <Flex align="center">
+                          <CiPhone className="icon" />
+                          <span>0931.943.439</span>
+                        </Flex>
+                      </a>
+                    </Flex>
+                  </Flex>
                 </Col>
               </Row>
             </Col>
-            <Col xs={23} lg={20}>
-              <Row gutter={10}>
-                <Col xs={8} sm={3} md={3} lg={3} xl={3}>
+            <Col xs={22} lg={20}>
+              <Row
+                style={{ display: "flex", justifyItems: "center" }}
+                gutter={10}
+              >
+                <Col xs={3} sm={0}>
+                  <Button type="primary" onClick={showDrawer}>
+                    <FaBars />
+                  </Button>
+                  <Drawer
+                    title="Order Kiều Nghĩa"
+                    onClose={onClose}
+                    open={open}
+                  >
+                    <Row>
+                      <Col xs={24} sm={6} md={9} lg={9} xl={4}>
+                        <Flex vertical>
+                          <a
+                            href="tel:0931.943.439"
+                            className="tooltip"
+                            title="0931.943.439"
+                          >
+                            <CiPhone className="icon" />
+                            <span>0931.943.439</span>
+                          </a>
+                          <a
+                            href="mailto:orderkieunghia@gmail.com"
+                            className="tooltip"
+                            title="orderkieunghia@gmail.com"
+                            style={{ display: "flex", alignItems: "center" }}
+                          >
+                            <MdOutlineMail className="icon" />
+                            <span>orderkieunghia@gmail.com </span>
+                          </a>
+                          <Link to={"/register"} rel="noreferrer">
+                            <FaRegUser />{" "}
+                            <Space style={{ fontSize: "16px" }}>Đăng ký</Space>
+                          </Link>
+                          <Link to={"/login"} rel="noreferrer">
+                            <IoIosLogIn />{" "}
+                            <Space style={{ fontSize: "16px" }}>
+                              Đăng nhập
+                            </Space>
+                          </Link>
+                        </Flex>
+                      </Col>
+                    </Row>
+                  </Drawer>
+                </Col>
+                <Col xs={21} sm={3} md={3} lg={3} xl={3}>
                   <img
                     style={{ width: "100%", height: "34px" }}
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKa0LUcDvnOCEma8jybXgVv_ls65cPDDchFQ&s"
@@ -228,33 +294,22 @@ const HeaderScreen = () => {
                     alt="Order Kiều Nghĩa &#8211; Đặt hàng nhanh chỉ 5-7 ngày Uy tín Giá rẻ"
                   />
                 </Col>
-                <Col xs={16} sm={15} md={12} lg={12} xl={15}>
+                <Col xs={24} sm={15} md={12} lg={12} xl={17}>
                   <Search
                     placeholder="Nhập mã vận đơn cần tra cứu"
                     onSearch={onSearch}
                     enterButton
                   />
-                  {/* <Input
-                type="text"
-                name="code"
-                value={code}
-                placeholder="Nhập mã vận đơn cần tra cứu"
-                onChange={(e) => SetCode(e.target.value)}
-              ></Input> */}
                 </Col>
-                <Col xs={24} sm={6} md={9} lg={9} xl={6}>
+                <Col xs={0} sm={6} md={9} lg={9} xl={4}>
                   <Flex align="center" justify="space-between">
-                    <Link to={"/dashboard/register"} rel="noreferrer">
+                    <Link to={"/register"} rel="noreferrer">
                       <FaRegUser />{" "}
                       <Space style={{ fontSize: "16px" }}>Đăng ký</Space>
                     </Link>
-                    <Link to={"/dashboard/login"} rel="noreferrer">
+                    <Link to={"/login"} rel="noreferrer">
                       <IoIosLogIn />{" "}
                       <Space style={{ fontSize: "16px" }}>Đăng nhập</Space>
-                    </Link>
-                    <Link to={"/dashboard/cart"} rel="noreferrer">
-                      <FaOpencart />
-                      <Space style={{ fontSize: "16px" }}> Giỏ hàng</Space>
                     </Link>
                   </Flex>
                 </Col>
@@ -267,7 +322,7 @@ const HeaderScreen = () => {
                 <Col span={24}>
                   <Menu
                     style={{
-                      background: "#edecec",
+                      background: "#fb5731",
                       width: "100%",
                       display: "flex",
                       justifyContent: "center",

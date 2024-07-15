@@ -26,13 +26,8 @@ const HomePage = () => {
   return (
     <Row justify="center">
       <Col xs={24} lg={20}>
-        <Space style={{ display: "block" }}>
+        <div style={{ marginTop: "180px" }}>
           <div>
-            <strong>
-              Cài đặt công cụ đặt hàng Cài đặt công cụ đặt hàng Cài đặt công cụ
-              đặt hàng Cài đặt công cụ đặt hàng Cài đặt công cụ đặt hàng Cài đặt
-              công cụ đặt hàng
-            </strong>
             <a
               href="https://chrome.google.com/webstore/detail/tool-order-h%C3%A0ng-qu%E1%BA%A3ng-ch%C3%A2/hgiaoallflpjbfaheamijjllodfacmlb?authuser=4&amp;fbclid=IwAR2i1KlcQh5scVfTFKx1ZwAu_iNDtUe0qzJqyKKfu4jutXH1fszwBk3NF-8"
               target="_blank"
@@ -616,7 +611,7 @@ const HomePage = () => {
                 </div>
               </div>
             </section> */}
-        </Space>
+        </div>
       </Col>
     </Row>
   );

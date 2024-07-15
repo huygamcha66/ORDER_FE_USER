@@ -10,15 +10,9 @@ const Home = () => {
   return (
     <div>
       <HeaderScreen />
-      <Space
-        style={{
-          display: "flex",
-          marginTop: "220px",
-          justifyContent: "center",
-        }}
-      >
-        <Outlet />
-      </Space>
+
+      <Outlet />
+
       <Footer />
     </div>
   );

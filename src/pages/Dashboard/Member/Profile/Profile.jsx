@@ -1,154 +1,178 @@
-/* eslint-disable no-console */
+/* eslint-disable semi */
 /* eslint-disable quotes */
+/* eslint-disable no-console */
 /* eslint-disable react/no-unknown-property */
-import { jwtDecode } from "jwt-decode";
-import { useEffect } from "react";
+import { LockOutlined, PhoneOutlined, MailOutlined } from "@ant-design/icons";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { getCartDetail } from "../../../../redux/cartSlice/cartSlice";
+// import { registerUser, resetState } from "../../../redux/userSlice/userSlice";
+import {
+  Button,
+  ConfigProvider,
+  Input,
+  message,
+  Form,
+  Select,
+  Row,
+  Col,
+} from "antd";
+import { IoLocationOutline } from "react-icons/io5";
+// import "../../../common/common.css";
+import { useCallback } from "react";
+import { MESSAGE_TYPE } from "../../../../common";
+
 const Profile = () => {
-  const { carts } = useSelector((state) => state.carts);
+  // const directToLogin = () => {
+  //   dispatch(resetState());
+  //   navigate("/login");
+  // };
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { success, user, error, isLoading } = useSelector(
+    (state) => state.users
+  );
 
-  const userInfor = localStorage.getItem("token")
-    ? jwtDecode(localStorage.getItem("token"))
-    : null;
-  // const dispatch = useDispatch();
-  // const { user, success } = useSelector((state) => state.users);
-  // if (!userInfor) {
-  //   console.log("««««« 333 »»»»»", 333);
-  //   // navigate("/dashboard/login");
-  // }
-  // useEffect(() => {
-  //   console.log("««««« 6 »»»»»", 6);
-  //   if (!userInfor) {
-  //     console.log("««««« 333 »»»»»", 333);
-  //     navigate("/dashboard/login");
-  //   }
-  // }, [success]);
-  // useEffect(() => {});
+  // const submitRegister = (data) => {
+  //   console.log("submit register: ", data);
+  //   dispatch(registerUser(data));
+  // };
 
-  useEffect(() => {
-    if (userInfor) {
-      dispatch(getCartDetail(userInfor.id));
-    }
-  }, []);
-  // console.log("««««« user »»»»»", userInfor);
+  const [messageApi, contextHolder] = message.useMessage();
+  const onShowMessage = useCallback(
+    (content, type = MESSAGE_TYPE.SUCCESS) => {
+      messageApi.open({
+        type: type,
+        content: content,
+      });
+    },
+    [messageApi]
+  );
+  const onFinish = async (values) => {
+    console.log("««««« values »»»»»", {
+      ...values,
+      addressIP: navigator.userAgent,
+    });
+    // await dispatch(loginUser(values));
+  };
+  const [form] = Form.useForm();
   return (
-    <>
-      <div className="col-sm-9">
-        <div className="cart-by-page">
-          <div className="titles">
-            <h2 className="page-title">Thông tin tài khoản</h2>
-          </div>
-          <form className="form-horizontal">
-            <div className="form-group">
-              <label className="control-label col-sm-2">Tài khoản</label>
-              <div className="col-sm-6">
-                <input
-                  className="input form-control"
-                  name="username"
-                  type="text"
-                  value={userInfor && userInfor.email.split("@")[0]}
+    <div style={{ marginTop: "20px" }}>
+      <ConfigProvider
+        theme={{
+          components: {
+            Message: {
+              zIndexPopup: 99999,
+            },
+          },
+        }}
+      >
+        {contextHolder}
+        <Row>
+          <Col span={24}>
+            <Form
+              initialValues={{
+                phoneNumber: "0703414500",
+                email: "lehuynhhuy2002@gmail.com",
+              }}
+              name="register"
+              onFinish={onFinish}
+              labelCol={{ span: 8 }}
+              wrapperCol={{ span: 8 }}
+              form={form}
+            >
+              <Form.Item
+                style={{ marginBottom: "30px" }}
+                name="phoneNumber"
+                label="Số điện thoại"
+              >
+                <Input
+                  prefix={<PhoneOutlined />}
                   disabled
-                  readOnly=""
-                  fdprocessedid="z5e5lm"
+                  placeholder="Số điện thoại"
                 />
-              </div>
-            </div>
-            <div className="form-group">
-              <label className="control-label col-sm-2" htmlFor="email">
-                E-mail
-              </label>
-              <div className="col-sm-6">
-                <input
-                  className="input form-control"
-                  name="email"
-                  type="text"
-                  id="email"
+              </Form.Item>
+
+              <Form.Item
+                style={{ marginBottom: "30px" }}
+                name="email"
+                label="Email"
+              >
+                <Input prefix={<MailOutlined />} disabled placeholder="Email" />
+              </Form.Item>
+
+              {/* <Form.Item
+                style={{ marginBottom: "30px" }}
+                name="password"
+                label="Mật khẩu"
+                rules={[
+                  { required: true, message: "Vui lòng điền mật khẩu" },
+                  { min: 6, message: "Mật khẩu lớn hơn 6 kí tự" },
+                ]}
+              >
+                <Input.Password
+                  prefix={<LockOutlined className="site-form-item-icon" />}
+                  type="password"
+                  placeholder="Mật khẩu"
+                />
+              </Form.Item>
+
+              <Form.Item
+                style={{ marginBottom: "30px" }}
+                name="confirm"
+                label="Xác nhận mật khẩu"
+                dependencies={["password"]}
+                rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng xác nhận mật khẩu!",
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (!value || getFieldValue("password") === value) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(
+                        new Error("Mật khẩu không trùng khớp!")
+                      );
+                    },
+                  }),
+                ]}
+              >
+                <Input.Password
+                  prefix={<LockOutlined className="site-form-item-icon" />}
+                  placeholder="Xác nhận mật khẩu"
+                />
+              </Form.Item> */}
+
+              <Form.Item
+                name="address"
+                label="Địa chỉ"
+                rules={[{ required: true, message: "Vui lòng nhập địa chỉ" }]}
+                style={{ marginBottom: "30px" }}
+              >
+                {/* <Input prefix={<HomeOutlined />} placeholder="Địa chỉ" /> */}
+                <Input
                   disabled
-                  value={userInfor && userInfor.email}
-                  readOnly=""
-                  fdprocessedid="5kcx1l"
+                  prefix={<IoLocationOutline />}
+                  placeholder="Nhập địa chỉ"
                 />
-              </div>
-            </div>
-            <div className="form-group">
-              <label className="control-label col-sm-2">Họ và tên</label>
-              <div className="col-sm-6">
-                <input
-                  className="input form-control"
-                  name="fullname"
-                  type="text"
-                  value={userInfor && userInfor.email.split("@")[0]}
-                  fdprocessedid="ul46z"
-                />
-              </div>
-            </div>
-            <div className="form-group">
-              <label className="control-label col-sm-2" htmlFor="phone">
-                Điện thoại
-              </label>
-              <div className="col-sm-6">
-                <input
-                  className="input form-control"
-                  name="phone"
-                  type="text"
-                  id="phone"
-                  value={userInfor && userInfor.phoneNumber}
-                />
-              </div>
-            </div>
-            <div className="form-group">
-              <label className="control-label col-sm-2" htmlFor="address">
-                Địa chỉ
-              </label>
-              <div className="col-sm-6">
-                <textarea
-                  name="address"
-                  className="input form-control"
-                  id="address"
-                ></textarea>
-              </div>
-            </div>
-            <div className="form-group">
-              <label className="control-label col-sm-2" htmlFor="address">
-                Địa đểm nhận hàng
-              </label>
-              <div className="col-sm-6">
-                <select
-                  id="store"
-                  name="store"
-                  className="form-control"
-                  onChange="loadSubStore(this.value)"
-                  required=""
-                  fdprocessedid="7hlsrk"
+              </Form.Item>
+
+              <Form.Item wrapperCol={{ offset: 8, xs: 8 }}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="login-form-button"
                 >
-                  <option value="0">Hà Nội</option>
-                  <option value="1">Sài Gòn</option>
-                  <option value="2" selected="">
-                    Đà Nẵng
-                  </option>
-                  <option value="3">Quảng Nam</option>
-                </select>
-              </div>
-            </div>
-            <div className="form-group">
-              <div className="col-sm-offset-2 col-sm-6">
-                <input
-                  type="submit"
-                  className="btn btn-danger"
-                  name="update"
-                  disabled
-                  value="Lưu thông tin"
-                />
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </>
+                  Lưu
+                </Button>
+              </Form.Item>
+            </Form>
+          </Col>
+        </Row>
+      </ConfigProvider>
+    </div>
   );
 };
 

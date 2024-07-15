@@ -1,26 +1,19 @@
-.container-width,
-.full-width .ubermenu-nav,
-.container,
-.row {
-    max-width: 1150px !important;
-}
 
-.header-main {
-    background: #4153b2 !important;
-}
-.header .has-sticky .sticky-jump.show{
-    height: 100px ;
-}
-.customHoverPreview:hover .slider .flickity-prev-next-button{
-    opacity: 1;
-}
-.button, button, input[type=submit], input[type=reset], input[type=button] {
-    margin-right: 0 !important;
-}
 .wrapper_header {
     position: fixed;
     top: 0;
     width: 100%;
-    background: #edecec;
+    background: #fb5731;
     z-index: 99;
+}
+
+.icon{
+    font-size: 20px;
+    padding-right: 5px;
+}
+.custommlr {
+    margin-right: 50px;
+}
+.custompl {
+    padding-left: 2px;
 }
