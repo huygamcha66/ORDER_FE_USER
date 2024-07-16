@@ -9,11 +9,20 @@ body {
 }
 
 a {
-    color: #fff !important;
+    color: #fff ;
 }
 
 a:hover {
-    color: #ccc !important;
+    color: #ccc ;
+}
+.primary_color {
+    color: #fff ;
+}
+.icon:hover {
+    color: #ccc ;
+}
+.wrapper_icon_text:hover{
+    color: #ccc ;
 }
 
 .zalo-container img {

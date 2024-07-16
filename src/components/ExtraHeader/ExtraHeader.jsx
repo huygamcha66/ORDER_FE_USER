@@ -1,8 +1,17 @@
 /* eslint-disable quotes */
 /* eslint-disable semi */
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Col, Flex, Row, Space } from "antd";
+import {
+  Button,
+  Col,
+  ConfigProvider,
+  Flex,
+  Popconfirm,
+  Row,
+  message,
+  Space,
+} from "antd";
 import { Menu } from "antd";
 import { FaRegUser } from "react-icons/fa";
 import { LuShoppingCart } from "react-icons/lu";
@@ -10,6 +19,9 @@ import { IoPricetagsOutline } from "react-icons/io5";
 import { PiMathOperations } from "react-icons/pi";
 import { AiOutlineLogout } from "react-icons/ai";
 import "./index.css";
+import { logoutUser, resetState } from "../../redux/userSlice/userSlice";
+import useDecodedToken from "../UserInfor";
+import { useEffect } from "react";
 const items = [
   {
     label: (
@@ -172,72 +184,121 @@ const items = [
 
 const ExtraHeader = () => {
   // const user = useSelector(selectCurrentUser);
+  const { decodedToken, errorToken } = useDecodedToken("token");
+  const { success, user, error, isLoading, isActive } = useSelector(
+    (state) => state.users
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { carts } = useSelector((state) => state.carts);
+
+  const confirm = (e) => {
+    dispatch(logoutUser(decodedToken.id));
+  };
+  useEffect(() => {
+    if (success) {
+      navigate("/login");
+      dispatch(resetState());
+    }
+  }, [success]);
 
   return (
-    <Row justify="center">
-      <Col xs={24} lg={20}>
-        <Row style={{ marginTop: "30px" }}>
-          <Col span={24}>
-            <Flex justify="space-between">
-              <Space>Kho hàng Đà Nẵng: 0703414511</Space>
-              <Space>Kho hàng Đà Nẵng: 0703414511</Space>
-              <Space>Kho hàng Đà Nẵng: 0703414511</Space>
-            </Flex>
-          </Col>
-        </Row>
-        <Row style={{ marginTop: "30px" }}>
-          <Col span={24}>
-            <Flex justify="space-between">
-              <Flex>123</Flex>
-              <Flex>
-                <Flex align="center" className="custommlr">
-                  <PiMathOperations className="icon" />
-                  <Space className="custompl">Tỉ giá: </Space>
+    <ConfigProvider
+      theme={{
+        components: {
+          Menu: {
+            fontSize: 12,
+            padding: 14,
+            horizontalItemSelectedColor: "#000",
+            itemColor: "#fff",
+            itemSelectedColor: "#fc785a",
+            popupBg: "#fc785a",
+          },
+        },
+      }}
+    >
+      <div className="wrapper_extraHeader">
+        <Row justify="center">
+          <Col xs={24} lg={20}>
+            <Row style={{ marginTop: "30px" }}>
+              <Col span={24}>
+                <Flex justify="space-between">
+                  <Space className="primary_color">
+                    Kho hàng Đà Nẵng: 0703414511
+                  </Space>
+                  <Space className="primary_color">
+                    Kho hàng Đà Nẵng: 0703414511
+                  </Space>
+                  <Space className="primary_color">
+                    Kho hàng Đà Nẵng: 0703414511
+                  </Space>
                 </Flex>
-                <Flex align="center" className="custommlr">
-                  <IoPricetagsOutline className="icon" />
-                  <Space className="custompl">Số dư:</Space>
-                </Flex>
-                <Flex align="center" className="custommlr">
-                  <FaRegUser className="icon" />
-                  <Space className="custompl"> Tài khoản</Space>
-                </Flex>
-                <Flex align="center" className="custommlr">
-                  <LuShoppingCart className="icon" />
-                  <Link className="custompl" to={""}>
-                    Giỏ hàng
-                  </Link>
-                </Flex>
-                <Flex align="center">
-                  <AiOutlineLogout className="icon" />
-                  <Link className="custompl" to={""}>
-                    Đăng xuất
-                  </Link>
-                </Flex>
-              </Flex>
-            </Flex>
-          </Col>
-        </Row>
+              </Col>
+            </Row>
+            <Row style={{ marginTop: "30px" }}>
+              <Col span={24}>
+                <Flex justify="space-between">
+                  <Flex className="primary_color">123</Flex>
+                  <Flex>
+                    <Flex align="center" className="custommlr">
+                      <PiMathOperations className="icon primary_color" />
+                      <Space className="custompl primary_color">Tỉ giá: </Space>
+                    </Flex>
+                    <Flex align="center" className="custommlr">
+                      <IoPricetagsOutline className="icon primary_color" />
+                      <Space className="custompl primary_color">Số dư:</Space>
+                    </Flex>
+                    <Flex align="center" className="custommlr">
+                      <FaRegUser className="icon primary_color" />
+                      <Space className="custompl primary_color">
+                        Tài khoản
+                      </Space>
+                    </Flex>
+                    <Flex align="center" className="custommlr">
+                      <LuShoppingCart className="icon primary_color" />
+                      <Link className="custompl primary_color" to={""}>
+                        Giỏ hàng
+                      </Link>
+                    </Flex>
 
-        <Row style={{ marginTop: "30px" }}>
-          <Col span={24}>
-            <Menu
-              style={{
-                background: "#fb5731",
-                width: "100%",
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-              mode="horizontal"
-              items={items}
-            />
+                    <Flex className="wrapper_icon_text" align="center">
+                      <Popconfirm
+                        title="Đăng xuất"
+                        description="Bạn có muốn đăng xuất không?"
+                        onConfirm={confirm}
+                        okText="Có"
+                        cancelText="Không"
+                      >
+                        <Flex style={{ cursor: "pointer" }}>
+                          <AiOutlineLogout className="icon primary_color" />
+                          <Space className="custompl primary_color">
+                            Đăng xuất
+                          </Space>
+                        </Flex>
+                      </Popconfirm>
+                    </Flex>
+                  </Flex>
+                </Flex>
+              </Col>
+            </Row>
+
+            <Row style={{ marginTop: "30px" }}>
+              <Col span={24}>
+                <Menu
+                  style={{
+                    background: "#fb5731",
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                  mode="horizontal"
+                  items={items}
+                />
+              </Col>
+            </Row>
           </Col>
         </Row>
-      </Col>
-    </Row>
+      </div>
+    </ConfigProvider>
   );
 };
 
