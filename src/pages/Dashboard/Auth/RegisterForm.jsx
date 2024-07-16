@@ -57,7 +57,10 @@ const RegisterForm = () => {
         {contextHolder}
         <Row justify="center">
           <Col span={12}>
-            <Card style={{ margin: "10px 0px" }} title="Đăng ký thành viên mới">
+            <Card
+              style={{ margin: "10px 0px" }}
+              title="Đăng ký! thành viên mới"
+            >
               <Form
                 name="register"
                 onFinish={onFinish}
@@ -169,7 +172,7 @@ const RegisterForm = () => {
                         htmlType="submit"
                         className="login-form-button"
                       >
-                        Đăng kí
+                        Đăng ký!
                       </Button>
                     )}
                     <Link style={{ color: "#1577ff" }} to="/login">

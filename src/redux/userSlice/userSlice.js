@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { API_ROOT } from "../../utils/constants";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import { Navigate } from "react-router-dom";
 
 const initialState = {
   isLoading: false,
@@ -72,7 +73,7 @@ const logoutUser = createAsyncThunk(
         config
       );
       // Xóa token khỏi local storage sau khi logout thành công
-      // localStorage.removeItem("token");
+      localStorage.removeItem("token");
       return response.data;
     } catch (error) {
       if (error.response && error.response.data) {

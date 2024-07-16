@@ -16,6 +16,7 @@ import {
   Select,
   Row,
   Col,
+  Card,
 } from "antd";
 import { IoLocationOutline } from "react-icons/io5";
 // import "../../../common/common.css";
@@ -29,25 +30,9 @@ const Profile = () => {
   //   navigate("/login");
   // };
   const { decodedToken, errorToken } = useDecodedToken("token");
-  if (!errorToken) {
-    console.log("««««« decodedToken »»»»»", decodedToken);
-  }
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { success, user, error, isLoading } = useSelector(
-    (state) => state.users
-  );
 
   const [messageApi, contextHolder] = message.useMessage();
-  const onShowMessage = useCallback(
-    (content, type = MESSAGE_TYPE.SUCCESS) => {
-      messageApi.open({
-        type: type,
-        content: content,
-      });
-    },
-    [messageApi]
-  );
+
   const onFinish = async (values) => {
     console.log("««««« values »»»»»", {
       ...values,
@@ -69,45 +54,45 @@ const Profile = () => {
       >
         {contextHolder}
         {decodedToken && (
-          <Row>
-            <Col span={24}>
-              <Form
-                initialValues={{
-                  phoneNumber: decodedToken && decodedToken.phoneNumber,
-                  email: decodedToken && decodedToken.email,
-                  address: decodedToken && decodedToken.address,
-                }}
-                name="register"
-                onFinish={onFinish}
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 8 }}
-                form={form}
-              >
-                <Form.Item
-                  style={{ marginBottom: "30px" }}
-                  name="phoneNumber"
-                  label="Số điện thoại"
+          <Row justify="center">
+            <Col span={12}>
+              <Card style={{ margin: "10px 0px" }} title="Thông tin tài khoản">
+                <Form
+                  initialValues={{
+                    phoneNumber: decodedToken && decodedToken.phoneNumber,
+                    email: decodedToken && decodedToken.email,
+                    address: decodedToken && decodedToken.address,
+                  }}
+                  name="register"
+                  labelCol={{ span: 6 }}
+                  wrapperCol={{ span: 16 }}
+                  form={form}
                 >
-                  <Input
-                    prefix={<PhoneOutlined />}
-                    disabled
-                    placeholder="Số điện thoại"
-                  />
-                </Form.Item>
+                  <Form.Item
+                    style={{ marginBottom: "30px" }}
+                    name="phoneNumber"
+                    label="Số điện thoại"
+                  >
+                    <Input
+                      prefix={<PhoneOutlined />}
+                      disabled
+                      placeholder="Số điện thoại"
+                    />
+                  </Form.Item>
 
-                <Form.Item
-                  style={{ marginBottom: "30px" }}
-                  name="email"
-                  label="Email"
-                >
-                  <Input
-                    prefix={<MailOutlined />}
-                    disabled
-                    placeholder="Email"
-                  />
-                </Form.Item>
+                  <Form.Item
+                    style={{ marginBottom: "30px" }}
+                    name="email"
+                    label="Email"
+                  >
+                    <Input
+                      prefix={<MailOutlined />}
+                      disabled
+                      placeholder="Email"
+                    />
+                  </Form.Item>
 
-                {/* <Form.Item
+                  {/* <Form.Item
                 style={{ marginBottom: "30px" }}
                 name="password"
                 label="Mật khẩu"
@@ -151,30 +136,33 @@ const Profile = () => {
                 />
               </Form.Item> */}
 
-                <Form.Item
-                  name="address"
-                  label="Địa chỉ"
-                  rules={[{ required: true, message: "Vui lòng nhập địa chỉ" }]}
-                  style={{ marginBottom: "30px" }}
-                >
-                  {/* <Input prefix={<HomeOutlined />} placeholder="Địa chỉ" /> */}
-                  <Input
-                    // disabled
-                    prefix={<IoLocationOutline />}
-                    placeholder="Nhập địa chỉ"
-                  />
-                </Form.Item>
-
-                <Form.Item wrapperCol={{ offset: 8, xs: 8 }}>
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    className="login-form-button"
+                  <Form.Item
+                    name="address"
+                    label="Địa chỉ"
+                    rules={[
+                      { required: true, message: "Vui lòng nhập địa chỉ" },
+                    ]}
+                    style={{ marginBottom: "30px" }}
                   >
-                    Lưu
-                  </Button>
-                </Form.Item>
-              </Form>
+                    {/* <Input prefix={<HomeOutlined />} placeholder="Địa chỉ" /> */}
+                    <Input
+                      // disabled
+                      prefix={<IoLocationOutline />}
+                      placeholder="Nhập địa chỉ"
+                    />
+                  </Form.Item>
+
+                  <Form.Item wrapperCol={{ xs: 16, offset: 6 }}>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      className="login-form-button"
+                    >
+                      Lưu
+                    </Button>
+                  </Form.Item>
+                </Form>
+              </Card>
             </Col>
           </Row>
         )}

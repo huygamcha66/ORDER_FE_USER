@@ -1,25 +1,17 @@
 /* eslint-disable quotes */
 /* eslint-disable semi */
 /* eslint-disable react/no-unknown-property */
-import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
+import { LockOutlined, MailOutlined } from "@ant-design/icons";
 
 import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
 // import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from "react-redux";
 // import { login, registerUserAPI, selectCurrentUser } from '../../../redux/user/userSlice'
 // import { login, selectCurrentUser } from "../../../redux/userSlice/userSlice";
-import { useCallback, useEffect } from "react";
-import {
-  loginUser,
-  resetState,
-  sendLinkActiveUser,
-} from "../../../redux/userSlice/userSlice";
-import { jwtDecode } from "jwt-decode";
+import { useEffect } from "react";
+import { loginUser, resetState } from "../../../redux/userSlice/userSlice";
 import {
   ConfigProvider,
-  message,
-  Spin,
   Form,
   Input,
   Button,
@@ -28,11 +20,9 @@ import {
   Card,
   Flex,
   notification,
+  Spin,
 } from "antd";
-import { handleFocus } from "../../../utils";
-import Countdown from "../../../components/Countdown";
 import "../../../common/common.css";
-import { MESSAGE_TYPE } from "../../../common";
 import { openNotificationWithIcon } from "../../../components/Nofitication";
 
 const LoginForm = () => {
@@ -45,23 +35,22 @@ const LoginForm = () => {
   );
 
   useEffect(() => {
+    if (error) {
+      openNotificationWithIcon("error", error);
+    }
     if (success) {
       dispatch(resetState());
       navigate("/dashboard/member/profile");
     }
     if (JSON.stringify(user.token))
       localStorage.setItem("token", JSON.stringify(user.token));
-  }, [success]);
+  }, [success, error]);
 
   const onFinish = async (values) => {
-    console.log("««««« values »»»»»", {
-      ...values,
-      addressIP: navigator.userAgent,
-    });
     dispatch(loginUser(values));
   };
   return (
-    <div style={{ marginTop: "180px" }}>
+    <div style={{ marginTop: "150px" }}>
       <ConfigProvider
         theme={{
           components: {
@@ -75,7 +64,6 @@ const LoginForm = () => {
 
         <Row justify="center">
           <Col span={12}>
-            {" "}
             <Card style={{ margin: "10px 0px" }} title="Đăng nhập">
               <Form
                 name="normal_login"
@@ -88,7 +76,12 @@ const LoginForm = () => {
                 <Form.Item
                   label="Email"
                   name="userName"
-                  rules={[{ required: true, message: "Vui lòng nhập email" }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Vui lòng nhập email hoặc username",
+                    },
+                  ]}
                   style={{ marginBottom: "30px" }}
                 >
                   <Input
@@ -126,15 +119,19 @@ const LoginForm = () => {
                   style={{ marginBottom: "30px" }}
                 >
                   <Flex align="center" justify="space-between">
-                    <Button
-                      type="primary"
-                      htmlType="submit"
-                      className="login-form-button"
-                    >
-                      Đăng nhập
-                    </Button>
+                    {isLoading ? (
+                      <Spin />
+                    ) : (
+                      <Button
+                        type="primary"
+                        htmlType="submit"
+                        className="login-form-button"
+                      >
+                        Đăng nhập
+                      </Button>
+                    )}
                     <Link style={{ color: "#1577ff" }} to="/register">
-                      Đăng kí
+                      Đăng ký!
                     </Link>
                   </Flex>
                 </Form.Item>

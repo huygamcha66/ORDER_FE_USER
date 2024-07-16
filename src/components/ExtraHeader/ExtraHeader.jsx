@@ -1,8 +1,17 @@
 /* eslint-disable quotes */
 /* eslint-disable semi */
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Col, ConfigProvider, Flex, Row, Space } from "antd";
+import {
+  Button,
+  Col,
+  ConfigProvider,
+  Flex,
+  Popconfirm,
+  Row,
+  message,
+  Space,
+} from "antd";
 import { Menu } from "antd";
 import { FaRegUser } from "react-icons/fa";
 import { LuShoppingCart } from "react-icons/lu";
@@ -10,8 +19,9 @@ import { IoPricetagsOutline } from "react-icons/io5";
 import { PiMathOperations } from "react-icons/pi";
 import { AiOutlineLogout } from "react-icons/ai";
 import "./index.css";
-import { logoutUser } from "../../redux/userSlice/userSlice";
+import { logoutUser, resetState } from "../../redux/userSlice/userSlice";
 import useDecodedToken from "../UserInfor";
+import { useEffect } from "react";
 const items = [
   {
     label: (
@@ -175,14 +185,22 @@ const items = [
 const ExtraHeader = () => {
   // const user = useSelector(selectCurrentUser);
   const { decodedToken, errorToken } = useDecodedToken("token");
-
+  const { success, user, error, isLoading, isActive } = useSelector(
+    (state) => state.users
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.users);
-  const handleDetele = () => {
+
+  const confirm = (e) => {
     dispatch(logoutUser(decodedToken.id));
-    localStorage.removeItem("token");
   };
+  useEffect(() => {
+    if (success) {
+      navigate("/login");
+      dispatch(resetState());
+    }
+  }, [success]);
+
   return (
     <ConfigProvider
       theme={{
@@ -241,15 +259,22 @@ const ExtraHeader = () => {
                         Giỏ hàng
                       </Link>
                     </Flex>
-                    <Flex
-                      onClick={handleDetele}
-                      className="wrapper_icon_text"
-                      align="center"
-                    >
-                      <AiOutlineLogout className="icon primary_color" />
-                      <Link className="custompl primary_color" to={""}>
-                        Đăng xuất
-                      </Link>
+
+                    <Flex className="wrapper_icon_text" align="center">
+                      <Popconfirm
+                        title="Đăng xuất"
+                        description="Bạn có muốn đăng xuất không?"
+                        onConfirm={confirm}
+                        okText="Có"
+                        cancelText="Không"
+                      >
+                        <Flex style={{ cursor: "pointer" }}>
+                          <AiOutlineLogout className="icon primary_color" />
+                          <Space className="custompl primary_color">
+                            Đăng xuất
+                          </Space>
+                        </Flex>
+                      </Popconfirm>
                     </Flex>
                   </Flex>
                 </Flex>
