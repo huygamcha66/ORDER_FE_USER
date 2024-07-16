@@ -17,17 +17,10 @@ const registerUser = createAsyncThunk(
   "user/registerUser",
   async (data, { rejectWithValue }) => {
     try {
-      const config = {
-        headers: {
-          "content-type": "application/json",
-        },
-      };
       const response = await axios.post(
         `${API_ROOT}/api/v1.0/auth/register`,
-        data,
-        config
+        data
       );
-      console.log("«««««  response»»»»»", response);
       return response.data;
     } catch (error) {
       if (error.response && error.response.data) {
@@ -66,14 +59,8 @@ const loginUser = createAsyncThunk(
 
 const logoutUser = createAsyncThunk(
   "user/logoutUser",
-
-  async (_, { rejectWithValue }) => {
+  async (value, { rejectWithValue }) => {
     try {
-      const accessToken = localStorage.getItem("token")
-        ? localStorage.getItem("token")
-        : null;
-      console.log("«««««accessToken  »»»»»", accessToken);
-      const userId = jwtDecode(accessToken).id;
       const config = {
         headers: {
           "content-type": "application/json",
@@ -81,9 +68,11 @@ const logoutUser = createAsyncThunk(
       };
       const response = await axios.patch(
         `${API_ROOT}/api/v1.0/auth/logout`,
-        { userId: userId },
+        { userId: value },
         config
       );
+      // Xóa token khỏi local storage sau khi logout thành công
+      // localStorage.removeItem("token");
       return response.data;
     } catch (error) {
       if (error.response && error.response.data) {
@@ -204,7 +193,6 @@ export const userSlice = createSlice({
       console.log("««««« action »»»»»", action);
       state.isLoading = false;
       state.success = false;
-
       state.error = action.payload.error;
     });
     builder.addCase(registerUser.fulfilled, (state, action) => {
@@ -243,7 +231,6 @@ export const userSlice = createSlice({
       console.log("««««« action »»»»»", action);
       state.isLoading = false;
       state.success = false;
-
       state.error = action.payload.message;
     });
     builder.addCase(logoutUser.fulfilled, (state, action) => {

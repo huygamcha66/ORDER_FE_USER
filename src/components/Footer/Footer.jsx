@@ -23,16 +23,16 @@ const Footer = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   });
-  console.log(
-    '«««««  localStorage.getItem("token") »»»»»',
-    localStorage.getItem("token")
-  );
-  console.log(
-    "««««« window.scrollY »»»»»",
-    window.scrollY,
-    333,
-    localStorage.getItem("token")
-  );
+  // console.log(
+  //   // '«««««  localStorage.getItem("token") »»»»»',
+  //   localStorage.getItem("token")
+  // );
+  // console.log(
+  //   "««««« window.scrollY »»»»»",
+  //   window.scrollY,
+  //   333,
+  //   localStorage.getItem("token")
+  // );
   return (
     <div className="footer-wrapper">
       <Row

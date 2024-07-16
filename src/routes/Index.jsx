@@ -44,7 +44,8 @@ import ResetForm from "../pages/Dashboard/Auth/ResetForm";
 import CartStep2 from "../pages/Dashboard/Cart/CartStep2";
 
 const ProtectedRoute = () => {
-  const userInfor = JSON.parse(localStorage.getItem("userInfor"));
+  const userInfor =
+    localStorage.getItem("token") && localStorage.getItem("token");
   if (!userInfor) {
     return <Navigate to={"/login"} replace={true}></Navigate>;
   }
@@ -52,10 +53,10 @@ const ProtectedRoute = () => {
 };
 
 const UnauthorizeRoute = () => {
-  const userInfor = JSON.parse(localStorage.getItem("userInfor"));
+  const userInfor = JSON.parse(localStorage.getItem("token"));
   if (userInfor) {
     return (
-      <Navigate to={"/dashboard/profile/member"} replace={true}></Navigate>
+      <Navigate to={"/dashboard/member/profile"} replace={true}></Navigate>
     );
   }
   return <Outlet />;

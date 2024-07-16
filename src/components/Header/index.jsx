@@ -127,9 +127,6 @@ const HeaderScreen = () => {
     SetMenu(false);
   };
 
-  const handleMouseEnter = () => setIsHovered(true);
-  const handleMouseLeave = () => setIsHovered(false);
-  const navigation = useNavigate();
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 200) {
@@ -162,12 +159,6 @@ const HeaderScreen = () => {
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
 
-  const [current, setCurrent] = useState("mail");
-  const onClick = (e) => {
-    console.log("click ", e);
-    setCurrent(e.key);
-  };
-
   // mobile navigation
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
@@ -182,11 +173,12 @@ const HeaderScreen = () => {
         theme={{
           components: {
             Menu: {
-              /* here is your component tokens */
               fontSize: 12,
               padding: 14,
-              fontWeightStrong: 700,
-              itemSelectedColor: "#fff",
+              horizontalItemSelectedColor: "#000",
+              itemColor: "#fff",
+              itemSelectedColor: "#fc785a",
+              popupBg: "#fc785a",
             },
           },
         }}

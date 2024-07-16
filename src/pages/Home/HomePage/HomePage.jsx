@@ -23,6 +23,17 @@ const HomePage = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0 });
   }, [location.pathname]);
+  console.log(
+    "«««««  navigator.language || navigator.userLanguage;  »»»»»",
+    navigator.language || navigator.userLanguage
+  );
+  console.log("««««« navigator.platform »»»»»", navigator.platform);
+  console.log(
+    "««««« `${window.screen.width}x${window.screen.height}` »»»»»",
+    `${window.screen.width}x${window.screen.height}`
+  );
+  console.log("««««« navigator.appVersion »»»»»", navigator.appVersion);
+  console.log("««««« navigator »»»»»", navigator);
   return (
     <Row justify="center">
       <Col xs={24} lg={20}>
