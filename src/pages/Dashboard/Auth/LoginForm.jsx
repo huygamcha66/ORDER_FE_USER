@@ -47,7 +47,9 @@ const LoginForm = () => {
   }, [success, error]);
 
   const onFinish = async (values) => {
-    dispatch(loginUser(values));
+    const addressIP = navigator.userAgent;
+    // Gọi action loginUser với thông tin đăng nhập và địa chỉ IP
+    dispatch(loginUser({ ...values, addressIP: addressIP }));
   };
   return (
     <div style={{ marginTop: "150px" }}>
