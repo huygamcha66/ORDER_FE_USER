@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { deleteProductFromCart } from "../../../redux/cartSlice/cartSlice";
 import { jwtDecode } from "jwt-decode";
 import { createOrder } from "../../../redux/orderSlice/orderSlice";
-import { Col, Row } from "antd";
+import { Col, Flex, Row } from "antd";
 
 const ProductItem = ({
   cart,
@@ -31,71 +31,54 @@ const ProductItem = ({
 
   return (
     <>
-      <table
-        style={{
-          width: "100%",
-          borderCollapse: "collapse",
-          marginBottom: "1em",
-        }}
-      >
-        <thead>
-          <tr>
-            <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-              Sản phẩm
-            </th>
-            <th
-              style={{ border: "1px solid #ddd", padding: "8px", width: "7%" }}
-            >
-              Số lượng
-            </th>
-            <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-              Đơn giá
-            </th>
-            <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-              Tổng tiền
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-              <div style={{ display: "flex" }}>
-                <img
-                  src={cart.coverImageUrl}
-                  alt="Sản phẩm"
-                  style={{ width: "50px", marginRight: "10px" }}
-                />
-                <a target="_blank" href={cart.productUrl}>
-                  {cart.name}
-                </a>
-              </div>
-            </td>
-            <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-              <input
-                type="number"
-                value={cart.quantity}
-                min={1}
-                disabled
-                onChange={handleQuantityChange}
-                style={{ width: "50px" }}
+      <tbody>
+        <tr>
+          <td
+            style={{ border: "1px solid #ddd", padding: "8px", width: "40%" }}
+          >
+            <div style={{ display: "flex" }}>
+              <img
+                src={cart.coverImageUrl}
+                alt="Sản phẩm"
+                style={{ width: "50px", marginRight: "10px" }}
               />
-            </td>
-            <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-              {(cart.price * 3625).toLocaleString("vi-VN")} đ<br />
-            </td>
-            <td
-              style={{
-                border: "1px solid #ddd",
-                padding: "8px",
-                fontWeight: "bolder",
-              }}
-            >
+              <a
+                style={{ color: "#000" }}
+                target="_blank"
+                href={cart.productUrl}
+              >
+                {cart.name}
+              </a>
+            </div>
+          </td>
+          <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+            <input
+              type="number"
+              value={cart.quantity}
+              min={1}
+              disabled
+              onChange={handleQuantityChange}
+              style={{ width: "50px" }}
+            />
+          </td>
+          <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+            <Flex justify="center">
+              {(cart.price * 3625).toLocaleString("vi-VN")} đ
+            </Flex>
+          </td>
+          <td
+            style={{
+              border: "1px solid #ddd",
+              padding: "8px",
+              fontWeight: "bolder",
+            }}
+          >
+            <Flex justify="center">
               {(cart.price * 3625 * cart.quantity).toLocaleString("vi-VN")} đ
-              <br />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            </Flex>
+          </td>
+        </tr>
+      </tbody>
     </>
   );
 };
@@ -176,28 +159,58 @@ const CartStep2 = () => {
     <>
       <Row justify="center">
         <Col xs={20}>
-          <div className="shoping_cart">
-            <div className="col-md-12">
-              <h2 className="page-title">Giỏ hàng</h2>
-              <div className="container">
-                <ul className="progressbar">
-                  <li>Chọn shop</li>
-                  <li className="active">Chọn địa chỉ nhận hàng</li>
-                  <li>Lên đơn</li>
-                </ul>
-              </div>
-              <br />
-              {buyProduct &&
-                buyProduct.map((cart, index) => (
-                  <ProductItem
-                    key={index}
-                    cart={cart}
-                    index={index}
-                    isCheck={checkedStates[index]}
-                    onCheckChange={handleCheckChange}
-                    onQuantityChange={handleQuantityChange}
-                  />
-                ))}
+          <div>
+            <div>
+              <h2>Giỏ hàng</h2>
+              {/* <h2 className="page-title">Giỏ hàng</h2>
+                <div className="container">
+                  <ul className="progressbar">
+                    <li>Chọn shop</li>
+                    <li className="active">Chọn địa chỉ nhận hàng</li>
+                    <li>Lên đơn</li>
+                  </ul>
+                </div> */}
+              <table
+                style={{
+                  width: "100%",
+                  borderCollapse: "collapse",
+                  marginBottom: "1em",
+                }}
+              >
+                <thead>
+                  <tr>
+                    <th style={{ border: "1px solid #ddd", padding: "8px" }}>
+                      Sản phẩm
+                    </th>
+                    <th
+                      style={{
+                        border: "1px solid #ddd",
+                        padding: "8px",
+                        width: "7%",
+                      }}
+                    >
+                      Số lượng
+                    </th>
+                    <th style={{ border: "1px solid #ddd", padding: "8px" }}>
+                      Đơn giá
+                    </th>
+                    <th style={{ border: "1px solid #ddd", padding: "8px" }}>
+                      Tổng tiền
+                    </th>
+                  </tr>
+                </thead>
+                {buyProduct &&
+                  buyProduct.map((cart, index) => (
+                    <ProductItem
+                      key={index}
+                      cart={cart}
+                      index={index}
+                      isCheck={checkedStates[index]}
+                      onCheckChange={handleCheckChange}
+                      onQuantityChange={handleQuantityChange}
+                    />
+                  ))}
+              </table>
             </div>
           </div>
           <div
