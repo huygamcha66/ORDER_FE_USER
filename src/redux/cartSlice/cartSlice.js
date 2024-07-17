@@ -19,9 +19,7 @@ const getCartDetail = createAsyncThunk(
   "cart/getDetail",
   async (userId, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${API_ROOT}/api/v1.0/cart`, {
-        userId,
-      });
+      const response = await axios.post(`${API_ROOT}/api/v1.0/cart`, userId);
       return response.data.payload;
     } catch (error) {
       if (error.response && error.response.data) {

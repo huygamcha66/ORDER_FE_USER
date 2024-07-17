@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { deleteProductFromCart } from "../../../redux/cartSlice/cartSlice";
 import { jwtDecode } from "jwt-decode";
 import { createOrder } from "../../../redux/orderSlice/orderSlice";
+import { Col, Row } from "antd";
 
 const ProductItem = ({
   cart,
@@ -27,19 +28,6 @@ const ProductItem = ({
     onQuantityChange(index, newQuantity);
   };
   console.log("««««« cart »»»»»", cart);
-
-  // const handleDetele = (value) => {
-  //   const userInfor = localStorage.getItem("token")
-  //     ? jwtDecode(localStorage.getItem("token"))
-  //     : null;
-  //   const result = confirm("bạn có muốn xoá không");
-  //   if (result) {
-  //     console.log("««««« value »»»»»", value);
-  //     dispatch(
-  //       deleteProductFromCart({ userId: userInfor._id, productId: value })
-  //     );
-  //   }
-  // };
 
   return (
     <>
@@ -186,79 +174,85 @@ const CartStep2 = () => {
 
   return (
     <>
-      <div className="shoping_cart">
-        <div className="col-md-12">
-          <h2 className="page-title">Giỏ hàng</h2>
-          <div className="container">
-            <ul className="progressbar">
-              <li>Chọn shop</li>
-              <li className="active">Chọn địa chỉ nhận hàng</li>
-              <li>Lên đơn</li>
-            </ul>
+      <Row justify="center">
+        <Col xs={20}>
+          <div className="shoping_cart">
+            <div className="col-md-12">
+              <h2 className="page-title">Giỏ hàng</h2>
+              <div className="container">
+                <ul className="progressbar">
+                  <li>Chọn shop</li>
+                  <li className="active">Chọn địa chỉ nhận hàng</li>
+                  <li>Lên đơn</li>
+                </ul>
+              </div>
+              <br />
+              {buyProduct &&
+                buyProduct.map((cart, index) => (
+                  <ProductItem
+                    key={index}
+                    cart={cart}
+                    index={index}
+                    isCheck={checkedStates[index]}
+                    onCheckChange={handleCheckChange}
+                    onQuantityChange={handleQuantityChange}
+                  />
+                ))}
+            </div>
           </div>
-          <br />
-          {buyProduct &&
-            buyProduct.map((cart, index) => (
-              <ProductItem
-                key={index}
-                cart={cart}
-                index={index}
-                isCheck={checkedStates[index]}
-                onCheckChange={handleCheckChange}
-                onQuantityChange={handleQuantityChange}
-              />
-            ))}
-        </div>
-      </div>
-      <div
-        style={{
-          position: "fixed",
-          bottom: 0,
-          background: "#fcebf2",
-          padding: "40px",
-          marginLeft: "-10%",
-          width: "110%",
-          zIndex: 999,
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyItems: "center",
-            justifyContent: "space-evenly",
-          }}
-        >
-          <div style={{ display: "flex", justifyItems: "center" }}>
-            <input
-              checked={allCheck}
-              onChange={handleAllCheckChange}
-              type="checkbox"
-              style={{ width: "25px", height: "25px" }}
-            />
-            <h4 style={{ lineHeight: "30px", marginLeft: "6px" }}>
-              Số tiền tạm thời phải trả
-            </h4>
-          </div>
-          <h4 style={{ lineHeight: "30px", marginLeft: "6px" }}>
-            Tổng tiền cọc (70%){" "}
-            <span style={{ color: "red" }}>
-              {totalCheckedPrice && totalCheckedPrice.toLocaleString("vi-VN")}đ
-            </span>
-          </h4>
-          <button
-            onClick={handleSubmit}
-            disabled={!totalCheckedPrice}
+          <div
             style={{
-              background: "#008001",
-              border: "none",
-              color: "#fff",
-              padding: "10px",
+              position: "fixed",
+              bottom: 0,
+              background: "#fcebf2",
+              padding: "40px",
+              marginLeft: "-10%",
+              width: "110%",
+              zIndex: 999,
             }}
           >
-            Gửi đơn
-          </button>
-        </div>
-      </div>
+            <div
+              style={{
+                display: "flex",
+                justifyItems: "center",
+                justifyContent: "space-evenly",
+              }}
+            >
+              <div style={{ display: "flex", justifyItems: "center" }}>
+                <input
+                  checked={allCheck}
+                  onChange={handleAllCheckChange}
+                  type="checkbox"
+                  style={{ width: "25px", height: "25px" }}
+                />
+                <h4 style={{ lineHeight: "30px", marginLeft: "6px" }}>
+                  Số tiền tạm thời phải trả
+                </h4>
+              </div>
+              <h4 style={{ lineHeight: "30px", marginLeft: "6px" }}>
+                Tổng tiền cọc (70%){" "}
+                <span style={{ color: "red" }}>
+                  {totalCheckedPrice &&
+                    totalCheckedPrice.toLocaleString("vi-VN")}
+                  đ
+                </span>
+              </h4>
+              <button
+                onClick={handleSubmit}
+                disabled={!totalCheckedPrice}
+                style={{
+                  background: "#008001",
+                  border: "none",
+                  color: "#fff",
+                  padding: "10px",
+                }}
+              >
+                Gửi đơn
+              </button>
+            </div>
+          </div>
+        </Col>
+      </Row>
     </>
   );
 };
