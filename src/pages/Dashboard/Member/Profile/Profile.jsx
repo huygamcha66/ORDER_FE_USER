@@ -23,15 +23,20 @@ import { IoLocationOutline } from "react-icons/io5";
 import { useCallback, useEffect } from "react";
 import { MESSAGE_TYPE } from "../../../../common";
 import useDecodedToken from "../../../../components/UserInfor";
+import { getCartDetail } from "../../../../redux/cartSlice/cartSlice";
 
 const Profile = () => {
-  // const directToLogin = () => {
-  //   dispatch(resetState());
-  //   navigate("/login");
-  // };
-  const { decodedToken, errorToken } = useDecodedToken("token");
-
   const [messageApi, contextHolder] = message.useMessage();
+  const { carts } = useSelector((state) => state.carts);
+  const { decodedToken } = useDecodedToken("token");
+  const [form] = Form.useForm();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (decodedToken) {
+      dispatch(getCartDetail({ userId: decodedToken.id }));
+    }
+  }, [decodedToken]);
 
   const onFinish = async (values) => {
     console.log("««««« values »»»»»", {
@@ -40,7 +45,7 @@ const Profile = () => {
     });
     // await dispatch(loginUser(values));
   };
-  const [form] = Form.useForm();
+
   return (
     <div style={{ marginTop: "20px" }}>
       <ConfigProvider

@@ -174,7 +174,7 @@ const items = [
 
   {
     label: (
-      <Link style={{ fontWeight: 700 }} to={""}>
+      <Link style={{ fontWeight: 700 }} to={"/dashboard/shop"}>
         SHOP UY TÍN
       </Link>
     ),
@@ -255,7 +255,7 @@ const ExtraHeader = () => {
                     </Flex>
                     <Flex align="center" className="custommlr">
                       <LuShoppingCart className="icon primary_color" />
-                      <Link className="custompl primary_color" to={""}>
+                      <Link className="custompl primary_color" to={"cart"}>
                         Giỏ hàng
                       </Link>
                     </Flex>

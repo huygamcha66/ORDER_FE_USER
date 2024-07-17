@@ -125,6 +125,10 @@ const router = createBrowserRouter([
             path: "/dat-hang-taobao1688-tmall",
             element: <PaymentPage />,
           },
+          {
+            path: "/shop",
+            element: <ReputableShop />,
+          },
         ],
       },
       {
