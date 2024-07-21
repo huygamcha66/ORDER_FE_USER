@@ -10,7 +10,18 @@ import {
   setBuyProduct,
 } from "../../../redux/cartSlice/cartSlice";
 import { jwtDecode } from "jwt-decode";
-import { Checkbox, Col, Flex, Input, Modal, notification, Row } from "antd";
+import "./Cart.css";
+import {
+  Checkbox,
+  Col,
+  Flex,
+  Image,
+  Input,
+  Modal,
+  notification,
+  Row,
+  Space,
+} from "antd";
 import useDecodedToken from "../../../components/UserInfor";
 import { RiDeleteBack2Fill } from "react-icons/ri";
 import { openNotificationWithIcon } from "../../../components/Nofitication";
@@ -67,7 +78,6 @@ const ProductItem = ({
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  console.log("««««« 999 »»»»»", 999);
   return (
     <>
       {contextHolder}
@@ -232,7 +242,6 @@ const Cart = () => {
   const [quantities, setQuantities] = useState([]);
   const [allCheck, setAllCheck] = useState(false);
   const [totalCheckedPrice, setTotalCheckedPrice] = useState(0);
-
   useEffect(() => {
     if (carts && carts.products) {
       setCheckedStates(new Array(carts.products.length).fill(false));
@@ -280,6 +289,11 @@ const Cart = () => {
   const navigate = useNavigate();
 
   const handlePlaceOrder = () => {
+    if (!totalCheckedPrice) {
+      // return setIsModalOpen(true);
+      return openNotificationWithIcon("error", "Vui lòng chọn sản phẩm");
+    }
+
     // Lọc các sản phẩm đã chọn và bao gồm số lượng
     const selectedProducts = carts.products
       .map((product, index) => {
@@ -292,6 +306,7 @@ const Cart = () => {
         return null;
       })
       .filter((product) => product !== null); // Lọc các sản phẩm không được chọn
+
     dispatch(setBuyProduct(selectedProducts));
     navigate("/dashboard/cart/step2");
   };
@@ -301,160 +316,138 @@ const Cart = () => {
       <Row justify="center">
         <Col xs={20}>
           <div>
-            <div>
-              <h2>Giỏ hàng</h2>
-              {/* <div className="container">
+            <h2>Giỏ hàng</h2>
+            {/* <div className="container">
                 <ul className="progressbar">
                   <li className="active">Chọn shop</li>
                   <li>Chọn địa chỉ nhận hàng</li>
                   <li>Lên đơn</li>
                 </ul>
               </div> */}
-              <table
-                style={{
-                  width: "100%",
-                  borderCollapse: "collapse",
-                  marginBottom: "1em",
-                }}
-              >
-                {" "}
-                <thead>
-                  <tr>
-                    <th
-                      style={{
-                        border: "1px solid #ddd",
-                        padding: "8px",
-                        width: "10%",
-                      }}
-                    >
-                      Chọn mua
-                    </th>
-                    <th
-                      style={{
-                        border: "1px solid #ddd",
-                        padding: "8px",
-                        width: "30%",
-                      }}
-                    >
-                      Sản phẩm
-                    </th>
-                    <th
-                      style={{
-                        border: "1px solid #ddd",
-                        padding: "8px",
-                        width: "10%",
-                      }}
-                    >
-                      Số lượng
-                    </th>
-                    <th
-                      style={{
-                        border: "1px solid #ddd",
-                        padding: "8px",
-                        width: "10%",
-                      }}
-                    >
-                      Đơn giá
-                    </th>
-                    <th
-                      style={{
-                        border: "1px solid #ddd",
-                        padding: "8px",
-                        width: "15%",
-                      }}
-                    >
-                      Tổng tiền
-                    </th>
-                    <th
-                      style={{
-                        border: "1px solid #ddd",
-                        padding: "8px",
-                        width: "20%",
-                      }}
-                    >
-                      Đơn giá
-                    </th>
-                    <th
-                      style={{
-                        border: "1px solid #ddd",
-                        padding: "8px",
-                        width: "5%",
-                      }}
-                    >
-                      Xoá
-                    </th>
-                  </tr>
-                </thead>
-                {carts && carts.products ? (
-                  carts.products.map((cart, index) => (
-                    <ProductItem
-                      key={index}
-                      cart={cart}
-                      index={index}
-                      isCheck={checkedStates[index]}
-                      onCheckChange={handleCheckChange}
-                      onQuantityChange={handleQuantityChange}
-                    />
-                  ))
-                ) : (
-                  <span className="green">
-                    Hiện tại không có sản phẩm nào trong giỏ hàng
-                  </span>
-                )}
-              </table>
-            </div>
-          </div>
-          <div
-            style={{
-              position: "fixed",
-              bottom: 0,
-              background: "#fcebf2",
-              padding: "40px",
-              marginLeft: "-10%",
-              width: "110%",
-              zIndex: 999,
-            }}
-          >
-            <div
+            <table
               style={{
-                display: "flex",
-                justifyItems: "center",
-                justifyContent: "space-evenly",
+                width: "100%",
+                borderCollapse: "collapse",
+                marginBottom: "1em",
               }}
             >
-              <div style={{ display: "flex", justifyItems: "center" }}>
+              {" "}
+              <thead>
+                <tr>
+                  <th
+                    style={{
+                      border: "1px solid #ddd",
+                      padding: "8px",
+                      width: "10%",
+                    }}
+                  >
+                    Chọn mua
+                  </th>
+                  <th
+                    style={{
+                      border: "1px solid #ddd",
+                      padding: "8px",
+                      width: "30%",
+                    }}
+                  >
+                    Sản phẩm
+                  </th>
+                  <th
+                    style={{
+                      border: "1px solid #ddd",
+                      padding: "8px",
+                      width: "10%",
+                    }}
+                  >
+                    Số lượng
+                  </th>
+                  <th
+                    style={{
+                      border: "1px solid #ddd",
+                      padding: "8px",
+                      width: "10%",
+                    }}
+                  >
+                    Đơn giá
+                  </th>
+                  <th
+                    style={{
+                      border: "1px solid #ddd",
+                      padding: "8px",
+                      width: "15%",
+                    }}
+                  >
+                    Tổng tiền
+                  </th>
+                  <th
+                    style={{
+                      border: "1px solid #ddd",
+                      padding: "8px",
+                      width: "20%",
+                    }}
+                  >
+                    Đơn giá
+                  </th>
+                  <th
+                    style={{
+                      border: "1px solid #ddd",
+                      padding: "8px",
+                      width: "5%",
+                    }}
+                  >
+                    Xoá
+                  </th>
+                </tr>
+              </thead>
+              {carts && carts.products ? (
+                carts.products.map((cart, index) => (
+                  <ProductItem
+                    key={index}
+                    cart={cart}
+                    index={index}
+                    isCheck={checkedStates[index]}
+                    onCheckChange={handleCheckChange}
+                    onQuantityChange={handleQuantityChange}
+                  />
+                ))
+              ) : (
+                <span className="green">
+                  Hiện tại không có sản phẩm nào trong giỏ hàng
+                </span>
+              )}
+            </table>
+            <Flex className="wrapper_buy_step_1" justify="space-between">
+              <label
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  cursor: "pointer",
+                }}
+              >
                 <input
                   checked={allCheck}
                   onChange={handleAllCheckChange}
                   type="checkbox"
-                  style={{ width: "25px", height: "25px" }}
+                  style={{ width: "25px", height: "25px", cursor: "pointer" }}
                 />
-                <h4 style={{ lineHeight: "30px", marginLeft: "6px" }}>
-                  Chọn mua toàn bộ các sản phẩm
-                </h4>
-              </div>
-              <h4 style={{ lineHeight: "30px", marginLeft: "6px" }}>
-                Tổng tiền hàng:{" "}
+                <Space>Chọn mua toàn bộ các sản phẩm</Space>
+              </label>
+              <Space>
+                Tổng tiền hàng:
                 <span style={{ color: "red" }}>
                   {totalCheckedPrice &&
                     totalCheckedPrice.toLocaleString("vi-VN")}
                   đ
                 </span>
-              </h4>
+              </Space>
               <button
+                className="btn_step_1"
                 onClick={handlePlaceOrder}
-                disabled={!totalCheckedPrice}
-                style={{
-                  background: "#008001",
-                  border: "none",
-                  color: "#fff",
-                  padding: "10px",
-                  borderRadius: "10%",
-                }}
+                // disabled={!totalCheckedPrice}
               >
                 Đặt hàng ngay
               </button>
-            </div>
+            </Flex>
           </div>
         </Col>
       </Row>

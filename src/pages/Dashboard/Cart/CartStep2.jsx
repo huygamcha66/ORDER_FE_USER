@@ -6,7 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { deleteProductFromCart } from "../../../redux/cartSlice/cartSlice";
 import { jwtDecode } from "jwt-decode";
 import { createOrder } from "../../../redux/orderSlice/orderSlice";
-import { Col, Flex, Row } from "antd";
+import { Col, Flex, Image, Modal, Row, Space } from "antd";
+import "./Cart.css";
+import { openNotificationWithIcon } from "../../../components/Nofitication";
 
 const ProductItem = ({
   cart,
@@ -84,7 +86,7 @@ const ProductItem = ({
 };
 
 const CartStep2 = () => {
-  const { carts, buyProduct } = useSelector((state) => state.carts);
+  const { carts, buyProduct, success } = useSelector((state) => state.carts);
 
   const [checkedStates, setCheckedStates] = useState([]);
   const [quantities, setQuantities] = useState([]);
@@ -153,14 +155,24 @@ const CartStep2 = () => {
         purchaseFee: totalCheckedPrice,
       })
     );
+    openNotificationWithIcon("success", "Đặt hàng thành công");
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   return (
     <>
       <Row justify="center">
         <Col xs={20}>
           <div>
-            <div >
+            <div>
               <h2>Giỏ hàng</h2>
               {/* <h2 className="page-title">Giỏ hàng</h2>
                 <div className="container">
@@ -213,57 +225,66 @@ const CartStep2 = () => {
               </table>
             </div>
           </div>
-          <div
-            style={{
-              position: "fixed",
-              bottom: 0,
-              background: "#fcebf2",
-              padding: "40px",
-              marginLeft: "-10%",
-              width: "110%",
-              zIndex: 999,
-            }}
-          >
-            <div
+          <Flex justify="space-between" className="wrapper_buy_step_1">
+            <label
               style={{
                 display: "flex",
-                justifyItems: "center",
-                justifyContent: "space-evenly",
+                alignItems: "center",
+                cursor: "pointer",
               }}
             >
-              <div style={{ display: "flex", justifyItems: "center" }}>
-                <input
-                  checked={allCheck}
-                  onChange={handleAllCheckChange}
-                  type="checkbox"
-                  style={{ width: "25px", height: "25px" }}
-                />
-                <h4 style={{ lineHeight: "30px", marginLeft: "6px" }}>
-                  Số tiền tạm thời phải trả
-                </h4>
-              </div>
-              <h4 style={{ lineHeight: "30px", marginLeft: "6px" }}>
-                Tổng tiền cọc (70%){" "}
-                <span style={{ color: "red" }}>
-                  {totalCheckedPrice &&
-                    totalCheckedPrice.toLocaleString("vi-VN")}
-                  đ
-                </span>
-              </h4>
-              <button
-                onClick={handleSubmit}
-                disabled={!totalCheckedPrice}
-                style={{
-                  background: "#008001",
-                  border: "none",
+              <input
+                checked={allCheck}
+                onChange={handleAllCheckChange}
+                type="checkbox"
+                style={{ width: "25px", height: "25px", cursor: "pointer" }}
+              />
+              <Space>Số tiền tạm thời phải trả</Space>
+            </label>
+            <Space>
+              Tổng tiền cọc (70%):
+              <span style={{ color: "red" }}>
+                {totalCheckedPrice && totalCheckedPrice.toLocaleString("vi-VN")}
+                đ
+              </span>
+            </Space>
+            <button
+              onClick={handleSubmit}
+              disabled={!totalCheckedPrice}
+              className="btn_step_1"
+            >
+              Gửi đơn
+            </button>
+            <Modal
+              title="Bạn không đủ tiền để mua, hãy liên hệ với chúng tôi để nạp tiền vào ví!"
+              open={isModalOpen}
+              onOk={handleCancel}
+              onCancel={handleCancel}
+              cancelButtonProps={{
+                style: {
+                  backgroundColor: "#f5222d",
+                  borderColor: "#f5222d",
                   color: "#fff",
-                  padding: "10px",
-                }}
-              >
-                Gửi đơn
-              </button>
-            </div>
-          </div>
+                },
+              }}
+              okButtonProps={{
+                style: {
+                  backgroundColor: "#ccc",
+                  color: "#000",
+                },
+              }}
+              okText="Có"
+              cancelText="Không"
+              footer={null}
+            >
+              <Flex justify="center">
+                <Image
+                  width={350}
+                  src="https://pub-50bb58cfabdd4b93abb4e154d0eada9e.r2.dev/zalo.jpg"
+                />
+              </Flex>
+            </Modal>
+          </Flex>
         </Col>
       </Row>
     </>
