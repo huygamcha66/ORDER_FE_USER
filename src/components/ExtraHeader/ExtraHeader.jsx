@@ -65,13 +65,7 @@ const items = [
           },
           {
             label: (
-              <Link
-                to={
-                  "/dich-vu-nap-tien-alipay-thanh-toan-tien-trung-quoc-chuyen-tien-trung"
-                }
-              >
-                TOÀN BỘ ĐƠN HÀNG
-              </Link>
+              <Link to={"/dashboard/order/list-orders"}>TOÀN BỘ ĐƠN HÀNG</Link>
             ),
             key: "order:4",
           },

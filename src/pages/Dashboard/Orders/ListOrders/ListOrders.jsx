@@ -1,69 +1,258 @@
-/* eslint-disable react/no-unknown-property */
+/* eslint-disable react/jsx-no-target-blank */
+/* eslint-disable quotes */
+import {
+  Checkbox,
+  Col,
+  Flex,
+  Input,
+  Modal,
+  notification,
+  Row,
+  Space,
+} from "antd";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import useDecodedToken from "../../../../components/UserInfor";
+import { RiDeleteBack2Fill } from "react-icons/ri";
+import { openNotificationWithIcon } from "../../../../components/Nofitication";
+
+import {
+  deleteProductFromCart,
+  getCartDetail,
+  resetState,
+  setBuyProduct,
+} from "../../../../redux/cartSlice/cartSlice";
+import { jwtDecode } from "jwt-decode";
+
+const ProductItem = ({
+  order,
+  index,
+  isCheck,
+  onCheckChange,
+  onQuantityChange,
+}) => {
+  const [quantity, setQuantity] = useState(1);
+  const [api, contextHolder] = notification.useNotification();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isDelete } = useSelector((state) => state.carts);
+  const { decodedToken } = useDecodedToken("token");
+  console.log("««««« order »»»»»", order);
+  // useEffect(() => {
+  //   setQuantity(1);
+  // }, [cart]);
+
+  // nếu xoá thành công
+  useEffect(() => {
+    let hasRun = false;
+
+    if (isDelete && !hasRun) {
+      hasRun = true;
+      openNotificationWithIcon("success", "Xoá sản phẩm thành công");
+      dispatch(resetState());
+    }
+  }, [isDelete, dispatch]);
+
+  const handleQuantityChange = (e) => {
+    const newQuantity = e.target.value;
+    setQuantity(newQuantity);
+    onQuantityChange(index, newQuantity);
+  };
+
+  const handleDelete = (value) => {
+    const userInfor = localStorage.getItem("token")
+      ? jwtDecode(localStorage.getItem("token"))
+      : null;
+    setIsModalOpen(false);
+    dispatch(deleteProductFromCart({ userId: userInfor.id, productId: value }));
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+  return (
+    <>
+      {contextHolder}
+      <tbody>
+        <tr>
+          <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+            <Flex justify="center">{order._id}</Flex>
+          </td>
+          <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+            {order.status}
+          </td>
+          <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+            {order.purchaseFee}
+          </td>
+        </tr>
+      </tbody>
+    </>
+  );
+};
 
 const ListOrders = () => {
+  const { carts } = useSelector((state) => state.carts);
+  const { orders } = useSelector((state) => state.orders);
+  const { decodedToken } = useDecodedToken("token");
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const check = async () => {
+      if (decodedToken) {
+        dispatch(getCartDetail({ userId: decodedToken.id }));
+        dispatch(resetState());
+      }
+    };
+    check();
+  }, [decodedToken]);
+
+  const [checkedStates, setCheckedStates] = useState([]);
+  const [quantities, setQuantities] = useState([]);
+  const [allCheck, setAllCheck] = useState(false);
+  const [totalCheckedPrice, setTotalCheckedPrice] = useState(0);
+  useEffect(() => {
+    if (carts && carts.products) {
+      setCheckedStates(new Array(carts.products.length).fill(false));
+      setQuantities(new Array(carts.products.length).fill(1));
+    }
+  }, [carts]);
+
+  useEffect(() => {
+    if (checkedStates.length > 0) {
+      setAllCheck(checkedStates.every((isChecked) => isChecked));
+    }
+  }, [checkedStates]);
+
+  useEffect(() => {
+    const totalPrice =
+      carts &&
+      carts.products &&
+      carts.products.reduce((acc, cart, index) => {
+        if (checkedStates[index]) {
+          return acc + cart.price * 3625 * quantities[index];
+        }
+        return acc;
+      }, 0);
+    setTotalCheckedPrice(totalPrice);
+  }, [checkedStates, quantities, carts]);
+
+  const handleCheckChange = (index, isChecked) => {
+    const newCheckedStates = [...checkedStates];
+    newCheckedStates[index] = isChecked;
+    setCheckedStates(newCheckedStates);
+  };
+
+  const handleAllCheckChange = () => {
+    const newAllCheck = !allCheck;
+    setAllCheck(newAllCheck);
+    setCheckedStates(new Array(carts.products.length).fill(newAllCheck));
+  };
+
+  const handleQuantityChange = (index, newQuantity) => {
+    const newQuantities = [...quantities];
+    newQuantities[index] = newQuantity;
+    setQuantities(newQuantities);
+  };
+
+  const navigate = useNavigate();
+
+  const handlePlaceOrder = () => {
+    if (!totalCheckedPrice) {
+      // return setIsModalOpen(true);
+      return openNotificationWithIcon("error", "Vui lòng chọn sản phẩm");
+    }
+
+    // Lọc các sản phẩm đã chọn và bao gồm số lượng
+    const selectedProducts = carts.products
+      .map((product, index) => {
+        if (checkedStates[index]) {
+          return {
+            ...product,
+            quantity: quantities[index], // Thêm số lượng
+          };
+        }
+        return null;
+      })
+      .filter((product) => product !== null); // Lọc các sản phẩm không được chọn
+
+    dispatch(setBuyProduct(selectedProducts));
+    navigate("/dashboard/cart/step2");
+  };
+
   return (
-    <div className="col-sm-9">
-      <div className="cart-by-page">
-        <div className="titles">
-          <h2 className="page-title">
-                Danh sách đơn hàng
-          </h2>
-        </div>
-
-        <div className="filter">
-          <form className="form-horizontal" method="get">
-				Mã đơn hàng : <input className="custom_input" type="text" name="filter_id" value="" fdprocessedid="v6luf" />
-				Chú thích : <input className="custom_input" type="text" name="filter_note_item" value="" fdprocessedid="168w66" />
-			Từ ngày : <input className="pickdate_from custom_input hasDatepicker" type="text" id="datepicker_from" name="filter_startdate_create_date" value="" fdprocessedid="cngyu6" />
-				Đến ngày : <input className="pickdate_to custom_input hasDatepicker" type="text" id="datepicker_to" name="filter_enddate_create_date" value="" fdprocessedid="hm84bi" />
-            <br/>
-            <div className="space10"></div>
-				Kho nhận hàng :
-            <select name="filter_store" className="custom_input" fdprocessedid="u7hhf">
-              <option value="">Chọn kho</option>
-              <option value="0">Hà Nội</option>
-              <option value="2">Đà Nẵng</option>
-              <option value="1">Sài gòn</option>
-              <option value="3">Quảng Nam</option>
-            </select>
-			Trạng thái đơn hàng :
-            <select name="filter_status" className="custom_input" fdprocessedid="d3177ri">
-              <option value="">Tất cả</option>
-              <option value="1">Chờ đặt cọc</option>
-              <option value="2">Đã đặt cọc</option>
-              <option value="3">Đã mua hàng</option>
-              <option value="3.1">Hàng đã về kho TQ</option>
-              <option value="4">Sẵn sàng giao</option>
-              <option value="5">Đã kết thúc</option>
-              <option value="-1">Đã hủy</option>
-            </select>
-
-            <input className="button custom_flat_button" type="submit" value="Lọc" fdprocessedid="ngst8" />
-          </form>
-          <div className="space10"></div>
-        </div>
-        <div>
-          <div className="table-responsive size_medium">
-            <div className="order_row row_header">
-              <div className="col-md-4">
-                <p>Thông tin đơn hàng</p>
-              </div>
-              <div className="col-md-4">
-                <p>Chi tiết</p>
-              </div>
-              <div className="col-md-4">
-                <p>Thanh toán</p>
-              </div>
-            </div>
+    <>
+      <Row justify="center">
+        <Col xs={20}>
+          <div>
+            <h2>Toàn bộ đơn hàng</h2>
+            <table
+              style={{
+                width: "100%",
+                borderCollapse: "collapse",
+                marginBottom: "1em",
+              }}
+            >
+              <thead>
+                <tr>
+                  <th
+                    style={{
+                      border: "1px solid #ddd",
+                      padding: "8px",
+                      width: "30%",
+                    }}
+                  >
+                    Mã đơn hàng
+                  </th>
+                  <th
+                    style={{
+                      border: "1px solid #ddd",
+                      padding: "8px",
+                      width: "30%",
+                    }}
+                  >
+                    Trạng thái
+                  </th>
+                  <th
+                    style={{
+                      border: "1px solid #ddd",
+                      padding: "8px",
+                      width: "40%",
+                    }}
+                  >
+                    Tổng giá tiền
+                  </th>
+                </tr>
+              </thead>
+              {orders ? (
+                orders.map((order, index) => {
+                  return (
+                    <ProductItem
+                      key={index}
+                      order={order}
+                      index={index}
+                      isCheck={checkedStates[index]}
+                      onCheckChange={handleCheckChange}
+                      onQuantityChange={handleQuantityChange}
+                    />
+                  );
+                })
+              ) : (
+                <span className="green">
+                  Hiện tại không có sản phẩm nào trong giỏ hàng
+                </span>
+              )}
+            </table>
           </div>
+        </Col>
+      </Row>
+    </>
+  );
+};
 
-          <div className="pag">
-          </div>
-          <p><strong>Total: <span className="green">0</span> (Đơn hàng)</strong></p>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-export default ListOrders
+export default ListOrders;
