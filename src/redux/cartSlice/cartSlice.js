@@ -12,6 +12,8 @@ const initialState = {
   isLoading: false,
   error: null,
   buyProduct: [],
+  success: false,
+  isDelete: false,
 };
 
 // Thunk để lấy chi tiết giỏ hàng
@@ -79,6 +81,12 @@ const cartSlice = createSlice({
     setBuyProduct(state, action) {
       state.buyProduct = action.payload;
     },
+    resetState: (state) => {
+      state.error = "";
+      state.success = false;
+      state.isSend = false;
+      state.isDelete = false;
+    },
     // Các reducer đồng bộ nếu cần
   },
   extraReducers: (builder) => {
@@ -87,14 +95,16 @@ const cartSlice = createSlice({
       .addCase(getCartDetail.pending, (state) => {
         state.isLoading = true;
         state.error = null;
+        state.success = false;
       })
       .addCase(getCartDetail.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.success = true;
         state.carts = action.payload;
       })
       .addCase(getCartDetail.rejected, (state, action) => {
-        console.log("««««« action »»»»»", action);
         state.isLoading = false;
+        state.success = false;
         state.error = action.payload;
       });
 
@@ -103,14 +113,17 @@ const cartSlice = createSlice({
       .addCase(addProductToCart.pending, (state) => {
         state.isLoading = true;
         state.error = null;
+        state.success = false;
       })
       .addCase(addProductToCart.fulfilled, (state, action) => {
         state.isLoading = false;
         state.carts.push(action.payload);
+        state.success = true;
       })
       .addCase(addProductToCart.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+        state.success = false;
       });
 
     // Xử lý deleteProductFromCart
@@ -118,14 +131,20 @@ const cartSlice = createSlice({
       .addCase(deleteProductFromCart.pending, (state) => {
         state.isLoading = true;
         state.error = null;
+        state.success = false;
+        state.isDelete = false;
       })
       .addCase(deleteProductFromCart.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.carts = action.payload;
+        state.carts = action.payload.payload;
+        state.success = true;
+        state.isDelete = true;
       })
       .addCase(deleteProductFromCart.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+        state.success = false;
+        state.isDelete = false;
       });
   },
 });
@@ -133,6 +152,7 @@ const cartSlice = createSlice({
 // Export reducer
 
 const { reducer, actions } = cartSlice;
+export const { resetState } = actions;
 export const { setBuyProduct } = actions;
 export default reducer;
 export { getCartDetail, addProductToCart, deleteProductFromCart };

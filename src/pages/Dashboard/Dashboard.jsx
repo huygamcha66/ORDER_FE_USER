@@ -9,18 +9,17 @@ import { useSelector } from "react-redux";
 import CustomerSupport from "../../components/CustomerSupport/CustomerSupport";
 import Footer from "../../components/Footer/Footer";
 import HeaderScreen from "../../components/Header";
-import { Space } from "antd";
+import { Flex, Space } from "antd";
 
 const Dashboard = () => {
   // const user = useSelector(selectCurrentUser);
   return (
     <>
-      <Helmet></Helmet>
-
-      <ExtraHeader />
-      {/* <HeaderScreen /> */}
-      <Outlet />
-      <Footer />
+      <Flex vertical>
+        <ExtraHeader />
+        <Outlet style={{ flex: 1 }} />
+        <Footer />
+      </Flex>
     </>
   );
 };

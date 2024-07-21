@@ -17,13 +17,18 @@ import {
   Row,
   Col,
   Card,
+  Spin,
 } from "antd";
 import { IoLocationOutline } from "react-icons/io5";
 // import "../../../common/common.css";
 import { useCallback, useEffect } from "react";
 import { MESSAGE_TYPE } from "../../../../common";
+import "./index.css";
 import useDecodedToken from "../../../../components/UserInfor";
-import { getCartDetail } from "../../../../redux/cartSlice/cartSlice";
+import {
+  getCartDetail,
+  resetState,
+} from "../../../../redux/cartSlice/cartSlice";
 
 const Profile = () => {
   const [messageApi, contextHolder] = message.useMessage();
@@ -35,8 +40,9 @@ const Profile = () => {
   useEffect(() => {
     if (decodedToken) {
       dispatch(getCartDetail({ userId: decodedToken.id }));
+      dispatch(resetState());
     }
-  }, [decodedToken]);
+  }, [decodedToken, dispatch]);
 
   const onFinish = async (values) => {
     console.log("««««« values »»»»»", {
@@ -47,7 +53,7 @@ const Profile = () => {
   };
 
   return (
-    <div style={{ marginTop: "20px" }}>
+    <div className="profile_wrapper">
       <ConfigProvider
         theme={{
           components: {
@@ -58,10 +64,10 @@ const Profile = () => {
         }}
       >
         {contextHolder}
-        {decodedToken && (
+        {decodedToken ? (
           <Row justify="center">
             <Col span={12}>
-              <Card style={{ margin: "10px 0px" }} title="Thông tin tài khoản">
+              <Card style={{ marginTop: "30px" }} title="Thông tin tài khoản">
                 <Form
                   initialValues={{
                     phoneNumber: decodedToken && decodedToken.phoneNumber,
@@ -170,6 +176,8 @@ const Profile = () => {
               </Card>
             </Col>
           </Row>
+        ) : (
+          <Spin />
         )}
       </ConfigProvider>
     </div>

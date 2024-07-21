@@ -156,7 +156,7 @@ const items = [
 
   {
     label: (
-      <Link style={{ fontWeight: 700 }} to={""}>
+      <Link style={{ fontWeight: 700 }} to={"/bang-gia"}>
         BẢNG GIÁ
       </Link>
     ),
@@ -165,7 +165,7 @@ const items = [
 
   {
     label: (
-      <Link style={{ fontWeight: 700 }} to={""}>
+      <Link style={{ fontWeight: 700 }} to={"/dashboard/chuyen-khoan"}>
         THÔNG TIN THANH TOÁN
       </Link>
     ),

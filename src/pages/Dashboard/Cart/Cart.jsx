@@ -6,11 +6,14 @@ import { useNavigate } from "react-router-dom";
 import {
   deleteProductFromCart,
   getCartDetail,
+  resetState,
   setBuyProduct,
 } from "../../../redux/cartSlice/cartSlice";
 import { jwtDecode } from "jwt-decode";
-import { Checkbox, Col, Flex, Row } from "antd";
+import { Checkbox, Col, Flex, Input, Modal, notification, Row } from "antd";
 import useDecodedToken from "../../../components/UserInfor";
+import { RiDeleteBack2Fill } from "react-icons/ri";
+import { openNotificationWithIcon } from "../../../components/Nofitication";
 
 const ProductItem = ({
   cart,
@@ -20,11 +23,26 @@ const ProductItem = ({
   onQuantityChange,
 }) => {
   const [quantity, setQuantity] = useState(1);
+  const [api, contextHolder] = notification.useNotification();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { isDelete } = useSelector((state) => state.carts);
+  const { decodedToken } = useDecodedToken("token");
+
+  // useEffect(() => {
+  //   setQuantity(1);
+  // }, [cart]);
+
+  // nếu xoá thành công
   useEffect(() => {
-    setQuantity(1); // Reset quantity on mount
-  }, [cart]);
+    let hasRun = false;
+
+    if (isDelete && !hasRun) {
+      hasRun = true;
+      openNotificationWithIcon("success", "Xoá sản phẩm thành công");
+      dispatch(resetState());
+    }
+  }, [isDelete, dispatch]);
 
   const handleQuantityChange = (e) => {
     const newQuantity = e.target.value;
@@ -32,32 +50,27 @@ const ProductItem = ({
     onQuantityChange(index, newQuantity);
   };
 
-  // const handleDetele = (value) => {
-  //   const userInfor = localStorage.getItem("token")
-  //     ? jwtDecode(localStorage.getItem("token"))
-  //     : null;
-  //   const result = confirm("bạn có muốn xoá không");
-  //   if (result) {
-  //     console.log("««««« value »»»»»", value);
-  //     dispatch(
-  //       deleteProductFromCart({ userId: userInfor._id, productId: value })
-  //     );
-  //   }
-  // };
   const handleDelete = (value) => {
     const userInfor = localStorage.getItem("token")
       ? jwtDecode(localStorage.getItem("token"))
       : null;
-    const result = confirm("bạn có muốn xoá không");
-    if (result) {
-      dispatch(
-        deleteProductFromCart({ userId: userInfor.id, productId: value })
-      );
-    }
+    setIsModalOpen(false);
+    dispatch(deleteProductFromCart({ userId: userInfor.id, productId: value }));
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+  console.log("««««« 999 »»»»»", 999);
   return (
     <>
+      {contextHolder}
       <tbody>
         <tr>
           <td style={{ border: "1px solid #ddd", padding: "8px" }}>
@@ -86,12 +99,11 @@ const ProductItem = ({
             </div>
           </td>
           <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-            <input
+            <Input
               type="number"
               value={quantity}
               min={1}
               onChange={handleQuantityChange}
-              style={{ width: "50px" }}
             />
           </td>
           <td style={{ border: "1px solid #ddd", padding: "8px" }}>
@@ -160,12 +172,40 @@ const ProductItem = ({
             </div>
           </td>
           <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-            <button
-              onClick={() => handleDelete(cart.productId)}
-              style={{ background: "none", border: "none", color: "red" }}
-            >
-              <i className="fas fa-trash-alt"></i> Xóa sản phẩm
-            </button>
+            <Flex justify="center">
+              <button
+                onClick={showModal}
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "red",
+                  cursor: "pointer",
+                }}
+              >
+                <RiDeleteBack2Fill style={{ width: "20px", height: "20px" }} />
+              </button>
+              <Modal
+                title="Bạn muốn xoá sản phẩm này chứ?"
+                open={isModalOpen}
+                onOk={() => handleDelete(cart.productId)}
+                onCancel={handleCancel}
+                cancelButtonProps={{
+                  style: {
+                    backgroundColor: "#f5222d",
+                    borderColor: "#f5222d",
+                    color: "#fff",
+                  },
+                }}
+                okButtonProps={{
+                  style: {
+                    backgroundColor: "#ccc",
+                    color: "#000",
+                  },
+                }}
+                okText="Có"
+                cancelText="Không"
+              ></Modal>
+            </Flex>
           </td>
         </tr>
       </tbody>
@@ -177,11 +217,17 @@ const Cart = () => {
   const { carts } = useSelector((state) => state.carts);
   const { decodedToken } = useDecodedToken("token");
   const dispatch = useDispatch();
+
   useEffect(() => {
-    if (decodedToken) {
-      dispatch(getCartDetail({ userId: decodedToken.id }));
-    }
+    const check = async () => {
+      if (decodedToken) {
+        dispatch(getCartDetail({ userId: decodedToken.id }));
+        dispatch(resetState());
+      }
+    };
+    check();
   }, [decodedToken]);
+
   const [checkedStates, setCheckedStates] = useState([]);
   const [quantities, setQuantities] = useState([]);
   const [allCheck, setAllCheck] = useState(false);
@@ -230,7 +276,9 @@ const Cart = () => {
     newQuantities[index] = newQuantity;
     setQuantities(newQuantities);
   };
+
   const navigate = useNavigate();
+
   const handlePlaceOrder = () => {
     // Lọc các sản phẩm đã chọn và bao gồm số lượng
     const selectedProducts = carts.products
@@ -276,7 +324,7 @@ const Cart = () => {
                       style={{
                         border: "1px solid #ddd",
                         padding: "8px",
-                        width: "5%",
+                        width: "10%",
                       }}
                     >
                       Chọn mua
@@ -330,10 +378,10 @@ const Cart = () => {
                       style={{
                         border: "1px solid #ddd",
                         padding: "8px",
-                        width: "10%",
+                        width: "5%",
                       }}
                     >
-                      Hành động
+                      Xoá
                     </th>
                   </tr>
                 </thead>
@@ -401,6 +449,7 @@ const Cart = () => {
                   border: "none",
                   color: "#fff",
                   padding: "10px",
+                  borderRadius: "10%",
                 }}
               >
                 Đặt hàng ngay

@@ -2,6 +2,23 @@
   /* position: sticky;; */
   bottom: 0;
   width: 100%;
-  background: #fb5731;
+  background: #fbfbfb;
   z-index: 99;
 }
+.footer_header{
+  color: #657384;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.header_color_item{
+  color: #0000EE;
+  line-height: 22px;
+
+}
+.header_color_item:hover{
+  color: #EE0000;
+}
+
