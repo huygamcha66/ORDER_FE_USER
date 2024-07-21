@@ -1,0 +1,10 @@
+.btn_step_1 {
+    background-color: #fb5731;
+    color: #fff;
+    cursor: pointer;
+    border: 0px;
+    border-radius: 5px;
+}
+.wrapper_buy_step_1 {
+    margin: 20px 0px;
+}

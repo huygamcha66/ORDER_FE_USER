@@ -188,6 +188,7 @@ const ExtraHeader = () => {
   const { success, user, error, isLoading, isActive } = useSelector(
     (state) => state.users
   );
+  const { carts } = useSelector((state) => state.carts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -254,7 +255,10 @@ const ExtraHeader = () => {
                       </Space>
                     </Flex>
                     <Flex align="center" className="custommlr">
-                      <LuShoppingCart className="icon primary_color" />
+                      <LuShoppingCart className="icon primary_color quantity_cart" />
+                      <Space className="quantity_cart_children">
+                        {carts && carts.products && carts.products.length}
+                      </Space>
                       <Link className="custompl primary_color" to={"cart"}>
                         Giỏ hàng
                       </Link>

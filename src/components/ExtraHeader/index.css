@@ -10,3 +10,14 @@
 .wrapper_extraHeader {
     background: #fb5731;
 }
+.quantity_cart{
+    position: relative;
+}
+.quantity_cart_children {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #fff;
+}
