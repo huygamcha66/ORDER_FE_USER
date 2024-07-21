@@ -35,9 +35,10 @@ export const getOrderList = createAsyncThunk(
   "order/getOrderList",
   async (userId, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_ROOT}/api/v1.0/order`, {
-        params: { userId },
-      });
+      const response = await axios.post(
+        `${API_ROOT}/api/v1.0/orders/me`,
+        userId
+      );
       return response.data.payload;
     } catch (error) {
       if (error.response && error.response.data) {
@@ -83,10 +84,12 @@ const orderSlice = createSlice({
         state.error = null;
       })
       .addCase(getOrderList.fulfilled, (state, action) => {
+        // console.log("««««« actions »»»»»", actions);
         state.isLoading = false;
         state.orders = action.payload;
       })
       .addCase(getOrderList.rejected, (state, action) => {
+        console.log("««««« action »»»»»", action);
         state.isLoading = false;
         state.error = action.payload;
       });

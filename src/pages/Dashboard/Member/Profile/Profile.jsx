@@ -29,6 +29,7 @@ import {
   getCartDetail,
   resetState,
 } from "../../../../redux/cartSlice/cartSlice";
+import { getOrderList } from "../../../../redux/orderSlice/orderSlice";
 
 const Profile = () => {
   const [messageApi, contextHolder] = message.useMessage();
@@ -40,6 +41,7 @@ const Profile = () => {
   useEffect(() => {
     if (decodedToken) {
       dispatch(getCartDetail({ userId: decodedToken.id }));
+      dispatch(getOrderList({ userId: decodedToken.id }));
       dispatch(resetState());
     }
   }, [decodedToken, dispatch]);
