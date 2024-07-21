@@ -121,10 +121,7 @@ const router = createBrowserRouter([
             path: "/tracking",
             element: <TrackingPage />,
           },
-          {
-            path: "/dat-hang-taobao1688-tmall",
-            element: <PaymentPage />,
-          },
+
           {
             path: "/shop",
             element: <ReputableShop />,
@@ -138,6 +135,10 @@ const router = createBrowserRouter([
           {
             path: "",
             element: <LoginForm />,
+          },
+          {
+            path: "chuyen-khoan",
+            element: <PaymentPage />,
           },
 
           {

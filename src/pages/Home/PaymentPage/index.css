@@ -1,0 +1,3 @@
+.payment_wrapper{
+    min-height: calc(100vh  - 172.5px - 200px);
+}

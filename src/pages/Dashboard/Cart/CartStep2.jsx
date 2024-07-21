@@ -160,7 +160,7 @@ const CartStep2 = () => {
       <Row justify="center">
         <Col xs={20}>
           <div>
-            <div>
+            <div >
               <h2>Giỏ hàng</h2>
               {/* <h2 className="page-title">Giỏ hàng</h2>
                 <div className="container">
