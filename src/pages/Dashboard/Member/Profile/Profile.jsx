@@ -30,18 +30,19 @@ import {
   resetState,
 } from "../../../../redux/cartSlice/cartSlice";
 import { getOrderList } from "../../../../redux/orderSlice/orderSlice";
+import { detailMe } from "../../../../redux/userSlice/userSlice";
 
 const Profile = () => {
   const [messageApi, contextHolder] = message.useMessage();
-  const { carts } = useSelector((state) => state.carts);
+  const { user } = useSelector((state) => state.users);
   const { decodedToken } = useDecodedToken("token");
   const [form] = Form.useForm();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (decodedToken) {
-      dispatch(getCartDetail({ userId: decodedToken.id }));
       dispatch(getOrderList({ userId: decodedToken.id }));
+      dispatch(detailMe({ addressIP: navigator.userAgent }));
       dispatch(resetState());
     }
   }, [decodedToken, dispatch]);
@@ -53,7 +54,7 @@ const Profile = () => {
     });
     // await dispatch(loginUser(values));
   };
-
+  console.log("««««« user »»»»»", user);
   return (
     <div className="profile_wrapper">
       <ConfigProvider
