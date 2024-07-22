@@ -26,6 +26,7 @@ import useDecodedToken from "../../../components/UserInfor";
 import { RiDeleteBack2Fill } from "react-icons/ri";
 import { MdOutlineDelete } from "react-icons/md";
 import { openNotificationWithIcon } from "../../../components/Nofitication";
+import { detailMe } from "../../../redux/userSlice/userSlice";
 
 const ProductItem = ({
   cart,
@@ -223,6 +224,7 @@ const ProductItem = ({
 
 const Cart = () => {
   const { carts } = useSelector((state) => state.carts);
+  const { user } = useSelector((state) => state.users);
   const { decodedToken } = useDecodedToken("token");
   const dispatch = useDispatch();
 
@@ -230,6 +232,7 @@ const Cart = () => {
     const check = async () => {
       if (decodedToken) {
         dispatch(getCartDetail({ userId: decodedToken.id }));
+        dispatch(detailMe({ addressIP: navigator.userAgent }));
         dispatch(resetState());
       }
     };
@@ -287,8 +290,16 @@ const Cart = () => {
   const navigate = useNavigate();
 
   const handlePlaceOrder = () => {
+    if (
+      user &&
+      user.user.accountBalance &&
+      parseInt(user.user.accountBalance.toFixed(0)) <
+        parseInt(totalCheckedPrice.toFixed(0))
+    ) {
+      return setIsModalOpen(true);
+    }
+    // console.log("««««« totalCheckedPrice »»»»»", totalCheckedPrice);
     if (!totalCheckedPrice) {
-      // return setIsModalOpen(true);
       return openNotificationWithIcon("error", "Vui lòng chọn sản phẩm");
     }
 

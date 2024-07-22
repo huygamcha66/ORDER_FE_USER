@@ -21,7 +21,7 @@ import { Col, Row, Space } from "antd";
 import useDecodedToken from "../../../components/UserInfor";
 import { useDispatch } from "react-redux";
 import { getCartDetail } from "../../../redux/cartSlice/cartSlice";
-import { resetState } from "../../../redux/userSlice/userSlice";
+import { detailMe, resetState } from "../../../redux/userSlice/userSlice";
 const HomePage = () => {
   const location = useLocale();
   const { decodedToken } = useDecodedToken("token");
@@ -30,6 +30,8 @@ const HomePage = () => {
     window.scrollTo({ top: 0, left: 0 });
     if (decodedToken) {
       dispatch(getCartDetail({ userId: decodedToken.id }));
+      dispatch(detailMe({ addressIP: navigator.userAgent }));
+
       dispatch(resetState());
     }
   }, [location.pathname, decodedToken]);

@@ -6,8 +6,13 @@ import { API_ROOT } from "../../utils/constants";
 // Trạng thái ban đầu
 const initialState = {
   orders: [],
+  detailOrder: [],
   isLoading: false,
   error: null,
+};
+
+const DEFAULT_PAGINATION = {
+  LIMIT: 10, // Số lượng item mặc định mỗi trang
 };
 
 // Thunk để tạo đơn hàng
@@ -31,15 +36,27 @@ export const createOrder = createAsyncThunk(
 );
 
 // Thunk để lấy danh sách đơn hàng của người dùng
-export const getOrderList = createAsyncThunk(
-  "order/getOrderList",
-  async (userId, { rejectWithValue }) => {
+export const listOrderMe = createAsyncThunk(
+  "orders/listOrderMe",
+  async (
+    {
+      userId,
+      orderId,
+      status,
+      startDate,
+      endDate,
+      page = 1,
+      pageSize = DEFAULT_PAGINATION.LIMIT,
+    },
+    { rejectWithValue }
+  ) => {
     try {
-      const response = await axios.post(
-        `${API_ROOT}/api/v1.0/orders/me`,
-        userId
+      const params = { page, pageSize, orderId, status, startDate, endDate };
+      const response = await axios.get(
+        `${API_ROOT}/api/v1.0/orders/list/${userId}`,
+        { params }
       );
-      return response.data.payload;
+      return response.data;
     } catch (error) {
       if (error.response && error.response.data) {
         return rejectWithValue(error.response.data);
@@ -97,19 +114,33 @@ const orderSlice = createSlice({
       });
 
     // Xử lý getOrderList
+    // builder
+    //   .addCase(getOrderList.pending, (state) => {
+    //     state.isLoading = true;
+    //     state.error = null;
+    //   })
+    //   .addCase(getOrderList.fulfilled, (state, action) => {
+    //     // console.log("««««« actions »»»»»", actions);
+    //     state.isLoading = false;
+    //     state.orders = action.payload;
+    //   })
+    //   .addCase(getOrderList.rejected, (state, action) => {
+    //     console.log("««««« action »»»»»", action);
+    //     state.isLoading = false;
+    //     state.error = action.payload;
+    //   });
     builder
-      .addCase(getOrderList.pending, (state) => {
-        state.isLoading = true;
+      .addCase(listOrderMe.pending, (state) => {
+        state.loading = true;
         state.error = null;
       })
-      .addCase(getOrderList.fulfilled, (state, action) => {
-        // console.log("««««« actions »»»»»", actions);
-        state.isLoading = false;
-        state.orders = action.payload;
+      .addCase(listOrderMe.fulfilled, (state, action) => {
+        state.loading = false;
+        state.orders = action.payload.payload;
+        state.total = action.payload.total;
       })
-      .addCase(getOrderList.rejected, (state, action) => {
-        console.log("««««« action »»»»»", action);
-        state.isLoading = false;
+      .addCase(listOrderMe.rejected, (state, action) => {
+        state.loading = false;
         state.error = action.payload;
       });
 
@@ -122,7 +153,7 @@ const orderSlice = createSlice({
       .addCase(getDetailOrder.fulfilled, (state, action) => {
         console.log("««««« actions »»»»»", actions);
         state.isLoading = false;
-        state.orders = action.payload;
+        state.detailOrder = action.payload;
       })
       .addCase(getDetailOrder.rejected, (state, action) => {
         console.log("««««« action »»»»»", action);

@@ -3,31 +3,18 @@
 import { Col, Flex, notification, Row, Space } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useDecodedToken from "../../../../components/UserInfor";
 import { openNotificationWithIcon } from "../../../../components/Nofitication";
 import { FaEye } from "react-icons/fa";
 
-import {
-  deleteProductFromCart,
-  getCartDetail,
-  resetState,
-  setBuyProduct,
-} from "../../../../redux/cartSlice/cartSlice";
-import { jwtDecode } from "jwt-decode";
-import { getOrderList } from "../../../../redux/orderSlice/orderSlice";
+import { resetState } from "../../../../redux/cartSlice/cartSlice";
+import { listOrderMe } from "../../../../redux/orderSlice/orderSlice";
 
-const ProductItem = ({
-  order,
-  index,
-  isCheck,
-  onCheckChange,
-  onQuantityChange,
-}) => {
+const ProductItem = ({ order }) => {
   const [quantity, setQuantity] = useState(1);
   const [api, contextHolder] = notification.useNotification();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { isDelete } = useSelector((state) => state.carts);
   const { decodedToken } = useDecodedToken("token");
   console.log("««««« order »»»»»", order);
@@ -46,29 +33,8 @@ const ProductItem = ({
     }
   }, [isDelete, dispatch]);
 
-  const handleQuantityChange = (e) => {
-    const newQuantity = e.target.value;
-    setQuantity(newQuantity);
-    onQuantityChange(index, newQuantity);
-  };
-
-  const handleDelete = (value) => {
-    const userInfor = localStorage.getItem("token")
-      ? jwtDecode(localStorage.getItem("token"))
-      : null;
-    setIsModalOpen(false);
-    dispatch(deleteProductFromCart({ userId: userInfor.id, productId: value }));
-  };
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
   return (
     <>
       {contextHolder}
@@ -105,7 +71,7 @@ const ProductItem = ({
           <td style={{ border: "1px solid #ddd", padding: "8px" }}>
             <Flex justify="center">
               <Link to={`/order/list-orders/${order._id}`}>
-                <FaEye />
+                <FaEye style={{ color: "#fb5731" }} />
               </Link>
             </Flex>
           </td>
@@ -123,7 +89,7 @@ const ListOrders = () => {
   useEffect(() => {
     const check = async () => {
       if (decodedToken) {
-        dispatch(getOrderList({ userId: decodedToken.id }));
+        dispatch(listOrderMe({ userId: decodedToken.id }));
         dispatch(resetState());
       }
     };
@@ -170,31 +136,6 @@ const ListOrders = () => {
     const newQuantities = [...quantities];
     newQuantities[index] = newQuantity;
     setQuantities(newQuantities);
-  };
-
-  const navigate = useNavigate();
-
-  const handlePlaceOrder = () => {
-    if (!totalCheckedPrice) {
-      // return setIsModalOpen(true);
-      return openNotificationWithIcon("error", "Vui lòng chọn sản phẩm");
-    }
-
-    // Lọc các sản phẩm đã chọn và bao gồm số lượng
-    const selectedProducts = carts.products
-      .map((product, index) => {
-        if (checkedStates[index]) {
-          return {
-            ...product,
-            quantity: quantities[index], // Thêm số lượng
-          };
-        }
-        return null;
-      })
-      .filter((product) => product !== null); // Lọc các sản phẩm không được chọn
-
-    dispatch(setBuyProduct(selectedProducts));
-    navigate("/cart/step2");
   };
 
   return (

@@ -42,6 +42,7 @@ import ConverTxt from "../pages/tuetc/converttxt/ConvertTxt";
 import FillterExcel from "../pages/tuetc/fillterFile/FillterExcel";
 import ResetForm from "../pages/Dashboard/Auth/ResetForm";
 import CartStep2 from "../pages/Dashboard/Cart/CartStep2";
+import DetailOrder from "../pages/Dashboard/Orders/DetailOrder";
 
 const ProtectedRoute = () => {
   const userInfor =
@@ -153,7 +154,7 @@ const router = createBrowserRouter([
                       },
                       {
                         path: "list-orders/:id",
-                        element: <ListOrders />,
+                        element: <DetailOrder />,
                       },
                       {
                         path: "add-orders",
