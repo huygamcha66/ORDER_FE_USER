@@ -20,7 +20,11 @@ import { PiMathOperations } from "react-icons/pi";
 import { AiOutlineLogout } from "react-icons/ai";
 import { SlUserFollowing } from "react-icons/sl";
 import "./index.css";
-import { logoutUser, resetState } from "../../redux/userSlice/userSlice";
+import {
+  detailMe,
+  logoutUser,
+  resetState,
+} from "../../redux/userSlice/userSlice";
 import useDecodedToken from "../UserInfor";
 import { useEffect } from "react";
 import { IoIosLogIn } from "react-icons/io";
@@ -167,7 +171,7 @@ const items = [
 const ExtraHeader = () => {
   // const user = useSelector(selectCurrentUser);
   const { decodedToken, errorToken } = useDecodedToken("token");
-  const { success } = useSelector((state) => state.users);
+  const { success, user } = useSelector((state) => state.users);
   const { carts } = useSelector((state) => state.carts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -175,7 +179,7 @@ const ExtraHeader = () => {
   const confirm = (e) => {
     dispatch(logoutUser(decodedToken.id));
   };
-
+  console.log("««««« user »»»»»", user);
   useEffect(() => {
     if (success) {
       navigate("/login");
@@ -183,6 +187,12 @@ const ExtraHeader = () => {
       dispatch(resetState());
     }
   }, [success]);
+
+  // useEffect(() => {
+  //   if (decodedToken) {
+  //     dispatch(resetState());
+  //   }
+  // }, [decodedToken, dispatch]);
 
   return (
     <ConfigProvider
@@ -228,7 +238,10 @@ const ExtraHeader = () => {
                     </Flex>
                     <Flex align="center" className="custommlr">
                       <IoPricetagsOutline className="icon primary_color" />
-                      <Space className="custompl primary_color">Số dư:</Space>
+                      <div className="custompl primary_color">
+                        Số dư:{" "}
+                        {user && user.user ? user.user.accountBalance : 0} đ
+                      </div>
                     </Flex>
 
                     <Flex align="center" className="custommlr">

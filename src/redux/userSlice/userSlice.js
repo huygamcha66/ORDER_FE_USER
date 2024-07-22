@@ -19,7 +19,7 @@ const detailMe = createAsyncThunk(
   async (addressIP, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${API_ROOT}/api/v1.0/user/detailMe`,
+        `${API_ROOT}/api/v1.0/auth/detail-me`,
         addressIP
       );
       return response.data;

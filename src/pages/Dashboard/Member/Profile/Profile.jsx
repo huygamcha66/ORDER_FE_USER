@@ -2,9 +2,7 @@
 /* eslint-disable quotes */
 /* eslint-disable no-console */
 /* eslint-disable react/no-unknown-property */
-import { LockOutlined, PhoneOutlined, MailOutlined } from "@ant-design/icons";
-import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { PhoneOutlined, MailOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 // import { registerUser, resetState } from "../../../redux/userSlice/userSlice";
 import {
@@ -13,7 +11,6 @@ import {
   Input,
   message,
   Form,
-  Select,
   Row,
   Col,
   Card,
@@ -21,15 +18,10 @@ import {
 } from "antd";
 import { IoLocationOutline } from "react-icons/io5";
 // import "../../../common/common.css";
-import { useCallback, useEffect } from "react";
-import { MESSAGE_TYPE } from "../../../../common";
+import { useEffect } from "react";
 import "./index.css";
 import useDecodedToken from "../../../../components/UserInfor";
-import {
-  getCartDetail,
-  resetState,
-} from "../../../../redux/cartSlice/cartSlice";
-import { getOrderList } from "../../../../redux/orderSlice/orderSlice";
+import { resetState } from "../../../../redux/cartSlice/cartSlice";
 import { detailMe } from "../../../../redux/userSlice/userSlice";
 
 const Profile = () => {
@@ -41,7 +33,6 @@ const Profile = () => {
 
   useEffect(() => {
     if (decodedToken) {
-      dispatch(getOrderList({ userId: decodedToken.id }));
       dispatch(detailMe({ addressIP: navigator.userAgent }));
       dispatch(resetState());
     }
