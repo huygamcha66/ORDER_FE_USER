@@ -18,22 +18,22 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Col, Row, Space } from "antd";
+import useDecodedToken from "../../../components/UserInfor";
+import { useDispatch } from "react-redux";
+import { getCartDetail } from "../../../redux/cartSlice/cartSlice";
+import { resetState } from "../../../redux/userSlice/userSlice";
 const HomePage = () => {
   const location = useLocale();
+  const { decodedToken } = useDecodedToken("token");
+  const dispatch = useDispatch();
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0 });
-  }, [location.pathname]);
-  console.log(
-    "«««««  navigator.language || navigator.userLanguage;  »»»»»",
-    navigator.language || navigator.userLanguage
-  );
-  console.log("««««« navigator.platform »»»»»", navigator.platform);
-  console.log(
-    "««««« `${window.screen.width}x${window.screen.height}` »»»»»",
-    `${window.screen.width}x${window.screen.height}`
-  );
-  console.log("««««« navigator.appVersion »»»»»", navigator.appVersion);
-  console.log("««««« navigator »»»»»", navigator);
+    if (decodedToken) {
+      dispatch(getCartDetail({ userId: decodedToken.id }));
+      dispatch(resetState());
+    }
+  }, [location.pathname, decodedToken]);
+
   return (
     <Row justify="center">
       <Col xs={24} lg={20}>

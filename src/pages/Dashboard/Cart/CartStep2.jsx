@@ -142,21 +142,23 @@ const CartStep2 = () => {
               </table>
             </div>
           </div>
-          <Flex justify="space-between" className="wrapper_buy_step_1">
-            <Space>
-              <Space> Tổng tiền cọc (70%):</Space>
-              <span style={{ color: "red" }}>
-                {totalCheckedPrice &&
-                  parseInt(totalCheckedDeposit.toFixed(0)).toLocaleString(
-                    "vi-VN"
-                  )}
-                đ
-              </span>
-            </Space>
-            <button onClick={handleSubmit} className="btn_step_1">
-              <Space style={{ padding: "5px" }}> Gửi đơn</Space>
-            </button>
-          </Flex>
+          {buyProduct && buyProduct.length > 0 && (
+            <Flex justify="space-between" className="wrapper_buy_step_1">
+              <Space>
+                <Space> Tổng tiền cọc (70%):</Space>
+                <span style={{ color: "red" }}>
+                  {totalCheckedPrice &&
+                    parseInt(totalCheckedDeposit.toFixed(0)).toLocaleString(
+                      "vi-VN"
+                    )}
+                  đ
+                </span>
+              </Space>
+              <button onClick={handleSubmit} className="btn_step_1">
+                <Space style={{ padding: "5px" }}> Gửi đơn</Space>
+              </button>
+            </Flex>
+          )}
         </Col>
       </Row>
     </>

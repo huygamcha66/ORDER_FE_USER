@@ -24,6 +24,7 @@ import { logoutUser, resetState } from "../../redux/userSlice/userSlice";
 import useDecodedToken from "../UserInfor";
 import { useEffect } from "react";
 import { IoIosLogIn } from "react-icons/io";
+import { getCartDetail } from "../../redux/cartSlice/cartSlice";
 const items = [
   {
     label: (
@@ -170,7 +171,7 @@ const ExtraHeader = () => {
   const { carts } = useSelector((state) => state.carts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log("««««« carts.length »»»»»", carts.length);
+
   const confirm = (e) => {
     dispatch(logoutUser(decodedToken.id));
   };

@@ -13,6 +13,25 @@ const initialState = {
   error: "",
   user: {},
 };
+// Thunk để lấy thông tin chi tiết của người dùng dựa trên addressIP
+const detailMe = createAsyncThunk(
+  "user/detailMe",
+  async (addressIP, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${API_ROOT}/api/v1.0/user/detailMe`,
+        addressIP
+      );
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      } else {
+        throw error;
+      }
+    }
+  }
+);
 
 const registerUser = createAsyncThunk(
   "user/registerUser",
@@ -285,6 +304,22 @@ export const userSlice = createSlice({
     builder.addCase(sendLinkActiveUser.fulfilled, (state, action) => {
       state.isActive = true;
     });
+
+    // get detail me
+    builder
+      .addCase(detailMe.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(detailMe.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(detailMe.rejected, (state, action) => {
+        console.log("««««« action »»»»»", action);
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 
@@ -298,6 +333,7 @@ export {
   changePasswordUser,
   sendLinkActiveUser,
   logoutUser,
+  detailMe,
 };
 // export const { login, logout } = userSlice.actions;
 // // Selectors: Là nơi dành cho các components bên dưới gọi bằng hook useSelector() để lấy dữ liệu từ trong kho redux store ra sử dụng
