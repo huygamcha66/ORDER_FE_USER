@@ -235,7 +235,7 @@ const PriceList = () => {
     >
       <Row justify="center">
         <Col xs={24} lg={20}>
-          <div style={{ marginTop: "180px  " }}>
+          <div>
             <h2>
               <span style={{ color: "#555555", fontSize: "14.4px" }}></span>
             </h2>

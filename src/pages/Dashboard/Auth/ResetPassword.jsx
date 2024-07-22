@@ -23,7 +23,7 @@ const ResetPassword = () => {
   const navigate = useNavigate();
 
   return (
-    <Row style={{ marginTop: "180px" }} justify="center">
+    <Row justify="center">
       <Col xs={24} lg={20}>
         LIÊN HỆ ĐẾN SỐ HOTLINE: 0703414501 ĐỂ LẤY LẠI MẬT KHẨU.
       </Col>

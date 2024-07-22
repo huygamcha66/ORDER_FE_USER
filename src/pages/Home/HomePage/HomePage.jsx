@@ -37,7 +37,7 @@ const HomePage = () => {
   return (
     <Row justify="center">
       <Col xs={24} lg={20}>
-        <div style={{ marginTop: "180px" }}>
+        <div>
           <div>
             <a
               href="https://chrome.google.com/webstore/detail/tool-order-h%C3%A0ng-qu%E1%BA%A3ng-ch%C3%A2/hgiaoallflpjbfaheamijjllodfacmlb?authuser=4&amp;fbclid=IwAR2i1KlcQh5scVfTFKx1ZwAu_iNDtUe0qzJqyKKfu4jutXH1fszwBk3NF-8"

@@ -40,7 +40,8 @@ const LoginForm = () => {
     }
     if (success) {
       dispatch(resetState());
-      navigate("/dashboard/member/profile");
+      navigate("/");
+      window.location.reload();
     }
     if (JSON.stringify(user.token))
       localStorage.setItem("token", JSON.stringify(user.token));
@@ -52,97 +53,95 @@ const LoginForm = () => {
     dispatch(loginUser({ ...values, addressIP: addressIP }));
   };
   return (
-    <div style={{ marginTop: "150px" }}>
-      <ConfigProvider
-        theme={{
-          components: {
-            Message: {
-              zIndexPopup: 99999,
-            },
+    <ConfigProvider
+      theme={{
+        components: {
+          Message: {
+            zIndexPopup: 99999,
           },
-        }}
-      >
-        {contextHolder}
+        },
+      }}
+    >
+      {contextHolder}
 
-        <Row justify="center">
-          <Col span={12}>
-            <Card style={{ margin: "10px 0px" }} title="Đăng nhập">
-              <Form
-                name="normal_login"
-                className="login-form"
-                initialValues={{ remember: true }}
-                onFinish={onFinish}
-                labelCol={{ span: 6 }}
-                wrapperCol={{ span: 16 }}
+      <Row justify="center">
+        <Col span={12}>
+          <Card style={{ margin: "10px 0px" }} title="Đăng nhập">
+            <Form
+              name="normal_login"
+              className="login-form"
+              initialValues={{ remember: true }}
+              onFinish={onFinish}
+              labelCol={{ span: 6 }}
+              wrapperCol={{ span: 16 }}
+            >
+              <Form.Item
+                label="Email"
+                name="userName"
+                rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng nhập email hoặc username",
+                  },
+                ]}
+                style={{ marginBottom: "30px" }}
               >
-                <Form.Item
-                  label="Email"
-                  name="userName"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Vui lòng nhập email hoặc username",
-                    },
-                  ]}
-                  style={{ marginBottom: "30px" }}
-                >
-                  <Input
-                    prefix={<MailOutlined className="site-form-item-icon" />}
-                    placeholder="Email"
-                  />
-                </Form.Item>
-                <Form.Item
-                  label="Mật khẩu"
-                  name="password"
-                  rules={[
-                    { required: true, message: "Vui lòng điền mật khẩu" },
-                    { min: 6, message: "Mật khẩu lớn hơn 6 kí tự" },
-                  ]}
-                  style={{ marginBottom: "30px" }}
-                >
-                  <Input.Password
-                    allowClear
-                    prefix={<LockOutlined className="site-form-item-icon" />}
-                    type="password"
-                    placeholder="Password"
-                  />
-                </Form.Item>
-                <Form.Item
-                  wrapperCol={{ xs: 16, offset: 6 }}
-                  style={{ marginBottom: "10px" }}
-                >
-                  <Link style={{ color: "red" }} to={"/reset-password"}>
-                    Lấy lại mật khẩu
-                  </Link>
-                </Form.Item>
+                <Input
+                  prefix={<MailOutlined className="site-form-item-icon" />}
+                  placeholder="Email"
+                />
+              </Form.Item>
+              <Form.Item
+                label="Mật khẩu"
+                name="password"
+                rules={[
+                  { required: true, message: "Vui lòng điền mật khẩu" },
+                  { min: 6, message: "Mật khẩu lớn hơn 6 kí tự" },
+                ]}
+                style={{ marginBottom: "30px" }}
+              >
+                <Input.Password
+                  allowClear
+                  prefix={<LockOutlined className="site-form-item-icon" />}
+                  type="password"
+                  placeholder="Password"
+                />
+              </Form.Item>
+              <Form.Item
+                wrapperCol={{ xs: 16, offset: 6 }}
+                style={{ marginBottom: "10px" }}
+              >
+                <Link style={{ color: "red" }} to={"/reset-password"}>
+                  Lấy lại mật khẩu
+                </Link>
+              </Form.Item>
 
-                <Form.Item
-                  wrapperCol={{ xs: 16, offset: 6 }}
-                  style={{ marginBottom: "30px" }}
-                >
-                  <Flex align="center" justify="space-between">
-                    {isLoading ? (
-                      <Spin />
-                    ) : (
-                      <Button
-                        type="primary"
-                        htmlType="submit"
-                        className="login-form-button"
-                      >
-                        Đăng nhập
-                      </Button>
-                    )}
-                    <Link style={{ color: "#1577ff" }} to="/register">
-                      Đăng ký!
-                    </Link>
-                  </Flex>
-                </Form.Item>
-              </Form>
-            </Card>
-          </Col>
-        </Row>
-      </ConfigProvider>
-    </div>
+              <Form.Item
+                wrapperCol={{ xs: 16, offset: 6 }}
+                style={{ marginBottom: "30px" }}
+              >
+                <Flex align="center" justify="space-between">
+                  {isLoading ? (
+                    <Spin />
+                  ) : (
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      className="login-form-button"
+                    >
+                      Đăng nhập
+                    </Button>
+                  )}
+                  <Link style={{ color: "#1577ff" }} to="/register">
+                    Đăng ký!
+                  </Link>
+                </Flex>
+              </Form.Item>
+            </Form>
+          </Card>
+        </Col>
+      </Row>
+    </ConfigProvider>
   );
 };
 

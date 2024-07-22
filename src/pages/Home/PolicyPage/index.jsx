@@ -11,7 +11,7 @@ const PolicyPage = () => {
   return (
     <Row justify="center">
       <Col xs={24} lg={20}>
-        <div style={{ marginTop: "180px" }}>
+        <div>
           <h1>Chính sách bảo mật</h1>
           <p>
             Với mục tiêu tôn trọng và bảo vệ quyền lợi của khách hàng, nhằm đem

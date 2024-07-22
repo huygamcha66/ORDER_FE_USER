@@ -1,21 +1,12 @@
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable quotes */
-import {
-  Checkbox,
-  Col,
-  Flex,
-  Input,
-  Modal,
-  notification,
-  Row,
-  Space,
-} from "antd";
+import { Col, Flex, notification, Row, Space } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useDecodedToken from "../../../../components/UserInfor";
-import { RiDeleteBack2Fill } from "react-icons/ri";
 import { openNotificationWithIcon } from "../../../../components/Nofitication";
+import { FaEye } from "react-icons/fa";
 
 import {
   deleteProductFromCart,
@@ -24,6 +15,7 @@ import {
   setBuyProduct,
 } from "../../../../redux/cartSlice/cartSlice";
 import { jwtDecode } from "jwt-decode";
+import { getOrderList } from "../../../../redux/orderSlice/orderSlice";
 
 const ProductItem = ({
   order,
@@ -86,10 +78,36 @@ const ProductItem = ({
             <Flex justify="center">{order._id}</Flex>
           </td>
           <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-            {order.status}
+            <Flex justify="center"> {order.status === 1 && "Đã mua hàng"}</Flex>
           </td>
           <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-            {order.purchaseFee}
+            <Flex vertical>
+              <Space style={{ padding: "4px 0px" }}>
+                <Space style={{ width: "80px" }}>Tiền hàng:</Space>
+                {parseInt(order.purchaseFee.toFixed(0)).toLocaleString()}(vnđ)
+              </Space>
+              <Space style={{ padding: "4px 0px" }}>
+                <Space style={{ width: "80px" }}>Đã cọc:</Space>
+                {parseInt(
+                  (order.purchaseFee * 0.7).toFixed(0)
+                ).toLocaleString()}
+                (vnđ)
+              </Space>
+              <Space style={{ padding: "4px 0px" }}>
+                <Space style={{ width: "80px" }}>Còn lại:</Space>
+                {parseInt(
+                  (order.purchaseFee * 0.3).toFixed(0)
+                ).toLocaleString()}
+                (vnđ)
+              </Space>
+            </Flex>
+          </td>
+          <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+            <Flex justify="center">
+              <Link to={`/order/list-orders/${order._id}`}>
+                <FaEye />
+              </Link>
+            </Flex>
           </td>
         </tr>
       </tbody>
@@ -105,7 +123,7 @@ const ListOrders = () => {
   useEffect(() => {
     const check = async () => {
       if (decodedToken) {
-        dispatch(getCartDetail({ userId: decodedToken.id }));
+        dispatch(getOrderList({ userId: decodedToken.id }));
         dispatch(resetState());
       }
     };
@@ -148,12 +166,6 @@ const ListOrders = () => {
     setCheckedStates(newCheckedStates);
   };
 
-  const handleAllCheckChange = () => {
-    const newAllCheck = !allCheck;
-    setAllCheck(newAllCheck);
-    setCheckedStates(new Array(carts.products.length).fill(newAllCheck));
-  };
-
   const handleQuantityChange = (index, newQuantity) => {
     const newQuantities = [...quantities];
     newQuantities[index] = newQuantity;
@@ -182,7 +194,7 @@ const ListOrders = () => {
       .filter((product) => product !== null); // Lọc các sản phẩm không được chọn
 
     dispatch(setBuyProduct(selectedProducts));
-    navigate("/dashboard/cart/step2");
+    navigate("/cart/step2");
   };
 
   return (
@@ -222,10 +234,19 @@ const ListOrders = () => {
                     style={{
                       border: "1px solid #ddd",
                       padding: "8px",
-                      width: "40%",
+                      width: "30%",
                     }}
                   >
                     Tổng giá tiền
+                  </th>
+                  <th
+                    style={{
+                      border: "1px solid #ddd",
+                      padding: "8px",
+                      width: "10%",
+                    }}
+                  >
+                    Xem chi tiết
                   </th>
                 </tr>
               </thead>

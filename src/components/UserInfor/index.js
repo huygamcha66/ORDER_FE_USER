@@ -4,7 +4,7 @@ import { jwtDecode } from "jwt-decode";
 
 const useDecodedToken = (tokenKey) => {
   const [decodedToken, setDecodedToken] = useState(null);
-  const [errorToken, setErrorToken] = useState(null);
+  const [errorToken, setErrorToken] = useState(false);
 
   useEffect(() => {
     const getTokenAndDecode = () => {
@@ -12,9 +12,10 @@ const useDecodedToken = (tokenKey) => {
         const token = JSON.parse(localStorage.getItem(tokenKey)); // Lấy token từ local storage
         if (token) {
           const decoded = jwtDecode(token); // Decode token
+          console.log("««««« decoded »»»»»", decoded);
           setDecodedToken(decoded);
         } else {
-          setErrorToken("Token không tồn tại trong local storage");
+          setErrorToken(true);
         }
       } catch (err) {
         setErrorToken("Lỗi khi decode token: " + err.message);
