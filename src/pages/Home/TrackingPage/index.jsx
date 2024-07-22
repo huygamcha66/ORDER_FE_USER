@@ -12,7 +12,7 @@ const TrackingPage = () => {
   return (
     <Row justify="center">
       <Col xs={24} lg={20}>
-        <div style={{ marginTop: "180px", height: "100vh" }}>
+        <div style={{ height: "100vh" }}>
           <div>
             <p>
               <strong>

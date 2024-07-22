@@ -39,69 +39,6 @@ const items = [
     key: "tracking",
   },
 
-  {
-    label: (
-      <Link style={{ fontWeight: 700 }} to={"/bang-gia"}>
-        BẢNG GIÁ
-      </Link>
-    ),
-    key: "SubMenu",
-    children: [
-      {
-        type: "group",
-        children: [
-          {
-            label: (
-              <Link to={"/bang-gia"}>Bảng giá dịch vụ đặt hàng Trung Quốc</Link>
-            ),
-            key: "setting:1",
-          },
-          {
-            label: (
-              <Link to={"/bang-gia-ky-gui-hang"}>
-                Bảng giá ký gửi vận chuyển
-              </Link>
-            ),
-            key: "setting:2",
-          },
-          {
-            label: (
-              <Link
-                to={
-                  "/dich-vu-nap-tien-alipay-thanh-toan-tien-trung-quoc-chuyen-tien-trung"
-                }
-              >
-                Bảng giá dịch vụ chuyển tiền
-              </Link>
-            ),
-            key: "setting:3",
-          },
-        ],
-      },
-    ],
-  },
-
-  {
-    label: (
-      <Link style={{ fontWeight: 700 }} to={"/chinh-sach-bao-mat"}>
-        CHÍNH SÁCH
-      </Link>
-    ),
-    key: "policy",
-  },
-
-  {
-    label: (
-      <Link
-        style={{ fontWeight: 700 }}
-        to={"/huong-dan-mua-hang-tren-taobao-1688"}
-      >
-        HƯỚNG DẪN
-      </Link>
-    ),
-    key: "direction",
-  },
-
   // {
   //   label: (
   //     <Link style={{ fontWeight: 700 }} to={"/category/tin-tuc"}>

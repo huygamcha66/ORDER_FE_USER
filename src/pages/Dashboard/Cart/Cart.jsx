@@ -24,6 +24,7 @@ import {
 } from "antd";
 import useDecodedToken from "../../../components/UserInfor";
 import { RiDeleteBack2Fill } from "react-icons/ri";
+import { MdOutlineDelete } from "react-icons/md";
 import { openNotificationWithIcon } from "../../../components/Nofitication";
 
 const ProductItem = ({
@@ -117,7 +118,10 @@ const ProductItem = ({
             />
           </td>
           <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-            {(cart.price * 3625).toLocaleString("vi-VN")} đ<br />¥{cart.price}
+            {parseInt(cart.price * 3625)
+              .toFixed(0)
+              .toLocaleString("vi-VN")}{" "}
+            đ<br />¥{cart.price.toLocaleString("zh-CN")}
           </td>
           <td
             style={{
@@ -127,54 +131,48 @@ const ProductItem = ({
             }}
           >
             {(cart.price * 3625 * quantity).toLocaleString("vi-VN")} đ
-            <br />¥{cart.price * quantity}
+            <br />¥{(cart.price * quantity).toLocaleString("zh-CN")}
           </td>
           <td style={{ border: "1px solid #ddd", padding: "8px" }}>
             <div>
-              <div style={{ marginBottom: "0.5em" }}>
-                <label>Tiền hàng:</label>
-                <span style={{ marginLeft: "0.5em", fontWeight: "bold" }}>
+              <div style={{ padding: "4px 0px" }}>
+                <Space style={{ width: "90px" }}>Tiền hàng:</Space>
+                <span style={{ fontWeight: "bold" }}>
                   {isCheck
                     ? `${(cart.price * 3625 * quantity).toLocaleString("vi-VN")}
                     đ`
                     : 0}
                 </span>
               </div>
-              <div style={{ marginBottom: "0.5em" }}>
-                <label>Phí tạm tính:</label>
-                <span style={{ marginLeft: "0.5em", fontWeight: "bold" }}>
+              <div style={{ padding: "4px 0px" }}>
+                <Space style={{ width: "90px" }}>Phí tạm tính:</Space>
+                <span style={{ fontWeight: "bold" }}>
                   {isCheck
-                    ? `${(cart.price * 3625 * quantity * 0.03).toLocaleString(
-                        "vi-VN"
-                      )}
+                    ? `${parseInt(
+                        (cart.price * 3625 * quantity * 0.03).toFixed(0)
+                      ).toLocaleString("vi-VN")}
                     đ`
                     : 0}
                 </span>
               </div>
-              <div style={{ marginBottom: "0.5em" }}>
-                <label>Đặt cọc:</label>
-                <span style={{ marginLeft: "0.5em", fontWeight: "bold" }}>
+              <div style={{ padding: "4px 0px" }}>
+                <Space style={{ width: "90px" }}>Đặt cọc:</Space>
+                <span style={{ fontWeight: "bold" }}>
                   {isCheck
-                    ? `${(cart.price * 3625 * quantity * 0.7).toLocaleString(
-                        "vi-VN"
-                      )}
+                    ? `${parseInt(
+                        (cart.price * 3625 * quantity * 0.7).toFixed(0)
+                      ).toLocaleString("vi-VN")}
                     đ`
                     : 0}
                 </span>
               </div>
-              <div
-                style={{
-                  fontWeight: "bold",
-                  color: "red",
-                  marginBottom: "0.5em",
-                }}
-              >
-                <label>Tổng:</label>
-                <span style={{ marginLeft: "0.5em", fontWeight: "bold" }}>
+              <div style={{ padding: "4px 0px" }}>
+                <Space style={{ width: "90px" }}>Tổng:</Space>
+                <span style={{ color: "red", fontWeight: "bold" }}>
                   {isCheck
-                    ? `${(cart.price * 3625 * quantity * 1.03).toLocaleString(
-                        "vi-VN"
-                      )}
+                    ? `${parseInt(
+                        (cart.price * 3625 * quantity * 1.03).toFixed(0)
+                      ).toLocaleString("vi-VN")}
                     đ`
                     : 0}
                 </span>
@@ -192,7 +190,7 @@ const ProductItem = ({
                   cursor: "pointer",
                 }}
               >
-                <RiDeleteBack2Fill style={{ width: "20px", height: "20px" }} />
+                <MdOutlineDelete style={{ width: "20px", height: "20px" }} />
               </button>
               <Modal
                 title="Bạn muốn xoá sản phẩm này chứ?"
@@ -265,7 +263,7 @@ const Cart = () => {
         }
         return acc;
       }, 0);
-    setTotalCheckedPrice(totalPrice);
+    setTotalCheckedPrice(totalPrice * 1.03);
   }, [checkedStates, quantities, carts]);
 
   const handleCheckChange = (index, isChecked) => {
@@ -308,22 +306,24 @@ const Cart = () => {
       .filter((product) => product !== null); // Lọc các sản phẩm không được chọn
 
     dispatch(setBuyProduct(selectedProducts));
-    navigate("/dashboard/cart/step2");
+    navigate("/cart/step2");
+  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
   };
 
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   return (
     <>
       <Row justify="center">
         <Col xs={20}>
           <div>
             <h2>Giỏ hàng</h2>
-            {/* <div className="container">
-                <ul className="progressbar">
-                  <li className="active">Chọn shop</li>
-                  <li>Chọn địa chỉ nhận hàng</li>
-                  <li>Lên đơn</li>
-                </ul>
-              </div> */}
+
             <table
               style={{
                 width: "100%",
@@ -433,20 +433,47 @@ const Cart = () => {
                 <Space>Chọn mua toàn bộ các sản phẩm</Space>
               </label>
               <Space>
-                Tổng tiền hàng:
+                <h4> Tổng tiền hàng:</h4>
                 <span style={{ color: "red" }}>
                   {totalCheckedPrice &&
-                    totalCheckedPrice.toLocaleString("vi-VN")}
+                    parseInt(totalCheckedPrice.toFixed(0)).toLocaleString(
+                      "vi-VN"
+                    )}
                   đ
                 </span>
               </Space>
-              <button
-                className="btn_step_1"
-                onClick={handlePlaceOrder}
-                // disabled={!totalCheckedPrice}
-              >
+              <button className="btn_step_1" onClick={handlePlaceOrder}>
                 Đặt hàng ngay
               </button>
+              <Modal
+                title="Bạn không đủ tiền để mua, hãy liên hệ với chúng tôi để nạp tiền vào ví!"
+                open={isModalOpen}
+                onOk={handleCancel}
+                onCancel={handleCancel}
+                cancelButtonProps={{
+                  style: {
+                    backgroundColor: "#f5222d",
+                    borderColor: "#f5222d",
+                    color: "#fff",
+                  },
+                }}
+                okButtonProps={{
+                  style: {
+                    backgroundColor: "#ccc",
+                    color: "#000",
+                  },
+                }}
+                okText="Có"
+                cancelText="Không"
+                footer={null}
+              >
+                <Flex justify="center">
+                  <Image
+                    width={350}
+                    src="https://pub-50bb58cfabdd4b93abb4e154d0eada9e.r2.dev/zalo.jpg"
+                  />
+                </Flex>
+              </Modal>
             </Flex>
           </div>
         </Col>

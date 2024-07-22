@@ -50,6 +50,25 @@ export const getOrderList = createAsyncThunk(
   }
 );
 
+// thunk để lấy chi tiết từng đơn hàng
+export const getDetailOrder = createAsyncThunk(
+  "/order/getDetailOrder",
+  async (orderId, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `${API_ROOT}/api/v1.0/orders/${orderId}`
+      );
+      return response.data.payload;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      } else {
+        throw error;
+      }
+    }
+  }
+);
+
 // Tạo orderSlice
 const orderSlice = createSlice({
   name: "order",
@@ -89,6 +108,23 @@ const orderSlice = createSlice({
         state.orders = action.payload;
       })
       .addCase(getOrderList.rejected, (state, action) => {
+        console.log("««««« action »»»»»", action);
+        state.isLoading = false;
+        state.error = action.payload;
+      });
+
+    // phần lấy chi tiết đơn hàng
+    builder
+      .addCase(getDetailOrder.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getDetailOrder.fulfilled, (state, action) => {
+        console.log("««««« actions »»»»»", actions);
+        state.isLoading = false;
+        state.orders = action.payload;
+      })
+      .addCase(getDetailOrder.rejected, (state, action) => {
         console.log("««««« action »»»»»", action);
         state.isLoading = false;
         state.error = action.payload;

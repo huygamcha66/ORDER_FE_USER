@@ -238,166 +238,162 @@ const PriceListCon = () => {
     >
       <Row justify="center">
         <Col xs={24} lg={20}>
-          <div style={{ marginTop: "180px" }}>
-            <div>
-              <h1>BẢNG GIÁ KÝ GỬI VẬN CHUYỂN TRUNG QUỐC &#8211; VIỆT NAM</h1>
-              <p>&nbsp;</p>
-              <h3>
-                <em>1.Giá vận chuyển hàng tạp</em>
-              </h3>
-              <Table
-                dataSource={dataSource1}
-                columns={columns}
-                pagination={false}
-              />
-              <Table
-                style={{ marginTop: "30px" }}
-                dataSource={dataSource2}
-                columns={columns2}
-                pagination={false}
-              />
-              <p>&nbsp;</p>
-              <h3>
-                <em>2.Giá vận chuyển hàng lô &gt;100kg (cùng 1 mặt hàng)</em>
-              </h3>
-              <Table
-                style={{ marginTop: "30px" }}
-                dataSource={dataSource3}
-                columns={columns}
-                pagination={false}
-              />
-              <ul>
-                <li>
-                  <em>
-                    Lưu ý: Hàng lô là lô hàng chỉ có một mặt hàng được vận
-                    chuyển về kho Trung tại một thời điểm với tổng cân đơn hàng
-                    &gt; 150kg (Không áp dụng đối với các mặt hàng khó đi như
-                    nước hoa, mỹ phẩm, thực phẩm&#8230; các mặt hàng nhạy cảm,
-                    thuốc lá điện tử, fake….)
-                  </em>
-                </li>
-              </ul>
-              <p>
+          <div>
+            <h1>BẢNG GIÁ KÝ GỬI VẬN CHUYỂN TRUNG QUỐC &#8211; VIỆT NAM</h1>
+            <p>&nbsp;</p>
+            <h3>
+              <em>1.Giá vận chuyển hàng tạp</em>
+            </h3>
+            <Table
+              dataSource={dataSource1}
+              columns={columns}
+              pagination={false}
+            />
+            <Table
+              style={{ marginTop: "30px" }}
+              dataSource={dataSource2}
+              columns={columns2}
+              pagination={false}
+            />
+            <p>&nbsp;</p>
+            <h3>
+              <em>2.Giá vận chuyển hàng lô &gt;100kg (cùng 1 mặt hàng)</em>
+            </h3>
+            <Table
+              style={{ marginTop: "30px" }}
+              dataSource={dataSource3}
+              columns={columns}
+              pagination={false}
+            />
+            <ul>
+              <li>
                 <em>
-                  <strong>
-                    c. Bảng giá vận chuyển hàng nặng &#8211; gọn ( &gt; 300kg)
-                    như ốc vít, đầu khóa, máy khoan, máy bơm, tay nắm cửa&#8230;
-                  </strong>
+                  Lưu ý: Hàng lô là lô hàng chỉ có một mặt hàng được vận chuyển
+                  về kho Trung tại một thời điểm với tổng cân đơn hàng &gt;
+                  150kg (Không áp dụng đối với các mặt hàng khó đi như nước hoa,
+                  mỹ phẩm, thực phẩm&#8230; các mặt hàng nhạy cảm, thuốc lá điện
+                  tử, fake….)
                 </em>
-              </p>
-              <Table
-                style={{ marginTop: "30px" }}
-                dataSource={dataSource4}
-                columns={columns3}
-                pagination={false}
-              />
-              <p>&nbsp;</p>
-              <p>
-                <span style={{ color: "$000000" }}>
-                  <em>
-                    <b>Lưu ý:</b>
-                  </em>
-                </span>
-              </p>
-              <ol type="a">
-                <li style={{ listStyleType: "none" }}>
-                  <ol type="a">
-                    <li>
-                      <span style={{ color: "$000000" }}>
-                        <em>Cân nặng quy đổi</em>
-                      </span>
-                    </li>
-                  </ol>
-                </li>
-              </ol>
-              <div>
-                <div>
-                  <span style={{ color: "$000000" }}>
-                    <em>
-                      &#8211; Mọi mặt hàng đều có cân nặng thực tế và cân nặng
-                      quy đổi.
-                    </em>
-                  </span>
-                </div>
-                <div>
-                  <span style={{ color: "$000000" }}>
-                    <em>
-                      &#8211; Đối với những mặt hàng cồng kềnh thì khối lượng
-                      đơn hàng sẽ được tính bằng công thức quy đổi.
-                    </em>
-                  </span>
-                </div>
-                <div>
-                  <span style={{ color: "$000000" }}>
-                    <em>
-                      &#8211; Khối lượng quy đổi được tính theo công thức:
-                      <b>
-                        Chiều dài * chiều rộng * chiều cao / 6000 = Cân nặng đơn
-                        hàng
-                      </b>
-                    </em>
-                  </span>
-                </div>
-                <div>
-                  <span style={{ color: "$000000" }}>
-                    <em>
-                      &#8211; Cân nặng được áp dụng là mức cân nặng cao hơn của
-                      trọng lượng thực và khối lượng quy đổi.
-                    </em>
-                  </span>
-                </div>
-              </div>
-              <ol type="a">
-                <li style={{ listStyleType: "none" }}>
-                  <ol type="a">
-                    <li>
-                      <span style={{ color: "$000000" }}>
-                        <em>Quy tắc làm tròn</em>
-                      </span>
-                    </li>
-                  </ol>
-                </li>
-              </ol>
-              <div>
-                <div>
-                  <span style={{ color: "$000000" }}>
-                    <em>
-                      &#8211; Order Kiều Nghĩa ko áp dụng làm tròn, cân nặng sẽ
-                      được tính chính xác tới 0.1kg
-                    </em>
-                  </span>
-                </div>
-                <div>
-                  <span style={{ color: "$000000" }}>
-                    <em>
-                      <b>
-                        VD: Đơn hàng có trọng lượng: 0.4kg sẽ tính đúng 0.4kg
-                      </b>
-                    </em>
-                  </span>
-                </div>
-              </div>
-              <ol type="a">
-                <li style={{ listStyleType: "none" }}>
-                  <ol type="a">
-                    <li>
-                      <span style={{ color: "$000000" }}>
-                        <em>Tính giá vận chuyển khi hàng về</em>
-                      </span>
-                    </li>
-                  </ol>
-                </li>
-              </ol>
+              </li>
+            </ul>
+            <p>
+              <em>
+                <strong>
+                  c. Bảng giá vận chuyển hàng nặng &#8211; gọn ( &gt; 300kg) như
+                  ốc vít, đầu khóa, máy khoan, máy bơm, tay nắm cửa&#8230;
+                </strong>
+              </em>
+            </p>
+            <Table
+              style={{ marginTop: "30px" }}
+              dataSource={dataSource4}
+              columns={columns3}
+              pagination={false}
+            />
+            <p>&nbsp;</p>
+            <p>
+              <span style={{ color: "$000000" }}>
+                <em>
+                  <b>Lưu ý:</b>
+                </em>
+              </span>
+            </p>
+            <ol type="a">
+              <li style={{ listStyleType: "none" }}>
+                <ol type="a">
+                  <li>
+                    <span style={{ color: "$000000" }}>
+                      <em>Cân nặng quy đổi</em>
+                    </span>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+            <div>
               <div>
                 <span style={{ color: "$000000" }}>
                   <em>
-                    Khách hàng chú ý, với đơn hàng của quý khách gồm nhiều sản
-                    phẩm, và về làm nhiều đợt thì hàng về tới đâu công ty sẽ
-                    tính phí tới đó. Phí vận chuyển sẽ tính theo số hàng về của
-                    khách trong một thời điểm chứ không tính theo tổng đơn hàng.
+                    &#8211; Mọi mặt hàng đều có cân nặng thực tế và cân nặng quy
+                    đổi.
                   </em>
                 </span>
               </div>
+              <div>
+                <span style={{ color: "$000000" }}>
+                  <em>
+                    &#8211; Đối với những mặt hàng cồng kềnh thì khối lượng đơn
+                    hàng sẽ được tính bằng công thức quy đổi.
+                  </em>
+                </span>
+              </div>
+              <div>
+                <span style={{ color: "$000000" }}>
+                  <em>
+                    &#8211; Khối lượng quy đổi được tính theo công thức:
+                    <b>
+                      Chiều dài * chiều rộng * chiều cao / 6000 = Cân nặng đơn
+                      hàng
+                    </b>
+                  </em>
+                </span>
+              </div>
+              <div>
+                <span style={{ color: "$000000" }}>
+                  <em>
+                    &#8211; Cân nặng được áp dụng là mức cân nặng cao hơn của
+                    trọng lượng thực và khối lượng quy đổi.
+                  </em>
+                </span>
+              </div>
+            </div>
+            <ol type="a">
+              <li style={{ listStyleType: "none" }}>
+                <ol type="a">
+                  <li>
+                    <span style={{ color: "$000000" }}>
+                      <em>Quy tắc làm tròn</em>
+                    </span>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+            <div>
+              <div>
+                <span style={{ color: "$000000" }}>
+                  <em>
+                    &#8211; Order Kiều Nghĩa ko áp dụng làm tròn, cân nặng sẽ
+                    được tính chính xác tới 0.1kg
+                  </em>
+                </span>
+              </div>
+              <div>
+                <span style={{ color: "$000000" }}>
+                  <em>
+                    <b>VD: Đơn hàng có trọng lượng: 0.4kg sẽ tính đúng 0.4kg</b>
+                  </em>
+                </span>
+              </div>
+            </div>
+            <ol type="a">
+              <li style={{ listStyleType: "none" }}>
+                <ol type="a">
+                  <li>
+                    <span style={{ color: "$000000" }}>
+                      <em>Tính giá vận chuyển khi hàng về</em>
+                    </span>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+            <div>
+              <span style={{ color: "$000000" }}>
+                <em>
+                  Khách hàng chú ý, với đơn hàng của quý khách gồm nhiều sản
+                  phẩm, và về làm nhiều đợt thì hàng về tới đâu công ty sẽ tính
+                  phí tới đó. Phí vận chuyển sẽ tính theo số hàng về của khách
+                  trong một thời điểm chứ không tính theo tổng đơn hàng.
+                </em>
+              </span>
             </div>
           </div>
         </Col>

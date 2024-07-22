@@ -16,9 +16,7 @@ const Dashboard = () => {
   return (
     <>
       <Flex vertical>
-        <ExtraHeader />
         <Outlet style={{ flex: 1 }} />
-        <Footer />
       </Flex>
     </>
   );

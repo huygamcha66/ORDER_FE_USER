@@ -13,11 +13,7 @@
 .quantity_cart{
     position: relative;
 }
-.quantity_cart_children {
-    display: block;
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    color: #fff;
+.extra_header_cart:hover {
+    opacity: 0.8;
+    cursor: pointer;
 }
