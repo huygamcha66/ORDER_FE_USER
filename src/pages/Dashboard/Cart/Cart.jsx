@@ -119,10 +119,8 @@ const ProductItem = ({
             />
           </td>
           <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-            {parseInt(cart.price * 3625)
-              .toFixed(0)
-              .toLocaleString("vi-VN")}{" "}
-            đ<br />¥{cart.price.toLocaleString("zh-CN")}
+            {parseInt((cart.price * 3625).toFixed(0)).toLocaleString("vi-VN")} đ
+            <br />¥{cart.price.toLocaleString("zh-CN")}
           </td>
           <td
             style={{
@@ -131,7 +129,10 @@ const ProductItem = ({
               fontWeight: "bolder",
             }}
           >
-            {(cart.price * 3625 * quantity).toLocaleString("vi-VN")} đ
+            {parseInt((cart.price * 3625 * quantity).toFixed(0)).toLocaleString(
+              "vi-VN"
+            )}{" "}
+            đ
             <br />¥{(cart.price * quantity).toLocaleString("zh-CN")}
           </td>
           <td style={{ border: "1px solid #ddd", padding: "8px" }}>
@@ -140,7 +141,7 @@ const ProductItem = ({
                 <Space style={{ width: "90px" }}>Tiền hàng:</Space>
                 <span style={{ fontWeight: "bold" }}>
                   {isCheck
-                    ? `${(cart.price * 3625 * quantity).toLocaleString("vi-VN")}
+                    ? `${parseInt((cart.price * 3625 * quantity).toFixed(0)).toLocaleString("vi-VN")}
                     đ`
                     : 0}
                 </span>
