@@ -30,12 +30,31 @@ const HomePage = () => {
     window.scrollTo({ top: 0, left: 0 });
     if (decodedToken) {
       dispatch(getCartDetail({ userId: decodedToken.id }));
-      dispatch(detailMe({ addressIP: navigator.userAgent }));
+      // dispatch(detailMe({ addressIP: navigator.userAgent }));
 
       dispatch(resetState());
     }
   }, [location.pathname, decodedToken]);
-
+  const getCanvasFingerprint = () => {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    ctx.textBaseline = "top";
+    ctx.font = "14px Arial";
+    ctx.textBaseline = "alphabetic";
+    ctx.fillStyle = "#f60";
+    ctx.fillRect(125, 1, 62, 20);
+    ctx.fillStyle = "#069";
+    ctx.fillText("Hello, world!", 2, 15);
+    ctx.fillStyle = "rgba(102, 204, 0, 0.7)";
+    ctx.fillText("Hello, world!", 4, 17);
+    const dataUrl = canvas.toDataURL();
+    return dataUrl;
+  };
+  const addressIP = navigator.userAgent;
+  console.log(
+    "««««« `${addressIP}&&${getCanvasFingerprint()}` »»»»»",
+    `${addressIP}&&${getCanvasFingerprint()}`
+  );
   return (
     <Row justify="center">
       <Col xs={24} lg={20}>

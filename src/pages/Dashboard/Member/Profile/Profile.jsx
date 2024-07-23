@@ -33,7 +33,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (decodedToken) {
-      dispatch(detailMe({ addressIP: navigator.userAgent }));
+      // dispatch(detailMe({ addressIP: navigator.userAgent }));
       dispatch(resetState());
     }
   }, [decodedToken, dispatch]);

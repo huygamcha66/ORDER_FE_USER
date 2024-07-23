@@ -230,12 +230,12 @@ const ExtraHeader = () => {
             <Row style={{ marginTop: "30px" }}>
               <Col span={24}>
                 <Flex justify="space-between">
-                  <Flex className="primary_color">123</Flex>
+                  <Flex className="primary_color">Logo</Flex>
                   <Flex>
-                    <Flex align="center" className="custommlr">
+                    {/* <Flex align="center" className="custommlr">
                       <PiMathOperations className="icon primary_color" />
                       <Space className="custompl primary_color">Tỉ giá: </Space>
-                    </Flex>
+                    </Flex> */}
                     <Flex align="center" className="custommlr">
                       <IoPricetagsOutline className="icon primary_color" />
                       <div className="custompl primary_color">
