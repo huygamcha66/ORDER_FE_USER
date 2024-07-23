@@ -240,7 +240,12 @@ const ExtraHeader = () => {
                       <IoPricetagsOutline className="icon primary_color" />
                       <div className="custompl primary_color">
                         Số dư:{" "}
-                        {user && user.user ? user.user.accountBalance : 0} đ
+                        {user && user.user
+                          ? parseInt(
+                              user.user.accountBalance.toFixed(0)
+                            ).toLocaleString()
+                          : 0}{" "}
+                        đ
                       </div>
                     </Flex>
 
