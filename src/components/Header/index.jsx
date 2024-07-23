@@ -126,7 +126,7 @@ const HeaderScreen = () => {
               <Row>
                 <Col xs={0} sm={24}>
                   <Flex justify="space-between">
-                    <Flex align="center">
+                    {/* <Flex align="center">
                       <Space>
                         <img
                           className="icon"
@@ -135,7 +135,7 @@ const HeaderScreen = () => {
                         />
                       </Space>
                       <Space> Tỉ giá: : 3625</Space>
-                    </Flex>
+                    </Flex> */}
                     <Flex>
                       <a
                         href="mailto:orderkieunghia@gmail.com"

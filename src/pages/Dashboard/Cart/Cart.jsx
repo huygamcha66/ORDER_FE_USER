@@ -233,7 +233,7 @@ const Cart = () => {
     const check = async () => {
       if (decodedToken) {
         dispatch(getCartDetail({ userId: decodedToken.id }));
-        dispatch(detailMe({ addressIP: navigator.userAgent }));
+        // dispatch(detailMe({ addressIP: navigator.userAgent }));
         dispatch(resetState());
       }
     };

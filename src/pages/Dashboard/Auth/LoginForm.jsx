@@ -24,6 +24,11 @@ import {
 } from "antd";
 import "../../../common/common.css";
 import { openNotificationWithIcon } from "../../../components/Nofitication";
+import {
+  addressIP,
+  getCanvasFingerprint,
+  getWebGLFingerprint,
+} from "../../../common/InforUser";
 
 const LoginForm = () => {
   const [api, contextHolder] = notification.useNotification();
@@ -36,6 +41,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (error) {
+      dispatch(resetState());
       openNotificationWithIcon("error", error);
     }
     if (success) {
@@ -48,9 +54,13 @@ const LoginForm = () => {
   }, [success, error]);
 
   const onFinish = async (values) => {
-    const addressIP = navigator.userAgent;
     // Gọi action loginUser với thông tin đăng nhập và địa chỉ IP
-    dispatch(loginUser({ ...values, addressIP: addressIP }));
+    dispatch(
+      loginUser({
+        ...values,
+        addressIP: `${addressIP}&&${getCanvasFingerprint()}&&${getWebGLFingerprint().renderer}`,
+      })
+    );
   };
   return (
     <ConfigProvider

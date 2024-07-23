@@ -1,15 +1,21 @@
 /* eslint-disable quotes */
 import { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 const useDecodedToken = (tokenKey) => {
   const [decodedToken, setDecodedToken] = useState(null);
   const [errorToken, setErrorToken] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const getTokenAndDecode = () => {
       try {
-        const token = JSON.parse(localStorage.getItem(tokenKey)); // Lấy token từ local storage
+        const token = JSON.parse(localStorage.getItem(tokenKey))
+          ? JSON.parse(localStorage.getItem(tokenKey))
+          : false; // Lấy token từ local storage
+        if (!token) {
+          navigate("/login");
+        }
         if (token) {
           const decoded = jwtDecode(token); // Decode token
           console.log("««««« decoded »»»»»", decoded);

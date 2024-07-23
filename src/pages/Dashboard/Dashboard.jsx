@@ -14,6 +14,11 @@ import { useEffect } from "react";
 import { getCartDetail, resetState } from "../../redux/cartSlice/cartSlice";
 import { detailMe } from "../../redux/userSlice/userSlice";
 import useDecodedToken from "../../components/UserInfor";
+import {
+  addressIP,
+  getCanvasFingerprint,
+  getWebGLFingerprint,
+} from "../../common/InforUser";
 
 const Dashboard = () => {
   // const user = useSelector(selectCurrentUser);
@@ -23,7 +28,12 @@ const Dashboard = () => {
     const check = async () => {
       if (decodedToken) {
         dispatch(getCartDetail({ userId: decodedToken.id }));
-        dispatch(detailMe({ addressIP: navigator.userAgent }));
+        // dispatch(detailMe({ addressIP: navigator.userAgent }));
+        dispatch(
+          detailMe({
+            addressIP: `${addressIP}&&${getCanvasFingerprint()}&&${getWebGLFingerprint().renderer}`,
+          })
+        );
         dispatch(resetState());
       }
     };

@@ -11,6 +11,11 @@ import useDecodedToken from "../../components/UserInfor";
 import { useEffect } from "react";
 import { getCartDetail, resetState } from "../../redux/cartSlice/cartSlice";
 import { detailMe } from "../../redux/userSlice/userSlice";
+import {
+  addressIP,
+  getCanvasFingerprint,
+  getWebGLFingerprint,
+} from "../../common/InforUser";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -19,7 +24,12 @@ const Home = () => {
     const check = async () => {
       if (decodedToken) {
         dispatch(getCartDetail({ userId: decodedToken.id }));
-        dispatch(detailMe({ addressIP: navigator.userAgent }));
+        // dispatch(detailMe({ addressIP: navigator.userAgent }));
+        dispatch(
+          detailMe({
+            addressIP: `${addressIP}&&${getCanvasFingerprint()}&&${getWebGLFingerprint().renderer}`,
+          })
+        );
         dispatch(resetState());
       }
     };
