@@ -16,7 +16,8 @@ import {
   getCanvasFingerprint,
   getWebGLFingerprint,
 } from "../../common/InforUser";
-
+import clsx from "clsx";
+import style from "./Home.module.css";
 const Home = () => {
   const dispatch = useDispatch();
   const { decodedToken } = useDecodedToken("token");
@@ -24,22 +25,22 @@ const Home = () => {
     const check = async () => {
       if (decodedToken) {
         dispatch(getCartDetail({ userId: decodedToken.id }));
-        // dispatch(detailMe({ addressIP: navigator.userAgent }));
         dispatch(
           detailMe({
             addressIP: `${addressIP}&&${getCanvasFingerprint()}&&${getWebGLFingerprint().renderer}`,
           })
         );
-        dispatch(resetState());
+        // dispatch(resetState());
       }
     };
     check();
   }, [decodedToken]);
   return (
-    <div>
-      {/* <HeaderScreen /> */}
-      <ExtraHeader />
-      <Outlet />
+    <div className={clsx(style.page_container)}>
+      <div className={clsx(style.content_wrapper)}>
+        <ExtraHeader />
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );

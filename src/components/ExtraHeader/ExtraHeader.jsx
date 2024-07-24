@@ -1,34 +1,18 @@
 /* eslint-disable quotes */
 /* eslint-disable semi */
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Button,
-  Col,
-  ConfigProvider,
-  Flex,
-  Popconfirm,
-  Row,
-  message,
-  Space,
-} from "antd";
+import { Col, ConfigProvider, Flex, Popconfirm, Row, Space } from "antd";
 import { Menu } from "antd";
 import { FaRegUser } from "react-icons/fa";
 import { LuShoppingCart } from "react-icons/lu";
 import { IoPricetagsOutline } from "react-icons/io5";
-import { PiMathOperations } from "react-icons/pi";
 import { AiOutlineLogout } from "react-icons/ai";
 import { SlUserFollowing } from "react-icons/sl";
 import "./index.css";
-import {
-  detailMe,
-  logoutUser,
-  resetState,
-} from "../../redux/userSlice/userSlice";
+import { logoutUser, resetState } from "../../redux/userSlice/userSlice";
 import useDecodedToken from "../UserInfor";
 import { useEffect } from "react";
-import { IoIosLogIn } from "react-icons/io";
-import { getCartDetail } from "../../redux/cartSlice/cartSlice";
 const items = [
   {
     label: (
@@ -148,10 +132,7 @@ const items = [
 
   {
     label: (
-      <Link
-        style={{ fontWeight: 700 }}
-        to={"/huong-dan-mua-hang-tren-taobao-1688"}
-      >
+      <Link style={{ fontWeight: 700 }} to={"/huong-dan-mua-hang"}>
         HƯỚNG DẪN
       </Link>
     ),
@@ -232,55 +213,50 @@ const ExtraHeader = () => {
                 <Flex justify="space-between">
                   <Flex className="primary_color">Logo</Flex>
                   <Flex>
-                    {/* <Flex align="center" className="custommlr">
-                      <PiMathOperations className="icon primary_color" />
-                      <Space className="custompl primary_color">Tỉ giá: </Space>
-                    </Flex> */}
-                    <Flex align="center" className="custommlr">
-                      <IoPricetagsOutline className="icon primary_color" />
-                      <div className="custompl primary_color">
-                        Số dư:{" "}
-                        {user && user.user
-                          ? parseInt(
-                              user.user.accountBalance.toFixed(0)
-                            ).toLocaleString()
-                          : 0}{" "}
-                        đ
-                      </div>
-                    </Flex>
-
-                    <Flex align="center" className="custommlr">
-                      {/* <Space className="quantity_cart_children">
-                        {carts && carts.products && carts.products.length}
-                      </Space> */}
-                      <Link className="custompl  extra_header_cart" to={"cart"}>
-                        <Flex align="center">
-                          <LuShoppingCart className="icon quantity_cart" />
-                          <span style={{ position: "relative" }}>
-                            <Space
-                              style={{
-                                position: "absolute",
-                                top: -15,
-                                left: -5,
-                                background: "#fff",
-                                padding: "1px 6px",
-                                borderRadius: "30%",
-                                color: "#fb5731",
-                              }}
-                            >
-                              {carts && carts.products
-                                ? carts.products.length
-                                : 0}
-                            </Space>
-                            Giỏ hàng
-                          </span>
-                        </Flex>
-                      </Link>
-                    </Flex>
                     {!errorToken ? (
                       <>
+                        <Flex align="center" className="custommlr">
+                          <IoPricetagsOutline className="icon primary_color" />
+                          <div className="custompl primary_color">
+                            Số dư:{" "}
+                            {user && user.user
+                              ? parseInt(
+                                  user.user.accountBalance.toFixed(0)
+                                ).toLocaleString()
+                              : 0}{" "}
+                            đ
+                          </div>
+                        </Flex>
+
+                        <Flex align="center" className="custommlr">
+                          <Link
+                            className="custompl  extra_header_cart"
+                            to={"cart"}
+                          >
+                            <Flex align="center">
+                              <LuShoppingCart className="icon quantity_cart" />
+                              <span style={{ position: "relative" }}>
+                                <Space
+                                  style={{
+                                    position: "absolute",
+                                    top: -15,
+                                    left: -5,
+                                    background: "#fff",
+                                    padding: "1px 6px",
+                                    borderRadius: "30%",
+                                    color: "#fb5731",
+                                  }}
+                                >
+                                  {carts && carts.products
+                                    ? carts.products.length
+                                    : 0}
+                                </Space>
+                                Giỏ hàng
+                              </span>
+                            </Flex>
+                          </Link>
+                        </Flex>
                         <Link to={"/member/profile"}>
-                          {" "}
                           <Flex
                             align="center"
                             className="custommlr extra_header_cart primary_color"

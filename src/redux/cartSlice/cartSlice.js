@@ -73,6 +73,25 @@ const deleteProductFromCart = createAsyncThunk(
   }
 );
 
+const updateProductFromCart = createAsyncThunk(
+  "cart/updateProductFromCart",
+  async ({ userId, productId, newQuantity, check }, { rejectWithValue }) => {
+    try {
+      const response = await axios.patch(
+        `${API_ROOT}/api/v1.0/cart/update-product`,
+        { userId, productId, newQuantity, check }
+      );
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      } else {
+        throw error;
+      }
+    }
+  }
+);
+
 // Tạo cartSlice
 const cartSlice = createSlice({
   name: "cart",
@@ -127,6 +146,25 @@ const cartSlice = createSlice({
         state.success = false;
       });
 
+    // Xử lý updateProductFromCart
+    builder
+      .addCase(updateProductFromCart.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.success = false;
+      })
+      .addCase(updateProductFromCart.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.carts.push(action.payload);
+        state.success = true;
+      })
+      .addCase(updateProductFromCart.rejected, (state, action) => {
+        console.log("««««« action »»»»»", action);
+        state.isLoading = false;
+        state.error = action.payload;
+        state.success = false;
+      });
+
     // Xử lý deleteProductFromCart
     builder
       .addCase(deleteProductFromCart.pending, (state) => {
@@ -156,4 +194,9 @@ const { reducer, actions } = cartSlice;
 export const { resetState } = actions;
 export const { setBuyProduct } = actions;
 export default reducer;
-export { getCartDetail, addProductToCart, deleteProductFromCart };
+export {
+  getCartDetail,
+  addProductToCart,
+  deleteProductFromCart,
+  updateProductFromCart,
+};
