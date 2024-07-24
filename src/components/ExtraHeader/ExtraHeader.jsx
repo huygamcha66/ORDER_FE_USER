@@ -160,7 +160,7 @@ const ExtraHeader = () => {
   const confirm = (e) => {
     dispatch(logoutUser(decodedToken.id));
   };
-  console.log("««««« user »»»»»", user);
+
   useEffect(() => {
     if (success) {
       navigate("/login");

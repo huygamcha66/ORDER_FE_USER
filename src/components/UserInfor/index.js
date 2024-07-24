@@ -18,7 +18,6 @@ const useDecodedToken = (tokenKey) => {
         }
         if (token) {
           const decoded = jwtDecode(token); // Decode token
-          console.log("««««« decoded »»»»»", decoded);
           setDecodedToken(decoded);
         } else {
           setErrorToken(true);

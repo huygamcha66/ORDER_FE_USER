@@ -2,15 +2,20 @@
 /* eslint-disable quotes */
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { deleteProductFromCart } from "../../../redux/cartSlice/cartSlice";
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+  deleteProductFromCart,
+  getCartDetail,
+} from "../../../redux/cartSlice/cartSlice";
 import { jwtDecode } from "jwt-decode";
 import { createOrder } from "../../../redux/orderSlice/orderSlice";
 import { Col, Flex, Image, Modal, Row, Space } from "antd";
 import "./Cart.css";
 import { openNotificationWithIcon } from "../../../components/Nofitication";
+import useDecodedToken from "../../../components/UserInfor";
 
 const ProductItem = ({ cart }) => {
+  console.log("««««« cart »»»»»", cart);
   return (
     <tbody>
       <tr>
@@ -57,31 +62,59 @@ const ProductItem = ({ cart }) => {
 };
 
 const CartStep2 = () => {
-  const { buyProduct } = useSelector((state) => state.carts);
+  const { carts } = useSelector((state) => state.carts);
   const [totalCheckedPrice, setTotalCheckedPrice] = useState(0);
   const [totalCheckedDeposit, setTotalCheckedDeposit] = useState(0);
+  const { decodedToken } = useDecodedToken("token");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const location = useLocation();
   useEffect(() => {
-    const totalPrice = buyProduct.reduce(
-      (acc, value) =>
-        acc + value.price * 3625 * parseInt(value.quantity) * 1.03,
-      0
-    );
-    const totalDeposit = buyProduct.reduce(
-      (acc, value) => acc + value.price * 3625 * parseInt(value.quantity) * 0.7,
-      0
-    );
+    if (decodedToken) {
+      dispatch(getCartDetail({ userId: decodedToken.id }));
+    }
+  }, [decodedToken, dispatch, location.pathname]);
+  useEffect(() => {
+    console.log("««««« carts.products »»»»»", carts.products);
+    const totalPrice =
+      carts &&
+      carts.products &&
+      carts.products.reduce((acc, value) => {
+        if (value.check)
+          return acc + value.price * 3625 * parseInt(value.quantity) * 1.03;
+      }, 0);
+
+    // Version Old(thiểu return về acc khi không được chọn)
+    // const totalDeposit =
+    //   carts &&
+    //   carts.products &&
+    //   carts.products.reduce((acc, value) => {
+    //     console.log("««««« value »»»»»", value);
+    //     if (value.check) return acc + value.price * 3625 * value.quantity * 0.7;
+    //   }, 0);
+    // improve: đọc comt
+    const totalDeposit =
+      carts &&
+      carts.products &&
+      carts.products.reduce((acc, value) => {
+        if (value.check) {
+          // Tính tiền đặt cọc cho sản phẩm nếu đã chọn
+          return acc + value.price * 3625 * value.quantity * 0.7;
+        }
+        // Nếu sản phẩm không được chọn, trả lại giá trị hiện tại của acc
+        return acc;
+      }, 0);
+    console.log("««««« totalDeposit »»»»»", totalDeposit);
     setTotalCheckedDeposit(totalDeposit);
     setTotalCheckedPrice(totalPrice);
-  }, [buyProduct]);
+  }, [carts]);
+
   const handleSubmit = () => {
     const userInfor = localStorage.getItem("token")
       ? jwtDecode(localStorage.getItem("token"))
       : null;
-    const finalProduct = buyProduct.map((product) => ({
+    const finalProduct = carts.products.map((product) => ({
       ...product,
       properties: "",
     }));
@@ -135,19 +168,23 @@ const CartStep2 = () => {
                     </th>
                   </tr>
                 </thead>
-                {buyProduct &&
-                  buyProduct.map((cart, index) => (
-                    <ProductItem key={index} cart={cart} index={index} />
-                  ))}
+                {carts.products &&
+                  carts.products.map((cart, index) => {
+                    if (cart.check) {
+                      return (
+                        <ProductItem key={index} cart={cart} index={index} />
+                      );
+                    }
+                  })}
               </table>
             </div>
           </div>
-          {buyProduct && buyProduct.length > 0 && (
+          {carts.products && carts.products.length > 0 && (
             <Flex justify="space-between" className="wrapper_buy_step_1">
               <Space>
                 <Space> Tổng tiền cọc (70%):</Space>
                 <span style={{ color: "red" }}>
-                  {totalCheckedPrice &&
+                  {totalCheckedDeposit &&
                     parseInt(totalCheckedDeposit.toFixed(0)).toLocaleString(
                       "vi-VN"
                     )}
