@@ -155,7 +155,8 @@ const cartSlice = createSlice({
       })
       .addCase(updateProductFromCart.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.carts.push(action.payload);
+        state.carts = action.payload;
+        // state.carts.push(action.payload);
         state.success = true;
       })
       .addCase(updateProductFromCart.rejected, (state, action) => {

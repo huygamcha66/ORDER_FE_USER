@@ -2,12 +2,12 @@
 /* eslint-disable quotes */
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   deleteProductFromCart,
   getCartDetail,
   resetState,
-  setBuyProduct,
+  updateProductFromCart,
 } from "../../../redux/cartSlice/cartSlice";
 import { jwtDecode } from "jwt-decode";
 import "./Cart.css";
@@ -23,10 +23,8 @@ import {
   Space,
 } from "antd";
 import useDecodedToken from "../../../components/UserInfor";
-import { RiDeleteBack2Fill } from "react-icons/ri";
 import { MdOutlineDelete } from "react-icons/md";
 import { openNotificationWithIcon } from "../../../components/Nofitication";
-import { detailMe } from "../../../redux/userSlice/userSlice";
 
 const ProductItem = ({
   cart,
@@ -35,7 +33,7 @@ const ProductItem = ({
   onCheckChange,
   onQuantityChange,
 }) => {
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(cart.quantity);
   const [api, contextHolder] = notification.useNotification();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,6 +45,7 @@ const ProductItem = ({
   // }, [cart]);
 
   // nếu xoá thành công
+
   useEffect(() => {
     let hasRun = false;
 
@@ -229,25 +228,23 @@ const Cart = () => {
   const { decodedToken } = useDecodedToken("token");
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const check = async () => {
-      if (decodedToken) {
-        dispatch(getCartDetail({ userId: decodedToken.id }));
-        // dispatch(detailMe({ addressIP: navigator.userAgent }));
-        dispatch(resetState());
-      }
-    };
-    check();
-  }, [decodedToken]);
-
-  const [checkedStates, setCheckedStates] = useState([]);
-  const [quantities, setQuantities] = useState([]);
   const [allCheck, setAllCheck] = useState(false);
   const [totalCheckedPrice, setTotalCheckedPrice] = useState(0);
+  const [checkedStates, setCheckedStates] = useState([]);
+  const [quantities, setQuantities] = useState([]);
+
+  const location = useLocation();
+  useEffect(() => {
+    if (decodedToken) {
+      dispatch(getCartDetail({ userId: decodedToken.id }));
+    }
+  }, [decodedToken, dispatch, location.pathname]);
   useEffect(() => {
     if (carts && carts.products) {
-      setCheckedStates(new Array(carts.products.length).fill(false));
-      setQuantities(new Array(carts.products.length).fill(1));
+      const newCheckedStates = carts.products.map((cart) => cart.check);
+      const newQuantities = carts.products.map((cart) => cart.quantity);
+      setCheckedStates(newCheckedStates);
+      setQuantities(newQuantities);
     }
   }, [carts]);
 
@@ -284,13 +281,13 @@ const Cart = () => {
 
   const handleQuantityChange = (index, newQuantity) => {
     const newQuantities = [...quantities];
-    newQuantities[index] = newQuantity;
+    newQuantities[index] = parseInt(newQuantity);
     setQuantities(newQuantities);
   };
 
   const navigate = useNavigate();
 
-  const handlePlaceOrder = () => {
+  const handlePlaceOrder = async () => {
     if (
       user &&
       user.user.accountBalance &&
@@ -304,21 +301,33 @@ const Cart = () => {
       return openNotificationWithIcon("error", "Vui lòng chọn sản phẩm");
     }
 
-    // Lọc các sản phẩm đã chọn và bao gồm số lượng
-    const selectedProducts = carts.products
-      .map((product, index) => {
-        if (checkedStates[index]) {
-          return {
-            ...product,
-            quantity: quantities[index], // Thêm số lượng
-          };
-        }
-        return null;
-      })
-      .filter((product) => product !== null); // Lọc các sản phẩm không được chọn
+    // improve: dùng unwrap() để sử dụng async await đối với js redux-thunk
+    // sử dụng trycatch để bắt lỗi
+    const updateCartProducts = async () => {
+      try {
+        // Tạo một mảng các promises từ map
+        const promises = carts.products.map((product, index) =>
+          dispatch(
+            updateProductFromCart({
+              userId: decodedToken.id,
+              newQuantity: quantities[index],
+              check: checkedStates[index],
+              productId: product.productId,
+            })
+          ).unwrap()
+        );
 
-    dispatch(setBuyProduct(selectedProducts));
-    navigate("/cart/step2");
+        // Đợi tất cả các promises hoàn thành
+        await Promise.all(promises);
+
+        // Chuyển hướng sau khi tất cả các updates hoàn thành
+        navigate("/cart/step2");
+      } catch (error) {
+        // Xử lý lỗi nếu có
+        console.log("««««« error »»»»»", error);
+      }
+    };
+    updateCartProducts();
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
 
