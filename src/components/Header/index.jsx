@@ -2,7 +2,7 @@
 /* eslint-disable quotes */
 import { useEffect, useRef, useState } from "react";
 import { FaBars } from "react-icons/fa6";
-import "../Header/index.css";
+import "./index.css";
 import { IoIosLogIn } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa";
 import { CiPhone } from "react-icons/ci";

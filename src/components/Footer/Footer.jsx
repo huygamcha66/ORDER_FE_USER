@@ -2,7 +2,7 @@
 /* eslint-disable quotes */
 /* eslint-disable react/no-unknown-property */
 import { useEffect, useState } from "react";
-import "../Footer/Footer.css";
+import "./Footer.css";
 import { IoChevronUp } from "react-icons/io5";
 import { Col, Flex, Row, Space } from "antd";
 import { Link } from "react-router-dom";

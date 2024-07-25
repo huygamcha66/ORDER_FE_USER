@@ -1,6 +1,6 @@
 /* eslint-disable quotes */
 import { useEffect } from "react";
-import "../PriceList/index.css";
+import "./index.css";
 import { useLocation } from "react-router-dom";
 import { Col, ConfigProvider, Row, Table } from "antd";
 
@@ -322,9 +322,9 @@ const PriceList = () => {
                   với mặt hàng thời trang: bộ phận kiểm hàng không thể kiểm được
                   từng đường may, mũi chỉ, hoặc chất lượng vải&#8230; vấn đề đó
                   thuộc về nhà bán, khách hàng tìm kiếm và chọn lọc những nhà
-                  bán uy tín để nhập hàng. Tuy nhiên, OrdeOrder Kiều Nghĩa có trách
-                  nhiệm hỗ trợ khiếu nại yêu cầu shop đền bù nếu hàng không được
-                  đảm bảo chất lượng như khách mong muốn.
+                  bán uy tín để nhập hàng. Tuy nhiên, OrdeOrder Kiều Nghĩa có
+                  trách nhiệm hỗ trợ khiếu nại yêu cầu shop đền bù nếu hàng
+                  không được đảm bảo chất lượng như khách mong muốn.
                 </li>
               </ul>
             </div>

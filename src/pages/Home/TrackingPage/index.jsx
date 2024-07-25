@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 // eslint-disable-next-line semi
 import { useLocation } from "react-router-dom";
-import "../TrackingPage/index.css";
+import "./index.css";
 import { useEffect } from "react";
 import { Col, Row } from "antd";
 const TrackingPage = () => {

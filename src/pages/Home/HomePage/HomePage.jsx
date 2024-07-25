@@ -1,6 +1,6 @@
 /* eslint-disable quotes */
 import { useState } from "react";
-import "../HomePage/index.css";
+import "./index.css";
 import { useEffect } from "react";
 import { IoStarOutline } from "react-icons/io5";
 import { IoChevronForward } from "react-icons/io5";
