@@ -1,16 +1,16 @@
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable quotes */
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { memo, useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useLocation, useNavigate } from "react-router-dom"
 import {
   deleteProductFromCart,
   getCartDetail,
   resetState,
-  updateProductFromCart,
-} from "../../../redux/cartSlice/cartSlice";
-import { jwtDecode } from "jwt-decode";
-import "./Cart.css";
+  updateProductFromCart
+} from "../../../redux/cartSlice/cartSlice"
+import { jwtDecode } from "jwt-decode"
+import "./Cart.css"
 import {
   Checkbox,
   Col,
@@ -20,65 +20,45 @@ import {
   Modal,
   notification,
   Row,
-  Space,
-} from "antd";
-import useDecodedToken from "../../../components/UserInfor";
-import { MdOutlineDelete } from "react-icons/md";
-import { openNotificationWithIcon } from "../../../components/Nofitication";
+  Space
+} from "antd"
+import useDecodedToken from "../../../components/UserInfor"
+import { MdOutlineDelete } from "react-icons/md"
+import { openNotificationWithIcon } from "../../../components/Nofitication"
 
-const ProductItem = ({
+const ProductItem = memo(({
   cart,
   index,
   isCheck,
   onCheckChange,
   onQuantityChange,
+  onDelete
 }) => {
-  const [quantity, setQuantity] = useState(cart.quantity);
-  const [api, contextHolder] = notification.useNotification();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { isDelete } = useSelector((state) => state.carts);
-  const { decodedToken } = useDecodedToken("token");
-
-  // useEffect(() => {
-  //   setQuantity(1);
-  // }, [cart]);
-
-  // nếu xoá thành công
-
-  useEffect(() => {
-    let hasRun = false;
-
-    if (isDelete && !hasRun) {
-      hasRun = true;
-      openNotificationWithIcon("success", "Xoá sản phẩm thành công");
-      dispatch(resetState());
-    }
-  }, [isDelete, dispatch]);
+  const [quantity, setQuantity] = useState(cart.quantity)
+  const [api, contextHolder] = notification.useNotification()
+  const dispatch = useDispatch()
 
   const handleQuantityChange = (e) => {
-    const newQuantity = e.target.value;
-    setQuantity(newQuantity);
-    onQuantityChange(index, newQuantity);
-  };
+    const newQuantity = e.target.value
+    setQuantity(newQuantity)
+    onQuantityChange(index, newQuantity)
+  }
 
-  const handleDelete = (value) => {
-    const userInfor = localStorage.getItem("token")
-      ? jwtDecode(localStorage.getItem("token"))
-      : null;
-    setIsModalOpen(false);
-    dispatch(deleteProductFromCart({ userId: userInfor.id, productId: value }));
-  };
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const showModal = () => {
-    setIsModalOpen(true);
-  };
+    setIsModalOpen(true)
+  }
 
   const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+    setIsModalOpen(false)
+  }
+
+  const handleConfirmDelete = () => {
+    onDelete(cart.productId)
+    setIsModalOpen(false)
+    openNotificationWithIcon("success", "Xoá sản phẩm thành công")
+  }
   return (
     <>
       {contextHolder}
@@ -125,7 +105,7 @@ const ProductItem = ({
             style={{
               border: "1px solid #ddd",
               padding: "8px",
-              fontWeight: "bolder",
+              fontWeight: "bolder"
             }}
           >
             {parseInt((cart.price * 3625 * quantity).toFixed(0)).toLocaleString(
@@ -150,8 +130,8 @@ const ProductItem = ({
                 <span style={{ fontWeight: "bold" }}>
                   {isCheck
                     ? `${parseInt(
-                        (cart.price * 3625 * quantity * 0.03).toFixed(0)
-                      ).toLocaleString("vi-VN")}
+                      (cart.price * 3625 * quantity * 0.03).toFixed(0)
+                    ).toLocaleString("vi-VN")}
                     đ`
                     : 0}
                 </span>
@@ -161,8 +141,8 @@ const ProductItem = ({
                 <span style={{ fontWeight: "bold" }}>
                   {isCheck
                     ? `${parseInt(
-                        (cart.price * 3625 * quantity * 0.7).toFixed(0)
-                      ).toLocaleString("vi-VN")}
+                      (cart.price * 3625 * quantity * 0.7).toFixed(0)
+                    ).toLocaleString("vi-VN")}
                     đ`
                     : 0}
                 </span>
@@ -172,8 +152,8 @@ const ProductItem = ({
                 <span style={{ color: "red", fontWeight: "bold" }}>
                   {isCheck
                     ? `${parseInt(
-                        (cart.price * 3625 * quantity * 1.03).toFixed(0)
-                      ).toLocaleString("vi-VN")}
+                      (cart.price * 3625 * quantity * 1.03).toFixed(0)
+                    ).toLocaleString("vi-VN")}
                     đ`
                     : 0}
                 </span>
@@ -188,7 +168,7 @@ const ProductItem = ({
                   background: "none",
                   border: "none",
                   color: "red",
-                  cursor: "pointer",
+                  cursor: "pointer"
                 }}
               >
                 <MdOutlineDelete style={{ width: "20px", height: "20px" }} />
@@ -196,20 +176,20 @@ const ProductItem = ({
               <Modal
                 title="Bạn muốn xoá sản phẩm này chứ?"
                 open={isModalOpen}
-                onOk={() => handleDelete(cart.productId)}
+                onOk={handleConfirmDelete}
                 onCancel={handleCancel}
                 cancelButtonProps={{
                   style: {
                     backgroundColor: "#f5222d",
                     borderColor: "#f5222d",
-                    color: "#fff",
-                  },
+                    color: "#fff"
+                  }
                 }}
                 okButtonProps={{
                   style: {
                     backgroundColor: "#ccc",
-                    color: "#000",
-                  },
+                    color: "#000"
+                  }
                 }}
                 okText="Có"
                 cancelText="Không"
@@ -219,40 +199,40 @@ const ProductItem = ({
         </tr>
       </tbody>
     </>
-  );
-};
+  )
+})
 
 const Cart = () => {
-  const { carts } = useSelector((state) => state.carts);
-  const { user } = useSelector((state) => state.users);
-  const { decodedToken } = useDecodedToken("token");
-  const dispatch = useDispatch();
+  const { carts } = useSelector((state) => state.carts)
+  const { user } = useSelector((state) => state.users)
+  const { decodedToken } = useDecodedToken("token")
+  const dispatch = useDispatch()
 
-  const [allCheck, setAllCheck] = useState(false);
-  const [totalCheckedPrice, setTotalCheckedPrice] = useState(0);
-  const [checkedStates, setCheckedStates] = useState([]);
-  const [quantities, setQuantities] = useState([]);
+  const [allCheck, setAllCheck] = useState(false)
+  const [totalCheckedPrice, setTotalCheckedPrice] = useState(0)
+  const [checkedStates, setCheckedStates] = useState([])
+  const [quantities, setQuantities] = useState([])
 
-  const location = useLocation();
+  const location = useLocation()
   useEffect(() => {
     if (decodedToken) {
-      dispatch(getCartDetail({ userId: decodedToken.id }));
+      dispatch(getCartDetail({ userId: decodedToken.id }))
     }
-  }, [decodedToken, dispatch, location.pathname]);
+  }, [decodedToken, dispatch, location.pathname])
   useEffect(() => {
     if (carts && carts.products) {
-      const newCheckedStates = carts.products.map((cart) => cart.check);
-      const newQuantities = carts.products.map((cart) => cart.quantity);
-      setCheckedStates(newCheckedStates);
-      setQuantities(newQuantities);
+      const newCheckedStates = carts.products.map((cart) => cart.check)
+      const newQuantities = carts.products.map((cart) => cart.quantity)
+      setCheckedStates(newCheckedStates)
+      setQuantities(newQuantities)
     }
-  }, [carts]);
+  }, [carts])
 
   useEffect(() => {
     if (checkedStates.length > 0) {
-      setAllCheck(checkedStates.every((isChecked) => isChecked));
+      setAllCheck(checkedStates.every((isChecked) => isChecked))
     }
-  }, [checkedStates]);
+  }, [checkedStates])
 
   useEffect(() => {
     const totalPrice =
@@ -260,32 +240,32 @@ const Cart = () => {
       carts.products &&
       carts.products.reduce((acc, cart, index) => {
         if (checkedStates[index]) {
-          return acc + cart.price * 3625 * quantities[index];
+          return acc + cart.price * 3625 * quantities[index]
         }
-        return acc;
-      }, 0);
-    setTotalCheckedPrice(totalPrice * 1.03);
-  }, [checkedStates, quantities, carts]);
+        return acc
+      }, 0)
+    setTotalCheckedPrice(totalPrice * 1.03)
+  }, [checkedStates, quantities, carts])
 
   const handleCheckChange = (index, isChecked) => {
-    const newCheckedStates = [...checkedStates];
-    newCheckedStates[index] = isChecked;
-    setCheckedStates(newCheckedStates);
-  };
+    const newCheckedStates = [...checkedStates]
+    newCheckedStates[index] = isChecked
+    setCheckedStates(newCheckedStates)
+  }
 
   const handleAllCheckChange = () => {
-    const newAllCheck = !allCheck;
-    setAllCheck(newAllCheck);
-    setCheckedStates(new Array(carts.products.length).fill(newAllCheck));
-  };
+    const newAllCheck = !allCheck
+    setAllCheck(newAllCheck)
+    setCheckedStates(new Array(carts.products.length).fill(newAllCheck))
+  }
 
   const handleQuantityChange = (index, newQuantity) => {
-    const newQuantities = [...quantities];
-    newQuantities[index] = parseInt(newQuantity);
-    setQuantities(newQuantities);
-  };
+    const newQuantities = [...quantities]
+    newQuantities[index] = parseInt(newQuantity)
+    setQuantities(newQuantities)
+  }
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handlePlaceOrder = async () => {
     if (
@@ -294,11 +274,11 @@ const Cart = () => {
       parseInt(user.user.accountBalance.toFixed(0)) <
         parseInt(totalCheckedPrice.toFixed(0))
     ) {
-      return setIsModalOpen(true);
+      return setIsModalOpen(true)
     }
     // console.log("««««« totalCheckedPrice »»»»»", totalCheckedPrice);
     if (!totalCheckedPrice) {
-      return openNotificationWithIcon("error", "Vui lòng chọn sản phẩm");
+      return openNotificationWithIcon("error", "Vui lòng chọn sản phẩm")
     }
 
     // improve: dùng unwrap() để sử dụng async await đối với js redux-thunk
@@ -312,32 +292,59 @@ const Cart = () => {
               userId: decodedToken.id,
               newQuantity: quantities[index],
               check: checkedStates[index],
-              productId: product.productId,
+              productId: product.productId
             })
           ).unwrap()
-        );
+        )
 
         // Đợi tất cả các promises hoàn thành
-        await Promise.all(promises);
+        await Promise.all(promises)
 
         // Chuyển hướng sau khi tất cả các updates hoàn thành
-        navigate("/cart/step2");
+        navigate("/cart/step2")
       } catch (error) {
         // Xử lý lỗi nếu có
-        console.log("««««« error »»»»»", error);
+        console.log("««««« error »»»»»", error)
       }
-    };
-    updateCartProducts();
-  };
-  const [isModalOpen, setIsModalOpen] = useState(false);
+    }
+    updateCartProducts()
+  }
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const showModal = () => {
-    setIsModalOpen(true);
-  };
+    setIsModalOpen(true)
+  }
 
   const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+    setIsModalOpen(false)
+  }
+// fix_huyg Phải đưa tất cả các hàm (CRUD) của hàm con về hàm cha hết
+// vì nó bị re-render theo số lương của hàm con, không kiểm soát được, bug 2 ngày mới fix được đó.
+  const handleDelete = async (productId) => {
+    const updateCartProducts = async () => {
+      try {
+        // Tạo một mảng các promises từ map
+        const promises = carts.products.map((product, index) =>
+          dispatch(
+            updateProductFromCart({
+              userId: decodedToken.id,
+              newQuantity: quantities[index],
+              check: checkedStates[index],
+              productId: product.productId
+            })
+          ).unwrap()
+        )
+        // Đợi tất cả các promises hoàn thành
+        await Promise.all(promises)
+      } catch (error) {
+        // Xử lý lỗi nếu có
+        console.log("««««« error »»»»»", error)
+      }
+    }
+    await updateCartProducts()
+    setIsModalOpen(false)
+    dispatch(deleteProductFromCart({ userId: decodedToken.id, productId }))
+  }
   return (
     <>
       <Row justify="center">
@@ -349,7 +356,7 @@ const Cart = () => {
               style={{
                 width: "100%",
                 borderCollapse: "collapse",
-                marginBottom: "1em",
+                marginBottom: "1em"
               }}
             >
               {" "}
@@ -359,7 +366,7 @@ const Cart = () => {
                     style={{
                       border: "1px solid #ddd",
                       padding: "8px",
-                      width: "10%",
+                      width: "10%"
                     }}
                   >
                     Chọn mua
@@ -368,7 +375,7 @@ const Cart = () => {
                     style={{
                       border: "1px solid #ddd",
                       padding: "8px",
-                      width: "30%",
+                      width: "30%"
                     }}
                   >
                     Sản phẩm
@@ -377,7 +384,7 @@ const Cart = () => {
                     style={{
                       border: "1px solid #ddd",
                       padding: "8px",
-                      width: "10%",
+                      width: "10%"
                     }}
                   >
                     Số lượng
@@ -386,7 +393,7 @@ const Cart = () => {
                     style={{
                       border: "1px solid #ddd",
                       padding: "8px",
-                      width: "10%",
+                      width: "10%"
                     }}
                   >
                     Đơn giá
@@ -395,7 +402,7 @@ const Cart = () => {
                     style={{
                       border: "1px solid #ddd",
                       padding: "8px",
-                      width: "15%",
+                      width: "15%"
                     }}
                   >
                     Tổng tiền
@@ -404,7 +411,7 @@ const Cart = () => {
                     style={{
                       border: "1px solid #ddd",
                       padding: "8px",
-                      width: "20%",
+                      width: "20%"
                     }}
                   >
                     Đơn giá
@@ -413,7 +420,7 @@ const Cart = () => {
                     style={{
                       border: "1px solid #ddd",
                       padding: "8px",
-                      width: "5%",
+                      width: "5%"
                     }}
                   >
                     Xoá
@@ -429,6 +436,7 @@ const Cart = () => {
                     isCheck={checkedStates[index]}
                     onCheckChange={handleCheckChange}
                     onQuantityChange={handleQuantityChange}
+                    onDelete={handleDelete}
                   />
                 ))
               ) : (
@@ -442,7 +450,7 @@ const Cart = () => {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  cursor: "pointer",
+                  cursor: "pointer"
                 }}
               >
                 <input
@@ -475,14 +483,14 @@ const Cart = () => {
                   style: {
                     backgroundColor: "#f5222d",
                     borderColor: "#f5222d",
-                    color: "#fff",
-                  },
+                    color: "#fff"
+                  }
                 }}
                 okButtonProps={{
                   style: {
                     backgroundColor: "#ccc",
-                    color: "#000",
-                  },
+                    color: "#000"
+                  }
                 }}
                 okText="Có"
                 cancelText="Không"
@@ -500,7 +508,7 @@ const Cart = () => {
         </Col>
       </Row>
     </>
-  );
-};
+  )
+}
 
-export default Cart;
+export default Cart

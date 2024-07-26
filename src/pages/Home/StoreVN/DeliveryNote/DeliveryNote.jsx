@@ -1,15 +1,15 @@
 /* eslint-disable no-console */
 /* eslint-disable react/no-unknown-property */
-import { FaCalendar } from "react-icons/fa";
-import { DatePicker } from "antd";
-import { AiFillDashboard } from "react-icons/ai";
-import { LuRefreshCw } from "react-icons/lu";
-import { FaSearch } from "react-icons/fa";
+import { FaCalendar } from 'react-icons/fa'
+import { DatePicker } from 'antd'
+import { AiFillDashboard } from 'react-icons/ai'
+import { LuRefreshCw } from 'react-icons/lu'
+import { FaSearch } from 'react-icons/fa'
 
 const DeliveryNote = () => {
   const onChange = (date, dateString) => {
-    console.log(date, dateString);
-  };
+    console.log(date, dateString)
+  }
   return (
     <>
       <section className="content">
@@ -19,7 +19,7 @@ const DeliveryNote = () => {
             <ol className="breadcrumb">
               <li>
                 <a href="/dashboard">
-                  <AiFillDashboard /> Trang chủ{" "}
+                  <AiFillDashboard /> Trang chủ{' '}
                 </a>
               </li>
               <li>
@@ -34,7 +34,7 @@ const DeliveryNote = () => {
                 <form>
                   <div className="top-order form-group clearfix">
                     <ul className="lp-header list-inline">
-                      <div style={{ clear: "both" }} className="row">
+                      <div style={{ clear: 'both' }} className="row">
                         <li className="col-md-3 col-xs-12">
                           <div className="form-group">
                             <input
@@ -70,16 +70,13 @@ const DeliveryNote = () => {
                             >
                               <FaSearch /> Lọc
                             </button>
-                            <a
-                              href="/storevn/delivery_note"
-                              className="btn btn-default"
-                            >
+                            <a href="/storevn/delivery_note" className="btn btn-default">
                               <LuRefreshCw /> Làm lại
                             </a>
                           </div>
                         </li>
                       </div>
-                      <div style={{ clear: "both" }} className="row">
+                      <div style={{ clear: 'both' }} className="row">
                         <li className="col-md-3 col-xs-12">
                           <div className="form-group">
                             <div className="input-group date">
@@ -143,8 +140,7 @@ const DeliveryNote = () => {
                           <ul className="list-inline">
                             <li>
                               <p>
-                                Số phiếu giao hàng:{" "}
-                                <strong className="text-red">0</strong>
+                                Số phiếu giao hàng: <strong className="text-red">0</strong>
                               </p>
                             </li>
                           </ul>
@@ -157,7 +153,7 @@ const DeliveryNote = () => {
                           <thead>
                             <tr>
                               <th className="text-center vcenter" width="15%">
-                                {" "}
+                                {' '}
                                 Thông tin phiếu
                               </th>
                               <th>
@@ -167,9 +163,7 @@ const DeliveryNote = () => {
                           </thead>
                           <tbody>
                             <tr className="text-center text-red">
-                              <td colspan="8">
-                                Hiện tại quý khách không có phiếu giao hàng nào.
-                              </td>
+                              <td colspan="8">Hiện tại quý khách không có phiếu giao hàng nào.</td>
                             </tr>
                           </tbody>
                         </table>
@@ -186,7 +180,7 @@ const DeliveryNote = () => {
         </div>
       </section>
     </>
-  );
-};
+  )
+}
 
-export default DeliveryNote;
+export default DeliveryNote

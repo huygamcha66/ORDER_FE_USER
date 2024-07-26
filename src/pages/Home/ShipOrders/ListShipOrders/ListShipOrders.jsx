@@ -1,15 +1,15 @@
 /* eslint-disable no-console */
 /* eslint-disable react/no-unknown-property */
-import { FaCalendar } from "react-icons/fa";
-import { DatePicker } from "antd";
-import { AiFillDashboard } from "react-icons/ai";
-import { LuRefreshCw } from "react-icons/lu";
-import { FaSearch } from "react-icons/fa";
+import { FaCalendar } from 'react-icons/fa'
+import { DatePicker } from 'antd'
+import { AiFillDashboard } from 'react-icons/ai'
+import { LuRefreshCw } from 'react-icons/lu'
+import { FaSearch } from 'react-icons/fa'
 
 const ListShipOrders = () => {
   const onChange = (date, dateString) => {
-    console.log(date, dateString);
-  };
+    console.log(date, dateString)
+  }
 
   return (
     <>
@@ -21,7 +21,7 @@ const ListShipOrders = () => {
               <li>
                 <a href="/dashboard">
                   <AiFillDashboard />
-                  Trang chủ{" "}
+                  Trang chủ{' '}
                 </a>
               </li>
               <li>
@@ -94,10 +94,7 @@ const ListShipOrders = () => {
                                 >
                                   <FaSearch /> Lọc
                                 </button>
-                                <a
-                                  href="/shiporder/lists"
-                                  className="btn btn-default"
-                                >
+                                <a href="/shiporder/lists" className="btn btn-default">
                                   <LuRefreshCw /> Làm lại
                                 </a>
                               </div>
@@ -199,7 +196,7 @@ const ListShipOrders = () => {
         </div>
       </section>
     </>
-  );
-};
+  )
+}
 
-export default ListShipOrders;
+export default ListShipOrders
