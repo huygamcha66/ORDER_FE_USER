@@ -2,50 +2,48 @@
 /* eslint-disable no-console */
 /* eslint-disable react/no-unknown-property */
 
-import { Link, useNavigate } from "react-router-dom";
-import { MdOutlineDone } from "react-icons/md";
-import { useForm } from "react-hook-form";
+import { Link, useNavigate } from 'react-router-dom'
+import { MdOutlineDone } from 'react-icons/md'
+import { useForm } from 'react-hook-form'
 import {
   PASSWORD_RULE,
   FIELD_REQUIRED_MESSAGE,
   PASSWORD_RULE_MESSAGE,
-} from "../../../utils/validators";
-import FieldErrorAlert from "../../../components/Form/FieldErrorAlert";
-import { useDispatch, useSelector } from "react-redux";
+} from '../../../utils/validators'
+import FieldErrorAlert from '../../../components/Form/FieldErrorAlert'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   changePasswordUser,
   resetState,
   sendCodeResetPassword,
-} from "../../../redux/userSlice/userSlice";
-import { useEffect } from "react";
-import { Spin } from "antd";
+} from '../../../redux/userSlice/userSlice'
+import { useEffect } from 'react'
+import { Spin } from 'antd'
 const ResetForm = () => {
-  const userInfor = JSON.parse(localStorage.getItem("email"));
+  const userInfor = JSON.parse(localStorage.getItem('email'))
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { success, user, error, isLoading } = useSelector(
-    (state) => state.users
-  );
+  } = useForm()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { success, user, error, isLoading } = useSelector((state) => state.users)
 
   const submitRegister = (data) => {
-    dispatch(resetState());
-    console.log("submit register: ", { ...data, email: userInfor });
-    dispatch(changePasswordUser({ ...data, email: userInfor }));
-  };
+    dispatch(resetState())
+    console.log('submit register: ', { ...data, email: userInfor })
+    dispatch(changePasswordUser({ ...data, email: userInfor }))
+  }
 
   const handleSendCodeVerify = () => {
-    dispatch(sendCodeResetPassword({ email: userInfor }));
-  };
+    dispatch(sendCodeResetPassword({ email: userInfor }))
+  }
   const directToLogin = () => {
-    dispatch(resetState());
-    navigate("/dashboard/login");
-  };
+    dispatch(resetState())
+    navigate('/dashboard/login')
+  }
 
   return (
     <>
@@ -56,10 +54,7 @@ const ResetForm = () => {
 
         {!success ? (
           <div className="dangkytaikhoan">
-            <form
-              onSubmit={handleSubmit(submitRegister)}
-              className="form-horizontal"
-            >
+            <form onSubmit={handleSubmit(submitRegister)} className="form-horizontal">
               <div className="full">
                 {/* email */}
                 <div className="form-group">
@@ -67,7 +62,7 @@ const ResetForm = () => {
                     type="text"
                     className="form-control"
                     name="email"
-                    value={userInfor.split("@")[0]}
+                    value={userInfor.split('@')[0]}
                     disabled
                     placeholder="Email"
                   />
@@ -81,8 +76,8 @@ const ResetForm = () => {
                     name="password"
                     placeholder="Mật khẩu mới"
                     required
-                    error={!!errors["password"]}
-                    {...register("password", {
+                    error={!!errors['password']}
+                    {...register('password', {
                       required: FIELD_REQUIRED_MESSAGE,
                       pattern: {
                         value: PASSWORD_RULE,
@@ -90,7 +85,7 @@ const ResetForm = () => {
                       },
                     })}
                   />
-                  <FieldErrorAlert errors={errors} fieldName={"password"} />
+                  <FieldErrorAlert errors={errors} fieldName={'password'} />
                 </div>
 
                 {/* confirmPassword */}
@@ -101,18 +96,15 @@ const ResetForm = () => {
                     name="confirmPassword"
                     placeholder="Nhập lại mật khẩu mới"
                     required
-                    error={!!errors["confirmPassword"]}
-                    {...register("confirmPassword", {
+                    error={!!errors['confirmPassword']}
+                    {...register('confirmPassword', {
                       validate: (value) => {
-                        if (value === watch("password")) return true;
-                        return "Mật khẩu không trùng khớp!";
+                        if (value === watch('password')) return true
+                        return 'Mật khẩu không trùng khớp!'
                       },
                     })}
                   />
-                  <FieldErrorAlert
-                    errors={errors}
-                    fieldName={"confirmPassword"}
-                  />
+                  <FieldErrorAlert errors={errors} fieldName={'confirmPassword'} />
                 </div>
 
                 {/* address */}
@@ -139,7 +131,7 @@ const ResetForm = () => {
                     className="form-control"
                     name="code"
                     placeholder="Mã xác thực"
-                    {...register("code", {
+                    {...register('code', {
                       required: FIELD_REQUIRED_MESSAGE,
                     })}
                   />
@@ -168,49 +160,42 @@ const ResetForm = () => {
                 {error ? (
                   <div
                     style={{
-                      marginBottom: "0.7em",
-                      overflow: "hidden",
-                      color: "red",
+                      marginBottom: '0.7em',
+                      overflow: 'hidden',
+                      color: 'red',
                     }}
                   >
                     Mã xác thực sai, vui lòng kiểm tra lại email
                     <span
                       onClick={handleSendCodeVerify}
                       style={{
-                        color: "blue",
-                        cursor: "pointer",
-                        marginLeft: "0.7em",
+                        color: 'blue',
+                        cursor: 'pointer',
+                        marginLeft: '0.7em',
                       }}
                     >
                       Gửi lại mã xác thực
                     </span>
                   </div>
                 ) : (
-                  ""
+                  ''
                 )}
                 {isLoading ? (
                   <Spin />
                 ) : (
                   <div className="form-group pull-left">
-                    <input
-                      type="submit"
-                      className="btn btn-danger"
-                      name="save"
-                      value="Lưu"
-                    />
+                    <input type="submit" className="btn btn-danger" name="save" value="Lưu" />
                   </div>
                 )}
                 <div className="form-group pull-right">
                   <div className="tml-action-links">
                     <Link to="/dashboard/login">Đăng nhập</Link>
-                    <span style={{ marginLeft: "5px" }}>
-                      nếu bạn đã có tài khoản
-                    </span>
+                    <span style={{ marginLeft: '5px' }}>nếu bạn đã có tài khoản</span>
                   </div>
                 </div>
               </div>
               <div className="clearfix"></div>
-              <div className="networks clearfix" style={{ display: "none" }}>
+              <div className="networks clearfix" style={{ display: 'none' }}>
                 <div className="pull-left">
                   <a href="">
                     <img src="https://my.orderhangquangchau.com/static/images/register-facebook.png" />
@@ -229,8 +214,8 @@ const ResetForm = () => {
             <span>Thay đổi mật khẩu thành công</span>
             <span
               onClick={directToLogin}
-              style={{ marginLeft: "0.5em", color: "blue", cursor: "pointer" }}
-              to={"/dashboard/login"}
+              style={{ marginLeft: '0.5em', color: 'blue', cursor: 'pointer' }}
+              to={'/dashboard/login'}
             >
               Đăng nhập
             </span>
@@ -244,37 +229,37 @@ const ResetForm = () => {
           <p className="text-success">
             <span>
               <MdOutlineDone />
-            </span>{" "}
+            </span>{' '}
             Giao dịch an toàn bảo mật tuyệt đối.
           </p>
           <p className="text-success">
             <span>
               <MdOutlineDone />
-            </span>{" "}
+            </span>{' '}
             Vận chuyển nhanh toàn quốc, giá tốt nhất.
           </p>
           <p className="text-success">
             <span>
               <MdOutlineDone />
-            </span>{" "}
+            </span>{' '}
             Phong cách phục vụ chuyên nghiệp, tư vấn nhiệt tình, chu đáo.
           </p>
           <p className="text-success">
             <span>
               <MdOutlineDone />
-            </span>{" "}
+            </span>{' '}
             Không vì lợi ích bán hàng mà bỏ qua lợi ích khách hàng.
           </p>
           <p className="text-success">
             <span>
               <MdOutlineDone />
-            </span>{" "}
+            </span>{' '}
             Giải quyết mọi khúc mắc, khiếu nại nhanh chóng.
           </p>
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ResetForm;
+export default ResetForm

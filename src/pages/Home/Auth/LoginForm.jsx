@@ -1,57 +1,39 @@
 /* eslint-disable quotes */
 /* eslint-disable semi */
 /* eslint-disable react/no-unknown-property */
-import { LockOutlined, MailOutlined } from "@ant-design/icons";
+import { LockOutlined, MailOutlined } from '@ant-design/icons'
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom'
 // import { toast } from 'react-toastify'
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux'
 // import { login, registerUserAPI, selectCurrentUser } from '../../../redux/user/userSlice'
 // import { login, selectCurrentUser } from "../../../redux/userSlice/userSlice";
-import { useEffect } from "react";
-import { loginUser, resetState } from "../../../redux/userSlice/userSlice";
-import {
-  ConfigProvider,
-  Form,
-  Input,
-  Button,
-  Col,
-  Row,
-  Card,
-  Flex,
-  notification,
-  Spin,
-} from "antd";
-import "../../../common/common.css";
-import { openNotificationWithIcon } from "../../../components/Nofitication";
-import {
-  addressIP,
-  getCanvasFingerprint,
-  getWebGLFingerprint,
-} from "../../../common/InforUser";
+import { useEffect } from 'react'
+import { loginUser, resetState } from '../../../redux/userSlice/userSlice'
+import { ConfigProvider, Form, Input, Button, Col, Row, Card, Flex, notification, Spin } from 'antd'
+import '../../../common/common.css'
+import { openNotificationWithIcon } from '../../../components/Nofitication'
+import { addressIP, getCanvasFingerprint, getWebGLFingerprint } from '../../../common/InforUser'
 
 const LoginForm = () => {
-  const [api, contextHolder] = notification.useNotification();
+  const [api, contextHolder] = notification.useNotification()
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { success, user, error, isLoading, isActive } = useSelector(
-    (state) => state.users
-  );
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { success, user, error, isLoading, isActive } = useSelector((state) => state.users)
 
   useEffect(() => {
     if (error) {
-      dispatch(resetState());
-      openNotificationWithIcon("error", error);
+      dispatch(resetState())
+      openNotificationWithIcon('error', error)
     }
     if (success) {
-      dispatch(resetState());
-      navigate("/");
-      window.location.reload();
+      dispatch(resetState())
+      navigate('/')
+      window.location.reload()
     }
-    if (JSON.stringify(user.token))
-      localStorage.setItem("token", JSON.stringify(user.token));
-  }, [success, error]);
+    if (JSON.stringify(user.token)) localStorage.setItem('token', JSON.stringify(user.token))
+  }, [success, error])
 
   const onFinish = async (values) => {
     // Gọi action loginUser với thông tin đăng nhập và địa chỉ IP
@@ -59,9 +41,9 @@ const LoginForm = () => {
       loginUser({
         ...values,
         addressIP: `${addressIP}&&${getCanvasFingerprint()}&&${getWebGLFingerprint().renderer}`,
-      })
-    );
-  };
+      }),
+    )
+  }
   return (
     <ConfigProvider
       theme={{
@@ -76,7 +58,7 @@ const LoginForm = () => {
 
       <Row justify="center">
         <Col span={12}>
-          <Card style={{ margin: "10px 0px" }} title="Đăng nhập">
+          <Card style={{ margin: '10px 0px' }} title="Đăng nhập">
             <Form
               name="normal_login"
               className="login-form"
@@ -91,10 +73,10 @@ const LoginForm = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Vui lòng nhập email hoặc username",
+                    message: 'Vui lòng nhập email hoặc username',
                   },
                 ]}
-                style={{ marginBottom: "30px" }}
+                style={{ marginBottom: '30px' }}
               >
                 <Input
                   prefix={<MailOutlined className="site-form-item-icon" />}
@@ -105,10 +87,10 @@ const LoginForm = () => {
                 label="Mật khẩu"
                 name="password"
                 rules={[
-                  { required: true, message: "Vui lòng điền mật khẩu" },
-                  { min: 6, message: "Mật khẩu lớn hơn 6 kí tự" },
+                  { required: true, message: 'Vui lòng điền mật khẩu' },
+                  { min: 6, message: 'Mật khẩu lớn hơn 6 kí tự' },
                 ]}
-                style={{ marginBottom: "30px" }}
+                style={{ marginBottom: '30px' }}
               >
                 <Input.Password
                   allowClear
@@ -117,32 +99,22 @@ const LoginForm = () => {
                   placeholder="Password"
                 />
               </Form.Item>
-              <Form.Item
-                wrapperCol={{ xs: 16, offset: 6 }}
-                style={{ marginBottom: "10px" }}
-              >
-                <Link style={{ color: "red" }} to={"/reset-password"}>
+              <Form.Item wrapperCol={{ xs: 16, offset: 6 }} style={{ marginBottom: '10px' }}>
+                <Link style={{ color: 'red' }} to={'/reset-password'}>
                   Lấy lại mật khẩu
                 </Link>
               </Form.Item>
 
-              <Form.Item
-                wrapperCol={{ xs: 16, offset: 6 }}
-                style={{ marginBottom: "30px" }}
-              >
+              <Form.Item wrapperCol={{ xs: 16, offset: 6 }} style={{ marginBottom: '30px' }}>
                 <Flex align="center" justify="space-between">
                   {isLoading ? (
                     <Spin />
                   ) : (
-                    <Button
-                      type="primary"
-                      htmlType="submit"
-                      className="login-form-button"
-                    >
+                    <Button type="primary" htmlType="submit" className="login-form-button">
                       Đăng nhập
                     </Button>
                   )}
-                  <Link style={{ color: "#1577ff" }} to="/register">
+                  <Link style={{ color: '#1577ff' }} to="/register">
                     Đăng ký!
                   </Link>
                 </Flex>
@@ -152,7 +124,7 @@ const LoginForm = () => {
         </Col>
       </Row>
     </ConfigProvider>
-  );
-};
+  )
+}
 
-export default LoginForm;
+export default LoginForm
