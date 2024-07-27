@@ -8,3 +8,15 @@
 .wrapper_buy_step_1 {
     margin: 20px 0px;
 }
+.video_thumbnail {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto; /* Căn giữa theo chiều ngang */
+    border-radius: 5px; /* Làm tròn góc */
+    object-fit: cover; /* Đảm bảo hình ảnh luôn đầy đủ kích thước */
+    transition: transform 0.3s ease; /* Hiệu ứng chuyển đổi khi hover */
+  }
+  .video-thumbnail:hover {
+    transform: scale(1.2); /* Phóng to khi hover */
+    cursor: pointer; /* Thay đổi con trỏ chuột khi hover */
+  }

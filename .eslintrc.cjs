@@ -48,5 +48,4 @@ module.exports = {
     'comma-spacing': 1,
     'arrow-spacing': 1,
   },
-  'prettier/prettier': 'warn',
 }
