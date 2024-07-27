@@ -1,46 +1,46 @@
 /* eslint-disable quotes */
 /* eslint-disable semi */
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Col, ConfigProvider, Flex, Popconfirm, Row, Space } from "antd";
-import { Menu } from "antd";
-import { FaRegUser } from "react-icons/fa";
-import { LuShoppingCart } from "react-icons/lu";
-import { IoPricetagsOutline } from "react-icons/io5";
-import { AiOutlineLogout } from "react-icons/ai";
-import { SlUserFollowing } from "react-icons/sl";
-import "./index.css";
-import { logoutUser, resetState } from "../../redux/userSlice/userSlice";
-import useDecodedToken from "../UserInfor";
-import { useEffect } from "react";
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Col, ConfigProvider, Flex, Popconfirm, Row, Space } from 'antd'
+import { Menu } from 'antd'
+import { FaRegUser } from 'react-icons/fa'
+import { LuShoppingCart } from 'react-icons/lu'
+import { IoPricetagsOutline } from 'react-icons/io5'
+import { AiOutlineLogout } from 'react-icons/ai'
+import { SlUserFollowing } from 'react-icons/sl'
+import './index.css'
+import { logoutUser, resetState } from '../../redux/userSlice/userSlice'
+import useDecodedToken from '../UserInfor'
+import { useEffect } from 'react'
 const items = [
   {
     label: (
-      <Link style={{ fontWeight: 700 }} to={"/"}>
+      <Link style={{ fontWeight: 700 }} to={'/'}>
         TRANG CHỦ
       </Link>
     ),
-    key: "home",
+    key: 'home',
   },
   {
     label: (
-      <Link style={{ fontWeight: 700 }} to={"/bang-gia"}>
+      <Link style={{ fontWeight: 700 }} to={'/bang-gia'}>
         ĐƠN HÀNG
       </Link>
     ),
-    key: "order",
+    key: 'order',
     children: [
       {
-        type: "group",
+        type: 'group',
         children: [
           {
-            label: <Link to={"/bang-gia"}>TẠO ĐƠN HÀNG</Link>,
-            key: "order:1",
+            label: <Link to={'/cart/step2'}>ĐANG CHỜ CỌC</Link>,
+            key: 'order:1',
           },
 
           {
-            label: <Link to={"/order/list-orders"}>ĐƠN HÀNG CỦA TÔI</Link>,
-            key: "order:4",
+            label: <Link to={'/order/list-orders'}>ĐƠN HÀNG CỦA TÔI</Link>,
+            key: 'order:2',
           },
         ],
       },
@@ -49,22 +49,22 @@ const items = [
 
   {
     label: (
-      <Link style={{ fontWeight: 700 }} to={"/bang-gia"}>
+      <Link style={{ fontWeight: 700 }} to={'/bang-gia'}>
         TÀI CHÍNH
       </Link>
     ),
-    key: "finance",
+    key: 'finance',
     children: [
       {
-        type: "group",
+        type: 'group',
         children: [
           {
-            label: <Link to={"/bang-gia"}>XEM GIAO DỊCH</Link>,
-            key: "finance:1",
+            label: <Link to={'/bang-gia'}>XEM GIAO DỊCH</Link>,
+            key: 'finance:1',
           },
           {
-            label: <Link to={"/bang-gia-ky-gui-hang"}>NẠP TIỀN</Link>,
-            key: "finance:2",
+            label: <Link to={'/bang-gia-ky-gui-hang'}>NẠP TIỀN</Link>,
+            key: 'finance:2',
           },
         ],
       },
@@ -73,48 +73,38 @@ const items = [
 
   {
     label: (
-      <Link style={{ fontWeight: 700 }} to={"/chuyen-khoan"}>
+      <Link style={{ fontWeight: 700 }} to={'/chuyen-khoan'}>
         THÔNG TIN THANH TOÁN
       </Link>
     ),
-    key: "qrcode",
+    key: 'qrcode',
   },
   {
     label: (
-      <Link style={{ fontWeight: 700 }} to={"/bang-gia"}>
+      <Link style={{ fontWeight: 700 }} to={'/bang-gia'}>
         BẢNG GIÁ
       </Link>
     ),
-    key: "SubMenu",
+    key: 'SubMenu',
     children: [
       {
-        type: "group",
+        type: 'group',
         children: [
           {
-            label: (
-              <Link to={"/bang-gia"}>Bảng giá dịch vụ đặt hàng Trung Quốc</Link>
-            ),
-            key: "setting:1",
+            label: <Link to={'/bang-gia'}>Bảng giá dịch vụ đặt hàng Trung Quốc</Link>,
+            key: 'setting:1',
+          },
+          {
+            label: <Link to={'/bang-gia-ky-gui-hang'}>Bảng giá ký gửi vận chuyển</Link>,
+            key: 'setting:2',
           },
           {
             label: (
-              <Link to={"/bang-gia-ky-gui-hang"}>
-                Bảng giá ký gửi vận chuyển
-              </Link>
-            ),
-            key: "setting:2",
-          },
-          {
-            label: (
-              <Link
-                to={
-                  "/dich-vu-nap-tien-alipay-thanh-toan-tien-trung-quoc-chuyen-tien-trung"
-                }
-              >
+              <Link to={'/dich-vu-nap-tien-alipay-thanh-toan-tien-trung-quoc-chuyen-tien-trung'}>
                 Bảng giá dịch vụ chuyển tiền
               </Link>
             ),
-            key: "setting:3",
+            key: 'setting:3',
           },
         ],
       },
@@ -123,51 +113,51 @@ const items = [
 
   {
     label: (
-      <Link style={{ fontWeight: 700 }} to={"/chinh-sach-bao-mat"}>
+      <Link style={{ fontWeight: 700 }} to={'/chinh-sach-bao-mat'}>
         CHÍNH SÁCH
       </Link>
     ),
-    key: "policy",
+    key: 'policy',
   },
 
   {
     label: (
-      <Link style={{ fontWeight: 700 }} to={"/huong-dan-mua-hang"}>
+      <Link style={{ fontWeight: 700 }} to={'/huong-dan-mua-hang'}>
         HƯỚNG DẪN
       </Link>
     ),
-    key: "direction",
+    key: 'direction',
   },
 
   {
     label: (
-      <Link style={{ fontWeight: 700 }} to={"/shop"}>
+      <Link style={{ fontWeight: 700 }} to={'/shop'}>
         SHOP UY TÍN
       </Link>
     ),
-    key: "shop",
+    key: 'shop',
   },
-];
+]
 
 const ExtraHeader = () => {
   // const user = useSelector(selectCurrentUser);
-  const { decodedToken, errorToken } = useDecodedToken("token");
-  const { success, user } = useSelector((state) => state.users);
-  const { carts } = useSelector((state) => state.carts);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const { decodedToken, errorToken } = useDecodedToken('token')
+  const { success, user } = useSelector((state) => state.users)
+  const { carts } = useSelector((state) => state.carts)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const confirm = (e) => {
-    dispatch(logoutUser(decodedToken.id));
-  };
+    dispatch(logoutUser(decodedToken.id))
+  }
 
   useEffect(() => {
     if (success) {
-      navigate("/login");
-      window.location.reload();
-      dispatch(resetState());
+      navigate('/login')
+      window.location.reload()
+      dispatch(resetState())
     }
-  }, [success]);
+  }, [success])
 
   // useEffect(() => {
   //   if (decodedToken) {
@@ -182,10 +172,10 @@ const ExtraHeader = () => {
           Menu: {
             fontSize: 12,
             padding: 14,
-            horizontalItemSelectedColor: "#000",
-            itemColor: "#fff",
-            itemSelectedColor: "#fc785a",
-            popupBg: "#fc785a",
+            horizontalItemSelectedColor: '#000',
+            itemColor: '#fff',
+            itemSelectedColor: '#fc785a',
+            popupBg: '#fc785a',
           },
         },
       }}
@@ -208,7 +198,7 @@ const ExtraHeader = () => {
                 </Flex>
               </Col>
             </Row> */}
-            <Row style={{ marginTop: "30px" }}>
+            <Row style={{ marginTop: '30px' }}>
               <Col span={24}>
                 <Flex justify="space-between">
                   <Flex className="primary_color">Logo</Flex>
@@ -218,45 +208,38 @@ const ExtraHeader = () => {
                         <Flex align="center" className="custommlr">
                           <IoPricetagsOutline className="icon primary_color" />
                           <div className="custompl primary_color">
-                            Số dư:{" "}
+                            Số dư:{' '}
                             {user && user.user
-                              ? parseInt(
-                                  user.user.accountBalance.toFixed(0)
-                                ).toLocaleString()
-                              : 0}{" "}
+                              ? parseInt(user.user.accountBalance.toFixed(0)).toLocaleString()
+                              : 0}{' '}
                             đ
                           </div>
                         </Flex>
 
                         <Flex align="center" className="custommlr">
-                          <Link
-                            className="custompl  extra_header_cart"
-                            to={"cart"}
-                          >
+                          <Link className="custompl  extra_header_cart" to={'cart'}>
                             <Flex align="center">
                               <LuShoppingCart className="icon quantity_cart" />
-                              <span style={{ position: "relative" }}>
+                              <span style={{ position: 'relative' }}>
                                 <Space
                                   style={{
-                                    position: "absolute",
+                                    position: 'absolute',
                                     top: -15,
                                     left: -5,
-                                    background: "#fff",
-                                    padding: "1px 6px",
-                                    borderRadius: "30%",
-                                    color: "#fb5731",
+                                    background: '#fff',
+                                    padding: '1px 6px',
+                                    borderRadius: '30%',
+                                    color: '#fb5731',
                                   }}
                                 >
-                                  {carts && carts.products
-                                    ? carts.products.length
-                                    : 0}
+                                  {carts && carts.products ? carts.products.length : 0}
                                 </Space>
                                 Giỏ hàng
                               </span>
                             </Flex>
                           </Link>
                         </Flex>
-                        <Link to={"/member/profile"}>
+                        <Link to={'/member/profile'}>
                           <Flex
                             align="center"
                             className="custommlr extra_header_cart primary_color"
@@ -285,7 +268,7 @@ const ExtraHeader = () => {
                       </>
                     ) : (
                       <>
-                        <Link to={"/register"} className="custommlr">
+                        <Link to={'/register'} className="custommlr">
                           <Flex
                             align="center"
                             className=" extra_header_cart custompl primary_color"
@@ -294,12 +277,8 @@ const ExtraHeader = () => {
                             Đăng ký
                           </Flex>
                         </Link>
-                        <Link to={"/login"}>
-                          <Flex
-                            align="center"
-                            extra_header_cart
-                            className="custompl"
-                          >
+                        <Link to={'/login'}>
+                          <Flex align="center" extra_header_cart className="custompl">
                             <SlUserFollowing className="icon" />
                             Đăng nhập
                           </Flex>
@@ -311,14 +290,14 @@ const ExtraHeader = () => {
               </Col>
             </Row>
 
-            <Row style={{ marginTop: "30px" }}>
+            <Row style={{ marginTop: '30px' }}>
               <Col span={24}>
                 <Menu
                   style={{
-                    background: "#fb5731",
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "space-between",
+                    background: '#fb5731',
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'space-between',
                   }}
                   mode="horizontal"
                   items={items}
@@ -329,7 +308,7 @@ const ExtraHeader = () => {
         </Row>
       </div>
     </ConfigProvider>
-  );
-};
+  )
+}
 
-export default ExtraHeader;
+export default ExtraHeader

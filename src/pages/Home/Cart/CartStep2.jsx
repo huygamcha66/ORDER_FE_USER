@@ -17,11 +17,27 @@ const ProductItem = ({ cart }) => {
       <tr>
         <td style={{ border: '1px solid #ddd', padding: '8px', width: '40%' }}>
           <div style={{ display: 'flex' }}>
-            <img
-              src={cart.coverImageUrl}
-              alt="Sản phẩm"
-              style={{ width: '50px', marginRight: '10px' }}
-            />
+            {cart.coverImageUrl.startsWith('https') ? (
+              <img
+                src={cart.coverImageUrl}
+                alt="Sản phẩm"
+                style={{
+                  width: '50px',
+                  marginRight: '10px',
+                  height: '50px',
+                }}
+              />
+            ) : (
+              <video
+                // className="hoverVideo"
+                className="video_thumbnail"
+                src={`https:${cart.coverImageUrl}`}
+                style={{ width: '50px', height: '50px', marginRight: '10px' }}
+                controls={false}
+              >
+                Trình duyệt không hỗ trợ ảnh
+              </video>
+            )}
             <a style={{ color: '#000' }} target="_blank" href={cart.productUrl}>
               {cart.name}
             </a>
@@ -56,6 +72,7 @@ const ProductItem = ({ cart }) => {
 
 const CartStep2 = () => {
   const { carts } = useSelector((state) => state.carts)
+  const { user } = useSelector((state) => state.users)
   const [totalCheckedDeposit, setTotalCheckedDeposit] = useState(0)
   const { decodedToken } = useDecodedToken('token')
 
@@ -92,10 +109,19 @@ const CartStep2 = () => {
   }, [carts])
 
   const handleSubmit = () => {
-    const finalProduct = carts.products.map((product) => ({
-      ...product,
-      properties: '',
-    }))
+    if (
+      user &&
+      user.user.accountBalance &&
+      parseInt(user.user.accountBalance.toFixed(0)) < parseInt(totalCheckedDeposit.toFixed(0))
+    ) {
+      return setIsModalOpen(true)
+    }
+    const finalProduct = carts.products
+      .filter((product) => product.check === true)
+      .map((product) => ({
+        ...product,
+        properties: '',
+      }))
     console.log('««««« totalCheckedPrice »»»»»', totalCheckedDeposit)
     dispatch(
       createOrder({
@@ -105,11 +131,16 @@ const CartStep2 = () => {
       }),
     )
     openNotificationWithIcon('success', 'Đặt hàng thành công')
-    // setTimeout(() => {
-    //   window.location.reload()
-    // }, 2000)
+    setTimeout(() => {
+      window.location.reload()
+    }, 2000)
   }
   console.log('««««« totalCheckedPrice »»»»»', totalCheckedDeposit && totalCheckedDeposit)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleCancel = () => {
+    setIsModalOpen(false)
+  }
   return (
     <>
       <Row justify="center">
@@ -163,6 +194,35 @@ const CartStep2 = () => {
               <button onClick={handleSubmit} className="btn_step_1">
                 <Space style={{ padding: '5px' }}> Gửi đơn</Space>
               </button>
+              <Modal
+                title="Bạn không đủ tiền để mua, hãy liên hệ với chúng tôi để nạp tiền vào ví!"
+                open={isModalOpen}
+                onOk={handleCancel}
+                onCancel={handleCancel}
+                cancelButtonProps={{
+                  style: {
+                    backgroundColor: '#f5222d',
+                    borderColor: '#f5222d',
+                    color: '#fff',
+                  },
+                }}
+                okButtonProps={{
+                  style: {
+                    backgroundColor: '#ccc',
+                    color: '#000',
+                  },
+                }}
+                okText="Có"
+                cancelText="Không"
+                footer={null}
+              >
+                <Flex justify="center">
+                  <Image
+                    width={350}
+                    src="https://pub-50bb58cfabdd4b93abb4e154d0eada9e.r2.dev/zalo.jpg"
+                  />
+                </Flex>
+              </Modal>
             </Flex>
           )}
         </Col>
