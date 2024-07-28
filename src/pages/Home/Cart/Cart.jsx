@@ -201,11 +201,12 @@ const Cart = () => {
   const [quantities, setQuantities] = useState([])
 
   const location = useLocation()
-  useEffect(() => {
-    if (decodedToken) {
-      dispatch(getCartDetail({ userId: decodedToken.id }))
-    }
-  }, [decodedToken, dispatch, location.pathname])
+  // useEffect(() => {
+  //   if (decodedToken) {
+  //     dispatch(getCartDetail({ userId: decodedToken.id }))
+  //   }
+  // }, [decodedToken, dispatch, location.pathname])
+
   useEffect(() => {
     if (carts && carts.products) {
       const newCheckedStates = carts.products.map((cart) => cart.check)
@@ -255,18 +256,10 @@ const Cart = () => {
   const navigate = useNavigate()
 
   const handlePlaceOrder = async () => {
-    if (
-      user &&
-      user.user.accountBalance &&
-      parseInt(user.user.accountBalance.toFixed(0)) < parseInt(totalCheckedPrice.toFixed(0))
-    ) {
-      return setIsModalOpen(true)
-    }
     // console.log("««««« totalCheckedPrice »»»»»", totalCheckedPrice);
     if (!totalCheckedPrice) {
       return openNotificationWithIcon('error', 'Vui lòng chọn sản phẩm')
     }
-
     // improve: dùng unwrap() để sử dụng async await đối với js redux-thunk
     // sử dụng trycatch để bắt lỗi
     const updateCartProducts = async () => {
@@ -297,13 +290,6 @@ const Cart = () => {
   }
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const showModal = () => {
-    setIsModalOpen(true)
-  }
-
-  const handleCancel = () => {
-    setIsModalOpen(false)
-  }
   // fix_huyg Phải đưa tất cả các hàm (CRUD) của hàm con về hàm cha hết
   // vì nó bị re-render theo số lương của hàm con, không kiểm soát được, bug 2 ngày mới fix được đó.
   const handleDelete = async (productId) => {
@@ -429,6 +415,7 @@ const Cart = () => {
                 <span className="green">Hiện tại không có sản phẩm nào trong giỏ hàng</span>
               )}
             </table>
+
             <Flex className="wrapper_buy_step_1" justify="space-between">
               <label
                 style={{
@@ -456,35 +443,6 @@ const Cart = () => {
               <button className="btn_step_1" onClick={handlePlaceOrder}>
                 Đặt hàng ngay
               </button>
-              <Modal
-                title="Bạn không đủ tiền để mua, hãy liên hệ với chúng tôi để nạp tiền vào ví!"
-                open={isModalOpen}
-                onOk={handleCancel}
-                onCancel={handleCancel}
-                cancelButtonProps={{
-                  style: {
-                    backgroundColor: '#f5222d',
-                    borderColor: '#f5222d',
-                    color: '#fff',
-                  },
-                }}
-                okButtonProps={{
-                  style: {
-                    backgroundColor: '#ccc',
-                    color: '#000',
-                  },
-                }}
-                okText="Có"
-                cancelText="Không"
-                footer={null}
-              >
-                <Flex justify="center">
-                  <Image
-                    width={350}
-                    src="https://pub-50bb58cfabdd4b93abb4e154d0eada9e.r2.dev/zalo.jpg"
-                  />
-                </Flex>
-              </Modal>
             </Flex>
           </div>
         </Col>
