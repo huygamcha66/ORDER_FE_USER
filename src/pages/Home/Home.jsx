@@ -2,7 +2,7 @@
 /* eslint-disable semi */
 import { Helmet } from 'react-helmet'
 import Footer from '../../components/Footer/Footer'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import HeaderScreen from '../../components/Header'
 import { Space } from 'antd'
 import ExtraHeader from '../../components/ExtraHeader/ExtraHeader'
@@ -16,9 +16,12 @@ import clsx from 'clsx'
 import style from './Home.module.css'
 const Home = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const location = useLocation()
   const { decodedToken } = useDecodedToken('token')
   useEffect(() => {
     const check = async () => {
+      console.log('««««« 123 »»»»»', 123)
       if (decodedToken) {
         dispatch(getCartDetail({ userId: decodedToken.id }))
         dispatch(
@@ -26,11 +29,10 @@ const Home = () => {
             addressIP: `${addressIP}&&${getCanvasFingerprint()}&&${getWebGLFingerprint().renderer}`,
           }),
         )
-        // dispatch(resetState());
       }
     }
     check()
-  }, [decodedToken])
+  }, [dispatch, navigate, decodedToken])
   return (
     <div className={clsx(style.page_container)}>
       <div className={clsx(style.content_wrapper)}>

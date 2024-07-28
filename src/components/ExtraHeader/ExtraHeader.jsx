@@ -12,7 +12,7 @@ import { SlUserFollowing } from 'react-icons/sl'
 import './index.css'
 import { logoutUser, resetState } from '../../redux/userSlice/userSlice'
 import useDecodedToken from '../UserInfor'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 const items = [
   {
     label: (
@@ -153,17 +153,11 @@ const ExtraHeader = () => {
 
   useEffect(() => {
     if (success) {
+      localStorage.clear()
       navigate('/login')
-      window.location.reload()
       dispatch(resetState())
     }
   }, [success])
-
-  // useEffect(() => {
-  //   if (decodedToken) {
-  //     dispatch(resetState());
-  //   }
-  // }, [decodedToken, dispatch]);
 
   return (
     <ConfigProvider
