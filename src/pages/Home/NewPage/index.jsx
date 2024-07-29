@@ -1,12 +1,12 @@
 /* eslint-disable quotes */
-import { useEffect } from "react";
-import { IoChevronForward } from "react-icons/io5";
-import { useLocation } from "react-router-dom";
+import { useEffect } from 'react'
+import { IoChevronForward } from 'react-icons/io5'
+import { useLocation } from 'react-router-dom'
 const NewPage = () => {
-  const location = useLocation();
+  const location = useLocation()
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0 });
-  }, [location]);
+    window.scrollTo({ top: 0, left: 0 })
+  }, [location])
   return (
     <main id="main" className="">
       <div id="content" className="blog-wrapper blog-archive page-wrapper">
@@ -30,11 +30,8 @@ const NewPage = () => {
                     className="plain"
                   >
                     <div className="box box-vertical box-text-bottom box-blog-post has-hover">
-                      <div className="box-image" style={{ width: "40%" }}>
-                        <div
-                          className="image-cover"
-                          style={{ paddingTop: "56%" }}
-                        >
+                      <div className="box-image" style={{ width: '40%' }}>
+                        <div className="image-cover" style={{ paddingTop: '56%' }}>
                           <img
                             width="300"
                             height="200"
@@ -55,8 +52,8 @@ const NewPage = () => {
                           </h5>
                           <div className="is-divider"></div>
                           <p className="from_the_blog_excerpt ">
-                            Kính gửi Quý Khách hàng! Order Kiều Nghĩa xin thông
-                            báo lịch nghỉ tết [...]
+                            Kính gửi Quý Khách hàng! Order Kiều Nghĩa xin thông báo lịch nghỉ tết
+                            [...]
                           </p>
                         </div>
                       </div>
@@ -77,11 +74,8 @@ const NewPage = () => {
                     className="plain"
                   >
                     <div className="box box-vertical box-text-bottom box-blog-post has-hover">
-                      <div className="box-image" style={{ width: "40%" }}>
-                        <div
-                          className="image-cover"
-                          style={{ paddingTop: "56%" }}
-                        >
+                      <div className="box-image" style={{ width: '40%' }}>
+                        <div className="image-cover" style={{ paddingTop: '56%' }}>
                           <img
                             width="300"
                             height="200"
@@ -98,13 +92,11 @@ const NewPage = () => {
                       <div className="box-text text-left">
                         <div className="box-text-inner blog-post-inner">
                           <h5 className="post-title is-large ">
-                            ƯU ĐÃI GIẢM 100% PHÍ DỊCH VỤ NHÂN DỊP SUPER SALES
-                            11/11
+                            ƯU ĐÃI GIẢM 100% PHÍ DỊCH VỤ NHÂN DỊP SUPER SALES 11/11
                           </h5>
                           <div className="is-divider"></div>
                           <p className="from_the_blog_excerpt ">
-                            Một năm chỉ có duy nhất 1 ngày toàn thể người dân
-                            Trung Quốc đều [...]
+                            Một năm chỉ có duy nhất 1 ngày toàn thể người dân Trung Quốc đều [...]
                           </p>
                         </div>
                       </div>
@@ -120,16 +112,10 @@ const NewPage = () => {
               </div>
               <div className="col post-item">
                 <div className="col-inner">
-                  <a
-                    href="https://orderhangquangchau.com/1344.html"
-                    className="plain"
-                  >
+                  <a href="https://orderhangquangchau.com/1344.html" className="plain">
                     <div className="box box-vertical box-text-bottom box-blog-post has-hover">
-                      <div className="box-image" style={{ width: "40%" }}>
-                        <div
-                          className="image-cover"
-                          style={{ paddingTop: "56%" }}
-                        >
+                      <div className="box-image" style={{ width: '40%' }}>
+                        <div className="image-cover" style={{ paddingTop: '56%' }}>
                           <img
                             width="300"
                             height="169"
@@ -148,8 +134,8 @@ const NewPage = () => {
                           <h5 className="post-title is-large "></h5>
                           <div className="is-divider"></div>
                           <p className="from_the_blog_excerpt ">
-                            Kính gửi Quý khách hàng! Order Kiều Nghĩa xin thông
-                            báo tới quý khách [...]
+                            Kính gửi Quý khách hàng! Order Kiều Nghĩa xin thông báo tới quý khách
+                            [...]
                           </p>
                         </div>
                       </div>
@@ -170,11 +156,8 @@ const NewPage = () => {
                     className="plain"
                   >
                     <div className="box box-vertical box-text-bottom box-blog-post has-hover">
-                      <div className="box-image" style={{ width: "40%" }}>
-                        <div
-                          className="image-cover"
-                          style={{ paddingTop: "56%" }}
-                        >
+                      <div className="box-image" style={{ width: '40%' }}>
+                        <div className="image-cover" style={{ paddingTop: '56%' }}>
                           <img
                             width="300"
                             height="163"
@@ -190,13 +173,11 @@ const NewPage = () => {
                       </div>
                       <div className="box-text text-left">
                         <div className="box-text-inner blog-post-inner">
-                          <h5 className="post-title is-large ">
-                            Thông báo nghỉ lễ 30/4 và 1/5
-                          </h5>
+                          <h5 className="post-title is-large ">Thông báo nghỉ lễ 30/4 và 1/5</h5>
                           <div className="is-divider"></div>
                           <p className="from_the_blog_excerpt ">
-                            Kính gửi Quý khách hàng! Order Kiều Nghĩa xin thông
-                            báo lịch nghỉ lễ [...]
+                            Kính gửi Quý khách hàng! Order Kiều Nghĩa xin thông báo lịch nghỉ lễ
+                            [...]
                           </p>
                         </div>
                       </div>
@@ -217,11 +198,8 @@ const NewPage = () => {
                     className="plain"
                   >
                     <div className="box box-vertical box-text-bottom box-blog-post has-hover">
-                      <div className="box-image" style={{ width: "40%" }}>
-                        <div
-                          className="image-cover"
-                          style={{ paddingTop: "56%" }}
-                        >
+                      <div className="box-image" style={{ width: '40%' }}>
+                        <div className="image-cover" style={{ paddingTop: '56%' }}>
                           <img
                             width="300"
                             height="158"
@@ -237,13 +215,11 @@ const NewPage = () => {
                       </div>
                       <div className="box-text text-left">
                         <div className="box-text-inner blog-post-inner">
-                          <h5 className="post-title is-large ">
-                            Thông báo lịch nghỉ tết 2023
-                          </h5>
+                          <h5 className="post-title is-large ">Thông báo lịch nghỉ tết 2023</h5>
                           <div className="is-divider"></div>
                           <p className="from_the_blog_excerpt ">
-                            &nbsp; Kính thưa Quý khách hàng : Order hàng Quảng
-                            Châu xin thông báo lịch [...]
+                            &nbsp; Kính thưa Quý khách hàng : Order hàng Quảng Châu xin thông báo
+                            lịch [...]
                           </p>
                         </div>
                       </div>
@@ -266,16 +242,12 @@ const NewPage = () => {
                     <div className="box box-vertical box-text-bottom box-blog-post has-hover">
                       <div className="box-text text-left">
                         <div className="box-text-inner blog-post-inner">
-                          <h5 className="post-title is-large ">
-                            Bảng giá ký gửi hàng
-                          </h5>
-                          <div className="post-meta is-small op-8">
-                            November 14, 2022
-                          </div>
+                          <h5 className="post-title is-large ">Bảng giá ký gửi hàng</h5>
+                          <div className="post-meta is-small op-8">November 14, 2022</div>
                           <div className="is-divider"></div>
                           <p className="from_the_blog_excerpt ">
-                            BẢNG GIÁ KÝ GỬI VẬN CHUYỂN TRUNG QUỐC &#8211; VIỆT
-                            NAM &nbsp; 1.Giá vận chuyển [...]
+                            BẢNG GIÁ KÝ GỬI VẬN CHUYỂN TRUNG QUỐC &#8211; VIỆT NAM &nbsp; 1.Giá vận
+                            chuyển [...]
                           </p>
                         </div>
                       </div>
@@ -290,11 +262,8 @@ const NewPage = () => {
                     className="plain"
                   >
                     <div className="box box-vertical box-text-bottom box-blog-post has-hover">
-                      <div className="box-image" style={{ width: "40%" }}>
-                        <div
-                          className="image-cover"
-                          style={{ paddingTop: "56%" }}
-                        >
+                      <div className="box-image" style={{ width: '40%' }}>
+                        <div className="image-cover" style={{ paddingTop: '56%' }}>
                           <img
                             width="260"
                             height="300"
@@ -315,8 +284,8 @@ const NewPage = () => {
                           </h5>
                           <div className="is-divider"></div>
                           <p className="from_the_blog_excerpt ">
-                            Cách chọn khăn quàng cổ cho người thấp Thời tiết se
-                            lạnh đầu mùa luôn [...]
+                            Cách chọn khăn quàng cổ cho người thấp Thời tiết se lạnh đầu mùa luôn
+                            [...]
                           </p>
                         </div>
                       </div>
@@ -337,11 +306,8 @@ const NewPage = () => {
                     className="plain"
                   >
                     <div className="box box-vertical box-text-bottom box-blog-post has-hover">
-                      <div className="box-image" style={{ width: "40%" }}>
-                        <div
-                          className="image-cover"
-                          style={{ paddingTop: "56%" }}
-                        >
+                      <div className="box-image" style={{ width: '40%' }}>
+                        <div className="image-cover" style={{ paddingTop: '56%' }}>
                           <img
                             width="300"
                             height="164"
@@ -358,13 +324,12 @@ const NewPage = () => {
                       <div className="box-text text-left">
                         <div className="box-text-inner blog-post-inner">
                           <h5 className="post-title is-large ">
-                            Taobao, 1688, tmall giới thiệu link xưởng uy tín giá
-                            rẻ
+                            Taobao, 1688, tmall giới thiệu link xưởng uy tín giá rẻ
                           </h5>
                           <div className="is-divider"></div>
                           <p className="from_the_blog_excerpt ">
-                            Kính gửi quý khách hàng! Hiện nay, tình hình thông
-                            quan hàng hóa từ TQ [...]
+                            Kính gửi quý khách hàng! Hiện nay, tình hình thông quan hàng hóa từ TQ
+                            [...]
                           </p>
                         </div>
                       </div>
@@ -385,11 +350,8 @@ const NewPage = () => {
                     className="plain"
                   >
                     <div className="box box-vertical box-text-bottom box-blog-post has-hover">
-                      <div className="box-image" style={{ width: "40%" }}>
-                        <div
-                          className="image-cover"
-                          style={{ paddingTop: "56%" }}
-                        >
+                      <div className="box-image" style={{ width: '40%' }}>
+                        <div className="image-cover" style={{ paddingTop: '56%' }}>
                           <img
                             width="300"
                             height="203"
@@ -410,8 +372,8 @@ const NewPage = () => {
                           </h5>
                           <div className="is-divider"></div>
                           <p className="from_the_blog_excerpt ">
-                            Những câu hỏi thường gặp khi order hàng Quảng Châu
-                            Nếu bạn mới làm quen [...]
+                            Những câu hỏi thường gặp khi order hàng Quảng Châu Nếu bạn mới làm quen
+                            [...]
                           </p>
                         </div>
                       </div>
@@ -432,11 +394,8 @@ const NewPage = () => {
                     className="plain"
                   >
                     <div className="box box-vertical box-text-bottom box-blog-post has-hover">
-                      <div className="box-image" style={{ width: "40%" }}>
-                        <div
-                          className="image-cover"
-                          style={{ paddingTop: "56%" }}
-                        >
+                      <div className="box-image" style={{ width: '40%' }}>
+                        <div className="image-cover" style={{ paddingTop: '56%' }}>
                           <img
                             width="300"
                             height="225"
@@ -457,8 +416,8 @@ const NewPage = () => {
                           </h5>
                           <div className="is-divider"></div>
                           <p className="from_the_blog_excerpt ">
-                            Kính gửi quý khách hàng! Hiện nay, tình hình thông
-                            quan hàng hóa từ TQ [...]
+                            Kính gửi quý khách hàng! Hiện nay, tình hình thông quan hàng hóa từ TQ
+                            [...]
                           </p>
                         </div>
                       </div>
@@ -475,9 +434,9 @@ const NewPage = () => {
             </div>
             <ul
               style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}
               className="page-numbers nav-pagination links text-center"
             >
@@ -523,15 +482,15 @@ const NewPage = () => {
               </li>
               <li>
                 <a
-                  style={{ display: "flex", alignItems: "center" }}
+                  style={{ display: 'flex', alignItems: 'center' }}
                   className="next page-number"
                   href="https://orderhangquangchau.com/category/tin-tuc/page/2"
                 >
                   <IoChevronForward
                     style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignContent: "center",
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignContent: 'center'
                     }}
                   />
                 </a>
@@ -540,10 +499,7 @@ const NewPage = () => {
           </div>
           <div className="post-sidebar large-3 col">
             <div id="secondary" className="widget-area " role="complementary">
-              <aside
-                id="flatsome_recent_posts-2"
-                className="widget flatsome_recent_posts"
-              >
+              <aside id="flatsome_recent_posts-2" className="widget flatsome_recent_posts">
                 <span className="widget-title ">
                   <span>Bài viết mới</span>
                 </span>
@@ -557,8 +513,8 @@ const NewPage = () => {
                             className="badge-inner bg-fill"
                             style={{
                               background:
-                                " url(https://orderhangquangchau.com/wp-content/uploads/2024/01/tet-giap-thin-150x150.jpg)",
-                              border: "0",
+                                ' url(https://orderhangquangchau.com/wp-content/uploads/2024/01/tet-giap-thin-150x150.jpg)',
+                              border: '0'
                             }}
                           ></div>
                         </div>
@@ -585,8 +541,8 @@ const NewPage = () => {
                             className="badge-inner bg-fill"
                             style={{
                               background:
-                                " url(https://orderhangquangchau.com/wp-content/uploads/2023/11/Image-1-150x150.jpeg)",
-                              border: "0",
+                                ' url(https://orderhangquangchau.com/wp-content/uploads/2023/11/Image-1-150x150.jpeg)',
+                              border: '0'
                             }}
                           ></div>
                         </div>
@@ -596,8 +552,7 @@ const NewPage = () => {
                           href="https://orderhangquangchau.com/uu-dai-giam-100-phi-dich-vu-nhan-dip-super-sales-11-11.html"
                           title="ƯU ĐÃI GIẢM 100% PHÍ DỊCH VỤ NHÂN DỊP SUPER SALES 11/11"
                         >
-                          ƯU ĐÃI GIẢM 100% PHÍ DỊCH VỤ NHÂN DỊP SUPER SALES
-                          11/11
+                          ƯU ĐÃI GIẢM 100% PHÍ DỊCH VỤ NHÂN DỊP SUPER SALES 11/11
                         </a>
                         <span className="post_comments op-7 block is-xsmall">
                           <a href="https://orderhangquangchau.com/uu-dai-giam-100-phi-dich-vu-nhan-dip-super-sales-11-11.html#respond"></a>
@@ -614,17 +569,14 @@ const NewPage = () => {
                             className="badge-inner bg-fill"
                             style={{
                               background:
-                                " url(https://orderhangquangchau.com/wp-content/uploads/2023/09/109035418_reutersshot-150x150.jpg)",
-                              border: "0",
+                                ' url(https://orderhangquangchau.com/wp-content/uploads/2023/09/109035418_reutersshot-150x150.jpg)',
+                              border: '0'
                             }}
                           ></div>
                         </div>
                       </div>
                       <div className="flex-col flex-grow">
-                        <a
-                          href="https://orderhangquangchau.com/1344.html"
-                          title="1344"
-                        >
+                        <a href="https://orderhangquangchau.com/1344.html" title="1344">
                           1344
                         </a>
                         <span className="post_comments op-7 block is-xsmall">
@@ -642,8 +594,8 @@ const NewPage = () => {
                             className="badge-inner bg-fill"
                             style={{
                               background:
-                                " url(https://orderhangquangchau.com/wp-content/uploads/2023/04/lich-nghi-le1-30-4-06-150x150.jpg)",
-                              border: "0",
+                                ' url(https://orderhangquangchau.com/wp-content/uploads/2023/04/lich-nghi-le1-30-4-06-150x150.jpg)',
+                              border: '0'
                             }}
                           ></div>
                         </div>
@@ -670,8 +622,8 @@ const NewPage = () => {
                             className="badge-inner bg-fill"
                             style={{
                               background:
-                                " url(https://orderhangquangchau.com/wp-content/uploads/2022/12/tt-nguyen-dan-2023-vao-ngay-nao-duong-lch_d559e3ef-150x150.jpg)",
-                              border: "0",
+                                ' url(https://orderhangquangchau.com/wp-content/uploads/2022/12/tt-nguyen-dan-2023-vao-ngay-nao-duong-lch_d559e3ef-150x150.jpg)',
+                              border: '0'
                             }}
                           ></div>
                         </div>
@@ -702,7 +654,7 @@ const NewPage = () => {
                   src="https://orderhangquangchau.com/wp-content/uploads/2022/09/download_tool-300x226.png"
                   className="image wp-image-1105  attachment-medium size-medium"
                   alt=""
-                  style={{ maxWidth: "100%", height: "auto" }}
+                  style={{ maxWidth: '100%', height: 'auto' }}
                   decoding="async"
                   loading="lazy"
                   srcSet="https://orderhangquangchau.com/wp-content/uploads/2022/09/download_tool-300x226.png 300w, https://orderhangquangchau.com/wp-content/uploads/2022/09/download_tool.png 383w"
@@ -714,6 +666,6 @@ const NewPage = () => {
         </div>
       </div>
     </main>
-  );
-};
-export default NewPage;
+  )
+}
+export default NewPage

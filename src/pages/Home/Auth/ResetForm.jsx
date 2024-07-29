@@ -8,14 +8,14 @@ import { useForm } from 'react-hook-form'
 import {
   PASSWORD_RULE,
   FIELD_REQUIRED_MESSAGE,
-  PASSWORD_RULE_MESSAGE,
+  PASSWORD_RULE_MESSAGE
 } from '../../../utils/validators'
 import FieldErrorAlert from '../../../components/Form/FieldErrorAlert'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   changePasswordUser,
   resetState,
-  sendCodeResetPassword,
+  sendCodeResetPassword
 } from '../../../redux/userSlice/userSlice'
 import { useEffect } from 'react'
 import { Spin } from 'antd'
@@ -25,7 +25,7 @@ const ResetForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
+    watch
   } = useForm()
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -81,8 +81,8 @@ const ResetForm = () => {
                       required: FIELD_REQUIRED_MESSAGE,
                       pattern: {
                         value: PASSWORD_RULE,
-                        message: PASSWORD_RULE_MESSAGE,
-                      },
+                        message: PASSWORD_RULE_MESSAGE
+                      }
                     })}
                   />
                   <FieldErrorAlert errors={errors} fieldName={'password'} />
@@ -101,7 +101,7 @@ const ResetForm = () => {
                       validate: (value) => {
                         if (value === watch('password')) return true
                         return 'Mật khẩu không trùng khớp!'
-                      },
+                      }
                     })}
                   />
                   <FieldErrorAlert errors={errors} fieldName={'confirmPassword'} />
@@ -132,7 +132,7 @@ const ResetForm = () => {
                     name="code"
                     placeholder="Mã xác thực"
                     {...register('code', {
-                      required: FIELD_REQUIRED_MESSAGE,
+                      required: FIELD_REQUIRED_MESSAGE
                     })}
                   />
                 </div>
@@ -162,7 +162,7 @@ const ResetForm = () => {
                     style={{
                       marginBottom: '0.7em',
                       overflow: 'hidden',
-                      color: 'red',
+                      color: 'red'
                     }}
                   >
                     Mã xác thực sai, vui lòng kiểm tra lại email
@@ -171,7 +171,7 @@ const ResetForm = () => {
                       style={{
                         color: 'blue',
                         cursor: 'pointer',
-                        marginLeft: '0.7em',
+                        marginLeft: '0.7em'
                       }}
                     >
                       Gửi lại mã xác thực

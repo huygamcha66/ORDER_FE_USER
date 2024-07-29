@@ -58,9 +58,7 @@ const ProductItem = ({ cart, onDelete }) => {
                 Trình duyệt không hỗ trợ ảnh
               </video>
             )}
-            <Space style={{ color: '#000' }} >
-              {cart.name}
-            </Space>
+            <Space style={{ color: '#000' }}>{cart.name}</Space>
           </div>
         </td>
         <td style={{ border: '1px solid #ddd', padding: '8px' }}>
@@ -156,11 +154,12 @@ const CartStep2 = () => {
       carts.products.reduce((acc, value) => {
         if (value.check) {
           // Tính tiền đặt cọc cho sản phẩm nếu đã chọn
-          return acc + value.price * 3625 * value.quantity * 0.7
+          return acc + value.price * 3625 * value.quantity * 0.7 * 1.03
         }
         // Nếu sản phẩm không được chọn, trả lại giá trị hiện tại của acc
         return acc
       }, 0)
+
     setTotalCheckedDeposit(totalDeposit)
   }, [carts, success])
 
@@ -188,7 +187,7 @@ const CartStep2 = () => {
         createOrder({
           userId: decodedToken.id,
           productList: finalProduct,
-          purchaseFee: totalCheckedDeposit,
+          purchaseFee: totalCheckedDeposit.toFixed(0),
           deliveryAddress: addressDelivery ? addressDelivery : user.user.address
         })
       ).unwrap()
@@ -233,139 +232,138 @@ const CartStep2 = () => {
   }
   return (
     <>
-
-      {totalCheckedDeposit ? <ConfigProvider
-        theme={{
-          components: {
-            Input: {
-              hoverBorderColor: '#fb5731',
-              activeBorderColor: '#fb5731'
+      {totalCheckedDeposit ? (
+        <ConfigProvider
+          theme={{
+            components: {
+              Input: {
+                hoverBorderColor: '#fb5731',
+                activeBorderColor: '#fb5731'
+              }
             }
-          }
-        }}
-      >
-        {' '}
-        <Row justify="center">
-          <Col xs={20}>
-            <div>
+          }}
+        >
+          {' '}
+          <Row justify="center">
+            <Col xs={20}>
               <div>
-                <h2>Giỏ hàng</h2>
+                <div>
+                  <h2>Giỏ hàng</h2>
 
-                <table
-                  style={{
-                    width: '100%',
-                    borderCollapse: 'collapse',
-                    marginBottom: '1em'
-                  }}
-                >
-                  <thead>
-                    <tr>
-                      <th style={{ border: '1px solid #ddd', padding: '8px' }}>Sản phẩm</th>
-                      <th
-                        style={{
-                          border: '1px solid #ddd',
-                          padding: '8px',
-                          width: '7%'
-                        }}
-                      >
-                        Số lượng
-                      </th>
-                      <th style={{ border: '1px solid #ddd', padding: '8px' }}>Đơn giá</th>
-                      <th style={{ border: '1px solid #ddd', padding: '8px' }}>Tổng tiền</th>
-                      <th
-                        style={{
-                          border: '1px solid #ddd',
-                          padding: '8px'
-                        }}
-                      >
-                        Xoá
-                      </th>
-                    </tr>
-                  </thead>
-                  {carts.products &&
-                    carts.products.map((cart, index) => {
-                      if (cart.check) {
-                        return (
-                          <ProductItem
-                            onDelete={handleDelete}
-                            key={index}
-                            cart={cart}
-                            index={index}
-                          />
-                        )
-                      }
-                    })}
-                </table>
-                <Flex>
-                  {/* huyg */}
-                  <TextArea
-                    value={addressDelivery}
-                    onChange={(e) => setAddressDelivery(e.target.value)}
-                    placeholder="Nhập địa chỉ nhận hàng"
-                    autoSize={{
-                      minRows: 3,
-                      maxRows: 6
+                  <table
+                    style={{
+                      width: '100%',
+                      borderCollapse: 'collapse',
+                      marginBottom: '1em'
                     }}
-                  />
-                </Flex>
-              </div>
-            </div>
-            {carts.products && carts.products.length > 0 && (
-              <Flex justify="space-between" className="wrapper_buy_step_1">
-                <Space>
-                  <Space> Tổng tiền cọc (70%):</Space>
-                  <span style={{ color: 'red' }}>
-                    {totalCheckedDeposit &&
-                      parseInt(totalCheckedDeposit.toFixed(0)).toLocaleString('vi-VN')}
-                    đ
-                  </span>
-                </Space>
-                {loadingPlace ? (
-                  <Spin />
-                ) : (
-                  <button onClick={handleSubmit} className="btn_step_1">
-                    <Space style={{ padding: '5px' }}> Gửi đơn</Space>
-                  </button>
-                )}
-
-                <Modal
-                  title="Bạn không đủ tiền để mua, hãy liên hệ với chúng tôi để nạp tiền vào ví!"
-                  open={isModalOpen}
-                  onOk={handleCancel}
-                  onCancel={handleCancel}
-                  cancelButtonProps={{
-                    style: {
-                      backgroundColor: '#f5222d',
-                      borderColor: '#f5222d',
-                      color: '#fff'
-                    }
-                  }}
-                  okButtonProps={{
-                    style: {
-                      backgroundColor: '#ccc',
-                      color: '#000'
-                    }
-                  }}
-                  okText="Có"
-                  cancelText="Không"
-                  footer={null}
-                >
-                  <Flex justify="center">
-                    <Image
-                      width={350}
-                      src="https://pub-50bb58cfabdd4b93abb4e154d0eada9e.r2.dev/zalo.jpg"
+                  >
+                    <thead>
+                      <tr>
+                        <th style={{ border: '1px solid #ddd', padding: '8px' }}>Sản phẩm</th>
+                        <th
+                          style={{
+                            border: '1px solid #ddd',
+                            padding: '8px',
+                            width: '7%'
+                          }}
+                        >
+                          Số lượng
+                        </th>
+                        <th style={{ border: '1px solid #ddd', padding: '8px' }}>Đơn giá</th>
+                        <th style={{ border: '1px solid #ddd', padding: '8px' }}>Tổng tiền</th>
+                        <th
+                          style={{
+                            border: '1px solid #ddd',
+                            padding: '8px'
+                          }}
+                        >
+                          Xoá
+                        </th>
+                      </tr>
+                    </thead>
+                    {carts.products &&
+                      carts.products.map((cart, index) => {
+                        if (cart.check) {
+                          return (
+                            <ProductItem
+                              onDelete={handleDelete}
+                              key={index}
+                              cart={cart}
+                              index={index}
+                            />
+                          )
+                        }
+                      })}
+                  </table>
+                  <Flex>
+                    {/* huyg */}
+                    <TextArea
+                      value={addressDelivery}
+                      onChange={(e) => setAddressDelivery(e.target.value)}
+                      placeholder="Nhập địa chỉ nhận hàng"
+                      autoSize={{
+                        minRows: 3,
+                        maxRows: 6
+                      }}
                     />
                   </Flex>
-                </Modal>
-              </Flex>
-            )}
-          </Col>
-        </Row>
-      </ConfigProvider> : <Empty
-        style = {{ marginTop: '30px' }}
-        description={<span>Không có sản phẩm nào</span>}
-      />}
+                </div>
+              </div>
+              {carts.products && carts.products.length > 0 && (
+                <Flex justify="space-between" className="wrapper_buy_step_1">
+                  <Space>
+                    <Space> Tổng tiền cọc (70%):</Space>
+                    <span style={{ color: 'red' }}>
+                      {totalCheckedDeposit &&
+                        parseInt(totalCheckedDeposit.toFixed(0)).toLocaleString('vi-VN')}
+                      đ
+                    </span>
+                  </Space>
+                  {loadingPlace ? (
+                    <Spin />
+                  ) : (
+                    <button onClick={handleSubmit} className="btn_step_1">
+                      <Space style={{ padding: '5px' }}> Gửi đơn</Space>
+                    </button>
+                  )}
 
+                  <Modal
+                    title="Bạn không đủ tiền để mua, hãy liên hệ với chúng tôi để nạp tiền vào ví!"
+                    open={isModalOpen}
+                    onOk={handleCancel}
+                    onCancel={handleCancel}
+                    cancelButtonProps={{
+                      style: {
+                        backgroundColor: '#f5222d',
+                        borderColor: '#f5222d',
+                        color: '#fff'
+                      }
+                    }}
+                    okButtonProps={{
+                      style: {
+                        backgroundColor: '#ccc',
+                        color: '#000'
+                      }
+                    }}
+                    okText="Có"
+                    cancelText="Không"
+                    footer={null}
+                  >
+                    <Flex justify="center">
+                      <Image
+                        width={350}
+                        src="https://pub-50bb58cfabdd4b93abb4e154d0eada9e.r2.dev/zalo.jpg"
+                      />
+                    </Flex>
+                  </Modal>
+                </Flex>
+              )}
+            </Col>
+          </Row>
+        </ConfigProvider>
+      ) : (
+        <Empty style={{ marginTop: '30px' }} description={<span>Không có sản phẩm nào</span>} />
+      )}
     </>
   )
 }

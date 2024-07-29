@@ -17,8 +17,15 @@ const ListShipIds = () => {
           <section class="content-header">
             <h1> Danh sách đơn hàng ký gửi</h1>
             <ol class="breadcrumb">
-              <li><a href="/dashboard"><AiFillDashboard/>Trang chủ </a></li>
-              <li><a>Quản lý nhập hàng</a></li>
+              <li>
+                <a href="/dashboard">
+                  <AiFillDashboard />
+                  Trang chủ{' '}
+                </a>
+              </li>
+              <li>
+                <a>Quản lý nhập hàng</a>
+              </li>
               <li class="active">Danh sách đơn hàng ký gửi</li>
             </ol>
           </section>
@@ -33,7 +40,15 @@ const ListShipIds = () => {
                           <ul class="lp-header list-inline">
                             <li class="col-md-3 col-xs-12">
                               <div class="form-group">
-                                <input type="text" class="form-control" number-only="" name="filter_shipid" value="" placeholder="Mã vận đơn" fdprocessedid="4k08j" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  number-only=""
+                                  name="filter_shipid"
+                                  value=""
+                                  placeholder="Mã vận đơn"
+                                  fdprocessedid="4k08j"
+                                />
                               </div>
                             </li>
 
@@ -41,7 +56,7 @@ const ListShipIds = () => {
                               <div class="form-group">
                                 <div class="input-group date">
                                   <div class="input-group-addon">
-                                    <FaCalendar/>
+                                    <FaCalendar />
                                   </div>
                                   <DatePicker onChange={onChange} needConfirm />
                                 </div>
@@ -51,7 +66,7 @@ const ListShipIds = () => {
                               <div class="form-group">
                                 <div class="input-group date">
                                   <div class="input-group-addon">
-                                    <FaCalendar/>
+                                    <FaCalendar />
                                   </div>
                                   <DatePicker onChange={onChange} needConfirm />
                                 </div>
@@ -59,12 +74,19 @@ const ListShipIds = () => {
                             </li>
                             <li class="col-md-3 col-xs-12">
                               <div class="form-group">
-                                <button type="submit" ng-click="self.search(dataSearch, 0)" class="btn btn-info btn-seach-package" fdprocessedid="6b85s7"><FaSearch/> Lọc
+                                <button
+                                  type="submit"
+                                  ng-click="self.search(dataSearch, 0)"
+                                  class="btn btn-info btn-seach-package"
+                                  fdprocessedid="6b85s7"
+                                >
+                                  <FaSearch /> Lọc
                                 </button>
-                                <a href="/shiporder/lists" class="btn btn-default"><LuRefreshCw/> Làm lại</a>
+                                <a href="/shiporder/lists" class="btn btn-default">
+                                  <LuRefreshCw /> Làm lại
+                                </a>
                               </div>
                             </li>
-
                           </ul>
                         </div>
                       </form>
@@ -74,9 +96,7 @@ const ListShipIds = () => {
                     <div class="col-sm-12">
                       <div class="cart-by-page">
                         <div class="titles">
-                          <h2 class="page-title">
-										Danh sách đơn hàng
-                          </h2>
+                          <h2 class="page-title">Danh sách đơn hàng</h2>
                         </div>
 
                         <div class="table-responsive">
@@ -91,14 +111,15 @@ const ListShipIds = () => {
                                 <th width="20%">Tình trạng</th>
                               </tr>
                             </thead>
-                            <tbody id="abc">
-
-                            </tbody>
+                            <tbody id="abc"></tbody>
                           </table>
                         </div>
-                        <div class="pag">
-                        </div>
-                        <p><strong>Total: <span class="green">0</span> (Items)</strong></p>
+                        <div class="pag"></div>
+                        <p>
+                          <strong>
+                            Total: <span class="green">0</span> (Items)
+                          </strong>
+                        </p>
                       </div>
                     </div>
                   </div>

@@ -19,5 +19,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <RouterProvider router={router} />
       {/* <ToastContainer position="bottom-left" theme="colored" /> */}
     </PersistGate>
-  </Provider>,
+  </Provider>
 )

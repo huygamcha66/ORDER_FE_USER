@@ -2,61 +2,50 @@
 /* eslint-disable quotes */
 /* eslint-disable no-console */
 /* eslint-disable react/no-unknown-property */
-import { LockOutlined, PhoneOutlined, MailOutlined } from "@ant-design/icons";
-import { PiAddressBook } from "react-icons/pi";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { registerUser, resetState } from "../../../redux/userSlice/userSlice";
-import {
-  Button,
-  ConfigProvider,
-  Input,
-  Form,
-  Row,
-  Col,
-  Card,
-  Spin,
-  notification,
-  Flex,
-} from "antd";
-import "../../../common/common.css";
-import { useCallback, useEffect, useState } from "react";
-import { emailRegex, phoneNumberRegex } from "../../../utils/constants";
-import { openNotificationWithIcon } from "../../../components/Nofitication";
+import { LockOutlined, PhoneOutlined, MailOutlined } from '@ant-design/icons'
+import { PiAddressBook } from 'react-icons/pi'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { registerUser, resetState } from '../../../redux/userSlice/userSlice'
+import { Button, ConfigProvider, Input, Form, Row, Col, Card, Spin, notification, Flex } from 'antd'
+import '../../../common/common.css'
+import { useCallback, useEffect, useState } from 'react'
+import { emailRegex, phoneNumberRegex } from '../../../utils/constants'
+import { openNotificationWithIcon } from '../../../components/Nofitication'
 
 const RegisterForm = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { success, error, isLoading } = useSelector((state) => state.users);
-  const [api, contextHolder] = notification.useNotification();
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { success, error, isLoading } = useSelector((state) => state.users)
+  const [api, contextHolder] = notification.useNotification()
 
   useEffect(() => {
     if (error) {
-      openNotificationWithIcon("error", error);
+      openNotificationWithIcon('error', error)
     }
     if (success) {
-      dispatch(resetState());
-      navigate("/login");
+      dispatch(resetState())
+      navigate('/login')
     }
-  }, [error, success]);
+  }, [error, success])
   const onFinish = (values) => {
-    dispatch(registerUser(values));
-  };
+    dispatch(registerUser(values))
+  }
 
   return (
     <ConfigProvider
       theme={{
         components: {
           Message: {
-            zIndexPopup: 99999,
-          },
-        },
+            zIndexPopup: 99999
+          }
+        }
       }}
     >
       {contextHolder}
       <Row justify="center">
         <Col span={12}>
-          <Card style={{ margin: "10px 0px" }} title="Đăng ký! thành viên mới">
+          <Card style={{ margin: '10px 0px' }} title="Đăng ký! thành viên mới">
             <Form
               name="register"
               onFinish={onFinish}
@@ -64,15 +53,15 @@ const RegisterForm = () => {
               wrapperCol={{ span: 16 }}
             >
               <Form.Item
-                style={{ marginBottom: "30px" }}
+                style={{ marginBottom: '30px' }}
                 name="phoneNumber"
                 label="Số điện thoại"
                 rules={[
-                  { required: true, message: "Vui lòng nhập số điện thoại" },
+                  { required: true, message: 'Vui lòng nhập số điện thoại' },
                   {
                     pattern: phoneNumberRegex,
-                    message: "Số điện thoại không hợp lệ",
-                  },
+                    message: 'Số điện thoại không hợp lệ'
+                  }
                 ]}
                 // validateStatus={
                 //   error && error.errors.phoneNumber ? "error" : undefined
@@ -82,15 +71,15 @@ const RegisterForm = () => {
               </Form.Item>
 
               <Form.Item
-                style={{ marginBottom: "30px" }}
+                style={{ marginBottom: '30px' }}
                 name="email"
                 label="Email"
                 rules={[
-                  { required: true, message: "Vui lòng nhập email" },
+                  { required: true, message: 'Vui lòng nhập email' },
                   {
                     pattern: emailRegex,
-                    message: "Email không hợp lệ",
-                  },
+                    message: 'Email không hợp lệ'
+                  }
                 ]}
                 // validateStatus={
                 //   error && error.errors && error.errors.email
@@ -103,12 +92,12 @@ const RegisterForm = () => {
               </Form.Item>
 
               <Form.Item
-                style={{ marginBottom: "30px" }}
+                style={{ marginBottom: '30px' }}
                 name="password"
                 label="Mật khẩu"
                 rules={[
-                  { required: true, message: "Vui lòng điền mật khẩu" },
-                  { min: 6, message: "Mật khẩu lớn hơn 6 kí tự" },
+                  { required: true, message: 'Vui lòng điền mật khẩu' },
+                  { min: 6, message: 'Mật khẩu lớn hơn 6 kí tự' }
                 ]}
               >
                 <Input.Password
@@ -119,25 +108,23 @@ const RegisterForm = () => {
               </Form.Item>
 
               <Form.Item
-                style={{ marginBottom: "30px" }}
+                style={{ marginBottom: '30px' }}
                 name="confirm"
                 label="Xác nhận mật khẩu"
-                dependencies={["password"]}
+                dependencies={['password']}
                 rules={[
                   {
                     required: true,
-                    message: "Vui lòng xác nhận mật khẩu!",
+                    message: 'Vui lòng xác nhận mật khẩu!'
                   },
                   ({ getFieldValue }) => ({
                     validator(_, value) {
-                      if (!value || getFieldValue("password") === value) {
-                        return Promise.resolve();
+                      if (!value || getFieldValue('password') === value) {
+                        return Promise.resolve()
                       }
-                      return Promise.reject(
-                        new Error("Mật khẩu không trùng khớp!")
-                      );
-                    },
-                  }),
+                      return Promise.reject(new Error('Mật khẩu không trùng khớp!'))
+                    }
+                  })
                 ]}
               >
                 <Input.Password
@@ -149,8 +136,8 @@ const RegisterForm = () => {
               <Form.Item
                 name="address"
                 label="Địa chỉ"
-                rules={[{ required: true, message: "Vui lòng nhập địa chỉ" }]}
-                style={{ marginBottom: "30px" }}
+                rules={[{ required: true, message: 'Vui lòng nhập địa chỉ' }]}
+                style={{ marginBottom: '30px' }}
               >
                 <Input prefix={<PiAddressBook />} placeholder="Địa chỉ" />
               </Form.Item>
@@ -160,15 +147,11 @@ const RegisterForm = () => {
                   {isLoading ? (
                     <Spin />
                   ) : (
-                    <Button
-                      type="primary"
-                      htmlType="submit"
-                      className="login-form-button"
-                    >
+                    <Button type="primary" htmlType="submit" className="login-form-button">
                       Đăng ký!
                     </Button>
                   )}
-                  <Link style={{ color: "#1577ff" }} to="/login">
+                  <Link style={{ color: '#1577ff' }} to="/login">
                     Đăng nhập!
                   </Link>
                 </Flex>
@@ -176,9 +159,9 @@ const RegisterForm = () => {
             </Form>
           </Card>
         </Col>
-      </Row>{" "}
+      </Row>{' '}
     </ConfigProvider>
-  );
-};
+  )
+}
 
-export default RegisterForm;
+export default RegisterForm

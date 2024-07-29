@@ -13,7 +13,7 @@ const ProductItem = ({ cart }) => {
       <tr>
         <td style={{ border: '1px solid #ddd', padding: '8px', width: '40%' }}>
           <div style={{ display: 'flex' }}>
-          {cart.coverImageUrl.startsWith('https') ? (
+            {cart.coverImageUrl.startsWith('https') ? (
               <img
                 src={cart.coverImageUrl}
                 alt="Sản phẩm"
@@ -51,12 +51,12 @@ const ProductItem = ({ cart }) => {
           style={{
             border: '1px solid #ddd',
             padding: '8px',
-            fontWeight: 'bolder',
+            fontWeight: 'bolder'
           }}
         >
           <Flex justify="center">
             {parseInt((cart.price * 3625 * 1.03 * cart.quantity).toFixed(0)).toLocaleString(
-              'vi-VN',
+              'vi-VN'
             )}{' '}
             đ
           </Flex>
@@ -82,18 +82,16 @@ const DetailOrder = () => {
   useEffect(() => {
     const totalPrice = buyProduct.reduce(
       (acc, value) => acc + value.price * 3625 * parseInt(value.quantity) * 1.03,
-      0,
+      0
     )
     const totalDeposit = buyProduct.reduce(
       (acc, value) => acc + value.price * 3625 * parseInt(value.quantity) * 0.7,
-      0,
+      0
     )
     setTotalCheckedDeposit(totalDeposit)
     setTotalCheckedPrice(totalPrice)
   }, [buyProduct])
-  const handleSubmit = () => {
-
-  }
+  const handleSubmit = () => {}
 
   return (
     <>
@@ -107,7 +105,7 @@ const DetailOrder = () => {
                 style={{
                   width: '100%',
                   borderCollapse: 'collapse',
-                  marginBottom: '1em',
+                  marginBottom: '1em'
                 }}
               >
                 <thead>
@@ -117,7 +115,7 @@ const DetailOrder = () => {
                       style={{
                         border: '1px solid #ddd',
                         padding: '8px',
-                        width: '7%',
+                        width: '7%'
                       }}
                     >
                       Số lượng

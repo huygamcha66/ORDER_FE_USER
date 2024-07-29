@@ -1,23 +1,23 @@
 /* eslint-disable quotes */
-import { useState } from "react";
-import "./index.css";
-import { useEffect } from "react";
-import { IoStarOutline } from "react-icons/io5";
-import { IoChevronForward } from "react-icons/io5";
-import { Link } from "react-router-dom";
-import { useLocale } from "antd/es/locale";
+import { useState } from 'react'
+import './index.css'
+import { useEffect } from 'react'
+import { IoStarOutline } from 'react-icons/io5'
+import { IoChevronForward } from 'react-icons/io5'
+import { Link } from 'react-router-dom'
+import { useLocale } from 'antd/es/locale'
 
 // import Swiper core and required modules
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules'
 
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-import { Col, Row, Space } from "antd";
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import 'swiper/css/scrollbar'
+import { Col, Row, Space } from 'antd'
 
 const HomePage = () => {
   return (
@@ -53,10 +53,7 @@ const HomePage = () => {
             <div>
               <h3 className="section-title section-title-center">
                 <b></b>
-                <span
-                  className="section-title-main"
-                  style={{ fontSize: "145%" }}
-                >
+                <span className="section-title-main" style={{ fontSize: '145%' }}>
                   QUY TRÌNH ĐẶT HÀNG
                 </span>
                 <b></b>
@@ -64,7 +61,7 @@ const HomePage = () => {
             </div>
             <div>
               <div>
-                <div style={{ width: "60px" }}>
+                <div style={{ width: '60px' }}>
                   <div>
                     <div>
                       <img
@@ -89,7 +86,7 @@ const HomePage = () => {
               </div>
 
               <div>
-                <div style={{ width: "60px" }}>
+                <div style={{ width: '60px' }}>
                   <div>
                     <div>
                       <img
@@ -118,7 +115,7 @@ const HomePage = () => {
               </div>
 
               <div>
-                <div style={{ width: "60px" }}>
+                <div style={{ width: '60px' }}>
                   <div>
                     <div>
                       <img
@@ -148,7 +145,7 @@ const HomePage = () => {
               </div>
 
               <div>
-                <div style={{ width: "60px" }}>
+                <div style={{ width: '60px' }}>
                   <div>
                     <div>
                       <img
@@ -174,7 +171,7 @@ const HomePage = () => {
               </div>
 
               <div>
-                <div style={{ width: "60px" }}>
+                <div style={{ width: '60px' }}>
                   <div>
                     <div>
                       <img
@@ -205,10 +202,7 @@ const HomePage = () => {
               <div>
                 <h3 className="section-title section-title-center">
                   <b></b>
-                  <span
-                    className="section-title-main"
-                    style={{ fontSize: "116%" }}
-                  >
+                  <span className="section-title-main" style={{ fontSize: '116%' }}>
                     DỊCH VỤ ĐẶT HÀNG TRUNG QUỐC CỦA CHÚNG TÔI
                   </span>
                   <b></b>
@@ -216,22 +210,21 @@ const HomePage = () => {
               </div>
               <div id="text-3378223356">
                 <p>
-                  Chọn ngay hệ thống website chất lượng, uy tín, đa dạng mặt
-                  hàng với nhiều mẫu mã và giá cả hợp lí, vận chuyển nhanh
-                  chóng, thanh toán tiện lợi
+                  Chọn ngay hệ thống website chất lượng, uy tín, đa dạng mặt hàng với nhiều mẫu mã
+                  và giá cả hợp lí, vận chuyển nhanh chóng, thanh toán tiện lợi
                 </p>
               </div>
             </div>
             <div>
               <div>
                 <div>
-                  <div style={{ margin: "0px 0px 20px 0px" }}>
-                    <div style={{ width: "107px" }}>
+                  <div style={{ margin: '0px 0px 20px 0px' }}>
+                    <div style={{ width: '107px' }}>
                       <div>
                         <div
                           style={{
-                            borderWidth: "1px",
-                            color: "rgb(2, 44, 190)",
+                            borderWidth: '1px',
+                            color: 'rgb(2, 44, 190)'
                           }}
                         >
                           <img
@@ -251,20 +244,19 @@ const HomePage = () => {
                     <div>
                       <h3>Dịch vụ đặt hàng Quốc tế</h3>
                       <p>
-                        Đó là những trở ngại mà bất cứ chủ cửa hàng, chủ shop,
-                        doanh nhân nào muốn đặt hàng Quảng Châu hay bạn nào yêu
-                        thích mua sắm đều có lúc gặp phải.
+                        Đó là những trở ngại mà bất cứ chủ cửa hàng, chủ shop, doanh nhân nào muốn
+                        đặt hàng Quảng Châu hay bạn nào yêu thích mua sắm đều có lúc gặp phải.
                       </p>
                     </div>
                   </div>
 
-                  <div style={{ margin: "0px 0px 20px 0px" }}>
-                    <div style={{ width: "107px" }}>
+                  <div style={{ margin: '0px 0px 20px 0px' }}>
+                    <div style={{ width: '107px' }}>
                       <div>
                         <div
                           style={{
-                            borderWidth: "1px",
-                            color: "rgb(2, 44, 190)",
+                            borderWidth: '1px',
+                            color: 'rgb(2, 44, 190)'
                           }}
                         >
                           <img
@@ -284,10 +276,9 @@ const HomePage = () => {
                     <div>
                       <h3>Dịch vụ ký gửi hàng hóa</h3>
                       <p>
-                        Order Kiều Nghĩa với hệ thống hoàn thiện, có thể track
-                        lịch sử vận chuyển hàng hóa thuận tiện. Chúng tôi cam
-                        kết và đảm bảo hàng hóa của quý khách sẽ về Việt Nam
-                        trong thời gian nhanh nhất.
+                        Order Kiều Nghĩa với hệ thống hoàn thiện, có thể track lịch sử vận chuyển
+                        hàng hóa thuận tiện. Chúng tôi cam kết và đảm bảo hàng hóa của quý khách sẽ
+                        về Việt Nam trong thời gian nhanh nhất.
                       </p>
                     </div>
                   </div>
@@ -296,13 +287,13 @@ const HomePage = () => {
 
               <div>
                 <div>
-                  <div style={{ margin: "0px 0px 20px 0px" }}>
-                    <div style={{ width: "107px" }}>
+                  <div style={{ margin: '0px 0px 20px 0px' }}>
+                    <div style={{ width: '107px' }}>
                       <div>
                         <div
                           style={{
-                            borderWidth: "1px",
-                            color: "rgb(2, 44, 190)",
+                            borderWidth: '1px',
+                            color: 'rgb(2, 44, 190)'
                           }}
                         >
                           <img
@@ -322,20 +313,19 @@ const HomePage = () => {
                     <div>
                       <h3>Vận chuyển hàng Trong nước và Quốc tế</h3>
                       <p>
-                        Hãy để chúng tôi <strong>GIẢI QUYẾT</strong> những lo
-                        lắng này của bạn, bằng dịch vụ nhận order vận chuyển
-                        hàng từ Trung Quốc về Việt Nam.
+                        Hãy để chúng tôi <strong>GIẢI QUYẾT</strong> những lo lắng này của bạn, bằng
+                        dịch vụ nhận order vận chuyển hàng từ Trung Quốc về Việt Nam.
                       </p>
                     </div>
                   </div>
 
-                  <div style={{ margin: "0px 0px 20px 0px" }}>
-                    <div style={{ width: "107px" }}>
+                  <div style={{ margin: '0px 0px 20px 0px' }}>
+                    <div style={{ width: '107px' }}>
                       <div>
                         <div
                           style={{
-                            borderWidth: "1px",
-                            color: "rgb(2, 44, 190)",
+                            borderWidth: '1px',
+                            color: 'rgb(2, 44, 190)'
                           }}
                         >
                           <img
@@ -355,9 +345,8 @@ const HomePage = () => {
                     <div>
                       <h3>Chuyển tiền Trung Quốc</h3>
                       <p>
-                        Dịch vụ đổi tiền, chuyển tiền Trung Quốc &#8211; Việt
-                        Nam &#8211; Tỷ giá nhân dân tệ (CNY-RMB) an toàn, uy
-                        tín, nhanh chóng hàng đầu Việt Nam.
+                        Dịch vụ đổi tiền, chuyển tiền Trung Quốc &#8211; Việt Nam &#8211; Tỷ giá
+                        nhân dân tệ (CNY-RMB) an toàn, uy tín, nhanh chóng hàng đầu Việt Nam.
                       </p>
                     </div>
                   </div>
@@ -370,17 +359,15 @@ const HomePage = () => {
             <div>
               <h3>
                 <b></b>
-                <span style={{ fontSize: "140%" }}>
-                  Công cụ đặt hàng taobao, 1688 trên Chrome
-                </span>
+                <span style={{ fontSize: '140%' }}>Công cụ đặt hàng taobao, 1688 trên Chrome</span>
                 <b></b>
               </h3>
             </div>
 
             <div>
               <p>
-                Chúng tôi tạo ra những công cụ hỗ trợ giúp cho việc đặt hàng,
-                quản lý đơn hàng trở nên vô cùng tiện lợi và nhanh chóng
+                Chúng tôi tạo ra những công cụ hỗ trợ giúp cho việc đặt hàng, quản lý đơn hàng trở
+                nên vô cùng tiện lợi và nhanh chóng
               </p>
             </div>
 
@@ -411,10 +398,7 @@ const HomePage = () => {
                 </a>
               </div>
 
-              <div
-                id="col-1759922342"
-                className="col hide-for-small medium-5 small-12 large-5"
-              >
+              <div id="col-1759922342" className="col hide-for-small medium-5 small-12 large-5">
                 <div>
                   <div id="image_1637346913">
                     <div>
@@ -460,27 +444,27 @@ const HomePage = () => {
               </div>
               <p>
                 <i>
-                  Order Kiều Nghĩa vận chuyển thông qua đường chính ngạch, vận
-                  chuyển nhanh nhất và giá rẻ nhất thị trường
+                  Order Kiều Nghĩa vận chuyển thông qua đường chính ngạch, vận chuyển nhanh nhất và
+                  giá rẻ nhất thị trường
                 </i>
               </p>
               <div>
                 <div>
-                  <Link to={"/bang-gia"}>
+                  <Link to={'/bang-gia'}>
                     <IoStarOutline />
                     <span>Bảng giá đặt hàng</span>
                   </Link>
                 </div>
 
                 <div>
-                  <Link to={"/bang-gia-ky-gui-hang"}>
+                  <Link to={'/bang-gia-ky-gui-hang'}>
                     <IoStarOutline />
                     <span>Bảng giá ký gửi vận chuyển</span>
                   </Link>
                 </div>
 
                 <div>
-                  <Link to={"/bang-gia-ky-gui-hang"}>
+                  <Link to={'/bang-gia-ky-gui-hang'}>
                     <IoStarOutline />
                     <span>Bảng giá vận chuyển hàng lô, hàng nặng</span>
                   </Link>
@@ -488,9 +472,7 @@ const HomePage = () => {
 
                 <div>
                   <Link
-                    to={
-                      "/dich-vu-nap-tien-alipay-thanh-toan-tien-trung-quoc-chuyen-tien-trung"
-                    }
+                    to={'/dich-vu-nap-tien-alipay-thanh-toan-tien-trung-quoc-chuyen-tien-trung'}
                   >
                     <IoStarOutline />
                     <span>Bảng giá dịch vụ chuyển tiền</span>
@@ -611,7 +593,7 @@ const HomePage = () => {
         </div>
       </Col>
     </Row>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage

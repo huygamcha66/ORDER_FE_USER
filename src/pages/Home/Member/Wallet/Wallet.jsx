@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
 /* eslint-disable react/no-unknown-property */
-import { DatePicker } from "antd";
-import { FaMoneyBill, FaCreditCard, FaFile } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { DatePicker } from 'antd'
+import { FaMoneyBill, FaCreditCard, FaFile } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 const Wallet = () => {
   const onChange = (date, dateString) => {
-    console.log(date, dateString);
-  };
+    console.log(date, dateString)
+  }
   return (
     <>
       <div className="col-sm-9">
@@ -19,21 +19,20 @@ const Wallet = () => {
           <div className="wallet_info">
             <div className="row">
               <div className="col-md-2">
-                <FaMoneyBill style={{ color: "#87cf82", fontSize: "90px" }} />
+                <FaMoneyBill style={{ color: '#87cf82', fontSize: '90px' }} />
               </div>
               <div className="col-md-10">
                 <h3>
-                  Số dư trong ví : <span className="green">0</span>{" "}
-                  <span className="small">VNĐ</span> - Mã nạp tiền :{" "}
+                  Số dư trong ví : <span className="green">0</span>{' '}
+                  <span className="small">VNĐ</span> - Mã nạp tiền :{' '}
                   <span className="green big">HQC6709CK</span>
                 </h3>
                 <div className="customer_credit_owe owe_6709" data-id="6709">
                   <p className="black">
-                    Tổng tiền hàng đã về chờ tất toán :{" "}
-                    <span className="red">0</span> đ{" "}
+                    Tổng tiền hàng đã về chờ tất toán : <span className="red">0</span> đ{' '}
                   </p>
                   <p className="black">
-                    Tổng tiền hàng chưa về : <span className="red">0</span> đ{" "}
+                    Tổng tiền hàng chưa về : <span className="red">0</span> đ{' '}
                   </p>
                   <p>
                     <a
@@ -63,7 +62,7 @@ const Wallet = () => {
               <h3>Chi tiết giao dịch</h3>
               <div className="space20"></div>
               <form className="form-horizontal" method="get">
-                Mã đơn hàng :{" "}
+                Mã đơn hàng :{' '}
                 <input
                   className="custom_input"
                   type="text"
@@ -100,8 +99,7 @@ const Wallet = () => {
               </form>
               <div className="space10"></div>
               <p className="note small">
-                Bạn có thể nhấn vào mã đơn hàng để xem lịch sử giao dịch tài
-                chính của đơn hàng
+                Bạn có thể nhấn vào mã đơn hàng để xem lịch sử giao dịch tài chính của đơn hàng
               </p>
               <div className="space10"></div>
               <div className="table-responsive">
@@ -119,8 +117,7 @@ const Wallet = () => {
                   </tbody>
                 </table>
                 <p className="note small">
-                  Bạn có thể nhấn vào mã đơn hàng để xem lịch sử giao dịch tài
-                  chính của đơn hàng
+                  Bạn có thể nhấn vào mã đơn hàng để xem lịch sử giao dịch tài chính của đơn hàng
                 </p>
                 <p>
                   <strong>
@@ -133,7 +130,7 @@ const Wallet = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Wallet;
+export default Wallet

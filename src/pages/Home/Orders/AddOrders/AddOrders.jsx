@@ -1,25 +1,25 @@
 /* eslint-disable react/no-unknown-property */
-import { FaLocationDot } from "react-icons/fa6";
-import { Button, Modal } from "antd";
-import { useState } from "react";
+import { FaLocationDot } from 'react-icons/fa6'
+import { Button, Modal } from 'antd'
+import { useState } from 'react'
 
 const AddOrders = () => {
-  const [isAddAddressOpen, setIsAddAddressOpen] = useState(false);
-  const [isUploadImageOpen, setIsUploadImageOpen] = useState(false);
+  const [isAddAddressOpen, setIsAddAddressOpen] = useState(false)
+  const [isUploadImageOpen, setIsUploadImageOpen] = useState(false)
 
   const showAddAddressModal = () => {
-    setIsAddAddressOpen(true);
-  };
+    setIsAddAddressOpen(true)
+  }
   const handleAddAddressCancel = () => {
-    setIsAddAddressOpen(false);
-  };
+    setIsAddAddressOpen(false)
+  }
 
   const showUploadImageModal = () => {
-    setIsUploadImageOpen(true);
-  };
+    setIsUploadImageOpen(true)
+  }
   const handleUploadImageCancel = () => {
-    setIsUploadImageOpen(false);
-  };
+    setIsUploadImageOpen(false)
+  }
 
   return (
     <>
@@ -31,8 +31,8 @@ const AddOrders = () => {
           <div
             className="col-sm-12"
             style={{
-              paddingLeft: "0px !important",
-              paddingRight: "0px !important",
+              paddingLeft: '0px !important',
+              paddingRight: '0px !important'
             }}
           >
             <div className="box box-chipo clearfix">
@@ -57,19 +57,12 @@ const AddOrders = () => {
                             onCancel={handleAddAddressCancel}
                             footer={null}
                           >
-                            <div
-                              class="w2ui-box1"
-                              style={{ bottom: "0px !important" }}
-                            >
+                            <div class="w2ui-box1" style={{ bottom: '0px !important' }}>
                               <div class="w2ui-msg-body w2ui-msg-no-buttons">
                                 <div rel="title" class="title">
                                   Thêm mới địa chỉ nhận hàng
                                 </div>
-                                <div
-                                  rel="body"
-                                  class="contentPopup"
-                                  style={{ padding: "20px" }}
-                                >
+                                <div rel="body" class="contentPopup" style={{ padding: '20px' }}>
                                   <div id="response_ajax"></div>
                                   <form
                                     name="changesupport"
@@ -118,9 +111,7 @@ const AddOrders = () => {
                                         onchange="loadSubStore(this.value)"
                                         fdprocessedid="appi9n"
                                       >
-                                        <option value="">
-                                          Vị trí kho hàng việt nam
-                                        </option>
+                                        <option value="">Vị trí kho hàng việt nam</option>
                                         <option value="0">Hà Nội</option>
                                         <option value="1">Sài Gòn</option>
                                         <option value="2">Đà Nẵng</option>
@@ -136,9 +127,7 @@ const AddOrders = () => {
                                         required=""
                                         fdprocessedid="4pb219"
                                       >
-                                        <option value="">
-                                          Bạn cần chọn Vị trí kho hàng
-                                        </option>
+                                        <option value="">Bạn cần chọn Vị trí kho hàng</option>
                                       </select>
                                     </div>
 
@@ -171,23 +160,19 @@ const AddOrders = () => {
                   >
                     <thead>
                       <tr className="header-cart-table">
-                        <td style={{ width: "5%" }}>
+                        <td style={{ width: '5%' }}>
                           All <br />
-                          <input
-                            type="checkbox"
-                            id="checkAllOrderShip"
-                            name="checkbox"
-                          />
+                          <input type="checkbox" id="checkAllOrderShip" name="checkbox" />
                         </td>
-                        <td style={{ width: "55%" }}>Sản phẩm</td>
+                        <td style={{ width: '55%' }}>Sản phẩm</td>
 
-                        <td className="center" style={{ width: "15%" }}>
+                        <td className="center" style={{ width: '15%' }}>
                           Số lượng
                         </td>
-                        <td className="center" style={{ width: "15%" }}>
+                        <td className="center" style={{ width: '15%' }}>
                           Đơn giá
                         </td>
-                        <td style={{ width: "10%" }}></td>
+                        <td style={{ width: '10%' }}></td>
                       </tr>
                     </thead>
 
@@ -195,7 +180,7 @@ const AddOrders = () => {
                       <tr id="row_add_shiporder_item">
                         <td></td>
                         <td>
-                          <div style={{ marginBottom: "5px" }}>
+                          <div style={{ marginBottom: '5px' }}>
                             <input
                               name="itemlink"
                               id="itemlink"
@@ -208,17 +193,13 @@ const AddOrders = () => {
                           <div
                             id="col_image"
                             style={{
-                              width: "100%",
-                              float: "left",
-                              marginBottom: "5px",
+                              width: '100%',
+                              float: 'left',
+                              marginBottom: '5px'
                             }}
                           >
                             <img id="itemimage" width="50px" height="50px" />
-                            <input
-                              id="txtitemimage"
-                              name="txtitemimage"
-                              type="hidden"
-                            />
+                            <input id="txtitemimage" name="txtitemimage" type="hidden" />
                             <Button
                               onClick={showUploadImageModal}
                               className="btn bg_yellow popup_link"
@@ -240,11 +221,7 @@ const AddOrders = () => {
                                   <h1>Upload ảnh</h1>
                                 </center>
                                 <input type="hidden" value="6709" name="cid" />
-                                <input
-                                  type="hidden"
-                                  value="6709_1716490081"
-                                  name="idupload"
-                                />
+                                <input type="hidden" value="6709_1716490081" name="idupload" />
 
                                 <input
                                   type="file"
@@ -258,7 +235,7 @@ const AddOrders = () => {
                               </form>
                             </Modal>
                           </div>
-                          <div style={{ marginBottom: "5px" }}>
+                          <div style={{ marginBottom: '5px' }}>
                             <input
                               name="itemname"
                               id="itemname"
@@ -269,7 +246,7 @@ const AddOrders = () => {
                             />
                           </div>
 
-                          <div style={{ marginBottom: "5px" }}>
+                          <div style={{ marginBottom: '5px' }}>
                             <input
                               name="itemquatity"
                               id="itemquatity"
@@ -280,7 +257,7 @@ const AddOrders = () => {
                               fdprocessedid="wxs0d"
                             />
                           </div>
-                          <div style={{ marginBottom: "5px" }}>
+                          <div style={{ marginBottom: '5px' }}>
                             <input
                               name="itemprice"
                               id="itemprice"
@@ -341,25 +318,25 @@ const AddOrders = () => {
                         <td colSpan="2">
                           <span
                             style={{
-                              paddingLeft: "0px",
-                              width: "120px",
-                              display: "inline-block",
+                              paddingLeft: '0px',
+                              width: '120px',
+                              display: 'inline-block'
                             }}
                           >
                             <label
                               style={{
-                                float: "left",
-                                lineHeight: "20px",
-                                marginBottom: "0px",
-                                paddingTop: "4px",
-                                marginRight: "4px",
+                                float: 'left',
+                                lineHeight: '20px',
+                                marginBottom: '0px',
+                                paddingTop: '4px',
+                                marginRight: '4px'
                               }}
                               for="iswoodpack"
                             >
                               Đóng gỗ
                             </label>
                             <input
-                              style={{ width: "20px", height: "20px" }}
+                              style={{ width: '20px', height: '20px' }}
                               type="checkbox"
                               id="iswoodpack"
                               name="iswoodpack"
@@ -368,25 +345,25 @@ const AddOrders = () => {
                           </span>
                           <span
                             style={{
-                              paddingLeft: "0px",
-                              width: "120px",
-                              display: "inline-block",
+                              paddingLeft: '0px',
+                              width: '120px',
+                              display: 'inline-block'
                             }}
                           >
                             <label
                               style={{
-                                float: "left",
-                                lineHeight: "20px",
-                                marginBottom: "0px",
-                                paddingTop: "4px",
-                                marginRight: "4px",
+                                float: 'left',
+                                lineHeight: '20px',
+                                marginBottom: '0px',
+                                paddingTop: '4px',
+                                marginRight: '4px'
                               }}
                               for="isordercheck"
                             >
                               Kiểm hàng
                             </label>
                             <input
-                              style={{ width: "20px", height: "20px" }}
+                              style={{ width: '20px', height: '20px' }}
                               type="checkbox"
                               id="isordercheck"
                               name="isordercheck"
@@ -398,18 +375,18 @@ const AddOrders = () => {
                           <span
                             className=""
                             style={{
-                              paddingLeft: "0px",
-                              width: "120px",
-                              display: "inline-block",
+                              paddingLeft: '0px',
+                              width: '120px',
+                              display: 'inline-block'
                             }}
                           >
                             <label
                               style={{
-                                float: "left",
-                                lineHeight: "20px",
-                                marginBottom: "0px",
-                                paddingTop: "4px",
-                                marginRight: "4px",
+                                float: 'left',
+                                lineHeight: '20px',
+                                marginBottom: '0px',
+                                paddingTop: '4px',
+                                marginRight: '4px'
                               }}
                               for="ordernote"
                             >
@@ -435,7 +412,7 @@ const AddOrders = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default AddOrders;
+export default AddOrders

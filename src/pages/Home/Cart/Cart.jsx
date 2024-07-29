@@ -24,7 +24,7 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
   const handleQuantityChange = (e) => {
     const newQuantity = e.target.value
     setQuantity(newQuantity)
-    onQuantityChange(index, newQuantity)
+    onQuantityChange(index, newQuantity, cart.productId)
   }
 
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -42,6 +42,8 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
     setIsModalOpen(false)
     openNotificationWithIcon('success', 'Xoá sản phẩm thành công')
   }
+
+
   return (
     <>
       {contextHolder}
@@ -52,7 +54,7 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
               <Checkbox
                 type="checkbox"
                 checked={isCheck}
-                onChange={() => onCheckChange(index, !isCheck)}
+                onChange={() => onCheckChange(index, !isCheck, cart.productId)}
               />
             </Flex>
           </td>
@@ -79,7 +81,7 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
                   Trình duyệt không hỗ trợ ảnh
                 </video>
               )}
-              <a target="_blank" className='cart_name' href={cart.productUrl}>
+              <a target="_blank" className="cart_name" href={cart.productUrl}>
                 {cart.name}
               </a>
             </div>
@@ -127,7 +129,7 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
                 <Space style={{ width: '90px' }}>Đặt cọc:</Space>
                 <span style={{ fontWeight: 'bold' }}>
                   {isCheck
-                    ? `${parseInt((cart.price * 3625 * quantity * 0.7).toFixed(0)).toLocaleString(
+                    ? `${parseInt((cart.price * 3625 * quantity * 0.7 * 1.03).toFixed(0)).toLocaleString(
                       'vi-VN'
                     )}
                     đ`
@@ -235,22 +237,87 @@ const Cart = () => {
     setTotalCheckedPrice(totalPrice * 1.03)
   }, [checkedStates, quantities, carts])
 
-  const handleCheckChange = (index, isChecked) => {
+  const handleCheckChange = async (index, isChecked, productId) => {
     const newCheckedStates = [...checkedStates]
     newCheckedStates[index] = isChecked
     setCheckedStates(newCheckedStates)
+    const updateCartProducts = async () => {
+      try {
+        // Tạo một mảng các promises từ map
+        await dispatch(
+          updateProductFromCart({
+            userId: decodedToken.id,
+            check: isChecked,
+            productId: productId,
+            newQuantity: quantities[index]
+          })
+        ).unwrap()
+
+      } catch (error) {
+        // Xử lý lỗi nếu có
+        console.log('««««« error »»»»»', error);
+      } finally {
+        setIsUpdating(false);
+      }
+    };
+    await updateCartProducts();
   }
 
-  const handleAllCheckChange = () => {
+  const handleAllCheckChange = async () => {
+    const updateCartProducts = async () => {
+      try {
+        // Tạo một mảng các promises từ map
+        const promises = carts.products.map((product, index) =>
+          dispatch(
+            updateProductFromCart({
+              userId: decodedToken.id,
+              newQuantity: quantities[index],
+              check: !allCheck,
+              productId: product.productId
+            })
+          ).unwrap()
+        )
+
+        // Đợi tất cả các promises hoàn thành
+        await Promise.all(promises)
+
+        // Chuyển hướng sau khi tất cả các updates hoàn thành
+      } catch (error) {
+        // Xử lý lỗi nếu có
+        console.log('««««« error »»»»»', error)
+      }
+    }
+    await updateCartProducts()
     const newAllCheck = !allCheck
     setAllCheck(newAllCheck)
     setCheckedStates(new Array(carts.products.length).fill(newAllCheck))
+
   }
 
-  const handleQuantityChange = (index, newQuantity) => {
+  const handleQuantityChange = async (index, newQuantity, productId) => {
     const newQuantities = [...quantities]
     newQuantities[index] = parseInt(newQuantity)
     setQuantities(newQuantities)
+    const updateCartProducts = async () => {
+      try {
+        // Tạo một mảng các promises từ map
+        await dispatch(
+          updateProductFromCart({
+            userId: decodedToken.id,
+            check: checkedStates[index],
+            productId: productId,
+            newQuantity: newQuantity
+          })
+        ).unwrap()
+
+      } catch (error) {
+        // Xử lý lỗi nếu có
+        console.log('««««« error »»»»»', error);
+      } finally {
+        setIsUpdating(false);
+      }
+    };
+    await updateCartProducts();
   }
 
   const navigate = useNavigate()
@@ -286,7 +353,7 @@ const Cart = () => {
         console.log('««««« error »»»»»', error)
       }
     }
-    updateCartProducts()
+    await updateCartProducts()
   }
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -318,139 +385,158 @@ const Cart = () => {
     dispatch(deleteProductFromCart({ userId: decodedToken.id, productId }))
   }
 
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      if (isUpdating) {
+        event.preventDefault();
+        event.returnValue = ''; // Cần để hiển thị hộp thoại cảnh báo trên một số trình duyệt
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [isUpdating]);
+
+
   return (
     <>
-      {carts && carts.products && carts.products.length ? <Row justify="center">
-        <Col xs={20}>
-          <div>
-            <h2>Giỏ hàng</h2>
+      {carts && carts.products && carts.products.length ? (
+        <Row justify="center">
+          <Col xs={20}>
+            <div>
+              <h2>Giỏ hàng</h2>
 
-            <table
-              style={{
-                width: '100%',
-                borderCollapse: 'collapse',
-                marginBottom: '1em'
-              }}
-            >
-              {' '}
-              <thead>
-                <tr>
-                  <th
-                    style={{
-                      border: '1px solid #ddd',
-                      padding: '8px',
-                      width: '10%'
-                    }}
-                  >
-                    Chọn mua
-                  </th>
-                  <th
-                    style={{
-                      border: '1px solid #ddd',
-                      padding: '8px',
-                      width: '30%'
-                    }}
-                  >
-                    Sản phẩm
-                  </th>
-                  <th
-                    style={{
-                      border: '1px solid #ddd',
-                      padding: '8px',
-                      width: '10%'
-                    }}
-                  >
-                    Số lượng
-                  </th>
-                  <th
-                    style={{
-                      border: '1px solid #ddd',
-                      padding: '8px',
-                      width: '10%'
-                    }}
-                  >
-                    Đơn giá
-                  </th>
-                  <th
-                    style={{
-                      border: '1px solid #ddd',
-                      padding: '8px',
-                      width: '15%'
-                    }}
-                  >
-                    Tổng tiền
-                  </th>
-                  <th
-                    style={{
-                      border: '1px solid #ddd',
-                      padding: '8px',
-                      width: '20%'
-                    }}
-                  >
-                    Đơn giá
-                  </th>
-                  <th
-                    style={{
-                      border: '1px solid #ddd',
-                      padding: '8px',
-                      width: '5%'
-                    }}
-                  >
-                    Xoá
-                  </th>
-                </tr>
-              </thead>
-              {carts && carts.products ? (
-                carts.products.map((cart, index) => (
-                  <ProductItem
-                    key={index}
-                    cart={cart}
-                    index={index}
-                    isCheck={checkedStates[index]}
-                    onCheckChange={handleCheckChange}
-                    onQuantityChange={handleQuantityChange}
-                    onDelete={handleDelete}
-                  />
-                ))
-              ) : (
-                <span className="green">Hiện tại không có sản phẩm nào trong giỏ hàng</span>
-              )}
-            </table>
-
-            <Flex className="wrapper_buy_step_1" justify="space-between">
-              <label
+              <table
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  cursor: 'pointer'
+                  width: '100%',
+                  borderCollapse: 'collapse',
+                  marginBottom: '1em'
                 }}
               >
-                <input
-                  checked={allCheck}
-                  onChange={handleAllCheckChange}
-                  type="checkbox"
-                  style={{ width: '25px', height: '25px', cursor: 'pointer' }}
-                />
-                <Space>Chọn mua toàn bộ các sản phẩm</Space>
-              </label>
-              <Space>
-                <h4> Tổng tiền hàng:</h4>
-                <span style={{ color: 'red' }}>
-                  {totalCheckedPrice &&
-                    parseInt(totalCheckedPrice.toFixed(0)).toLocaleString('vi-VN')}
-                  đ
-                </span>
-              </Space>
-              <button className="btn_step_1" onClick={handlePlaceOrder}>
-                Đặt hàng ngay
-              </button>
-            </Flex>
-          </div>
-        </Col>
-      </Row> : <Empty
-        style = {{ marginTop: '30px' }}
-        description={<span>Không có sản phẩm nào</span>}
-      />}
+                {' '}
+                <thead>
+                  <tr>
+                    <th
+                      style={{
+                        border: '1px solid #ddd',
+                        padding: '8px',
+                        width: '10%'
+                      }}
+                    >
+                      Chọn mua
+                    </th>
+                    <th
+                      style={{
+                        border: '1px solid #ddd',
+                        padding: '8px',
+                        width: '30%'
+                      }}
+                    >
+                      Sản phẩm
+                    </th>
+                    <th
+                      style={{
+                        border: '1px solid #ddd',
+                        padding: '8px',
+                        width: '10%'
+                      }}
+                    >
+                      Số lượng
+                    </th>
+                    <th
+                      style={{
+                        border: '1px solid #ddd',
+                        padding: '8px',
+                        width: '10%'
+                      }}
+                    >
+                      Đơn giá
+                    </th>
+                    <th
+                      style={{
+                        border: '1px solid #ddd',
+                        padding: '8px',
+                        width: '15%'
+                      }}
+                    >
+                      Tổng tiền
+                    </th>
+                    <th
+                      style={{
+                        border: '1px solid #ddd',
+                        padding: '8px',
+                        width: '20%'
+                      }}
+                    >
+                      Đơn giá
+                    </th>
+                    <th
+                      style={{
+                        border: '1px solid #ddd',
+                        padding: '8px',
+                        width: '5%'
+                      }}
+                    >
+                      Xoá
+                    </th>
+                  </tr>
+                </thead>
+                {carts && carts.products ? (
+                  carts.products.map((cart, index) => (
+                    <ProductItem
+                      key={index}
+                      cart={cart}
+                      index={index}
+                      isCheck={checkedStates[index]}
+                      onCheckChange={handleCheckChange}
+                      onQuantityChange={handleQuantityChange}
+                      onDelete={handleDelete}
+                    />
+                  ))
+                ) : (
+                  <span className="green">Hiện tại không có sản phẩm nào trong giỏ hàng</span>
+                )}
+              </table>
+
+              <Flex className="wrapper_buy_step_1" justify="space-between">
+                <label
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <input
+                    checked={allCheck}
+                    onChange={handleAllCheckChange}
+                    type="checkbox"
+                    style={{ width: '25px', height: '25px', cursor: 'pointer' }}
+                  />
+                  <Space>Chọn mua toàn bộ các sản phẩm</Space>
+                </label>
+                <Space>
+                  <h4> Tổng tiền hàng:</h4>
+                  <span style={{ color: 'red' }}>
+                    {totalCheckedPrice &&
+                      parseInt(totalCheckedPrice.toFixed(0)).toLocaleString('vi-VN')}
+                    đ
+                  </span>
+                </Space>
+                <button className="btn_step_1" onClick={handlePlaceOrder}>
+                  Đặt hàng ngay
+                </button>
+              </Flex>
+            </div>
+          </Col>
+        </Row>
+      ) : (
+        <Empty style={{ marginTop: '30px' }} description={<span>Không có sản phẩm nào</span>} />
+      )}
     </>
   )
 }

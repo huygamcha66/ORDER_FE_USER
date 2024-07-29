@@ -1,19 +1,18 @@
-
 .wrapper_header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: #fb5731;
-    z-index: 99;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #fb5731;
+  z-index: 99;
 }
 
-.icon{
-    font-size: 20px;
-    padding-right: 5px;
+.icon {
+  font-size: 20px;
+  padding-right: 5px;
 }
 .custommlr {
-    margin-right: 50px;
+  margin-right: 50px;
 }
 .custompl {
-    padding-left: 2px;
+  padding-left: 2px;
 }

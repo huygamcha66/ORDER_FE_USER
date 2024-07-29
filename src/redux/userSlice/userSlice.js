@@ -11,7 +11,7 @@ const initialState = {
   isSend: false,
   isActive: false,
   error: '',
-  user: {},
+  user: {}
 }
 // Thunk để lấy thông tin chi tiết của người dùng dựa trên addressIP
 const detailMe = createAsyncThunk('user/detailMe', async (addressIP, { rejectWithValue }) => {
@@ -44,8 +44,8 @@ const loginUser = createAsyncThunk('user/loginUser', async (data, { rejectWithVa
   try {
     const config = {
       headers: {
-        'content-type': 'application/json',
-      },
+        'content-type': 'application/json'
+      }
     }
     const response = await axios.post(`${API_ROOT}/api/v1.0/auth/login`, data, config)
     return response.data
@@ -62,13 +62,13 @@ const logoutUser = createAsyncThunk('user/logoutUser', async (value, { rejectWit
   try {
     const config = {
       headers: {
-        'content-type': 'application/json',
-      },
+        'content-type': 'application/json'
+      }
     }
     const response = await axios.patch(
       `${API_ROOT}/api/v1.0/auth/logout`,
       { userId: value },
-      config,
+      config
     )
     // Xóa token khỏi local storage sau khi logout thành công
     localStorage.removeItem('token')
@@ -88,8 +88,8 @@ const sendCodeResetPassword = createAsyncThunk(
     try {
       const config = {
         headers: {
-          'content-type': 'application/json',
-        },
+          'content-type': 'application/json'
+        }
       }
       const response = await axios.post(`${API_ROOT}/api/v1.0/auth/forgot-password`, data, config)
       return response.data
@@ -100,7 +100,7 @@ const sendCodeResetPassword = createAsyncThunk(
         throw error
       }
     }
-  },
+  }
 )
 
 const changePasswordUser = createAsyncThunk(
@@ -109,8 +109,8 @@ const changePasswordUser = createAsyncThunk(
     try {
       const config = {
         headers: {
-          'content-type': 'application/json',
-        },
+          'content-type': 'application/json'
+        }
       }
       const response = await axios.patch(`${API_ROOT}/api/v1.0/auth/reset-password`, value, config)
       return response.data
@@ -121,7 +121,7 @@ const changePasswordUser = createAsyncThunk(
         throw error
       }
     }
-  },
+  }
 )
 
 const sendLinkActiveUser = createAsyncThunk(
@@ -130,8 +130,8 @@ const sendLinkActiveUser = createAsyncThunk(
     try {
       const config = {
         headers: {
-          'content-type': 'application/json',
-        },
+          'content-type': 'application/json'
+        }
       }
       const response = await axios.post(`${API_ROOT}/api/v1.0/auth/send-link`, data, config)
       return response.data
@@ -142,7 +142,7 @@ const sendLinkActiveUser = createAsyncThunk(
         throw error
       }
     }
-  },
+  }
 )
 
 export const userSlice = createSlice({
@@ -166,7 +166,7 @@ export const userSlice = createSlice({
       state.error = ''
       state.success = false
       state.isSend = false
-    },
+    }
   },
   extraReducers: (builder) => {
     // register
@@ -286,7 +286,7 @@ export const userSlice = createSlice({
         state.loading = false
         state.error = action.payload
       })
-  },
+  }
 })
 
 const { reducer, actions } = userSlice
@@ -299,7 +299,7 @@ export {
   changePasswordUser,
   sendLinkActiveUser,
   logoutUser,
-  detailMe,
+  detailMe
 }
 // export const { login, logout } = userSlice.actions;
 // // Selectors: Là nơi dành cho các components bên dưới gọi bằng hook useSelector() để lấy dữ liệu từ trong kho redux store ra sử dụng

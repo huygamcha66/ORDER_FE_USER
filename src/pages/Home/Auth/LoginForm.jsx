@@ -40,8 +40,8 @@ const LoginForm = () => {
     dispatch(
       loginUser({
         ...values,
-        addressIP: `${addressIP}&&${getCanvasFingerprint()}&&${getWebGLFingerprint().renderer}`,
-      }),
+        addressIP: `${addressIP}&&${getCanvasFingerprint()}&&${getWebGLFingerprint().renderer}`
+      })
     )
   }
   return (
@@ -49,9 +49,9 @@ const LoginForm = () => {
       theme={{
         components: {
           Message: {
-            zIndexPopup: 99999,
-          },
-        },
+            zIndexPopup: 99999
+          }
+        }
       }}
     >
       {contextHolder}
@@ -73,8 +73,8 @@ const LoginForm = () => {
                 rules={[
                   {
                     required: true,
-                    message: 'Vui lòng nhập email hoặc username',
-                  },
+                    message: 'Vui lòng nhập email hoặc username'
+                  }
                 ]}
                 style={{ marginBottom: '30px' }}
               >
@@ -88,7 +88,7 @@ const LoginForm = () => {
                 name="password"
                 rules={[
                   { required: true, message: 'Vui lòng điền mật khẩu' },
-                  { min: 6, message: 'Mật khẩu lớn hơn 6 kí tự' },
+                  { min: 6, message: 'Mật khẩu lớn hơn 6 kí tự' }
                 ]}
                 style={{ marginBottom: '30px' }}
               >

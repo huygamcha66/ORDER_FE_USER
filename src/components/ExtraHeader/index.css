@@ -1,19 +1,19 @@
-.icon{
-    font-size: 20px;
+.icon {
+  font-size: 20px;
 }
 .custommlr {
-    margin-right: 50px;
+  margin-right: 50px;
 }
 .custompl {
-    padding-left: 2px;
+  padding-left: 2px;
 }
 .wrapper_extraHeader {
-    background: #fb5731;
+  background: #fb5731;
 }
-.quantity_cart{
-    position: relative;
+.quantity_cart {
+  position: relative;
 }
 .extra_header_cart:hover {
-    opacity: 0.8;
-    cursor: pointer;
+  opacity: 0.8;
+  cursor: pointer;
 }

@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 const Ship = () => {
   return (
     <>
-      <Outlet/>
+      <Outlet />
     </>
   )
 }

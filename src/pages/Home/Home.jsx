@@ -26,8 +26,8 @@ const Home = () => {
         dispatch(getCartDetail({ userId: decodedToken.id }))
         dispatch(
           detailMe({
-            addressIP: `${addressIP}&&${getCanvasFingerprint()}&&${getWebGLFingerprint().renderer}`,
-          }),
+            addressIP: `${addressIP}&&${getCanvasFingerprint()}&&${getWebGLFingerprint().renderer}`
+          })
         )
       }
     }

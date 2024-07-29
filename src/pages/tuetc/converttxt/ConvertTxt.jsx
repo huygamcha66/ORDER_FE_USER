@@ -38,9 +38,7 @@ const ConverTxt = () => {
       <h2>File Upload</h2>
       <input type="file" onChange={onFileChange} />
       <button onClick={onFileUpload}>Upload</button>
-      {message && (
-        alert('Đã upload file thành công')
-      )}
+      {message && alert('Đã upload file thành công')}
     </div>
   )
 }
