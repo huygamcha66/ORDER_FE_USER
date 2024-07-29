@@ -13,11 +13,27 @@ const ProductItem = ({ cart }) => {
       <tr>
         <td style={{ border: '1px solid #ddd', padding: '8px', width: '40%' }}>
           <div style={{ display: 'flex' }}>
-            <img
-              src={cart.coverImageUrl}
-              alt="Sản phẩm"
-              style={{ width: '50px', marginRight: '10px' }}
-            />
+          {cart.coverImageUrl.startsWith('https') ? (
+              <img
+                src={cart.coverImageUrl}
+                alt="Sản phẩm"
+                style={{
+                  width: '50px',
+                  marginRight: '10px',
+                  height: '50px'
+                }}
+              />
+            ) : (
+              <video
+                // className="hoverVideo"
+                className="video_thumbnail"
+                src={`https:${cart.coverImageUrl}`}
+                style={{ width: '50px', height: '50px', marginRight: '10px' }}
+                controls={false}
+              >
+                Trình duyệt không hỗ trợ ảnh
+              </video>
+            )}
             <a style={{ color: '#000' }} target="_blank" href={cart.productUrl}>
               {cart.name}
             </a>
@@ -76,24 +92,7 @@ const DetailOrder = () => {
     setTotalCheckedPrice(totalPrice)
   }, [buyProduct])
   const handleSubmit = () => {
-    const userInfor = localStorage.getItem('token')
-      ? jwtDecode(localStorage.getItem('token'))
-      : null
-    const finalProduct = buyProduct.map((product) => ({
-      ...product,
-      properties: '',
-    }))
-    dispatch(
-      createOrder({
-        userId: userInfor.id,
-        productList: finalProduct,
-        purchaseFee: totalCheckedPrice,
-      }),
-    )
-    openNotificationWithIcon('success', 'Đặt hàng thành công')
-    setTimeout(() => {
-      window.location.reload()
-    }, 2000)
+
   }
 
   return (
