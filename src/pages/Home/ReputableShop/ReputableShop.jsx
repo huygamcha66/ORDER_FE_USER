@@ -2,951 +2,951 @@
 /* eslint-disable quotes */
 /* eslint-disable semi */
 // eslint-disable-next-line quotes
-import { Card, Col, Flex, List, Row, Typography } from "antd";
-import "./index.css";
+import { Card, Col, Flex, List, Row, Typography } from 'antd'
+import './index.css'
 const dataJacket = [
   {
-    url: "https://masoweide.tmall.com/index.htm?spm=a1z10.1-b.w5002-9112559552.2.VIOxLK",
-    text: "masoweide.tmall.com",
+    url: 'https://masoweide.tmall.com/index.htm?spm=a1z10.1-b.w5002-9112559552.2.VIOxLK',
+    text: 'masoweide.tmall.com'
   },
   {
-    url: "https://bokasi.taobao.com/index.htm?spm=2013.1.w10782109-12553032025.4.VL2Vp8",
-    text: "bokasi.taobao.com",
+    url: 'https://bokasi.taobao.com/index.htm?spm=2013.1.w10782109-12553032025.4.VL2Vp8',
+    text: 'bokasi.taobao.com'
   },
   {
-    url: "https://shop101312711.taobao.com/index.htm?spm=2013.1.w5002-12270796871.2.CCM0rW",
-    text: "shop101312711.taobao.com",
+    url: 'https://shop101312711.taobao.com/index.htm?spm=2013.1.w5002-12270796871.2.CCM0rW',
+    text: 'shop101312711.taobao.com'
   },
   {
-    url: "https://mk178.taobao.com/index.htm?spm=a1z10.1-c.w5002-11634290111.2.vzbn98",
-    text: "mk178.taobao.com",
+    url: 'https://mk178.taobao.com/index.htm?spm=a1z10.1-c.w5002-11634290111.2.vzbn98',
+    text: 'mk178.taobao.com'
   },
   {
-    url: "https://kuegou.tmall.com/?spm=a220o.1000855.w5001-3610250230.11.ACt45v&scene=taobao_shop",
-    text: "kuegou.tmall.com",
+    url: 'https://kuegou.tmall.com/?spm=a220o.1000855.w5001-3610250230.11.ACt45v&scene=taobao_shop',
+    text: 'kuegou.tmall.com'
   },
   {
-    url: "http://reallypoint.1688.com/?spm=a2615.2177701.0.0.NLLAf9",
-    text: "reallypoint.1688.com",
+    url: 'http://reallypoint.1688.com/?spm=a2615.2177701.0.0.NLLAf9',
+    text: 'reallypoint.1688.com'
   },
   {
-    url: "https://enjeolon.tmall.com/index.htm?spm=a1z10.1-b.w10952962-10246227346.7.6osy5z",
-    text: "enjeolon.tmall.com",
+    url: 'https://enjeolon.tmall.com/index.htm?spm=a1z10.1-b.w10952962-10246227346.7.6osy5z',
+    text: 'enjeolon.tmall.com'
   },
   {
-    url: "https://mk178.taobao.com/index.htm?spm=2013.1.w5002-11634290111.2.lFphsJ",
-    text: "mk178.taobao.com",
+    url: 'https://mk178.taobao.com/index.htm?spm=2013.1.w5002-11634290111.2.lFphsJ',
+    text: 'mk178.taobao.com'
   },
   {
-    url: "https://minglifs.tmall.com/shop/view_shop.htm?spm=a1z10.1-b.w10580863-12241802770.4.1ACGF1",
-    text: "minglifs.tmall.com",
+    url: 'https://minglifs.tmall.com/shop/view_shop.htm?spm=a1z10.1-b.w10580863-12241802770.4.1ACGF1',
+    text: 'minglifs.tmall.com'
   },
   {
-    url: "https://myfangshao.taobao.com/index.htm?spm=2013.1.w10772994-12723681433.1.xLnebA&scene=taobao_shop",
-    text: "myfangshao.taobao.com",
+    url: 'https://myfangshao.taobao.com/index.htm?spm=2013.1.w10772994-12723681433.1.xLnebA&scene=taobao_shop',
+    text: 'myfangshao.taobao.com'
   },
   {
-    url: "https://shop137409222.taobao.com/index.htm?spm=2013.1.w5002-13292400464.2.APyeuf",
-    text: "shop137409222.taobao.com",
+    url: 'https://shop137409222.taobao.com/index.htm?spm=2013.1.w5002-13292400464.2.APyeuf',
+    text: 'shop137409222.taobao.com'
   },
   {
-    url: "https://tashangjc.tmall.com/shop/view_shop.htm?spm=a1z10.3-b.w5001-4641447186.2.r5C82C&mytmenu=mdianpu&utkn=g,nbuxg43tmxf7xsoqx3n3hw6xvdbpjnpk1433388483956&user_number_id=1860075399&scm=1028.1.1.20001&scene=taobao_shop",
-    text: "tashangjc.tmall.com",
+    url: 'https://tashangjc.tmall.com/shop/view_shop.htm?spm=a1z10.3-b.w5001-4641447186.2.r5C82C&mytmenu=mdianpu&utkn=g,nbuxg43tmxf7xsoqx3n3hw6xvdbpjnpk1433388483956&user_number_id=1860075399&scm=1028.1.1.20001&scene=taobao_shop',
+    text: 'tashangjc.tmall.com'
   },
   {
-    url: "https://ziyifs.tmall.com/index.htm?spm=a220o.1000855.w5002-7164386102.2.dhvIuM",
-    text: "ziyifs.tmall.com",
+    url: 'https://ziyifs.tmall.com/index.htm?spm=a220o.1000855.w5002-7164386102.2.dhvIuM',
+    text: 'ziyifs.tmall.com'
   },
   {
-    url: "http://shop1428598514999.1688.com/?spm=a261y.7663282.0.0.4IdMuF",
-    text: "shop1428598514999.1688.com",
+    url: 'http://shop1428598514999.1688.com/?spm=a261y.7663282.0.0.4IdMuF',
+    text: 'shop1428598514999.1688.com'
   },
   {
-    url: "http://tanghuang9588.1688.com/?spm=a261y.7663282.0.0.30m1Ke",
-    text: "tanghuang9588.1688.com",
+    url: 'http://tanghuang9588.1688.com/?spm=a261y.7663282.0.0.30m1Ke',
+    text: 'tanghuang9588.1688.com'
   },
   {
-    url: "http://jqds88.1688.com/?spm=a261y.7663282.0.0.Q1wm7A",
-    text: "jqds88.1688.com",
-  },
-];
+    url: 'http://jqds88.1688.com/?spm=a261y.7663282.0.0.Q1wm7A',
+    text: 'jqds88.1688.com'
+  }
+]
 const dataShoes = [
   {
-    url: "https://shop136134516.taobao.com/index.htm?spm=a1z10.1-c.w5002-12386416736.2.nHGz1S",
-    text: "shop136134516.taobao.com",
+    url: 'https://shop136134516.taobao.com/index.htm?spm=a1z10.1-c.w5002-12386416736.2.nHGz1S',
+    text: 'shop136134516.taobao.com'
   },
   {
-    url: "http://tx791228.1688.com/?spm=a2615.2177701.0.0.ovsEUY",
-    text: "tx791228.1688.com",
+    url: 'http://tx791228.1688.com/?spm=a2615.2177701.0.0.ovsEUY',
+    text: 'tx791228.1688.com'
   },
   {
-    url: "https://shop100980702.taobao.com/index.htm?spm=a1z10.1-c.w5002-1113508668.2.KUTMqW",
-    text: "shop100980702.taobao.com",
+    url: 'https://shop100980702.taobao.com/index.htm?spm=a1z10.1-c.w5002-1113508668.2.KUTMqW',
+    text: 'shop100980702.taobao.com'
   },
   {
-    url: "https://aorllun.tmall.com/index.htm?spm=a1z10.1-b.w5002-9029447204.2.BoTAEE",
-    text: "aorllun.tmall.com",
+    url: 'https://aorllun.tmall.com/index.htm?spm=a1z10.1-b.w5002-9029447204.2.BoTAEE',
+    text: 'aorllun.tmall.com'
   },
   {
-    url: "http://shop1419513895800.1688.com/?spm=a2615.2177701.0.0.hlU2f1",
-    text: "shop1419513895800.1688.com",
+    url: 'http://shop1419513895800.1688.com/?spm=a2615.2177701.0.0.hlU2f1',
+    text: 'shop1419513895800.1688.com'
   },
   {
-    url: "https://jtsdxl.tmall.com/search.htm?spm=a220o.1000855.w5001-11795865045.9.yWF851&search=y&scene=taobao_shop",
-    text: "jtsdxl.tmall.com",
+    url: 'https://jtsdxl.tmall.com/search.htm?spm=a220o.1000855.w5001-11795865045.9.yWF851&search=y&scene=taobao_shop',
+    text: 'jtsdxl.tmall.com'
   },
   {
-    url: "https://reddragonfly.tmall.com/?spm=a1z10.1-b.w5001-9289970745.2.9X7EHU&scene=taobao_shop",
-    text: "reddragonfly.tmall.com",
+    url: 'https://reddragonfly.tmall.com/?spm=a1z10.1-b.w5001-9289970745.2.9X7EHU&scene=taobao_shop',
+    text: 'reddragonfly.tmall.com'
   },
   {
-    url: "https://mingruoxl.tmall.com/?spm=a220o.1000855.w5001-10046856497.4.90y0Mj&scene=taobao_shop",
-    text: "mingruoxl.tmall.com",
+    url: 'https://mingruoxl.tmall.com/?spm=a220o.1000855.w5001-10046856497.4.90y0Mj&scene=taobao_shop',
+    text: 'mingruoxl.tmall.com'
   },
   {
-    url: "https://shop117643295.taobao.com/index.htm?spm=a1z10.1-c.w5002-13241686870.2.9OjOIb",
-    text: "shop117643295.taobao.com",
+    url: 'https://shop117643295.taobao.com/index.htm?spm=a1z10.1-c.w5002-13241686870.2.9OjOIb',
+    text: 'shop117643295.taobao.com'
   },
   {
-    url: "https://guyangcity.tmall.com/category.htm?spm=a1z10.4-b.w5001-11678284319.7.W8Z0dI&search=y&scene=taobao_shop",
-    text: "guyangcity.tmall.com",
+    url: 'https://guyangcity.tmall.com/category.htm?spm=a1z10.4-b.w5001-11678284319.7.W8Z0dI&search=y&scene=taobao_shop',
+    text: 'guyangcity.tmall.com'
   },
   {
-    url: "https://maden.tmall.com/?spm=a1z10.3-b.w5001-9053453975.4.fZ8TG8&scene=taobao_shop",
-    text: "maden.tmall.com",
+    url: 'https://maden.tmall.com/?spm=a1z10.3-b.w5001-9053453975.4.fZ8TG8&scene=taobao_shop',
+    text: 'maden.tmall.com'
   },
   {
-    url: "https://pinshy.taobao.com/index.htm?spm=a1z10.1-c.w5002-283733451.2.xw3p2V",
-    text: "pinshy.taobao.com",
+    url: 'https://pinshy.taobao.com/index.htm?spm=a1z10.1-c.w5002-283733451.2.xw3p2V',
+    text: 'pinshy.taobao.com'
   },
   {
-    url: "https://vismix.tmall.com/search.htm?spm=a220o.1000855.w5001-9055100079.8.tjOtt8&rn=c281592cb7521522ea9a036203bf65f1&user_number_id=760753200&v=1&scene=taobao_shop",
-    text: "vismix.tmall.com",
+    url: 'https://vismix.tmall.com/search.htm?spm=a220o.1000855.w5001-9055100079.8.tjOtt8&rn=c281592cb7521522ea9a036203bf65f1&user_number_id=760753200&v=1&scene=taobao_shop',
+    text: 'vismix.tmall.com'
   },
   {
-    url: "https://shop122069277.taobao.com/index.htm?spm=a1z10.1-c.w5002-12355633812.2.xQ0riH",
-    text: "shop122069277.taobao.com",
+    url: 'https://shop122069277.taobao.com/index.htm?spm=a1z10.1-c.w5002-12355633812.2.xQ0riH',
+    text: 'shop122069277.taobao.com'
   },
   {
-    url: "https://shop117971231.taobao.com/?spm=2013.1.1000126.2.Y4GlLx",
-    text: "shop117971231.taobao.com",
+    url: 'https://shop117971231.taobao.com/?spm=2013.1.1000126.2.Y4GlLx',
+    text: 'shop117971231.taobao.com'
   },
   {
-    url: "https://shop36458123.taobao.com/?spm=2013.1.w5001-2873146103.4.TLAzOP&scene=taobao_shop",
-    text: "shop36458123.taobao.com",
+    url: 'https://shop36458123.taobao.com/?spm=2013.1.w5001-2873146103.4.TLAzOP&scene=taobao_shop',
+    text: 'shop36458123.taobao.com'
   },
   {
-    url: "https://fashion-ife-dl.taobao.com/index.htm?spm=a1z10.1-c.w5002-12606101088.2.gWiu8o",
-    text: "fashion-ife-dl.taobao.com",
+    url: 'https://fashion-ife-dl.taobao.com/index.htm?spm=a1z10.1-c.w5002-12606101088.2.gWiu8o',
+    text: 'fashion-ife-dl.taobao.com'
   },
   {
-    url: "http://shop1378832492893.1688.com/?spm=a2615.2177701.0.0.NrFBo7",
-    text: "shop1378832492893.1688.com",
+    url: 'http://shop1378832492893.1688.com/?spm=a2615.2177701.0.0.NrFBo7',
+    text: 'shop1378832492893.1688.com'
   },
   {
-    url: "http://tianlexy.1688.com/?spm=a261y.7663282.0.0.N4R56T",
-    text: "tianlexy.1688.com",
-  },
-];
+    url: 'http://tianlexy.1688.com/?spm=a261y.7663282.0.0.N4R56T',
+    text: 'tianlexy.1688.com'
+  }
+]
 const dataJean = [
   {
-    url: "https://shop136134516.taobao.com/index.htm?spm=a1z10.1-c.w5002-12386416736.2.nHGz1S",
-    text: "shop136134516.taobao.com",
+    url: 'https://shop136134516.taobao.com/index.htm?spm=a1z10.1-c.w5002-12386416736.2.nHGz1S',
+    text: 'shop136134516.taobao.com'
   },
   {
-    url: "http://tx791228.1688.com/?spm=a2615.2177701.0.0.ovsEUY",
-    text: "tx791228.1688.com",
+    url: 'http://tx791228.1688.com/?spm=a2615.2177701.0.0.ovsEUY',
+    text: 'tx791228.1688.com'
   },
   {
-    url: "https://shop100980702.taobao.com/index.htm?spm=a1z10.1-c.w5002-1113508668.2.KUTMqW",
-    text: "shop100980702.taobao.com",
+    url: 'https://shop100980702.taobao.com/index.htm?spm=a1z10.1-c.w5002-1113508668.2.KUTMqW',
+    text: 'shop100980702.taobao.com'
   },
   {
-    url: "https://aorllun.tmall.com/index.htm?spm=a1z10.1-b.w5002-9029447204.2.BoTAEE",
-    text: "aorllun.tmall.com",
+    url: 'https://aorllun.tmall.com/index.htm?spm=a1z10.1-b.w5002-9029447204.2.BoTAEE',
+    text: 'aorllun.tmall.com'
   },
   {
-    url: "http://shop1419513895800.1688.com/?spm=a2615.2177701.0.0.hlU2f1",
-    text: "shop1419513895800.1688.com",
+    url: 'http://shop1419513895800.1688.com/?spm=a2615.2177701.0.0.hlU2f1',
+    text: 'shop1419513895800.1688.com'
   },
   {
-    url: "https://jtsdxl.tmall.com/search.htm?spm=a220o.1000855.w5001-11795865045.9.yWF851&search=y&scene=taobao_shop",
-    text: "jtsdxl.tmall.com",
+    url: 'https://jtsdxl.tmall.com/search.htm?spm=a220o.1000855.w5001-11795865045.9.yWF851&search=y&scene=taobao_shop',
+    text: 'jtsdxl.tmall.com'
   },
   {
-    url: "https://reddragonfly.tmall.com/?spm=a1z10.1-b.w5001-9289970745.2.9X7EHU&scene=taobao_shop",
-    text: "reddragonfly.tmall.com",
+    url: 'https://reddragonfly.tmall.com/?spm=a1z10.1-b.w5001-9289970745.2.9X7EHU&scene=taobao_shop',
+    text: 'reddragonfly.tmall.com'
   },
   {
-    url: "https://mingruoxl.tmall.com/?spm=a220o.1000855.w5001-10046856497.4.90y0Mj&scene=taobao_shop",
-    text: "mingruoxl.tmall.com",
+    url: 'https://mingruoxl.tmall.com/?spm=a220o.1000855.w5001-10046856497.4.90y0Mj&scene=taobao_shop',
+    text: 'mingruoxl.tmall.com'
   },
   {
-    url: "https://shop117643295.taobao.com/index.htm?spm=a1z10.1-c.w5002-13241686870.2.9OjOIb",
-    text: "shop117643295.taobao.com",
+    url: 'https://shop117643295.taobao.com/index.htm?spm=a1z10.1-c.w5002-13241686870.2.9OjOIb',
+    text: 'shop117643295.taobao.com'
   },
   {
-    url: "https://guyangcity.tmall.com/category.htm?spm=a1z10.4-b.w5001-11678284319.7.W8Z0dI&search=y&scene=taobao_shop",
-    text: "guyangcity.tmall.com",
+    url: 'https://guyangcity.tmall.com/category.htm?spm=a1z10.4-b.w5001-11678284319.7.W8Z0dI&search=y&scene=taobao_shop',
+    text: 'guyangcity.tmall.com'
   },
   {
-    url: "https://maden.tmall.com/?spm=a1z10.3-b.w5001-9053453975.4.fZ8TG8&scene=taobao_shop",
-    text: "maden.tmall.com",
+    url: 'https://maden.tmall.com/?spm=a1z10.3-b.w5001-9053453975.4.fZ8TG8&scene=taobao_shop',
+    text: 'maden.tmall.com'
   },
   {
-    url: "https://pinshy.taobao.com/index.htm?spm=a1z10.1-c.w5002-283733451.2.xw3p2V",
-    text: "pinshy.taobao.com",
+    url: 'https://pinshy.taobao.com/index.htm?spm=a1z10.1-c.w5002-283733451.2.xw3p2V',
+    text: 'pinshy.taobao.com'
   },
   {
-    url: "https://vismix.tmall.com/search.htm?spm=a220o.1000855.w5001-9055100079.8.tjOtt8&rn=c281592cb7521522ea9a036203bf65f1&user_number_id=760753200&v=1&scene=taobao_shop",
-    text: "vismix.tmall.com",
+    url: 'https://vismix.tmall.com/search.htm?spm=a220o.1000855.w5001-9055100079.8.tjOtt8&rn=c281592cb7521522ea9a036203bf65f1&user_number_id=760753200&v=1&scene=taobao_shop',
+    text: 'vismix.tmall.com'
   },
   {
-    url: "https://shop122069277.taobao.com/index.htm?spm=a1z10.1-c.w5002-12355633812.2.xQ0riH",
-    text: "shop122069277.taobao.com",
+    url: 'https://shop122069277.taobao.com/index.htm?spm=a1z10.1-c.w5002-12355633812.2.xQ0riH',
+    text: 'shop122069277.taobao.com'
   },
   {
-    url: "https://shop117971231.taobao.com/?spm=2013.1.1000126.2.Y4GlLx",
-    text: "shop117971231.taobao.com",
+    url: 'https://shop117971231.taobao.com/?spm=2013.1.1000126.2.Y4GlLx',
+    text: 'shop117971231.taobao.com'
   },
   {
-    url: "https://shop36458123.taobao.com/?spm=2013.1.w5001-2873146103.4.TLAzOP&scene=taobao_shop",
-    text: "shop36458123.taobao.com",
+    url: 'https://shop36458123.taobao.com/?spm=2013.1.w5001-2873146103.4.TLAzOP&scene=taobao_shop',
+    text: 'shop36458123.taobao.com'
   },
   {
-    url: "https://fashion-ife-dl.taobao.com/index.htm?spm=a1z10.1-c.w5002-12606101088.2.gWiu8o",
-    text: "fashion-ife-dl.taobao.com",
+    url: 'https://fashion-ife-dl.taobao.com/index.htm?spm=a1z10.1-c.w5002-12606101088.2.gWiu8o',
+    text: 'fashion-ife-dl.taobao.com'
   },
   {
-    url: "http://shop1378832492893.1688.com/?spm=a2615.2177701.0.0.NrFBo7",
-    text: "shop1378832492893.1688.com",
+    url: 'http://shop1378832492893.1688.com/?spm=a2615.2177701.0.0.NrFBo7',
+    text: 'shop1378832492893.1688.com'
   },
   {
-    url: "http://tianlexy.1688.com/?spm=a261y.7663282.0.0.N4R56T",
-    text: "tianlexy.1688.com",
-  },
-];
+    url: 'http://tianlexy.1688.com/?spm=a261y.7663282.0.0.N4R56T',
+    text: 'tianlexy.1688.com'
+  }
+]
 const dataShirt = [
   {
-    text: "shop135478146.taobao.com",
-    url: "https://shop135478146.taobao.com/index.htm?spm=a1z10.3-c.w5002-13028386453.2.Opd0g1",
+    text: 'shop135478146.taobao.com',
+    url: 'https://shop135478146.taobao.com/index.htm?spm=a1z10.3-c.w5002-13028386453.2.Opd0g1'
   },
   {
-    text: "feidianfz.1688.com",
-    url: "http://feidianfz.1688.com/?spm=a2615.2177701.0.0.RiNuzy",
+    text: 'feidianfz.1688.com',
+    url: 'http://feidianfz.1688.com/?spm=a2615.2177701.0.0.RiNuzy'
   },
   {
-    text: "haiwo2.1688.com",
-    url: "http://haiwo2.1688.com/?spm=a261y.7663282.0.0.fpvDfA",
+    text: 'haiwo2.1688.com',
+    url: 'http://haiwo2.1688.com/?spm=a261y.7663282.0.0.fpvDfA'
   },
   {
-    text: "shop1361876629391.1688.com",
-    url: "http://shop1361876629391.1688.com/?spm=a261y.7663282.0.0.IKpAxS",
+    text: 'shop1361876629391.1688.com',
+    url: 'http://shop1361876629391.1688.com/?spm=a261y.7663282.0.0.IKpAxS'
   },
   {
-    text: "danjieshifushi.1688.com",
-    url: "http://danjieshifushi.1688.com/?spm=a261y.7663282.0.0.YoSsD6",
+    text: 'danjieshifushi.1688.com',
+    url: 'http://danjieshifushi.1688.com/?spm=a261y.7663282.0.0.YoSsD6'
   },
   {
-    text: "cotream.1688.com",
-    url: "http://cotream.1688.com/?spm=a261y.7663282.0.0.EnMYfN",
+    text: 'cotream.1688.com',
+    url: 'http://cotream.1688.com/?spm=a261y.7663282.0.0.EnMYfN'
   },
   {
-    text: "jiakdress.1688.com",
-    url: "http://jiakdress.1688.com/?spm=a2615.2177701.0.0.7b1Bm1",
+    text: 'jiakdress.1688.com',
+    url: 'http://jiakdress.1688.com/?spm=a2615.2177701.0.0.7b1Bm1'
   },
   {
-    text: "shop1438102456123.1688.com",
-    url: "http://shop1438102456123.1688.com/?spm=a261y.7663282.0.0.mGAVLM",
+    text: 'shop1438102456123.1688.com',
+    url: 'http://shop1438102456123.1688.com/?spm=a261y.7663282.0.0.mGAVLM'
   },
   {
-    text: "shop1417106816548.1688.com",
-    url: "http://shop1417106816548.1688.com/?spm=a261y.7663282.0.0.Iluuxl",
+    text: 'shop1417106816548.1688.com',
+    url: 'http://shop1417106816548.1688.com/?spm=a261y.7663282.0.0.Iluuxl'
   },
   {
-    text: "wuyanzhiyi.1688.com",
-    url: "http://wuyanzhiyi.1688.com/?spm=a261y.7663282.0.0.x8gBB0",
-  },
-];
+    text: 'wuyanzhiyi.1688.com',
+    url: 'http://wuyanzhiyi.1688.com/?spm=a261y.7663282.0.0.x8gBB0'
+  }
+]
 const dataShort = [
   {
-    text: "saideyu.tmall.com",
-    url: "https://saideyu.tmall.com/index.htm?spm=a1z10.1-b.w5002-11990219911.2.1mOLfW",
+    text: 'saideyu.tmall.com',
+    url: 'https://saideyu.tmall.com/index.htm?spm=a1z10.1-b.w5002-11990219911.2.1mOLfW'
   },
   {
-    text: "tixieboni.tmall.com",
-    url: "https://tixieboni.tmall.com/index.htm?spm=a220o.1000855.w5002-12315847726.2.OybMyi",
+    text: 'tixieboni.tmall.com',
+    url: 'https://tixieboni.tmall.com/index.htm?spm=a220o.1000855.w5002-12315847726.2.OybMyi'
   },
   {
-    text: "shop115157693.taobao.com",
-    url: "https://shop115157693.taobao.com/?spm=2013.1.1000126.2.4xL4uS",
+    text: 'shop115157693.taobao.com',
+    url: 'https://shop115157693.taobao.com/?spm=2013.1.1000126.2.4xL4uS'
   },
   {
-    text: "infshop.1688.com",
-    url: "http://infshop.1688.com/?spm=a261y.7663282.0.0.Y3rOHc",
+    text: 'infshop.1688.com',
+    url: 'http://infshop.1688.com/?spm=a261y.7663282.0.0.Y3rOHc'
   },
   {
-    text: "wzgffz.1688.com",
-    url: "http://wzgffz.1688.com/?spm=a261y.7663282.0.0.ViAOiv",
+    text: 'wzgffz.1688.com',
+    url: 'http://wzgffz.1688.com/?spm=a261y.7663282.0.0.ViAOiv'
   },
   {
-    text: "nachuan1818.1688.com",
-    url: "http://nachuan1818.1688.com/?spm=a261y.7663282.0.0.FHXjER",
+    text: 'nachuan1818.1688.com',
+    url: 'http://nachuan1818.1688.com/?spm=a261y.7663282.0.0.FHXjER'
   },
   {
-    text: "youzihome.1688.com",
-    url: "http://youzihome.1688.com/?spm=a261y.7663282.0.0.bARTRc",
+    text: 'youzihome.1688.com',
+    url: 'http://youzihome.1688.com/?spm=a261y.7663282.0.0.bARTRc'
   },
   {
-    text: "pengxingshangpin.1688.com",
-    url: "http://pengxingshangpin.1688.com/?spm=a261y.7663282.0.0.gw8TXk",
+    text: 'pengxingshangpin.1688.com',
+    url: 'http://pengxingshangpin.1688.com/?spm=a261y.7663282.0.0.gw8TXk'
   },
   {
-    text: "xiedewen348.1688.com",
-    url: "http://xiedewen348.1688.com/?spm=a261y.7663282.0.0.SEninR",
+    text: 'xiedewen348.1688.com',
+    url: 'http://xiedewen348.1688.com/?spm=a261y.7663282.0.0.SEninR'
   },
   {
-    text: "5mmcompany.taobao.com",
-    url: "https://5mmcompany.taobao.com/index.htm?spm=a1z10.1-c.w5002-12791085764.2.MRwrbX",
+    text: '5mmcompany.taobao.com',
+    url: 'https://5mmcompany.taobao.com/index.htm?spm=a1z10.1-c.w5002-12791085764.2.MRwrbX'
   },
   {
-    text: "ceesee1979.taobao.com",
-    url: "https://ceesee1979.taobao.com/index.htm?spm=2013.1.w5001-10265365968.3.57nlTq&scene=taobao_shop",
+    text: 'ceesee1979.taobao.com',
+    url: 'https://ceesee1979.taobao.com/index.htm?spm=2013.1.w5001-10265365968.3.57nlTq&scene=taobao_shop'
   },
   {
-    text: "dugatpymj.tmall.com",
-    url: "https://dugatpymj.tmall.com/index.htm?spm=a1z10.1-b.w5002-7948797544.2.tNpRrY",
+    text: 'dugatpymj.tmall.com',
+    url: 'https://dugatpymj.tmall.com/index.htm?spm=a1z10.1-b.w5002-7948797544.2.tNpRrY'
   },
   {
-    text: "aigebei.taobao.com",
-    url: "https://aigebei.taobao.com/search.htm?spm=2013.1.w5002-10404687637.1.0PSnxo&search=y",
+    text: 'aigebei.taobao.com',
+    url: 'https://aigebei.taobao.com/search.htm?spm=2013.1.w5002-10404687637.1.0PSnxo&search=y'
   },
   {
-    text: "yilian00.taobao.com",
-    url: "https://yilian00.taobao.com/?spm=2013.1.1000126.3.OPh2ur",
+    text: 'yilian00.taobao.com',
+    url: 'https://yilian00.taobao.com/?spm=2013.1.1000126.3.OPh2ur'
   },
   {
-    text: "cpbinl2013.taobao.com",
-    url: "https://cpbinl2013.taobao.com/index.htm?spm=2013.1.w5002-989583652.2.HwDMVh",
+    text: 'cpbinl2013.taobao.com',
+    url: 'https://cpbinl2013.taobao.com/index.htm?spm=2013.1.w5002-989583652.2.HwDMVh'
   },
   {
-    text: "yilian00.taobao.com",
-    url: "https://yilian00.taobao.com/index.htm?spm=2013.1.w5002-2845752348.2.pWuGFi",
+    text: 'yilian00.taobao.com',
+    url: 'https://yilian00.taobao.com/index.htm?spm=2013.1.w5002-2845752348.2.pWuGFi'
   },
   {
-    text: "qmi1314.taobao.com",
-    url: "https://qmi1314.taobao.com/search.htm?spm=a1z10.3-c.w4002-8500140390.108.UHBuw4&_ksTS=1453174402644_617&callback=jsonp618&mid=w-8500140390-0&wid=8500140390&path=%2Fsearch.htm&search=y&pageNo=1#anchor",
+    text: 'qmi1314.taobao.com',
+    url: 'https://qmi1314.taobao.com/search.htm?spm=a1z10.3-c.w4002-8500140390.108.UHBuw4&_ksTS=1453174402644_617&callback=jsonp618&mid=w-8500140390-0&wid=8500140390&path=%2Fsearch.htm&search=y&pageNo=1#anchor'
   },
   {
-    text: "99dora.taobao.com",
-    url: "https://99dora.taobao.com/index.htm?spm=2013.1.w5002-6596721656.2.IpO8X0",
+    text: '99dora.taobao.com',
+    url: 'https://99dora.taobao.com/index.htm?spm=2013.1.w5002-6596721656.2.IpO8X0'
   },
   {
-    text: "shiningfs.tmall.com",
-    url: "https://shiningfs.tmall.com/index.htm?spm=a220o.1000855.w5002-12899421666.2.hzD7oM",
+    text: 'shiningfs.tmall.com',
+    url: 'https://shiningfs.tmall.com/index.htm?spm=a220o.1000855.w5002-12899421666.2.hzD7oM'
   },
   {
-    text: "shop108785004.taobao.com",
-    url: "https://shop108785004.taobao.com/index.htm?spm=2013.1.w5002-5705574070.2.AF45Ra",
+    text: 'shop108785004.taobao.com',
+    url: 'https://shop108785004.taobao.com/index.htm?spm=2013.1.w5002-5705574070.2.AF45Ra'
   },
   {
-    text: "moffichina.1688.com",
-    url: "http://moffichina.1688.com/?spm=a261y.7663282.0.0.sXTYms",
+    text: 'moffichina.1688.com',
+    url: 'http://moffichina.1688.com/?spm=a261y.7663282.0.0.sXTYms'
   },
   {
-    text: "halula.tmall.com",
-    url: "https://halula.tmall.com/index.htm?spm=a220o.1000855.w5002-11821650090.2.I7IClp",
+    text: 'halula.tmall.com',
+    url: 'https://halula.tmall.com/index.htm?spm=a220o.1000855.w5002-11821650090.2.I7IClp'
   },
   {
-    text: "shop117290276.taobao.com",
-    url: "https://shop117290276.taobao.com/index.htm?spm=2013.1.w11066787-13299553963.2.G87qUw&scene=taobao_shop",
+    text: 'shop117290276.taobao.com',
+    url: 'https://shop117290276.taobao.com/index.htm?spm=2013.1.w11066787-13299553963.2.G87qUw&scene=taobao_shop'
   },
   {
-    text: "longqianer.tmall.com",
-    url: "https://longqianer.tmall.com/?spm=a220o.1000855.w10886262-12970147090.2.Ghwy1g",
+    text: 'longqianer.tmall.com',
+    url: 'https://longqianer.tmall.com/?spm=a220o.1000855.w10886262-12970147090.2.Ghwy1g'
   },
   {
-    text: "mishall999.taobao.com",
-    url: "https://mishall999.taobao.com/index.htm?spm=2013.1.w5002-12577663251.2.42SLPm",
+    text: 'mishall999.taobao.com',
+    url: 'https://mishall999.taobao.com/index.htm?spm=2013.1.w5002-12577663251.2.42SLPm'
   },
   {
-    text: "mokoo8.1688.com",
-    url: "http://mokoo8.1688.com/?spm=a261y.7663282.0.0.MVFsCY",
+    text: 'mokoo8.1688.com',
+    url: 'http://mokoo8.1688.com/?spm=a261y.7663282.0.0.MVFsCY'
   },
   {
-    text: "moffichina.1688.com",
-    url: "http://moffichina.1688.com/?spm=a261y.7663282.0.0.BygW4y",
+    text: 'moffichina.1688.com',
+    url: 'http://moffichina.1688.com/?spm=a261y.7663282.0.0.BygW4y'
   },
   {
-    text: "ziyipretty.1688.com",
-    url: "http://ziyipretty.1688.com/?spm=a261y.7663282.0.0.KmZusb",
+    text: 'ziyipretty.1688.com',
+    url: 'http://ziyipretty.1688.com/?spm=a261y.7663282.0.0.KmZusb'
   },
   {
-    text: "moffichina.1688.com",
-    url: "http://moffichina.1688.com/?spm=a261y.7663282.0.0.WGM4r2",
+    text: 'moffichina.1688.com',
+    url: 'http://moffichina.1688.com/?spm=a261y.7663282.0.0.WGM4r2'
   },
   {
-    text: "shop1392865842693.1688.com",
-    url: "http://shop1392865842693.1688.com/?spm=a261y.7663282.0.0.ZiIMbZ",
+    text: 'shop1392865842693.1688.com',
+    url: 'http://shop1392865842693.1688.com/?spm=a261y.7663282.0.0.ZiIMbZ'
   },
   {
-    text: "shuxuer.1688.com",
-    url: "http://shuxuer.1688.com/?spm=a261y.7663282.0.0.iy81HN",
+    text: 'shuxuer.1688.com',
+    url: 'http://shuxuer.1688.com/?spm=a261y.7663282.0.0.iy81HN'
   },
   {
-    text: "yanshasha888.1688.com",
-    url: "http://yanshasha888.1688.com/?spm=a261y.7663282.0.0.21CFdo",
+    text: 'yanshasha888.1688.com',
+    url: 'http://yanshasha888.1688.com/?spm=a261y.7663282.0.0.21CFdo'
   },
   {
-    text: "xinshanfz.1688.com",
-    url: "http://xinshanfz.1688.com/?spm=a261y.7663282.0.0.L4vKBC",
+    text: 'xinshanfz.1688.com',
+    url: 'http://xinshanfz.1688.com/?spm=a261y.7663282.0.0.L4vKBC'
   },
   {
-    text: "11gong.1688.com",
-    url: "http://11gong.1688.com/?spm=a261y.7663282.0.0.pBZkCQ",
+    text: '11gong.1688.com',
+    url: 'http://11gong.1688.com/?spm=a261y.7663282.0.0.pBZkCQ'
   },
   {
-    text: "laicailan.1688.com",
-    url: "http://laicailan.1688.com/?spm=a261y.7663282.0.0.zlaO9S",
+    text: 'laicailan.1688.com',
+    url: 'http://laicailan.1688.com/?spm=a261y.7663282.0.0.zlaO9S'
   },
   {
-    text: "shop1399999973132.1688.com",
-    url: "http://shop1399999973132.1688.com/?spm=a261y.7663282.0.0.sKBOT2",
+    text: 'shop1399999973132.1688.com',
+    url: 'http://shop1399999973132.1688.com/?spm=a261y.7663282.0.0.sKBOT2'
   },
   {
-    text: "shop1394038912754.1688.com",
-    url: "http://shop1394038912754.1688.com/?spm=a261y.7663282.0.0.aEfBfU",
+    text: 'shop1394038912754.1688.com',
+    url: 'http://shop1394038912754.1688.com/?spm=a261y.7663282.0.0.aEfBfU'
   },
   {
-    text: "shandafz.1688.com",
-    url: "http://shandafz.1688.com/?spm=a261y.7663282.0.0.25a0zW",
+    text: 'shandafz.1688.com',
+    url: 'http://shandafz.1688.com/?spm=a261y.7663282.0.0.25a0zW'
   },
   {
-    text: "miucomiuco.taobao.com",
-    url: "https://miucomiuco.taobao.com/search.htm?spm=a1z10.3-c.w4002-12037246126.94.ni5IfX&_ksTS=1453444621780_656&callback=jsonp657&mid=w-12037246126-0&wid=12037246126&path=%2Fsearch.htm&search=y&pageNo=6#anchor",
+    text: 'miucomiuco.taobao.com',
+    url: 'https://miucomiuco.taobao.com/search.htm?spm=a1z10.3-c.w4002-12037246126.94.ni5IfX&_ksTS=1453444621780_656&callback=jsonp657&mid=w-12037246126-0&wid=12037246126&path=%2Fsearch.htm&search=y&pageNo=6#anchor'
   },
   {
-    text: "leikafei.tmall.com",
-    url: "https://leikafei.tmall.com/search.htm?spm=a220o.1000855.0.0.sQ4lqK&search=y",
+    text: 'leikafei.tmall.com',
+    url: 'https://leikafei.tmall.com/search.htm?spm=a220o.1000855.0.0.sQ4lqK&search=y'
   },
   {
-    text: "rjfashion.taobao.com",
-    url: "https://rjfashion.taobao.com/category-1171866690.htm?spm=a1z10.3-c.w4010-12549863474.7.Lzws7E&search=y&catName=2016%B4%BA%D7%B0%C9%CF%CA%D0#bd",
+    text: 'rjfashion.taobao.com',
+    url: 'https://rjfashion.taobao.com/category-1171866690.htm?spm=a1z10.3-c.w4010-12549863474.7.Lzws7E&search=y&catName=2016%B4%BA%D7%B0%C9%CF%CA%D0#bd'
   },
   {
-    text: "detail.tmall.com",
-    url: "https://detail.tmall.com/item.htm?spm=a230r.1.999.1.dNNU9X&id=523797604208&ns=1&skuId=3116654706516",
+    text: 'detail.tmall.com',
+    url: 'https://detail.tmall.com/item.htm?spm=a230r.1.999.1.dNNU9X&id=523797604208&ns=1&skuId=3116654706516'
   },
   {
-    text: "tongen.tmall.com",
-    url: "https://tongen.tmall.com/search.htm?spm=a220o.1000855.w5002-7769932687.1.Xk0mQT&search=y",
+    text: 'tongen.tmall.com',
+    url: 'https://tongen.tmall.com/search.htm?spm=a220o.1000855.w5002-7769932687.1.Xk0mQT&search=y'
   },
   {
-    text: "detail.tmall.com",
-    url: "https://detail.tmall.com/item.htm?id=524717523458&ali_trackid=2:mm_111284466_10758191_35954927:1453870651_264_813521624&pvid=200_10.98.16.153_456_1453870650383",
-  },
-];
+    text: 'detail.tmall.com',
+    url: 'https://detail.tmall.com/item.htm?id=524717523458&ali_trackid=2:mm_111284466_10758191_35954927:1453870651_264_813521624&pvid=200_10.98.16.153_456_1453870650383'
+  }
+]
 const dataAccessories = [
   {
-    url: "http://fansizhe1688.1688.com/?spm=a261y.7663282.0.0.S9wqKm",
-    text: "fansizhe1688.1688.com",
+    url: 'http://fansizhe1688.1688.com/?spm=a261y.7663282.0.0.S9wqKm',
+    text: 'fansizhe1688.1688.com'
   },
   {
-    url: "http://shop1398704360596.1688.com/?spm=a261y.7663282.0.0.nkYvNV",
-    text: "shop1398704360596.1688.com",
+    url: 'http://shop1398704360596.1688.com/?spm=a261y.7663282.0.0.nkYvNV',
+    text: 'shop1398704360596.1688.com'
   },
   {
-    url: "http://shop1398704360596.1688.com/?spm=a261y.7663282.0.0.8Orh2x",
-    text: "shop1398704360596.1688.com",
+    url: 'http://shop1398704360596.1688.com/?spm=a261y.7663282.0.0.8Orh2x',
+    text: 'shop1398704360596.1688.com'
   },
   {
-    url: "https://georgcount.tmall.com/?spm=a220o.1000855.w5001-9990241550.3.t6uZNc&amp;amp;scene=taobao_shop",
-    text: "georgcount.tmall.com",
+    url: 'https://georgcount.tmall.com/?spm=a220o.1000855.w5001-9990241550.3.t6uZNc&amp;amp;scene=taobao_shop',
+    text: 'georgcount.tmall.com'
   },
   {
-    url: "http://shop1349532963007.1688.com/?spm=a261y.7663282.0.0.wDgDmk",
-    text: "shop1349532963007.1688.com",
+    url: 'http://shop1349532963007.1688.com/?spm=a261y.7663282.0.0.wDgDmk',
+    text: 'shop1349532963007.1688.com'
   },
   {
-    url: "http://fansizhe888.1688.com/?spm=a261y.7663282.0.0.ANqtbS",
-    text: "fansizhe888.1688.com",
+    url: 'http://fansizhe888.1688.com/?spm=a261y.7663282.0.0.ANqtbS',
+    text: 'fansizhe888.1688.com'
   },
   {
-    url: "http://4000098216.1688.com/?spm=a261y.7663282.0.0.kOtwRZ",
-    text: "4000098216.1688.com",
+    url: 'http://4000098216.1688.com/?spm=a261y.7663282.0.0.kOtwRZ',
+    text: '4000098216.1688.com'
   },
   {
-    url: "https://shop140224678.taobao.com/index.htm?spm=2013.1.w5002-12652851602.2.pkZQK8",
-    text: "shop140224678.taobao.com",
+    url: 'https://shop140224678.taobao.com/index.htm?spm=2013.1.w5002-12652851602.2.pkZQK8',
+    text: 'shop140224678.taobao.com'
   },
   {
-    url: "https://wuyoufs.tmall.com/shop/view_shop.htm?spm=a220o.1000855.w5001-10861426613.7.HPUybB&amp;amp;scene=taobao_shop",
-    text: "wuyoufs.tmall.com",
+    url: 'https://wuyoufs.tmall.com/shop/view_shop.htm?spm=a220o.1000855.w5001-10861426613.7.HPUybB&amp;amp;scene=taobao_shop',
+    text: 'wuyoufs.tmall.com'
   },
   {
-    url: "https://djmna.tmall.com/index.htm?spm=a220o.1000855.w5002-9157775170.2.XTGijZ",
-    text: "djmna.tmall.com",
+    url: 'https://djmna.tmall.com/index.htm?spm=a220o.1000855.w5002-9157775170.2.XTGijZ',
+    text: 'djmna.tmall.com'
   },
   {
-    url: "https://pidai123.taobao.com/index.htm?spm=2013.1.w5002-12735562204.2.MsbLNx",
-    text: "pidai123.taobao.com",
+    url: 'https://pidai123.taobao.com/index.htm?spm=2013.1.w5002-12735562204.2.MsbLNx',
+    text: 'pidai123.taobao.com'
   },
   {
-    url: "https://comhats.tmall.com/?spm=a220o.1000855.w10849633-11048204813.1.BQZlAR&amp;amp;scene=taobao_shop",
-    text: "comhats.tmall.com",
+    url: 'https://comhats.tmall.com/?spm=a220o.1000855.w10849633-11048204813.1.BQZlAR&amp;amp;scene=taobao_shop',
+    text: 'comhats.tmall.com'
   },
   {
-    url: "http://kaqi1226.1688.com/?spm=a261y.7663282.0.0.31M00c",
-    text: "kaqi1226.1688.com",
+    url: 'http://kaqi1226.1688.com/?spm=a261y.7663282.0.0.31M00c',
+    text: 'kaqi1226.1688.com'
   },
   {
-    url: "http://pjxchen.1688.com/?spm=a261y.7663282.0.0.AlzEbt",
-    text: "pjxchen.1688.com",
+    url: 'http://pjxchen.1688.com/?spm=a261y.7663282.0.0.AlzEbt',
+    text: 'pjxchen.1688.com'
   },
   {
-    url: "http://detail.1688.com/offer/43009997369.html?spm=0.0.0.0.sRhHgf",
-    text: "detail.1688.com",
+    url: 'http://detail.1688.com/offer/43009997369.html?spm=0.0.0.0.sRhHgf',
+    text: 'detail.1688.com'
   },
   {
-    url: "http://gusepiju.1688.com/?spm=a261y.7663282.0.0.BmrmI3",
-    text: "gusepiju.1688.com",
+    url: 'http://gusepiju.1688.com/?spm=a261y.7663282.0.0.BmrmI3',
+    text: 'gusepiju.1688.com'
   },
   {
-    url: "http://karis1688.1688.com/?spm=a261y.7663282.0.0.neqDFo",
-    text: "karis1688.1688.com",
+    url: 'http://karis1688.1688.com/?spm=a261y.7663282.0.0.neqDFo',
+    text: 'karis1688.1688.com'
   },
   {
-    url: "http://shop1414687274308.1688.com/?spm=a261y.7663282.0.0.5YK27x",
-    text: "shop1414687274308.1688.com",
+    url: 'http://shop1414687274308.1688.com/?spm=a261y.7663282.0.0.5YK27x',
+    text: 'shop1414687274308.1688.com'
   },
   {
-    url: "http://gusepiju.1688.com/?spm=a261y.7663282.0.0.6P23hV",
-    text: "gusepiju.1688.com",
+    url: 'http://gusepiju.1688.com/?spm=a261y.7663282.0.0.6P23hV',
+    text: 'gusepiju.1688.com'
   },
   {
-    url: "http://shop1426610856222.1688.com/?spm=a261y.7663282.0.0.1PkvIa",
-    text: "shop1426610856222.1688.com",
+    url: 'http://shop1426610856222.1688.com/?spm=a261y.7663282.0.0.1PkvIa',
+    text: 'shop1426610856222.1688.com'
   },
   {
-    url: "http://ziyanpiju.1688.com/?spm=a261y.7663282.0.0.51gcDI",
-    text: "ziyanpiju.1688.com",
+    url: 'http://ziyanpiju.1688.com/?spm=a261y.7663282.0.0.51gcDI',
+    text: 'ziyanpiju.1688.com'
   },
   {
-    url: "https://kangarookingdom.tmall.com/search.htm?spm=a220o.1000855.w5001-4468055733.4.vqzT6f&amp;amp;search=y&amp;amp;scene=taobao_shop",
-    text: "kangarookingdom.tmall.com",
+    url: 'https://kangarookingdom.tmall.com/search.htm?spm=a220o.1000855.w5001-4468055733.4.vqzT6f&amp;amp;search=y&amp;amp;scene=taobao_shop',
+    text: 'kangarookingdom.tmall.com'
   },
   {
-    url: "https://geniu.tmall.com/shop/view_shop.htm?spm=a220o.1000855.w5001-13232688776.2.h7kPpc&amp;amp;mytmenu=mdianpu&amp;amp;utkn=g%2Cywr33k567tdozpncwxva1452334769897&amp;amp;user_number_id=1916250472&amp;amp;scm=1028.1.1.20001&amp;amp;scene=taobao_shop",
-    text: "geniu.tmall.com",
+    url: 'https://geniu.tmall.com/shop/view_shop.htm?spm=a220o.1000855.w5001-13232688776.2.h7kPpc&amp;amp;mytmenu=mdianpu&amp;amp;utkn=g%2Cywr33k567tdozpncwxva1452334769897&amp;amp;user_number_id=1916250472&amp;amp;scm=1028.1.1.20001&amp;amp;scene=taobao_shop',
+    text: 'geniu.tmall.com'
   },
   {
-    url: "http://fansizhe1688.1688.com/?spm=a261y.7663282.0.0.4K27SQ",
-    text: "fansizhe1688.1688.com",
+    url: 'http://fansizhe1688.1688.com/?spm=a261y.7663282.0.0.4K27SQ',
+    text: 'fansizhe1688.1688.com'
   },
   {
-    url: "http://shop1414687274308.1688.com/?spm=a261y.7663282.0.0.wEyrA7",
-    text: "shop1414687274308.1688.com",
+    url: 'http://shop1414687274308.1688.com/?spm=a261y.7663282.0.0.wEyrA7',
+    text: 'shop1414687274308.1688.com'
   },
   {
-    url: "http://guanhao16888.1688.com/?spm=a261y.7663282.0.0.7ElNXA",
-    text: "guanhao16888.1688.com",
+    url: 'http://guanhao16888.1688.com/?spm=a261y.7663282.0.0.7ElNXA',
+    text: 'guanhao16888.1688.com'
   },
   {
-    url: "http://jinfulcn.1688.com/?spm=a261y.7663282.0.0.J3wIqR",
-    text: "jinfulcn.1688.com",
+    url: 'http://jinfulcn.1688.com/?spm=a261y.7663282.0.0.J3wIqR',
+    text: 'jinfulcn.1688.com'
   },
   {
-    url: "http://shop1364231227171.1688.com/?spm=a261y.7663282.0.0.Cb6zFB",
-    text: "shop1364231227171.1688.com",
+    url: 'http://shop1364231227171.1688.com/?spm=a261y.7663282.0.0.Cb6zFB',
+    text: 'shop1364231227171.1688.com'
   },
   {
-    url: "http://debinxiangbao.1688.com/?spm=a261y.7663282.0.0.piXhRq",
-    text: "debinxiangbao.1688.com",
+    url: 'http://debinxiangbao.1688.com/?spm=a261y.7663282.0.0.piXhRq',
+    text: 'debinxiangbao.1688.com'
   },
   {
-    url: "http://fansizhe8888.1688.com/?spm=a261y.7663282.0.0.v5jBhf",
-    text: "fansizhe8888.1688.com",
+    url: 'http://fansizhe8888.1688.com/?spm=a261y.7663282.0.0.v5jBhf',
+    text: 'fansizhe8888.1688.com'
   },
   {
-    url: "https://byron8088.taobao.com/index.htm?spm=a1z10.1-c.w5002-1636382686.2.xcJCJz",
-    text: "byron8088.taobao.com",
+    url: 'https://byron8088.taobao.com/index.htm?spm=a1z10.1-c.w5002-1636382686.2.xcJCJz',
+    text: 'byron8088.taobao.com'
   },
   {
-    url: "http://yw71284605.1688.com/?spm=a261y.7663282.0.0.faQkEe",
-    text: "yw71284605.1688.com",
+    url: 'http://yw71284605.1688.com/?spm=a261y.7663282.0.0.faQkEe',
+    text: 'yw71284605.1688.com'
   },
   {
-    url: "http://togoo888.1688.com/?spm=a261y.7663282.0.0.1snZX6",
-    text: "togoo888.1688.com",
+    url: 'http://togoo888.1688.com/?spm=a261y.7663282.0.0.1snZX6',
+    text: 'togoo888.1688.com'
   },
   {
-    url: "https://dldfushi.tmall.com/index.htm?spm=a1z10.1-b.w9380327-10342000383.12.IpiFHh",
-    text: "dldfushi.tmall.com",
+    url: 'https://dldfushi.tmall.com/index.htm?spm=a1z10.1-b.w9380327-10342000383.12.IpiFHh',
+    text: 'dldfushi.tmall.com'
   },
   {
-    url: "https://septwolvesxb.tmall.com/?spm=a220o.1000855.w10766645-6430821047.1.amqvav&amp;amp;scene=taobao_shop",
-    text: "septwolvesxb.tmall.com",
+    url: 'https://septwolvesxb.tmall.com/?spm=a220o.1000855.w10766645-6430821047.1.amqvav&amp;amp;scene=taobao_shop',
+    text: 'septwolvesxb.tmall.com'
   },
   {
-    url: "https://zhoujiang.tmall.com/index.htm?spm=a1z10.1-b.w5002-13007928250.2.5SGykr",
-    text: "zhoujiang.tmall.com",
-  },
-];
+    url: 'https://zhoujiang.tmall.com/index.htm?spm=a1z10.1-b.w5002-13007928250.2.5SGykr',
+    text: 'zhoujiang.tmall.com'
+  }
+]
 const dataDresses = [
   {
-    url: "https://shop123244538.taobao.com/index.htm?spm=2013.1.w5002-12797825986.2.xsIcWn",
-    text: "shop123244538.taobao.com",
+    url: 'https://shop123244538.taobao.com/index.htm?spm=2013.1.w5002-12797825986.2.xsIcWn',
+    text: 'shop123244538.taobao.com'
   },
   {
-    url: "https://geyini.tmall.com/index.htm?spm=a220o.1000855.w5002-5271216480.2.NrqTPW",
-    text: "geyini.tmall.com",
+    url: 'https://geyini.tmall.com/index.htm?spm=a220o.1000855.w5002-5271216480.2.NrqTPW',
+    text: 'geyini.tmall.com'
   },
   {
-    url: "https://shop105092960.taobao.com/index.htm?spm=2013.1.w5002-10454092237.2.LIh2xt",
-    text: "shop105092960.taobao.com",
+    url: 'https://shop105092960.taobao.com/index.htm?spm=2013.1.w5002-10454092237.2.LIh2xt',
+    text: 'shop105092960.taobao.com'
   },
   {
-    url: "https://hlkx.taobao.com/?spm=2013.1.1000126.2.Tn0SNl",
-    text: "hlkx.taobao.com",
+    url: 'https://hlkx.taobao.com/?spm=2013.1.1000126.2.Tn0SNl',
+    text: 'hlkx.taobao.com'
   },
   {
-    url: "https://ytxz2009.taobao.com/index.htm?spm=2013.1.w5002-10840018002.2.wY8iIN",
-    text: "ytxz2009.taobao.com",
+    url: 'https://ytxz2009.taobao.com/index.htm?spm=2013.1.w5002-10840018002.2.wY8iIN',
+    text: 'ytxz2009.taobao.com'
   },
   {
-    url: "https://shop64315077.taobao.com/index.htm?spm=2013.1.w5002-13264976964.2.3d3Jmn",
-    text: "shop64315077.taobao.com",
+    url: 'https://shop64315077.taobao.com/index.htm?spm=2013.1.w5002-13264976964.2.3d3Jmn',
+    text: 'shop64315077.taobao.com'
   },
   {
-    url: "https://dida68.taobao.com/index.htm?spm=2013.1.w5002-13176861513.2.uENMIc",
-    text: "dida68.taobao.com",
+    url: 'https://dida68.taobao.com/index.htm?spm=2013.1.w5002-13176861513.2.uENMIc',
+    text: 'dida68.taobao.com'
   },
   {
-    url: "http://spili888.1688.com/?spm=a261y.7663282.0.0.LvjHe3",
-    text: "spili888.1688.com",
+    url: 'http://spili888.1688.com/?spm=a261y.7663282.0.0.LvjHe3',
+    text: 'spili888.1688.com'
   },
   {
-    url: "http://shop1430137895926.1688.com/?spm=a2615.2177701.0.0.0mLJo3",
-    text: "shop1430137895926.1688.com",
+    url: 'http://shop1430137895926.1688.com/?spm=a2615.2177701.0.0.0mLJo3',
+    text: 'shop1430137895926.1688.com'
   },
   {
-    url: "https://shop125017959.taobao.com/index.htm?spm=2013.1.w5002-11813555000.2.KjvdTe",
-    text: "shop125017959.taobao.com",
+    url: 'https://shop125017959.taobao.com/index.htm?spm=2013.1.w5002-11813555000.2.KjvdTe',
+    text: 'shop125017959.taobao.com'
   },
   {
-    url: "https://shop108634760.taobao.com/index.htm?spm=2013.1.w5002-11713800764.2.o1wecq",
-    text: "shop108634760.taobao.com",
+    url: 'https://shop108634760.taobao.com/index.htm?spm=2013.1.w5002-11713800764.2.o1wecq',
+    text: 'shop108634760.taobao.com'
   },
   {
-    url: "https://diluzi.tmall.com/index.htm?spm=a220o.1000855.w5001-10758249415.2.hXGEiD&amp;amp;scene=taobao_shop",
-    text: "diluzi.tmall.com",
+    url: 'https://diluzi.tmall.com/index.htm?spm=a220o.1000855.w5001-10758249415.2.hXGEiD&amp;amp;scene=taobao_shop',
+    text: 'diluzi.tmall.com'
   },
   {
-    url: "https://shop114067841.taobao.com/index.htm?spm=2013.1.w5002-8940119166.2.jJGAoC",
-    text: "shop114067841.taobao.com",
+    url: 'https://shop114067841.taobao.com/index.htm?spm=2013.1.w5002-8940119166.2.jJGAoC',
+    text: 'shop114067841.taobao.com'
   },
   {
-    url: "https://shop108908493.taobao.com/index.htm?spm=2013.1.w5002-5792767062.2.1yEyTQ",
-    text: "shop108908493.taobao.com",
+    url: 'https://shop108908493.taobao.com/index.htm?spm=2013.1.w5002-5792767062.2.1yEyTQ',
+    text: 'shop108908493.taobao.com'
   },
   {
-    url: "https://shop108908493.taobao.com/index.htm?spm=2013.1.w5002-5792767062.2.ReMZua",
-    text: "shop108908493.taobao.com",
+    url: 'https://shop108908493.taobao.com/index.htm?spm=2013.1.w5002-5792767062.2.ReMZua',
+    text: 'shop108908493.taobao.com'
   },
   {
-    url: "https://shop109954428.taobao.com/index.htm?spm=2013.1.w5002-12709822123.2.t1vcir",
-    text: "shop109954428.taobao.com",
+    url: 'https://shop109954428.taobao.com/index.htm?spm=2013.1.w5002-12709822123.2.t1vcir',
+    text: 'shop109954428.taobao.com'
   },
   {
-    url: "https://arxiu.taobao.com/index.htm?spm=a1z10.3-c.w5002-11646660437.2.xNsX15",
-    text: "arxiu.taobao.com",
+    url: 'https://arxiu.taobao.com/index.htm?spm=a1z10.3-c.w5002-11646660437.2.xNsX15',
+    text: 'arxiu.taobao.com'
   },
   {
-    url: "https://fashionwomen85.taobao.com/index.htm?spm=a1z10.3-c.w5002-7479136943.2.OuRxrN",
-    text: "fashionwomen85.taobao.com",
+    url: 'https://fashionwomen85.taobao.com/index.htm?spm=a1z10.3-c.w5002-7479136943.2.OuRxrN',
+    text: 'fashionwomen85.taobao.com'
   },
   {
-    url: "https://0077.taobao.com/?spm=2013.1.w10380503-11870005566.2.WiE3bh",
-    text: "0077.taobao.com",
+    url: 'https://0077.taobao.com/?spm=2013.1.w10380503-11870005566.2.WiE3bh',
+    text: '0077.taobao.com'
   },
   {
-    url: "https://99dora.taobao.com/index.htm?spm=2013.1.w5002-6596721656.2.6lCLkU",
-    text: "99dora.taobao.com",
-  },
-];
+    url: 'https://99dora.taobao.com/index.htm?spm=2013.1.w5002-6596721656.2.6lCLkU',
+    text: '99dora.taobao.com'
+  }
+]
 const dataJogging = [
   {
-    url: "https://shop118835739.taobao.com/index.htm?spm=2013.1.w5002-10649543014.2.2U4eUl",
-    text: "shop118835739.taobao.com",
+    url: 'https://shop118835739.taobao.com/index.htm?spm=2013.1.w5002-10649543014.2.2U4eUl',
+    text: 'shop118835739.taobao.com'
   },
   {
-    url: "https://shop101298059.taobao.com/?spm=2013.1.1000126.2.u1tSht",
-    text: "shop101298059.taobao.com",
+    url: 'https://shop101298059.taobao.com/?spm=2013.1.1000126.2.u1tSht',
+    text: 'shop101298059.taobao.com'
   },
   {
-    url: "https://shop124374560.taobao.com/index.htm?spm=2013.1.w5002-13074149450.2.2456C4",
-    text: "shop124374560.taobao.com",
+    url: 'https://shop124374560.taobao.com/index.htm?spm=2013.1.w5002-13074149450.2.2456C4',
+    text: 'shop124374560.taobao.com'
   },
   {
-    url: "https://shop107117676.taobao.com/index.htm?spm=2013.1.w5002-6666984701.2.698JDx",
-    text: "shop107117676.taobao.com",
+    url: 'https://shop107117676.taobao.com/index.htm?spm=2013.1.w5002-6666984701.2.698JDx',
+    text: 'shop107117676.taobao.com'
   },
   {
-    url: "https://shop110011364.taobao.com/index.htm?spm=2013.1.w5002-12445104777.2.zUPuvB",
-    text: "shop110011364.taobao.com",
+    url: 'https://shop110011364.taobao.com/index.htm?spm=2013.1.w5002-12445104777.2.zUPuvB',
+    text: 'shop110011364.taobao.com'
   },
   {
-    url: "https://shop118835739.taobao.com/index.htm?spm=2013.1.w5002-10649543014.2.GDQb9O",
-    text: "shop118835739.taobao.com",
+    url: 'https://shop118835739.taobao.com/index.htm?spm=2013.1.w5002-10649543014.2.GDQb9O',
+    text: 'shop118835739.taobao.com'
   },
   {
-    url: "https://shop73484995.taobao.com/index.htm?spm=2013.1.w5002-1892103017.2.7FrxOM",
-    text: "shop73484995.taobao.com",
+    url: 'https://shop73484995.taobao.com/index.htm?spm=2013.1.w5002-1892103017.2.7FrxOM',
+    text: 'shop73484995.taobao.com'
   },
   {
-    url: "https://qazyd.taobao.com/index.htm?spm=2013.1.w5002-2841781720.2.SxT95M",
-    text: "qazyd.taobao.com",
+    url: 'https://qazyd.taobao.com/index.htm?spm=2013.1.w5002-2841781720.2.SxT95M',
+    text: 'qazyd.taobao.com'
   },
   {
-    url: "https://shop124639493.taobao.com/index.htm?spm=2013.1.w5002-13112200680.2.dmWULN",
-    text: "shop124639493.taobao.com",
+    url: 'https://shop124639493.taobao.com/index.htm?spm=2013.1.w5002-13112200680.2.dmWULN',
+    text: 'shop124639493.taobao.com'
   },
   {
-    url: "https://weizhufs.tmall.com/index.htm?spm=a220o.1000855.w5002-3429477332.2.BZ9Qx2",
-    text: "weizhufs.tmall.com",
+    url: 'https://weizhufs.tmall.com/index.htm?spm=a220o.1000855.w5002-3429477332.2.BZ9Qx2',
+    text: 'weizhufs.tmall.com'
   },
   {
-    url: "https://fnboled.tmall.com/shop/view_shop.htm?spm=a220o.1000855.w10078035-11995717110.1.8zm9cP&amp;amp;mytmenu=mdianpu&amp;amp;utkn=g%2Cmzxge33mmvsmn3f5uk26u1443141610092&amp;amp;user_number_id=729349464&amp;amp;scm=1028.1.1.20001&amp;amp;scene=taobao_shop",
-    text: "fnboled.tmall.com",
+    url: 'https://fnboled.tmall.com/shop/view_shop.htm?spm=a220o.1000855.w10078035-11995717110.1.8zm9cP&amp;amp;mytmenu=mdianpu&amp;amp;utkn=g%2Cmzxge33mmvsmn3f5uk26u1443141610092&amp;amp;user_number_id=729349464&amp;amp;scm=1028.1.1.20001&amp;amp;scene=taobao_shop',
+    text: 'fnboled.tmall.com'
   },
   {
-    url: "https://shop117701401.taobao.com/index.htm?spm=2013.1.w5002-10489357760.2.VEyd7Y",
-    text: "shop117701401.taobao.com",
+    url: 'https://shop117701401.taobao.com/index.htm?spm=2013.1.w5002-10489357760.2.VEyd7Y',
+    text: 'shop117701401.taobao.com'
   },
   {
-    url: "https://shop117818076.taobao.com/index.htm?spm=2013.1.w5002-10505967567.2.HwOE5p",
-    text: "shop117818076.taobao.com",
+    url: 'https://shop117818076.taobao.com/index.htm?spm=2013.1.w5002-10505967567.2.HwOE5p',
+    text: 'shop117818076.taobao.com'
   },
   {
-    url: "https://pinkdackeb.taobao.com/index.htm?spm=2013.1.w5002-11130853073.2.lCX5Od",
-    text: "pinkdackeb.taobao.com",
+    url: 'https://pinkdackeb.taobao.com/index.htm?spm=2013.1.w5002-11130853073.2.lCX5Od',
+    text: 'pinkdackeb.taobao.com'
   },
   {
-    url: "https://tangnv.tmall.com/index.htm?spm=a220o.1000855.w10491726-7377637799.2.LRKvPQ",
-    text: "tangnv.tmall.com",
+    url: 'https://tangnv.tmall.com/index.htm?spm=a220o.1000855.w10491726-7377637799.2.LRKvPQ',
+    text: 'tangnv.tmall.com'
   },
   {
-    url: "https://lxssyc.taobao.com/index.htm?spm=a1z10.1-c.w5002-12791418226.2.9aPhHU",
-    text: "lxssyc.taobao.com",
+    url: 'https://lxssyc.taobao.com/index.htm?spm=a1z10.1-c.w5002-12791418226.2.9aPhHU',
+    text: 'lxssyc.taobao.com'
   },
   {
-    url: "https://shop101487924.taobao.com/index.htm?spm=2013.1.w5002-12435993381.2.lZSI7F",
-    text: "shop101487924.taobao.com",
+    url: 'https://shop101487924.taobao.com/index.htm?spm=2013.1.w5002-12435993381.2.lZSI7F',
+    text: 'shop101487924.taobao.com'
   },
   {
-    url: "https://shop119946351.taobao.com/index.htm?spm=2013.1.w5002-10760515436.2.dlhhHw",
-    text: "shop119946351.taobao.com",
+    url: 'https://shop119946351.taobao.com/index.htm?spm=2013.1.w5002-10760515436.2.dlhhHw',
+    text: 'shop119946351.taobao.com'
   },
   {
-    url: "https://chengni.tmall.com/index.htm?spm=a220o.1000855.w5002-11653802569.2.AhycyR",
-    text: "chengni.tmall.com",
+    url: 'https://chengni.tmall.com/index.htm?spm=a220o.1000855.w5002-11653802569.2.AhycyR',
+    text: 'chengni.tmall.com'
   },
   {
-    url: "https://23ccc.taobao.com/index.htm?spm=a1z10.1-c.w5002-10295157255.2.YwNeG4",
-    text: "23ccc.taobao.com",
+    url: 'https://23ccc.taobao.com/index.htm?spm=a1z10.1-c.w5002-10295157255.2.YwNeG4',
+    text: '23ccc.taobao.com'
   },
   {
-    url: "https://shop142993642.taobao.com/index.htm?spm=2013.1.w5002-13025118368.2.MduwT7",
-    text: "shop142993642.taobao.com",
+    url: 'https://shop142993642.taobao.com/index.htm?spm=2013.1.w5002-13025118368.2.MduwT7',
+    text: 'shop142993642.taobao.com'
   },
   {
-    url: "https://shop109227656.taobao.com/index.htm?spm=2013.1.w5002-9064499724.2.UKhrdc",
-    text: "shop109227656.taobao.com",
+    url: 'https://shop109227656.taobao.com/index.htm?spm=2013.1.w5002-9064499724.2.UKhrdc',
+    text: 'shop109227656.taobao.com'
   },
   {
-    url: "https://love-xiaokk.taobao.com/index.htm?spm=2013.1.w5002-9267795239.2.9VSA04",
-    text: "love-xiaokk.taobao.com",
+    url: 'https://love-xiaokk.taobao.com/index.htm?spm=2013.1.w5002-9267795239.2.9VSA04',
+    text: 'love-xiaokk.taobao.com'
   },
   {
-    url: "https://shop105146630.taobao.com/index.htm?spm=2013.1.w5002-9267795239.2.9VSA04",
-    text: "shop105146630.taobao.com",
+    url: 'https://shop105146630.taobao.com/index.htm?spm=2013.1.w5002-9267795239.2.9VSA04',
+    text: 'shop105146630.taobao.com'
   },
   {
-    url: "https://753232.taobao.com/index.htm?spm=a1z10.1-c.w5002-3649496684.2.QR95jw",
-    text: "753232.taobao.com",
+    url: 'https://753232.taobao.com/index.htm?spm=a1z10.1-c.w5002-3649496684.2.QR95jw',
+    text: '753232.taobao.com'
   },
   {
-    url: "https://xiaofengshome.taobao.com/index.htm?spm=a1z10.1-c.w5002-7915233146.2.42Aqk6",
-    text: "xiaofengshome.taobao.com",
+    url: 'https://xiaofengshome.taobao.com/index.htm?spm=a1z10.1-c.w5002-7915233146.2.42Aqk6',
+    text: 'xiaofengshome.taobao.com'
   },
   {
-    url: "http://hongyibuluo.1688.com/?spm=a2615.2177701.0.0.PJkEJk",
-    text: "hongyibuluo.1688.com",
+    url: 'http://hongyibuluo.1688.com/?spm=a2615.2177701.0.0.PJkEJk',
+    text: 'hongyibuluo.1688.com'
   },
   {
-    url: "http://baizifs.1688.com/?spm=a261y.7663282.0.0.m5EaWT",
-    text: "baizifs.1688.com",
+    url: 'http://baizifs.1688.com/?spm=a261y.7663282.0.0.m5EaWT',
+    text: 'baizifs.1688.com'
   },
   {
-    url: "https://shop109581743.taobao.com/search.htm?spm=2013.1.0.0.mfJ5Jp&amp;amp;search=y",
-    text: "shop109581743.taobao.com",
-  },
-];
+    url: 'https://shop109581743.taobao.com/search.htm?spm=2013.1.0.0.mfJ5Jp&amp;amp;search=y',
+    text: 'shop109581743.taobao.com'
+  }
+]
 const dataJeanW = [
   {
-    url: "https://huangpao.tmall.com/shop/view_shop.htm?spm=a220o.1000855.w5001-12385981503.7.lqddRf&amp;amp;mytmenu=mdianpu&amp;amp;utkn=g%2Cxpfmlw6g5s62fnpk1444224075006&amp;amp;user_number_id=2629086149&amp;amp;scm=1028.1.1.20001&amp;amp;scene=taobao_shop",
-    text: "huangpao.tmall.com",
+    url: 'https://huangpao.tmall.com/shop/view_shop.htm?spm=a220o.1000855.w5001-12385981503.7.lqddRf&amp;amp;mytmenu=mdianpu&amp;amp;utkn=g%2Cxpfmlw6g5s62fnpk1444224075006&amp;amp;user_number_id=2629086149&amp;amp;scm=1028.1.1.20001&amp;amp;scene=taobao_shop',
+    text: 'huangpao.tmall.com'
   },
   {
-    url: "https://esey.tmall.com/?spm=a220o.1000855.w5001-2637819077.6.UGfJS6&amp;amp;scene=taobao_shop",
-    text: "esey.tmall.com",
+    url: 'https://esey.tmall.com/?spm=a220o.1000855.w5001-2637819077.6.UGfJS6&amp;amp;scene=taobao_shop',
+    text: 'esey.tmall.com'
   },
   {
-    url: "https://shop108610857.taobao.com/index.htm?spm=2013.1.w5002-12866941675.2.pFnfUl",
-    text: "shop108610857.taobao.com",
+    url: 'https://shop108610857.taobao.com/index.htm?spm=2013.1.w5002-12866941675.2.pFnfUl',
+    text: 'shop108610857.taobao.com'
   },
   {
-    url: "https://shop106106583.taobao.com/?spm=2013.1.1000126.2.sq5sYj",
-    text: "shop106106583.taobao.com",
+    url: 'https://shop106106583.taobao.com/?spm=2013.1.1000126.2.sq5sYj',
+    text: 'shop106106583.taobao.com'
   },
   {
-    url: "https://ly139.taobao.com/index.htm?spm=2013.1.w5002-12581069371.2.oRmEJm",
-    text: "ly139.taobao.com",
+    url: 'https://ly139.taobao.com/index.htm?spm=2013.1.w5002-12581069371.2.oRmEJm',
+    text: 'ly139.taobao.com'
   },
   {
-    url: "https://q461318090.taobao.com/index.htm?spm=2013.1.w5002-11258087430.2.agZx3w",
-    text: "q461318090.taobao.com",
+    url: 'https://q461318090.taobao.com/index.htm?spm=2013.1.w5002-11258087430.2.agZx3w',
+    text: 'q461318090.taobao.com'
   },
   {
-    url: "https://shop60217595.taobao.com/index.htm?spm=2013.1.w5002-9966112698.2.MTMdhb",
-    text: "shop60217595.taobao.com",
+    url: 'https://shop60217595.taobao.com/index.htm?spm=2013.1.w5002-9966112698.2.MTMdhb',
+    text: 'shop60217595.taobao.com'
   },
   {
-    url: "https://shop66232790.taobao.com/index.htm?spm=2013.1.w5002-12695843029.2.OuWOAu",
-    text: "shop66232790.taobao.com",
+    url: 'https://shop66232790.taobao.com/index.htm?spm=2013.1.w5002-12695843029.2.OuWOAu',
+    text: 'shop66232790.taobao.com'
   },
   {
-    url: "https://tanqilu.taobao.com/?spm=2013.1.1000126.2.o5YjEi",
-    text: "tanqilu.taobao.com",
+    url: 'https://tanqilu.taobao.com/?spm=2013.1.1000126.2.o5YjEi',
+    text: 'tanqilu.taobao.com'
   },
   {
-    url: "https://lanlanhanhan.tmall.com/?spm=a220o.1000855.w10958290-7961194534.2.SJ05p0",
-    text: "lanlanhanhan.tmall.com",
+    url: 'https://lanlanhanhan.tmall.com/?spm=a220o.1000855.w10958290-7961194534.2.SJ05p0',
+    text: 'lanlanhanhan.tmall.com'
   },
   {
-    url: "https://shop113073748.taobao.com/index.htm?spm=2013.1.w5002-8464936606.2.ySmtVq",
-    text: "shop113073748.taobao.com",
+    url: 'https://shop113073748.taobao.com/index.htm?spm=2013.1.w5002-8464936606.2.ySmtVq',
+    text: 'shop113073748.taobao.com'
   },
   {
-    url: "https://lanlanhanhan.tmall.com/?spm=a220o.1000855.w10958290-7961194534.2.1s034e",
-    text: "lanlanhanhan.tmall.com",
+    url: 'https://lanlanhanhan.tmall.com/?spm=a220o.1000855.w10958290-7961194534.2.1s034e',
+    text: 'lanlanhanhan.tmall.com'
   },
   {
-    url: "https://aiyootoo.taobao.com/index.htm?spm=2013.1.w5002-10125720652.2.3ukbWQ",
-    text: "aiyootoo.taobao.com",
+    url: 'https://aiyootoo.taobao.com/index.htm?spm=2013.1.w5002-10125720652.2.3ukbWQ',
+    text: 'aiyootoo.taobao.com'
   },
   {
-    url: "https://dongli8.taobao.com/?spm=2013.1.1000126.2.ptEXMd",
-    text: "dongli8.taobao.com",
-  },
-];
+    url: 'https://dongli8.taobao.com/?spm=2013.1.1000126.2.ptEXMd',
+    text: 'dongli8.taobao.com'
+  }
+]
 const dataSortW = [
   {
-    url: "https://huangpao.tmall.com/shop/view_shop.htm?spm=a220o.1000855.w5001-12385981503.7.lqddRf&amp;amp;mytmenu=mdianpu&amp;amp;utkn=g%2Cxpfmlw6g5s62fnpk1444224075006&amp;amp;user_number_id=2629086149&amp;amp;scm=1028.1.1.20001&amp;amp;scene=taobao_shop",
-    text: "huangpao.tmall.com",
+    url: 'https://huangpao.tmall.com/shop/view_shop.htm?spm=a220o.1000855.w5001-12385981503.7.lqddRf&amp;amp;mytmenu=mdianpu&amp;amp;utkn=g%2Cxpfmlw6g5s62fnpk1444224075006&amp;amp;user_number_id=2629086149&amp;amp;scm=1028.1.1.20001&amp;amp;scene=taobao_shop',
+    text: 'huangpao.tmall.com'
   },
   {
-    url: "https://esey.tmall.com/?spm=a220o.1000855.w5001-2637819077.6.UGfJS6&amp;amp;scene=taobao_shop",
-    text: "esey.tmall.com",
+    url: 'https://esey.tmall.com/?spm=a220o.1000855.w5001-2637819077.6.UGfJS6&amp;amp;scene=taobao_shop',
+    text: 'esey.tmall.com'
   },
   {
-    url: "https://shop108610857.taobao.com/index.htm?spm=2013.1.w5002-12866941675.2.pFnfUl",
-    text: "shop108610857.taobao.com",
+    url: 'https://shop108610857.taobao.com/index.htm?spm=2013.1.w5002-12866941675.2.pFnfUl',
+    text: 'shop108610857.taobao.com'
   },
   {
-    url: "https://shop106106583.taobao.com/?spm=2013.1.1000126.2.sq5sYj",
-    text: "shop106106583.taobao.com",
+    url: 'https://shop106106583.taobao.com/?spm=2013.1.1000126.2.sq5sYj',
+    text: 'shop106106583.taobao.com'
   },
   {
-    url: "https://ly139.taobao.com/index.htm?spm=2013.1.w5002-12581069371.2.oRmEJm",
-    text: "ly139.taobao.com",
+    url: 'https://ly139.taobao.com/index.htm?spm=2013.1.w5002-12581069371.2.oRmEJm',
+    text: 'ly139.taobao.com'
   },
   {
-    url: "https://q461318090.taobao.com/index.htm?spm=2013.1.w5002-11258087430.2.agZx3w",
-    text: "q461318090.taobao.com",
+    url: 'https://q461318090.taobao.com/index.htm?spm=2013.1.w5002-11258087430.2.agZx3w',
+    text: 'q461318090.taobao.com'
   },
   {
-    url: "https://shop60217595.taobao.com/index.htm?spm=2013.1.w5002-9966112698.2.MTMdhb",
-    text: "shop60217595.taobao.com",
+    url: 'https://shop60217595.taobao.com/index.htm?spm=2013.1.w5002-9966112698.2.MTMdhb',
+    text: 'shop60217595.taobao.com'
   },
   {
-    url: "https://shop66232790.taobao.com/index.htm?spm=2013.1.w5002-12695843029.2.OuWOAu",
-    text: "shop66232790.taobao.com",
+    url: 'https://shop66232790.taobao.com/index.htm?spm=2013.1.w5002-12695843029.2.OuWOAu',
+    text: 'shop66232790.taobao.com'
   },
   {
-    url: "https://tanqilu.taobao.com/?spm=2013.1.1000126.2.o5YjEi",
-    text: "tanqilu.taobao.com",
+    url: 'https://tanqilu.taobao.com/?spm=2013.1.1000126.2.o5YjEi',
+    text: 'tanqilu.taobao.com'
   },
   {
-    url: "https://lanlanhanhan.tmall.com/?spm=a220o.1000855.w10958290-7961194534.2.SJ05p0",
-    text: "lanlanhanhan.tmall.com",
+    url: 'https://lanlanhanhan.tmall.com/?spm=a220o.1000855.w10958290-7961194534.2.SJ05p0',
+    text: 'lanlanhanhan.tmall.com'
   },
   {
-    url: "https://shop113073748.taobao.com/index.htm?spm=2013.1.w5002-8464936606.2.ySmtVq",
-    text: "shop113073748.taobao.com",
+    url: 'https://shop113073748.taobao.com/index.htm?spm=2013.1.w5002-8464936606.2.ySmtVq',
+    text: 'shop113073748.taobao.com'
   },
   {
-    url: "https://lanlanhanhan.tmall.com/?spm=a220o.1000855.w10958290-7961194534.2.1s034e",
-    text: "lanlanhanhan.tmall.com",
+    url: 'https://lanlanhanhan.tmall.com/?spm=a220o.1000855.w10958290-7961194534.2.1s034e',
+    text: 'lanlanhanhan.tmall.com'
   },
   {
-    url: "https://aiyootoo.taobao.com/index.htm?spm=2013.1.w5002-10125720652.2.3ukbWQ",
-    text: "aiyootoo.taobao.com",
+    url: 'https://aiyootoo.taobao.com/index.htm?spm=2013.1.w5002-10125720652.2.3ukbWQ',
+    text: 'aiyootoo.taobao.com'
   },
   {
-    url: "https://dongli8.taobao.com/?spm=2013.1.1000126.2.ptEXMd",
-    text: "dongli8.taobao.com",
+    url: 'https://dongli8.taobao.com/?spm=2013.1.1000126.2.ptEXMd',
+    text: 'dongli8.taobao.com'
   },
   {
-    url: "https://yilian00.taobao.com/search.htm?spm=2013.1.0.0.9UUXwa&amp;amp;search=y",
-    text: "yilian00.taobao.com",
+    url: 'https://yilian00.taobao.com/search.htm?spm=2013.1.0.0.9UUXwa&amp;amp;search=y',
+    text: 'yilian00.taobao.com'
   },
   {
-    url: "https://shop114503269.taobao.com/search.htm?spm=2013.1.w5001-12049903087.4.4YS7dO&amp;amp;search=y&amp;amp;scene=taobao",
-    text: "shop114503269.taobao.com",
+    url: 'https://shop114503269.taobao.com/search.htm?spm=2013.1.w5001-12049903087.4.4YS7dO&amp;amp;search=y&amp;amp;scene=taobao',
+    text: 'shop114503269.taobao.com'
   },
   {
-    url: "https://yanerjia.taobao.com/search.htm?spm=2013.1.w5002-10112822626.1.IlJybo&amp;amp;search=y",
-    text: "yanerjia.taobao.com",
+    url: 'https://yanerjia.taobao.com/search.htm?spm=2013.1.w5002-10112822626.1.IlJybo&amp;amp;search=y',
+    text: 'yanerjia.taobao.com'
   },
   {
-    url: "https://yilian00.taobao.com/",
-    text: "yilian00.taobao.com",
+    url: 'https://yilian00.taobao.com/',
+    text: 'yilian00.taobao.com'
   },
   {
-    url: "https://shop70565966.taobao.com/search.htm?spm=2013.1.w5002-12384349757.1.0XVvzn&amp;amp;search=y",
-    text: "shop70565966.taobao.com",
+    url: 'https://shop70565966.taobao.com/search.htm?spm=2013.1.w5002-12384349757.1.0XVvzn&amp;amp;search=y',
+    text: 'shop70565966.taobao.com'
   },
   {
-    url: "https://xlxbaby.taobao.com/search.htm?spm=2013.1.w5002-12469487113.1.whf26Z&amp;amp;search=y",
-    text: "xlxbaby.taobao.com",
+    url: 'https://xlxbaby.taobao.com/search.htm?spm=2013.1.w5002-12469487113.1.whf26Z&amp;amp;search=y',
+    text: 'xlxbaby.taobao.com'
   },
   {
-    url: "https://wdfs.taobao.com/search.htm?spm=2 013.1.w5002-12266495899.1.3ZSDi1&amp;amp;search=y",
-    text: "wdfs.taobao.com",
+    url: 'https://wdfs.taobao.com/search.htm?spm=2 013.1.w5002-12266495899.1.3ZSDi1&amp;amp;search=y',
+    text: 'wdfs.taobao.com'
   },
   {
-    url: "https://atstp.taobao.com/search.htm?spm=2013.1.w5002-82433388.1.90Kkdu&amp;amp;search=y",
-    text: "atstp.taobao.com",
+    url: 'https://atstp.taobao.com/search.htm?spm=2013.1.w5002-82433388.1.90Kkdu&amp;amp;search=y',
+    text: 'atstp.taobao.com'
   },
   {
-    url: "https://hameifs.tmall.com/?spm=a220o.1000855.w5001-9015976621.7.8o6sL6&amp;amp;scene=taobao_shop",
-    text: "hameifs.tmall.com",
-  },
-];
+    url: 'https://hameifs.tmall.com/?spm=a220o.1000855.w5001-9015976621.7.8o6sL6&amp;amp;scene=taobao_shop',
+    text: 'hameifs.tmall.com'
+  }
+]
 const ReputableShop = () => {
   return (
-    <div style={{ margin: "10px 0px" }}>
+    <div style={{ margin: '10px 0px' }}>
       <Row justify="center">
         <Col xs={20}>
           <Row gutter={10}>
@@ -960,11 +960,7 @@ const ReputableShop = () => {
                       dataSource={dataJacket}
                       renderItem={(item) => (
                         <List.Item>
-                          <a
-                            className="reputation_color_item"
-                            target="_blank"
-                            href={item.url}
-                          >
+                          <a className="reputation_color_item" target="_blank" href={item.url}>
                             {item.text}
                           </a>
                         </List.Item>
@@ -978,11 +974,7 @@ const ReputableShop = () => {
                       dataSource={dataShoes}
                       renderItem={(item) => (
                         <List.Item>
-                          <a
-                            className="reputation_color_item"
-                            target="_blank"
-                            href={item.url}
-                          >
+                          <a className="reputation_color_item" target="_blank" href={item.url}>
                             {item.text}
                           </a>
                         </List.Item>
@@ -998,11 +990,7 @@ const ReputableShop = () => {
                       dataSource={dataShirt}
                       renderItem={(item) => (
                         <List.Item>
-                          <a
-                            className="reputation_color_item"
-                            target="_blank"
-                            href={item.url}
-                          >
+                          <a className="reputation_color_item" target="_blank" href={item.url}>
                             {item.text}
                           </a>
                         </List.Item>
@@ -1016,11 +1004,7 @@ const ReputableShop = () => {
                       dataSource={dataJean}
                       renderItem={(item) => (
                         <List.Item>
-                          <a
-                            className="reputation_color_item"
-                            target="_blank"
-                            href={item.url}
-                          >
+                          <a className="reputation_color_item" target="_blank" href={item.url}>
                             {item.text}
                           </a>
                         </List.Item>
@@ -1036,11 +1020,7 @@ const ReputableShop = () => {
                       dataSource={dataShort}
                       renderItem={(item) => (
                         <List.Item>
-                          <a
-                            className="reputation_color_item"
-                            target="_blank"
-                            href={item.url}
-                          >
+                          <a className="reputation_color_item" target="_blank" href={item.url}>
                             {item.text}
                           </a>
                         </List.Item>
@@ -1054,11 +1034,7 @@ const ReputableShop = () => {
                       dataSource={dataAccessories}
                       renderItem={(item) => (
                         <List.Item>
-                          <a
-                            className="reputation_color_item"
-                            target="_blank"
-                            href={item.url}
-                          >
+                          <a className="reputation_color_item" target="_blank" href={item.url}>
                             {item.text}
                           </a>
                         </List.Item>
@@ -1078,11 +1054,7 @@ const ReputableShop = () => {
                       dataSource={dataDresses}
                       renderItem={(item) => (
                         <List.Item>
-                          <a
-                            className="reputation_color_item"
-                            target="_blank"
-                            href={item.url}
-                          >
+                          <a className="reputation_color_item" target="_blank" href={item.url}>
                             {item.text}
                           </a>
                         </List.Item>
@@ -1096,11 +1068,7 @@ const ReputableShop = () => {
                       dataSource={dataJogging}
                       renderItem={(item) => (
                         <List.Item>
-                          <a
-                            className="reputation_color_item"
-                            target="_blank"
-                            href={item.url}
-                          >
+                          <a className="reputation_color_item" target="_blank" href={item.url}>
                             {item.text}
                           </a>
                         </List.Item>
@@ -1116,11 +1084,7 @@ const ReputableShop = () => {
                       dataSource={dataJeanW}
                       renderItem={(item) => (
                         <List.Item>
-                          <a
-                            className="reputation_color_item"
-                            target="_blank"
-                            href={item.url}
-                          >
+                          <a className="reputation_color_item" target="_blank" href={item.url}>
                             {item.text}
                           </a>
                         </List.Item>
@@ -1134,11 +1098,7 @@ const ReputableShop = () => {
                       dataSource={dataSortW}
                       renderItem={(item) => (
                         <List.Item>
-                          <a
-                            className="reputation_color_item"
-                            target="_blank"
-                            href={item.url}
-                          >
+                          <a className="reputation_color_item" target="_blank" href={item.url}>
                             {item.text}
                           </a>
                         </List.Item>
@@ -1154,11 +1114,7 @@ const ReputableShop = () => {
                       dataSource={dataShort}
                       renderItem={(item) => (
                         <List.Item>
-                          <a
-                            className="reputation_color_item"
-                            target="_blank"
-                            href={item.url}
-                          >
+                          <a className="reputation_color_item" target="_blank" href={item.url}>
                             {item.text}
                           </a>
                         </List.Item>
@@ -1172,11 +1128,7 @@ const ReputableShop = () => {
                       dataSource={dataAccessories}
                       renderItem={(item) => (
                         <List.Item>
-                          <a
-                            className="reputation_color_item"
-                            target="_blank"
-                            href={item.url}
-                          >
+                          <a className="reputation_color_item" target="_blank" href={item.url}>
                             {item.text}
                           </a>
                         </List.Item>
@@ -3251,7 +3203,7 @@ const ReputableShop = () => {
         </div>{" "}
       </div> */}
     </div>
-  );
-};
+  )
+}
 
-export default ReputableShop;
+export default ReputableShop

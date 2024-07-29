@@ -3,48 +3,16 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
-    'plugin:react/jsx-runtime',
+    'plugin:react/jsx-runtime', // Thêm plugin này để hỗ trợ JSX Transform
     'plugin:react-hooks/recommended',
-    'prettier', // Ensure ESLint uses Prettier rules
   ],
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
-  settings: { react: { version: '18.2' } },
+  settings: { react: { version: 'detect' } },
   plugins: ['react', 'react-hooks', 'react-refresh'],
   rules: {
-    // React
-    'react-refresh/only-export-components': 'warn',
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
-    'react/prop-types': 0,
-    'react/display-name': 0,
-
-    // MUI
-    'no-restricted-imports': [
-      'error',
-      {
-        patterns: ['@mui/*/*/*'],
-      },
-    ],
-
-    // Common
-    'no-console': 1,
-    'no-extra-boolean-cast': 0,
-    'no-lonely-if': 1,
-    'no-unused-vars': 1,
-    'no-trailing-spaces': 1,
-    'no-multi-spaces': 1,
-    'no-multiple-empty-lines': 1,
-    'space-before-blocks': ['error', 'always'],
-    'object-curly-spacing': [1, 'always'],
-    indent: ['warn', 2],
-    semi: [1, 'never'],
-    quotes: ['error', 'single'],
-    'array-bracket-spacing': 1,
-    'linebreak-style': 0,
-    'no-unexpected-multiline': 'warn',
-    'keyword-spacing': 1,
-    'comma-dangle': ['warn', 'never'], // Ensure no trailing commas
-    'comma-spacing': 1,
-    'arrow-spacing': 1,
+    'react/react-in-jsx-scope': 'off', // Tắt quy tắc yêu cầu React phải được import
+    'react/jsx-uses-react': 'off', // Tắt quy tắc yêu cầu React phải được sử dụng trong JSX
+    'react/jsx-uses-vars': 'error',
+    // Các quy tắc khác
   },
 }

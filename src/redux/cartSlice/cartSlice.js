@@ -13,7 +13,7 @@ const initialState = {
   error: null,
   buyProduct: [],
   success: false,
-  isDelete: false,
+  isDelete: false
 }
 
 // Thunk để lấy chi tiết giỏ hàng
@@ -44,7 +44,7 @@ const addProductToCart = createAsyncThunk(
         throw error
       }
     }
-  },
+  }
 )
 
 // Thunk để xóa sản phẩm khỏi giỏ hàng
@@ -61,7 +61,7 @@ const deleteProductFromCart = createAsyncThunk(
         throw error
       }
     }
-  },
+  }
 )
 
 const updateProductFromCart = createAsyncThunk(
@@ -72,7 +72,7 @@ const updateProductFromCart = createAsyncThunk(
         userId,
         productId,
         newQuantity,
-        check,
+        check
       })
       return response.data
     } catch (error) {
@@ -82,7 +82,7 @@ const updateProductFromCart = createAsyncThunk(
         throw error
       }
     }
-  },
+  }
 )
 
 // Tạo cartSlice
@@ -98,7 +98,7 @@ const cartSlice = createSlice({
       state.success = false
       state.isSend = false
       state.isDelete = false
-    },
+    }
     // Các reducer đồng bộ nếu cần
   },
   extraReducers: (builder) => {
@@ -179,7 +179,7 @@ const cartSlice = createSlice({
         state.success = false
         state.isDelete = false
       })
-  },
+  }
 })
 
 // Export reducer

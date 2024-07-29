@@ -20,7 +20,7 @@ const items = [
         TRANG CHỦ
       </Link>
     ),
-    key: 'home',
+    key: 'home'
   },
   {
     label: (
@@ -41,15 +41,15 @@ const items = [
           {
             label: <Link to={'/order/list-orders'}>ĐƠN HÀNG CỦA TÔI</Link>,
             key: 'order:2'
-          },
-        ],
-      },
-    ],
+          }
+        ]
+      }
+    ]
   },
 
   {
     label: (
-      <Link style={{ fontWeight: 700 }} to={'/bang-gia'}>
+      <Link style={{ fontWeight: 700 }} to={'/transaction'}>
         XEM GIAO DỊCH
       </Link>
     ),
@@ -62,7 +62,7 @@ const items = [
         THÔNG TIN THANH TOÁN
       </Link>
     ),
-    key: 'qrcode',
+    key: 'qrcode'
   },
   {
     label: (
@@ -77,11 +77,11 @@ const items = [
         children: [
           {
             label: <Link to={'/bang-gia'}>Bảng giá dịch vụ đặt hàng Trung Quốc</Link>,
-            key: 'setting:1',
+            key: 'setting:1'
           },
           {
             label: <Link to={'/bang-gia-ky-gui-hang'}>Bảng giá ký gửi vận chuyển</Link>,
-            key: 'setting:2',
+            key: 'setting:2'
           },
           {
             label: (
@@ -89,11 +89,11 @@ const items = [
                 Bảng giá dịch vụ chuyển tiền
               </Link>
             ),
-            key: 'setting:3',
-          },
-        ],
-      },
-    ],
+            key: 'setting:3'
+          }
+        ]
+      }
+    ]
   },
 
   {
@@ -102,7 +102,7 @@ const items = [
         CHÍNH SÁCH
       </Link>
     ),
-    key: 'policy',
+    key: 'policy'
   },
 
   {
@@ -111,7 +111,7 @@ const items = [
         HƯỚNG DẪN
       </Link>
     ),
-    key: 'direction',
+    key: 'direction'
   },
 
   {
@@ -120,8 +120,8 @@ const items = [
         SHOP UY TÍN
       </Link>
     ),
-    key: 'shop',
-  },
+    key: 'shop'
+  }
 ]
 
 const ExtraHeader = () => {
@@ -154,9 +154,9 @@ const ExtraHeader = () => {
             horizontalItemSelectedColor: '#000',
             itemColor: '#fff',
             itemSelectedColor: '#fc785a',
-            popupBg: '#fc785a',
-          },
-        },
+            popupBg: '#fc785a'
+          }
+        }
       }}
     >
       <div className="wrapper_extraHeader">
@@ -208,7 +208,7 @@ const ExtraHeader = () => {
                                     background: '#fff',
                                     padding: '1px 6px',
                                     borderRadius: '30%',
-                                    color: '#fb5731',
+                                    color: '#fb5731'
                                   }}
                                 >
                                   {carts && carts.products ? carts.products.length : 0}
@@ -276,7 +276,7 @@ const ExtraHeader = () => {
                     background: '#fb5731',
                     width: '100%',
                     display: 'flex',
-                    justifyContent: 'space-between',
+                    justifyContent: 'space-between'
                   }}
                   mode="horizontal"
                   items={items}

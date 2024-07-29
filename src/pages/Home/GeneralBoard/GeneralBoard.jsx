@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 /* eslint-disable semi */
 /* eslint-disable react/no-unknown-property */
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux'
 // import { selectCurrentUser } from "../../../redux/userSlice/userSlice";
 
 const GeneralBoard = () => {
@@ -28,35 +28,32 @@ const GeneralBoard = () => {
             <div
               className="message_text"
               style={{
-                textAlign: "center",
-                background: "#87cf82",
-                color: "#fff",
-                padding: "14px",
-                marginBottom: "10px",
+                textAlign: 'center',
+                background: '#87cf82',
+                color: '#fff',
+                padding: '14px',
+                marginBottom: '10px'
               }}
             >
-              Để nâng cao chất lượng dịch vụ, chúng tôi cung cấp tiện ích duyệt
-              tiền nhanh cho quý khách hàng sử dụng chuyển khoản qua Internet -
-              Banking và không cần gửi thông tin giao dịch nạp tiền. Quý khách
-              hàng chỉ cần nhập nội dung chuyển tiền như sau :{" "}
-              <span className="red big" style={{ fontSize: "26px" }}>
+              Để nâng cao chất lượng dịch vụ, chúng tôi cung cấp tiện ích duyệt tiền nhanh cho quý
+              khách hàng sử dụng chuyển khoản qua Internet - Banking và không cần gửi thông tin giao
+              dịch nạp tiền. Quý khách hàng chỉ cần nhập nội dung chuyển tiền như sau :{' '}
+              <span className="red big" style={{ fontSize: '26px' }}>
                 <strong>HQC6709CK</strong>
-              </span>{" "}
-              . Trong đó <span className="black">6709</span> là mã số riêng của
-              khách hàng, <span className="black">HQC xxxx CK</span> là cú pháp
-              nạp tiền. Mọi thắc mắc vui lòng liên hệ tư vấn
+              </span>{' '}
+              . Trong đó <span className="black">6709</span> là mã số riêng của khách hàng,{' '}
+              <span className="black">HQC xxxx CK</span> là cú pháp nạp tiền. Mọi thắc mắc vui lòng
+              liên hệ tư vấn
             </div>
 
             <div className="tab_container">
               <br />
               <br />
-              <h2 className="page-title">
-                Thông báo đơn hàng , giao dịch của bạn
-              </h2>
+              <h2 className="page-title">Thông báo đơn hàng , giao dịch của bạn</h2>
               <div className="tab_content">
                 <div className="space20"></div>
                 <form className="form-horizontal" method="get">
-                  Từ ngày :{" "}
+                  Từ ngày :{' '}
                   <input
                     className="pickdate_from custom_input hasDatepicker"
                     type="text"
@@ -65,7 +62,7 @@ const GeneralBoard = () => {
                     value=""
                     fdprocessedid="fvkwn6"
                   />
-                  Đến ngày :{" "}
+                  Đến ngày :{' '}
                   <input
                     className="pickdate_to custom_input hasDatepicker"
                     type="text"
@@ -77,11 +74,7 @@ const GeneralBoard = () => {
                   <br />
                   <div className="space10"></div>
                   Loại thông báo :
-                  <select
-                    name="filter_notice_type"
-                    className="custom_input"
-                    fdprocessedid="x4dvgk"
-                  >
+                  <select name="filter_notice_type" className="custom_input" fdprocessedid="x4dvgk">
                     <option value="">Tất cả</option>
                     <option value="1">Ví điện tử</option>
                     <option value="2">Đơn hàng</option>
@@ -89,11 +82,7 @@ const GeneralBoard = () => {
                     <option value="4">Vận đơn</option>
                   </select>
                   Trạng thái :
-                  <select
-                    name="filter_is_read"
-                    className="custom_input"
-                    fdprocessedid="hy4s76"
-                  >
+                  <select name="filter_is_read" className="custom_input" fdprocessedid="hy4s76">
                     <option value="">Tất cả</option>
                     <option value="0">Chưa xem</option>
                     <option value="1">Đã xem</option>
@@ -121,7 +110,7 @@ const GeneralBoard = () => {
                               name="checkall"
                               onClick="checkAll(this)"
                               className="isCheckBox"
-                              style={{ float: "left" }}
+                              style={{ float: 'left' }}
                             />
                             <button
                               className="button custom_flat_button"
@@ -146,10 +135,10 @@ const GeneralBoard = () => {
           </div>
         </div>
       </>
-    );
-  };
+    )
+  }
 
-  return <>{renderCustomerSuppor()}</>;
-};
+  return <>{renderCustomerSuppor()}</>
+}
 
-export default GeneralBoard;
+export default GeneralBoard

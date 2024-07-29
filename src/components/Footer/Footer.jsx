@@ -1,28 +1,28 @@
 /* eslint-disable no-console */
 /* eslint-disable quotes */
 /* eslint-disable react/no-unknown-property */
-import { useEffect, useState } from "react";
-import "./Footer.css";
-import { IoChevronUp } from "react-icons/io5";
-import { Col, Flex, Row, Space } from "antd";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react'
+import './Footer.css'
+import { IoChevronUp } from 'react-icons/io5'
+import { Col, Flex, Row, Space } from 'antd'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false)
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 1000) {
-        setShow(true);
+        setShow(true)
       } else {
-        setShow(false);
+        setShow(false)
       }
-    };
+    }
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll)
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  });
+      window.removeEventListener('scroll', handleScroll)
+    }
+  })
   // console.log(
   //   // '«««««  localStorage.getItem("token") »»»»»',
   //   localStorage.getItem("token")
@@ -38,11 +38,10 @@ const Footer = () => {
       <Row
         justify="center"
         style={{
-          background: "#fbfbfb",
-          padding: "20px 0px",
-          borderTop: "1px solid rgb(221, 221, 221)",
-          boxShadow:
-            "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px",
+          background: '#fbfbfb',
+          padding: '20px 0px',
+          borderTop: '1px solid rgb(221, 221, 221)',
+          boxShadow: 'rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px'
         }}
       >
         <Col xs={24} lg={20}>
@@ -68,20 +67,15 @@ const Footer = () => {
               <Flex vertical>
                 <Space className="footer_header">BẢNG GIÁ DỊCH VỤ</Space>
                 <Flex vertical>
-                  <Link className="header_color_item" to={"/bang-gia"}>
+                  <Link className="header_color_item" to={'/bang-gia'}>
                     Bảng giá dịch vụ đặt hàng Trung Quốc
                   </Link>
-                  <Link
-                    className="header_color_item"
-                    to={"/bang-gia-ky-gui-hang"}
-                  >
+                  <Link className="header_color_item" to={'/bang-gia-ky-gui-hang'}>
                     Bảng ký gửi vận chuyển
                   </Link>
                   <Link
                     className="header_color_item"
-                    to={
-                      "/dich-vu-nap-tien-alipay-thanh-toan-tien-trung-quoc-chuyen-tien-trung"
-                    }
+                    to={'/dich-vu-nap-tien-alipay-thanh-toan-tien-trung-quoc-chuyen-tien-trung'}
                   >
                     Bảng giá dịch vụ chuyển tiền
                   </Link>
@@ -94,13 +88,13 @@ const Footer = () => {
                 <Flex gap={10}>
                   <a href="">
                     <img
-                      style={{ height: "40px", width: "40px" }}
+                      style={{ height: '40px', width: '40px' }}
                       src="https://res.cloudinary.com/drqphlfn6/image/upload/v1707809091/vrvzmcykp5acusyvrvoa.png"
                     />
                   </a>
                   <a href="">
                     <img
-                      style={{ height: "40px", width: "40px" }}
+                      style={{ height: '40px', width: '40px' }}
                       src="https://cdn1.nhathuoclongchau.com.vn/smalls/Logo_Zalo_979d41d52b.svg"
                     />
                   </a>
@@ -111,13 +105,13 @@ const Footer = () => {
           </Row>
         </Col>
         <Col xs={24} lg={20}>
-          <div style={{ textAlign: "center", marginTop: "30px" }}>
+          <div style={{ textAlign: 'center', marginTop: '30px' }}>
             © 2024 Kieu Nghia Order. Tất cả các quyền được bảo lưu.
           </div>
         </Col>
       </Row>
     </div>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

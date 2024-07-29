@@ -1,11 +1,11 @@
-.footer-wrapper{
+.footer-wrapper {
   /* position: sticky;; */
   bottom: 0;
   width: 100%;
   background: #fbfbfb;
   z-index: 99;
 }
-.footer_header{
+.footer_header {
   color: #657384;
   font-size: 12px;
   font-weight: 700;
@@ -13,12 +13,10 @@
   margin-bottom: 8px;
   text-transform: uppercase;
 }
-.header_color_item{
-  color: #0000EE;
+.header_color_item {
+  color: #0000ee;
   line-height: 22px;
-
 }
-.header_color_item:hover{
-  color: #EE0000;
+.header_color_item:hover {
+  color: #ee0000;
 }
-

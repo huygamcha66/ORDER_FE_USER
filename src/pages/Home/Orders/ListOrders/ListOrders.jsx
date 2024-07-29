@@ -156,7 +156,7 @@ const ListOrders = () => {
               style={{
                 width: '100%',
                 borderCollapse: 'collapse',
-                marginBottom: '1em',
+                marginBottom: '1em'
               }}
             >
               <thead>
@@ -165,7 +165,7 @@ const ListOrders = () => {
                     style={{
                       border: '1px solid #ddd',
                       padding: '8px',
-                      width: '30%',
+                      width: '30%'
                     }}
                   >
                     Mã đơn hàng
@@ -174,7 +174,7 @@ const ListOrders = () => {
                     style={{
                       border: '1px solid #ddd',
                       padding: '8px',
-                      width: '30%',
+                      width: '30%'
                     }}
                   >
                     Trạng thái
@@ -183,7 +183,7 @@ const ListOrders = () => {
                     style={{
                       border: '1px solid #ddd',
                       padding: '8px',
-                      width: '30%',
+                      width: '30%'
                     }}
                   >
                     Tổng giá tiền
@@ -192,7 +192,7 @@ const ListOrders = () => {
                     style={{
                       border: '1px solid #ddd',
                       padding: '8px',
-                      width: '10%',
+                      width: '10%'
                     }}
                   >
                     Xem chi tiết

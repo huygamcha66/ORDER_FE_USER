@@ -1,25 +1,21 @@
 /* eslint-disable react/no-unknown-property */
-import IC15 from "../../assets/ic15.png";
-import IC16 from "../../assets/ic16.png";
+import IC15 from '../../assets/ic15.png'
+import IC16 from '../../assets/ic16.png'
 const ExtraFooter = () => {
   return (
     <>
-      <footer style={{ overflow: "hidden" }}>
-        <div className="container" style={{ padding: "0px 5px" }}>
+      <footer style={{ overflow: 'hidden' }}>
+        <div className="container" style={{ padding: '0px 5px' }}>
           <div className="col1">
             <h4>ĐỊA CHỈ LIÊN HỆ</h4>
             <h5>Hà Nội</h5>
-            <span className="address">
-              Số 7 ngách 4 ngõ 117 Trần Cung - Cầu Giấy - Hà Nội
-            </span>
+            <span className="address">Số 7 ngách 4 ngõ 117 Trần Cung - Cầu Giấy - Hà Nội</span>
             <span className="phone">0931.943.439</span>
             <h5>Đà Nẵng</h5>
             <span className="address">54 Nguyễn Chích - Đà Nẵng</span>
             <span className="phone">0947.800.071</span>
             <h5>Sài Gòn</h5>
-            <span className="address">
-              78/23 Ba Vân, P14, Quận Tân Bình - TPHCM
-            </span>
+            <span className="address">78/23 Ba Vân, P14, Quận Tân Bình - TPHCM</span>
             <span className="phone">0902.632.512</span>
           </div>
           <div className="col2">
@@ -28,38 +24,38 @@ const ExtraFooter = () => {
               <li>
                 <span>Vietcombank</span>
                 <p>TK: Lê Đăng Thịnh</p>
-                <p style={{ color: "#fff!important" }}>STK: 0221000037999</p>
+                <p style={{ color: '#fff!important' }}>STK: 0221000037999</p>
                 <p>CN Ninh Bình</p>
               </li>
               <li>
                 <span>BIDV</span>
                 <p>TK: Lê Đăng Thịnh</p>
-                <p style={{ color: "#fff!important" }}>STK: 21510001532592</p>
+                <p style={{ color: '#fff!important' }}>STK: 21510001532592</p>
                 <p>CN Cầu Giấy</p>
               </li>
               <li>
                 <span>Techcombank</span>
                 <p>TK: Lê Đăng Thịnh</p>
-                <p style={{ color: "#fff!important" }}>STK: 2382392666</p>
+                <p style={{ color: '#fff!important' }}>STK: 2382392666</p>
                 <p>CN Hoàng Quốc Việt</p>
               </li>
 
               <li>
                 <span>MB Bank</span>
                 <p>TK: Lê Đăng Thịnh</p>
-                <p style={{ color: "#fff!important" }}>STK: 6520102326666</p>
+                <p style={{ color: '#fff!important' }}>STK: 6520102326666</p>
                 <p>CN Hoàng Quốc Việt</p>
               </li>
               <li>
                 <span>Agribank</span>
                 <p>TK: Lê Đăng Thịnh</p>
-                <p style={{ color: "#fff!important" }}>STK: 2604220002173</p>
+                <p style={{ color: '#fff!important' }}>STK: 2604220002173</p>
                 <p>CN Bắc Ninh</p>
               </li>
               <li>
                 <span>Viettinbank</span>
                 <p>TK: Lê Đăng Thịnh</p>
-                <p style={{ color: "#fff!important" }}>STK: 102002202111</p>
+                <p style={{ color: '#fff!important' }}>STK: 102002202111</p>
                 <p>CN Nam Thăng Long</p>
               </li>
             </ul>
@@ -82,9 +78,9 @@ const ExtraFooter = () => {
               >
                 <span
                   style={{
-                    verticalAlign: "bottom",
-                    width: "0px",
-                    height: "0px",
+                    verticalAlign: 'bottom',
+                    width: '0px',
+                    height: '0px'
                   }}
                 >
                   <iframe
@@ -100,10 +96,10 @@ const ExtraFooter = () => {
                     allow="encrypted-media"
                     src="https://www.facebook.com/v2.9/plugins/like_box.php?app_id=1869996503282359&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Dfa4f00cc82151243f%26domain%3Dmy.orderhangquangchau.com%26is_canvas%3Dfalse%26origin%3Dhttp%253A%252F%252Fmy.orderhangquangchau.com%252Ffe328742d44f7dd97%26relation%3Dparent.parent&amp;color_scheme=light&amp;container_width=340&amp;header=false&amp;height=333&amp;href=https%3A%2F%2Fwww.facebook.com%2Forderhangquangchau24h%2F&amp;locale=vi_VN&amp;sdk=joey&amp;show_border=false&amp;show_faces=true&amp;stream=false&amp;width=340"
                     style={{
-                      border: "none",
-                      visibility: "visible",
-                      width: "0px",
-                      height: "0px",
+                      border: 'none',
+                      visibility: 'visible',
+                      width: '0px',
+                      height: '0px'
                     }}
                     className=""
                   ></iframe>
@@ -141,16 +137,16 @@ const ExtraFooter = () => {
       <div id="fb-root" className=" fb_reset">
         <div
           style={{
-            position: "absolute",
-            top: "-10000px",
-            width: "0px",
-            height: "0px",
+            position: 'absolute',
+            top: '-10000px',
+            width: '0px',
+            height: '0px'
           }}
         >
           <div></div>
         </div>
       </div>
-      <div className="zalo-container right" style={{ bottom: "70px" }}>
+      <div className="zalo-container right" style={{ bottom: '70px' }}>
         <a
           id="zalo-btn"
           href="https://zalo.me/0393241666"
@@ -168,7 +164,7 @@ const ExtraFooter = () => {
         </a>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ExtraFooter;
+export default ExtraFooter

@@ -1,30 +1,31 @@
 html {
-    background-color: white !important;
-    scroll-behavior: smooth;
+  background-color: white !important;
+  scroll-behavior: smooth;
 }
 body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-body, html {
-    height: 100%;
-    margin: 0;
-  }
-  
+body,
+html {
+  height: 100%;
+  margin: 0;
+}
+
 a {
-    color: #fff ;
+  color: #fff;
 }
 
 a:hover {
-    color: #ccc ;
+  color: #ccc;
 }
 .primary_color {
-    color: #fff ;
+  color: #fff;
 }
 
-.wrapper_icon_text:hover{
-    color: #ccc ;
+.wrapper_icon_text:hover {
+  color: #ccc;
 }
 li {
 }
@@ -33,127 +34,124 @@ p {
 }
 
 .zalo-container img {
-max-width: 100%;
-height: auto;
+  max-width: 100%;
+  height: auto;
 }
 .zalo-container {
-position: fixed;
-width: 40px;
-height: 40px;
-bottom: 160px;
-z-index: 9999999;
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  bottom: 160px;
+  z-index: 9999999;
 }
 .zalo-container:not(.right) {
-left: 2.5rem;
+  left: 2.5rem;
 }
 .zalo-container.right {
-right: 2.5rem;
+  right: 2.5rem;
 }
 .zalo-container a {
-display: block;
+  display: block;
 }
 .zalo-container span {
-display: -webkit-flex;
-display: -moz-flex;
-display: -ms-flex;
-display: -o-flex;
-display: flex;
--ms-align-items: center;
-align-items: center;
-width: 40px;
-height: 40px;
-border-radius: 50%;
-background: #1182fc;
-position: relative;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -ms-align-items: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #1182fc;
+  position: relative;
 }
 @keyframes zoomIn_zalo {
-from {
-opacity: 0;
-transform: scale3d(0.3, 0.3, 0.3);
-}
-50% {
-opacity: 1;
-}
+  from {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
 }
 .zoomIn_zalo {
-animation-name: zoomIn_zalo;
+  animation-name: zoomIn_zalo;
 }
 .animated_zalo {
-animation-duration: 1s;
-animation-fill-mode: both;
+  animation-duration: 1s;
+  animation-fill-mode: both;
 }
 .animated_zalo.infinite {
-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
 }
 .cmoz-alo-circle {
-width: 50px;
-height: 50px;
-top: -5px;
-right: -5px;
-position: absolute;
-background-color: transparent;
--webkit-border-radius: 100%;
--moz-border-radius: 100%;
-border-radius: 100%;
-border: 2px solid rgba(17, 130, 252, 0.8);
-opacity: 0.1;
-border-color: #1182fc;
-opacity: 0.5;
+  width: 50px;
+  height: 50px;
+  top: -5px;
+  right: -5px;
+  position: absolute;
+  background-color: transparent;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  border-radius: 100%;
+  border: 2px solid rgba(17, 130, 252, 0.8);
+  opacity: 0.1;
+  border-color: #1182fc;
+  opacity: 0.5;
 }
 .cmoz-alo-circle-fill {
-width: 60px;
-height: 60px;
-top: -10px;
-position: absolute;
--webkit-transition: all 0.2s ease-in-out;
--moz-transition: all 0.2s ease-in-out;
--ms-transition: all 0.2s ease-in-out;
--o-transition: all 0.2s ease-in-out;
-transition: all 0.2s ease-in-out;
--webkit-border-radius: 100%;
--moz-border-radius: 100%;
-border-radius: 100%;
-border: 2px solid transparent;
--webkit-transition: all 0.5s;
--moz-transition: all 0.5s;
--o-transition: all 0.5s;
-transition: all 0.5s;
-background-color: rgba(17, 130, 252, 0.45);
-opacity: 0.75;
-right: -10px;
+  width: 60px;
+  height: 60px;
+  top: -10px;
+  position: absolute;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  border-radius: 100%;
+  border: 2px solid transparent;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+  background-color: rgba(17, 130, 252, 0.45);
+  opacity: 0.75;
+  right: -10px;
 }
 @-webkit-keyframes pulse_zalo {
-from {
--webkit-transform: scale3d(1, 1, 1);
-transform: scale3d(1, 1, 1);
-}
-50% {
--webkit-transform: scale3d(1.05, 1.05, 1.05);
-transform: scale3d(1.05, 1.05, 1.05);
-}
-to {
--webkit-transform: scale3d(1, 1, 1);
-transform: scale3d(1, 1, 1);
-}
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(1.05, 1.05, 1.05);
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+  to {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
 }
 @keyframes pulse_zalo {
-from {
--webkit-transform: scale3d(1, 1, 1);
-transform: scale3d(1, 1, 1);
-}
-50% {
--webkit-transform: scale3d(1.05, 1.05, 1.05);
-transform: scale3d(1.05, 1.05, 1.05);
-}
-to {
--webkit-transform: scale3d(1, 1, 1);
-transform: scale3d(1, 1, 1);
-}
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(1.05, 1.05, 1.05);
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+  to {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
 }
 .pulse_zalo {
--webkit-animation-name: pulse_zalo;
-animation-name: pulse_zalo;
+  -webkit-animation-name: pulse_zalo;
+  animation-name: pulse_zalo;
 }
-
-
-

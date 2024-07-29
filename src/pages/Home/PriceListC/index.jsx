@@ -16,66 +16,66 @@ const PriceListCon = () => {
       name: '>500kg',
       age: 'Liên hệ',
       address: 'Liên hệ',
-      four: 'Liên hệ',
+      four: 'Liên hệ'
     },
     {
       key: '2',
       name: '200->500kg',
       age: '22.000đ ',
       address: '28.000đ',
-      four: '28.000đ',
+      four: '28.000đ'
     },
     {
       key: '3',
       name: '100->200kg',
       age: '23.000đ ',
       address: '29.000đ',
-      four: '29.000đ',
+      four: '29.000đ'
     },
     {
       key: '4',
       name: '30->100kg',
       age: '24.000đ',
       address: '30.000đ',
-      four: '30.000đ',
+      four: '30.000đ'
     },
     {
       key: '5',
       name: '10->30kg',
       age: '	25.000đ',
       address: '31.000đ',
-      four: '31.000đ',
+      four: '31.000đ'
     },
     {
       key: '6',
       name: '0->10kg',
       age: '26.000đ',
       address: '32.000đ',
-      four: '32.000đ',
-    },
+      four: '32.000đ'
+    }
   ]
 
   const columns = [
     {
       title: 'TRỌNG LƯỢNG (TÍNH/KG)',
       dataIndex: 'name',
-      key: 'name',
+      key: 'name'
     },
     {
       title: 'HÀ NỘI',
       dataIndex: 'age',
-      key: 'age',
+      key: 'age'
     },
     {
       title: 'TP.HCM',
       dataIndex: 'address',
-      key: 'address',
+      key: 'address'
     },
     {
       title: 'ĐÀ NẴNG',
       dataIndex: 'address',
-      key: 'address',
-    },
+      key: 'address'
+    }
   ]
 
   const dataSource2 = [
@@ -84,52 +84,52 @@ const PriceListCon = () => {
       name: '> 20m3',
       age: 'Liên hệ',
       address: 'Liên hệ',
-      four: 'Liên hệ',
+      four: 'Liên hệ'
     },
     {
       key: '2',
       name: '10m3 -> 20m3',
       age: '2.200.000đ',
       address: '2.700.000đ',
-      four: '	2.700.000đ',
+      four: '	2.700.000đ'
     },
     {
       key: '3',
       name: '5m3 -> 10m3',
       age: '	2.400.000đ',
       address: '	2.900.000đ',
-      four: '2.900.000đ',
+      four: '2.900.000đ'
     },
     {
       key: '4',
       name: '< 5m3',
       age: '22.600.000đ',
       address: '	3.100.000đ',
-      four: '	3.100.000đ',
-    },
+      four: '	3.100.000đ'
+    }
   ]
 
   const columns2 = [
     {
       title: 'KHỐI LƯỢNG (TÍNH/M3)',
       dataIndex: 'name',
-      key: 'name',
+      key: 'name'
     },
     {
       title: 'HÀ NỘI',
       dataIndex: 'age',
-      key: 'age',
+      key: 'age'
     },
     {
       title: 'TP.HCM',
       dataIndex: 'address',
-      key: 'address',
+      key: 'address'
     },
     {
       title: 'ĐÀ NẴNG',
       dataIndex: 'address',
-      key: 'address',
-    },
+      key: 'address'
+    }
   ]
 
   const dataSource3 = [
@@ -138,43 +138,43 @@ const PriceListCon = () => {
       name: 'Từ 100kg – 200kg',
       age: '	15.000đ/kg',
       address: '21.000đ/kg',
-      four: '21.000đ/kg',
+      four: '21.000đ/kg'
     },
     {
       key: '2',
       name: 'Từ 200kg – 500kg',
       age: '	14.000đ/kg',
       address: '20.000đ/kg',
-      four: '	20.000đ/kg',
+      four: '	20.000đ/kg'
     },
     {
       key: '3',
       name: 'Từ 500kg – 1 tấn',
       age: '13.000đ/kg',
       address: '19.000đ/kg',
-      four: '19.000đ/kg',
+      four: '19.000đ/kg'
     },
     {
       key: '4',
       name: 'Từ 1 tấn – 2 tấn',
       age: '	12.000đ/kg',
       address: '	18.000đ/kg',
-      four: '	18.000đ/kg',
+      four: '	18.000đ/kg'
     },
     {
       key: '5',
       name: 'Trên 2 tấn',
       age: '9.000đ/kg',
       address: '14.000đ/kg',
-      four: '14.000đ/kg',
+      four: '14.000đ/kg'
     },
     {
       key: '6',
       name: 'Trên 5 tấn',
       age: 'Thương lượng',
       address: 'Thương lượng',
-      four: '	Thương lượng',
-    },
+      four: '	Thương lượng'
+    }
   ]
 
   const dataSource4 = [
@@ -183,45 +183,45 @@ const PriceListCon = () => {
       name: 'Từ 300kg – 500kg',
       age: '	10.000 đ/kg',
       address: '	13.000 đ/kg',
-      four: '	13.000 đ/kg',
+      four: '	13.000 đ/kg'
     },
     {
       key: '2',
       name: 'Từ 500kg – 1 tấn',
       age: '	9.000 đ/kg',
       address: '12.000 đ/kg',
-      four: '	12.000 đ/kg',
+      four: '	12.000 đ/kg'
     },
     {
       key: '3',
       name: 'Từ 1 tấn – 3 tấn',
       age: '7.000 đ/kg',
       address: '10.000 đ/kg',
-      four: '11.000 đ/kg',
-    },
+      four: '11.000 đ/kg'
+    }
   ]
 
   const columns3 = [
     {
       title: 'CÂN NẶNG',
       dataIndex: 'name',
-      key: 'name',
+      key: 'name'
     },
     {
       title: 'HÀ NỘI',
       dataIndex: 'age',
-      key: 'age',
+      key: 'age'
     },
     {
       title: 'TP.HCM',
       dataIndex: 'address',
-      key: 'address',
+      key: 'address'
     },
     {
       title: 'ĐÀ NẴNG',
       dataIndex: 'address',
-      key: 'address',
-    },
+      key: 'address'
+    }
   ]
 
   return (
@@ -231,9 +231,9 @@ const PriceListCon = () => {
           Table: {
             headerBg: '#ff8a70',
             borderColor: '#ff8a70',
-            rowHoverBg: '#ffdad3',
-          },
-        },
+            rowHoverBg: '#ffdad3'
+          }
+        }
       }}
     >
       <Row justify="center">

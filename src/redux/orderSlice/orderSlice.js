@@ -8,11 +8,11 @@ const initialState = {
   orders: [],
   detailOrder: [],
   isLoading: false,
-  error: null,
+  error: null
 }
 
 const DEFAULT_PAGINATION = {
-  LIMIT: 10, // Số lượng item mặc định mỗi trang
+  LIMIT: 10 // Số lượng item mặc định mỗi trang
 }
 
 // Thunk để tạo đơn hàng
@@ -29,7 +29,7 @@ export const createOrder = createAsyncThunk(
         throw error
       }
     }
-  },
+  }
 )
 
 // Thunk để lấy danh sách đơn hàng của người dùng
@@ -37,7 +37,7 @@ export const listOrderMe = createAsyncThunk(
   'orders/listOrderMe',
   async (
     { userId, orderId, status, startDate, endDate, page = 1, pageSize = DEFAULT_PAGINATION.LIMIT },
-    { rejectWithValue },
+    { rejectWithValue }
   ) => {
     try {
       const params = { page, pageSize, orderId, status, startDate, endDate }
@@ -50,7 +50,7 @@ export const listOrderMe = createAsyncThunk(
         throw error
       }
     }
-  },
+  }
 )
 
 // thunk để lấy chi tiết từng đơn hàng
@@ -67,7 +67,7 @@ export const getDetailOrder = createAsyncThunk(
         throw error
       }
     }
-  },
+  }
 )
 
 // Tạo orderSlice
@@ -78,7 +78,7 @@ const orderSlice = createSlice({
     clearOrders(state) {
       state.orders = []
       state.error = null
-    },
+    }
   },
   extraReducers: (builder) => {
     // Xử lý createOrder
@@ -144,7 +144,7 @@ const orderSlice = createSlice({
         state.isLoading = false
         state.error = action.payload
       })
-  },
+  }
 })
 
 // Export reducer và actions

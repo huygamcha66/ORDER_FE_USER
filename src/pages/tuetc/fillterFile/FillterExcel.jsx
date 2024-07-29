@@ -37,9 +37,7 @@ const FillterExcel = () => {
       const sheetA = workbookA.Sheets[workbookA.SheetNames[0]]
 
       // Lấy dữ liệu từ dòng thứ 2 của fileA
-      const dataAJson = XLSX.utils
-        .sheet_to_json(sheetA, { header: 1 })
-        .slice(1)
+      const dataAJson = XLSX.utils.sheet_to_json(sheetA, { header: 1 }).slice(1)
 
       // Lấy tiêu đề cột từ hàng đầu tiên của fileA
       const headerA = XLSX.utils.sheet_to_json(sheetA, { header: 1 })[0]
@@ -73,9 +71,7 @@ const FillterExcel = () => {
         // eslint-disable-next-line no-console
         console.log('««««« phoneNumbersB »»»»»', phoneNumbersB)
         // Lọc các hàng trong fileA mà số điện thoại không có trong phoneNumbersB
-        const filteredNumbers = dataAJson.filter(
-          (row) => !phoneNumbersB.includes(row[1])
-        )
+        const filteredNumbers = dataAJson.filter((row) => !phoneNumbersB.includes(row[1]))
 
         // Tạo file Excel mới với định dạng đúng theo cột như fileA
         const wsData = [headerA, ...filteredNumbers]
@@ -84,10 +80,7 @@ const FillterExcel = () => {
         XLSX.utils.book_append_sheet(wb, ws, 'Filtered Numbers')
 
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
-        saveAs(
-          new Blob([wbout], { type: 'application/octet-stream' }),
-          'FilteredNumbers.xlsx'
-        )
+        saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'FilteredNumbers.xlsx')
       }
 
       readerB.readAsArrayBuffer(fileB)

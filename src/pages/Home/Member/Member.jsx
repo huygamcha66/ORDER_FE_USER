@@ -4,8 +4,8 @@ import CustomerSupport from '../../../components/CustomerSupport/CustomerSupport
 const Member = () => {
   return (
     <>
-      <CustomerSupport/>
-      <Outlet/>
+      <CustomerSupport />
+      <Outlet />
     </>
   )
 }
