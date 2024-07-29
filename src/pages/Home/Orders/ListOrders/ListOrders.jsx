@@ -44,7 +44,7 @@ const ProductItem = ({ order }) => {
     7: 'Hoàn thành',
     8: 'Đang khiếu nại',
     9: 'Đã hủy',
-    10: 'Hết hàng',
+    10: 'Hết hàng'
   }
 
   return (

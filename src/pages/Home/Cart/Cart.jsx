@@ -7,11 +7,11 @@ import {
   deleteProductFromCart,
   getCartDetail,
   resetState,
-  updateProductFromCart,
+  updateProductFromCart
 } from '../../../redux/cartSlice/cartSlice'
 import { jwtDecode } from 'jwt-decode'
 import './Cart.css'
-import { Checkbox, Col, Flex, Image, Input, Modal, notification, Row, Space } from 'antd'
+import { Checkbox, Col, Empty, Flex, Image, Input, Modal, notification, Row, Space } from 'antd'
 import useDecodedToken from '../../../components/UserInfor'
 import { MdOutlineDelete } from 'react-icons/md'
 import { openNotificationWithIcon } from '../../../components/Nofitication'
@@ -65,7 +65,7 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
                   style={{
                     width: '50px',
                     marginRight: '10px',
-                    height: '50px',
+                    height: '50px'
                   }}
                 />
               ) : (
@@ -79,7 +79,7 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
                   Trình duyệt không hỗ trợ ảnh
                 </video>
               )}
-              <a target="_blank" style={{ color: '#000' }} href={cart.productUrl}>
+              <a target="_blank" className='cart_name' href={cart.productUrl}>
                 {cart.name}
               </a>
             </div>
@@ -95,7 +95,7 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
             style={{
               border: '1px solid #ddd',
               padding: '8px',
-              fontWeight: 'bolder',
+              fontWeight: 'bolder'
             }}
           >
             {parseInt((cart.price * 3625 * quantity).toFixed(0)).toLocaleString('vi-VN')} đ
@@ -117,8 +117,8 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
                 <span style={{ fontWeight: 'bold' }}>
                   {isCheck
                     ? `${parseInt((cart.price * 3625 * quantity * 0.03).toFixed(0)).toLocaleString(
-                        'vi-VN',
-                      )}
+                      'vi-VN'
+                    )}
                     đ`
                     : 0}
                 </span>
@@ -128,8 +128,8 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
                 <span style={{ fontWeight: 'bold' }}>
                   {isCheck
                     ? `${parseInt((cart.price * 3625 * quantity * 0.7).toFixed(0)).toLocaleString(
-                        'vi-VN',
-                      )}
+                      'vi-VN'
+                    )}
                     đ`
                     : 0}
                 </span>
@@ -139,8 +139,8 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
                 <span style={{ color: 'red', fontWeight: 'bold' }}>
                   {isCheck
                     ? `${parseInt((cart.price * 3625 * quantity * 1.03).toFixed(0)).toLocaleString(
-                        'vi-VN',
-                      )}
+                      'vi-VN'
+                    )}
                     đ`
                     : 0}
                 </span>
@@ -155,7 +155,7 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
                   background: 'none',
                   border: 'none',
                   color: 'red',
-                  cursor: 'pointer',
+                  cursor: 'pointer'
                 }}
               >
                 <MdOutlineDelete style={{ width: '20px', height: '20px' }} />
@@ -169,14 +169,14 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
                   style: {
                     backgroundColor: '#f5222d',
                     borderColor: '#f5222d',
-                    color: '#fff',
-                  },
+                    color: '#fff'
+                  }
                 }}
                 okButtonProps={{
                   style: {
                     backgroundColor: '#ccc',
-                    color: '#000',
-                  },
+                    color: '#000'
+                  }
                 }}
                 okText="Có"
                 cancelText="Không"
@@ -271,9 +271,9 @@ const Cart = () => {
               userId: decodedToken.id,
               newQuantity: quantities[index],
               check: checkedStates[index],
-              productId: product.productId,
-            }),
-          ).unwrap(),
+              productId: product.productId
+            })
+          ).unwrap()
         )
 
         // Đợi tất cả các promises hoàn thành
@@ -302,9 +302,9 @@ const Cart = () => {
               userId: decodedToken.id,
               newQuantity: quantities[index],
               check: checkedStates[index],
-              productId: product.productId,
-            }),
-          ).unwrap(),
+              productId: product.productId
+            })
+          ).unwrap()
         )
         // Đợi tất cả các promises hoàn thành
         await Promise.all(promises)
@@ -317,9 +317,10 @@ const Cart = () => {
     setIsModalOpen(false)
     dispatch(deleteProductFromCart({ userId: decodedToken.id, productId }))
   }
+
   return (
     <>
-      <Row justify="center">
+      {carts && carts.products && carts.products.length ? <Row justify="center">
         <Col xs={20}>
           <div>
             <h2>Giỏ hàng</h2>
@@ -328,7 +329,7 @@ const Cart = () => {
               style={{
                 width: '100%',
                 borderCollapse: 'collapse',
-                marginBottom: '1em',
+                marginBottom: '1em'
               }}
             >
               {' '}
@@ -338,7 +339,7 @@ const Cart = () => {
                     style={{
                       border: '1px solid #ddd',
                       padding: '8px',
-                      width: '10%',
+                      width: '10%'
                     }}
                   >
                     Chọn mua
@@ -347,7 +348,7 @@ const Cart = () => {
                     style={{
                       border: '1px solid #ddd',
                       padding: '8px',
-                      width: '30%',
+                      width: '30%'
                     }}
                   >
                     Sản phẩm
@@ -356,7 +357,7 @@ const Cart = () => {
                     style={{
                       border: '1px solid #ddd',
                       padding: '8px',
-                      width: '10%',
+                      width: '10%'
                     }}
                   >
                     Số lượng
@@ -365,7 +366,7 @@ const Cart = () => {
                     style={{
                       border: '1px solid #ddd',
                       padding: '8px',
-                      width: '10%',
+                      width: '10%'
                     }}
                   >
                     Đơn giá
@@ -374,7 +375,7 @@ const Cart = () => {
                     style={{
                       border: '1px solid #ddd',
                       padding: '8px',
-                      width: '15%',
+                      width: '15%'
                     }}
                   >
                     Tổng tiền
@@ -383,7 +384,7 @@ const Cart = () => {
                     style={{
                       border: '1px solid #ddd',
                       padding: '8px',
-                      width: '20%',
+                      width: '20%'
                     }}
                   >
                     Đơn giá
@@ -392,7 +393,7 @@ const Cart = () => {
                     style={{
                       border: '1px solid #ddd',
                       padding: '8px',
-                      width: '5%',
+                      width: '5%'
                     }}
                   >
                     Xoá
@@ -421,7 +422,7 @@ const Cart = () => {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  cursor: 'pointer',
+                  cursor: 'pointer'
                 }}
               >
                 <input
@@ -446,7 +447,10 @@ const Cart = () => {
             </Flex>
           </div>
         </Col>
-      </Row>
+      </Row> : <Empty
+        style = {{ marginTop: '30px' }}
+        description={<span>Không có sản phẩm nào</span>}
+      />}
     </>
   )
 }

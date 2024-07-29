@@ -35,12 +35,12 @@ const items = [
         children: [
           {
             label: <Link to={'/cart/step2'}>ĐANG CHỜ CỌC</Link>,
-            key: 'order:1',
+            key: 'order:1'
           },
 
           {
             label: <Link to={'/order/list-orders'}>ĐƠN HÀNG CỦA TÔI</Link>,
-            key: 'order:2',
+            key: 'order:2'
           },
         ],
       },
@@ -50,25 +50,10 @@ const items = [
   {
     label: (
       <Link style={{ fontWeight: 700 }} to={'/bang-gia'}>
-        TÀI CHÍNH
+        XEM GIAO DỊCH
       </Link>
     ),
-    key: 'finance',
-    children: [
-      {
-        type: 'group',
-        children: [
-          {
-            label: <Link to={'/bang-gia'}>XEM GIAO DỊCH</Link>,
-            key: 'finance:1',
-          },
-          {
-            label: <Link to={'/bang-gia-ky-gui-hang'}>NẠP TIỀN</Link>,
-            key: 'finance:2',
-          },
-        ],
-      },
-    ],
+    key: 'finance'
   },
 
   {

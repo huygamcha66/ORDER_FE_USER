@@ -6,12 +6,12 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import {
   deleteProductFromCart,
   getCartDetail,
-  updateProductFromCart,
+  updateProductFromCart
 } from '../../../redux/cartSlice/cartSlice'
 import { jwtDecode } from 'jwt-decode'
 import { createOrder } from '../../../redux/orderSlice/orderSlice'
 import { MdOutlineDelete } from 'react-icons/md'
-import { Col, Flex, Image, Modal, Row, Space, Input, ConfigProvider, Spin } from 'antd'
+import { Col, Flex, Image, Modal, Row, Space, Input, ConfigProvider, Spin, Empty } from 'antd'
 const { TextArea } = Input
 import './Cart.css'
 import { openNotificationWithIcon } from '../../../components/Nofitication'
@@ -44,7 +44,7 @@ const ProductItem = ({ cart, onDelete }) => {
                 style={{
                   width: '50px',
                   marginRight: '10px',
-                  height: '50px',
+                  height: '50px'
                 }}
               />
             ) : (
@@ -58,9 +58,9 @@ const ProductItem = ({ cart, onDelete }) => {
                 Trình duyệt không hỗ trợ ảnh
               </video>
             )}
-            <a style={{ color: '#000' }} target="_blank" href={cart.productUrl}>
+            <Space style={{ color: '#000' }} >
               {cart.name}
-            </a>
+            </Space>
           </div>
         </td>
         <td style={{ border: '1px solid #ddd', padding: '8px' }}>
@@ -75,12 +75,12 @@ const ProductItem = ({ cart, onDelete }) => {
           style={{
             border: '1px solid #ddd',
             padding: '8px',
-            fontWeight: 'bolder',
+            fontWeight: 'bolder'
           }}
         >
           <Flex justify="center">
             {parseInt((cart.price * 3625 * 1.03 * cart.quantity).toFixed(0)).toLocaleString(
-              'vi-VN',
+              'vi-VN'
             )}{' '}
             đ
           </Flex>
@@ -93,7 +93,7 @@ const ProductItem = ({ cart, onDelete }) => {
                 background: 'none',
                 border: 'none',
                 color: 'red',
-                cursor: 'pointer',
+                cursor: 'pointer'
               }}
             >
               <MdOutlineDelete style={{ width: '20px', height: '20px' }} />
@@ -107,14 +107,14 @@ const ProductItem = ({ cart, onDelete }) => {
                 style: {
                   backgroundColor: '#f5222d',
                   borderColor: '#f5222d',
-                  color: '#fff',
-                },
+                  color: '#fff'
+                }
               }}
               okButtonProps={{
                 style: {
                   backgroundColor: '#ccc',
-                  color: '#000',
-                },
+                  color: '#000'
+                }
               }}
               okText="Có"
               cancelText="Không"
@@ -174,13 +174,13 @@ const CartStep2 = () => {
     setLoadingPlace(true)
     console.log(
       '««««« addressDelivery »»»»»',
-      addressDelivery ? addressDelivery : user.user.address,
+      addressDelivery ? addressDelivery : user.user.address
     )
     const finalProduct = carts.products
       .filter((product) => product.check)
       .map((product) => ({
         ...product,
-        properties: '',
+        properties: ''
       }))
 
     try {
@@ -189,15 +189,17 @@ const CartStep2 = () => {
           userId: decodedToken.id,
           productList: finalProduct,
           purchaseFee: totalCheckedDeposit,
-          deliveryAddress: addressDelivery ? addressDelivery : user.user.address,
-        }),
+          deliveryAddress: addressDelivery ? addressDelivery : user.user.address
+        })
       ).unwrap()
       openNotificationWithIcon('success', 'Đặt hàng thành công')
     } catch (error) {
       openNotificationWithIcon('error', 'Đặt hàng thất bại')
     } finally {
-      window.location.reload()
-      setLoadingPlace(false)
+      setTimeout(() => {
+        window.location.reload()
+        setLoadingPlace(false)
+      }, 2000)
     }
   }
   console.log('««««« loadingPlace »»»»»', loadingPlace)
@@ -217,8 +219,8 @@ const CartStep2 = () => {
             userId: decodedToken.id,
             newQuantity: data.quantity,
             check: false,
-            productId: data.productId,
-          }),
+            productId: data.productId
+          })
         ).unwrap()
         // Đợi tất cả các promises hoàn thành
       } catch (error) {
@@ -231,14 +233,15 @@ const CartStep2 = () => {
   }
   return (
     <>
-      <ConfigProvider
+
+      {totalCheckedDeposit ? <ConfigProvider
         theme={{
           components: {
             Input: {
               hoverBorderColor: '#fb5731',
-              activeBorderColor: '#fb5731',
-            },
-          },
+              activeBorderColor: '#fb5731'
+            }
+          }
         }}
       >
         {' '}
@@ -252,7 +255,7 @@ const CartStep2 = () => {
                   style={{
                     width: '100%',
                     borderCollapse: 'collapse',
-                    marginBottom: '1em',
+                    marginBottom: '1em'
                   }}
                 >
                   <thead>
@@ -262,7 +265,7 @@ const CartStep2 = () => {
                         style={{
                           border: '1px solid #ddd',
                           padding: '8px',
-                          width: '7%',
+                          width: '7%'
                         }}
                       >
                         Số lượng
@@ -272,7 +275,7 @@ const CartStep2 = () => {
                       <th
                         style={{
                           border: '1px solid #ddd',
-                          padding: '8px',
+                          padding: '8px'
                         }}
                       >
                         Xoá
@@ -301,7 +304,7 @@ const CartStep2 = () => {
                     placeholder="Nhập địa chỉ nhận hàng"
                     autoSize={{
                       minRows: 3,
-                      maxRows: 6,
+                      maxRows: 6
                     }}
                   />
                 </Flex>
@@ -334,14 +337,14 @@ const CartStep2 = () => {
                     style: {
                       backgroundColor: '#f5222d',
                       borderColor: '#f5222d',
-                      color: '#fff',
-                    },
+                      color: '#fff'
+                    }
                   }}
                   okButtonProps={{
                     style: {
                       backgroundColor: '#ccc',
-                      color: '#000',
-                    },
+                      color: '#000'
+                    }
                   }}
                   okText="Có"
                   cancelText="Không"
@@ -358,7 +361,11 @@ const CartStep2 = () => {
             )}
           </Col>
         </Row>
-      </ConfigProvider>
+      </ConfigProvider> : <Empty
+        style = {{ marginTop: '30px' }}
+        description={<span>Không có sản phẩm nào</span>}
+      />}
+
     </>
   )
 }
