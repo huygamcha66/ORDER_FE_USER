@@ -131,10 +131,7 @@ const router = createBrowserRouter([
             path: '/reset-password',
             element: <ResetPassword />
           },
-          {
-            path: '/transaction',
-            element: <TransactionPage />
-          },
+
           {
             element: <ProtectedRoute />,
             children: [
@@ -159,6 +156,10 @@ const router = createBrowserRouter([
                     element: <PendingOrders />
                   }
                 ]
+              },
+              {
+                path: '/transaction',
+                element: <TransactionPage />
               },
               {
                 path: 'member',

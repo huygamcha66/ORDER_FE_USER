@@ -21,7 +21,6 @@ const Home = () => {
   const { decodedToken } = useDecodedToken('token')
   useEffect(() => {
     const check = async () => {
-      console.log('««««« 123 »»»»»', 123)
       if (decodedToken) {
         dispatch(getCartDetail({ userId: decodedToken.id }))
         dispatch(
