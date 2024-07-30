@@ -6,7 +6,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import HeaderScreen from '../../components/Header'
 import { Space } from 'antd'
 import ExtraHeader from '../../components/ExtraHeader/ExtraHeader'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import useDecodedToken from '../../components/UserInfor'
 import { useEffect } from 'react'
 import { getCartDetail, resetState } from '../../redux/cartSlice/cartSlice'
@@ -19,11 +19,12 @@ const Home = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const { decodedToken } = useDecodedToken('token')
+  const { isNull } = useSelector((state) => state.users);
   useEffect(() => {
     const check = async () => {
       if (decodedToken) {
         dispatch(getCartDetail({ userId: decodedToken.id }))
-        dispatch(
+        const ok = dispatch(
           detailMe({
             addressIP: `${addressIP}&&${getCanvasFingerprint()}&&${getWebGLFingerprint().renderer}`
           })
@@ -32,6 +33,14 @@ const Home = () => {
     }
     check()
   }, [dispatch, navigate, decodedToken])
+
+  // fix phần khi người khác logout ra, thì mình cũng logout luôn
+  useEffect(() => {
+    if (isNull) {
+      localStorage.clear();
+      navigate('/login')
+    }
+  }, [isNull])
   return (
     <div className={clsx(style.page_container)}>
       <div className={clsx(style.content_wrapper)}>

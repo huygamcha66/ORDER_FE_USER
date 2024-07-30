@@ -10,6 +10,7 @@ const initialState = {
   success: false,
   isSend: false,
   isActive: false,
+  isNull: false,
   error: '',
   user: {}
 }
@@ -274,17 +275,22 @@ export const userSlice = createSlice({
     // get detail me
     builder
       .addCase(detailMe.pending, (state) => {
-        state.loading = true
+        state.isLoading = true
         state.error = null
+        state.isNull = false
       })
       .addCase(detailMe.fulfilled, (state, action) => {
-        state.loading = false
+        state.isLoading = false
         state.user = action.payload
+        state.isNull = false
+
       })
       .addCase(detailMe.rejected, (state, action) => {
         console.log('««««« action »»»»»', action)
-        state.loading = false
+        state.isLoading = false
         state.error = action.payload
+        state.isNull = true
+
       })
   }
 })
