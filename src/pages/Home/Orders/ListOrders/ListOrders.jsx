@@ -44,7 +44,8 @@ const ProductItem = ({ order }) => {
     7: 'Hoàn thành',
     8: 'Đang khiếu nại',
     9: 'Đã hủy',
-    10: 'Hết hàng'
+    10: 'Hết hàng',
+    11: 'Đã cọc, đã tư vấn'
   }
 
   return (
@@ -62,16 +63,16 @@ const ProductItem = ({ order }) => {
             <Flex vertical>
               <Space style={{ padding: '4px 0px' }}>
                 <Space style={{ width: '80px' }}>Tiền hàng:</Space>
-                {parseInt(order.purchaseFee.toFixed(0)).toLocaleString()}(vnđ)
+                {parseInt(order.purchaseFee + order.remaining).toLocaleString()}(vnđ)
               </Space>
               <Space style={{ padding: '4px 0px' }}>
                 <Space style={{ width: '80px' }}>Đã cọc:</Space>
-                {parseInt((order.purchaseFee * 0.7).toFixed(0)).toLocaleString()}
+                {parseInt((order.purchaseFee)).toLocaleString()}
                 (vnđ)
               </Space>
               <Space style={{ padding: '4px 0px' }}>
                 <Space style={{ width: '80px' }}>Còn lại:</Space>
-                {parseInt((order.purchaseFee * 0.3).toFixed(0)).toLocaleString()}
+                {parseInt((order.remaining)).toLocaleString()}
                 (vnđ)
               </Space>
             </Flex>
