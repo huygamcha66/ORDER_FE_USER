@@ -70,6 +70,22 @@ export const getDetailOrder = createAsyncThunk(
   }
 )
 
+export const complainOrder = createAsyncThunk(
+  '/order/complainOrder',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axios.patch(`${API_ROOT}/api/v1.0/orders/complain`, data)
+      return response.data.payload
+    } catch (error) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data)
+      } else {
+        throw error
+      }
+    }
+  }
+)
+
 // Tạo orderSlice
 const orderSlice = createSlice({
   name: 'order',
@@ -140,6 +156,22 @@ const orderSlice = createSlice({
         state.detailOrder = action.payload
       })
       .addCase(getDetailOrder.rejected, (state, action) => {
+        console.log('««««« action »»»»»', action)
+        state.isLoading = false
+        state.error = action.payload
+      })
+
+    builder
+      .addCase(complainOrder.pending, (state) => {
+        state.isLoading = true
+        state.error = null
+      })
+      .addCase(complainOrder.fulfilled, (state, action) => {
+        console.log('««««« actions »»»»»', actions)
+        state.isLoading = false
+        state.detailOrder = action.payload
+      })
+      .addCase(complainOrder.rejected, (state, action) => {
         console.log('««««« action »»»»»', action)
         state.isLoading = false
         state.error = action.payload

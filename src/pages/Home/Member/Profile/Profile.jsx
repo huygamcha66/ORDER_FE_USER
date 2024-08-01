@@ -9,34 +9,34 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button, ConfigProvider, Input, message, Form, Row, Col, Card, Spin } from 'antd'
 import { IoLocationOutline } from 'react-icons/io5'
 // import "../../../common/common.css";
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './index.css'
 import useDecodedToken from '../../../../components/UserInfor'
 import { resetState } from '../../../../redux/cartSlice/cartSlice'
-import { detailMe } from '../../../../redux/userSlice/userSlice'
+import { detailMe, updateMe } from '../../../../redux/userSlice/userSlice'
+import { openNotificationWithIcon } from '../../../../components/Nofitication'
 
 const Profile = () => {
   const [messageApi, contextHolder] = message.useMessage()
-  const { user } = useSelector((state) => state.users)
+  const { user, isUpdate, error } = useSelector((state) => state.users)
   const { decodedToken } = useDecodedToken('token')
   const [form] = Form.useForm()
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    if (decodedToken) {
-      // dispatch(detailMe({ addressIP: navigator.userAgent }));
-      dispatch(resetState())
-    }
-  }, [decodedToken, dispatch])
-
+  const [isLoading, setIsLoading] = useState(false)
   const onFinish = async (values) => {
-    console.log('««««« values »»»»»', {
-      ...values,
-      addressIP: navigator.userAgent
-    })
-    // await dispatch(loginUser(values));
+    setIsLoading(true)
+    dispatch(updateMe({ userName: values.userName, address: values.address, userId: user.user._id }));
   }
-  console.log('««««« user »»»»»', user && user.user && user.user.phoneNumber)
+  useEffect(() => {
+    if (error) {
+      openNotificationWithIcon('error', error.message)
+      setIsLoading(false)
+    }
+    if (isUpdate) {
+      openNotificationWithIcon('success', 'Cập nhật profile thành công')
+      setIsLoading(false)
+    }
+  }, [isUpdate, error])
   return (
     <>
       {user && user.user ? (
@@ -45,7 +45,7 @@ const Profile = () => {
             theme={{
               components: {
                 Message: {
-                  zIndexPopup: 99999
+                  zIndexPopup: 999999
                 }
               }
             }}
@@ -66,6 +66,7 @@ const Profile = () => {
                       labelCol={{ span: 6 }}
                       wrapperCol={{ span: 16 }}
                       form={form}
+                      onFinish={onFinish}
                     >
                       <Form.Item name="email" label="Email">
                         <Input prefix={<MailOutlined />} disabled placeholder="Email" />
@@ -90,9 +91,9 @@ const Profile = () => {
                       </Form.Item>
 
                       <Form.Item wrapperCol={{ xs: 16, offset: 6 }}>
-                        <Button type="primary" htmlType="submit" className="login-form-button">
+                        {!isLoading ? <Button type="primary" htmlType="submit" className="login-form-button">
                           Lưu
-                        </Button>
+                        </Button> : <Spin />}
                       </Form.Item>
                     </Form>
                   </Card>

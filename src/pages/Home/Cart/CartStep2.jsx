@@ -133,11 +133,6 @@ const CartStep2 = () => {
   const [loadingPlace, setLoadingPlace] = useState(false)
 
   const dispatch = useDispatch()
-  // useEffect(() => {
-  //   if (decodedToken) {
-  //     dispatch(getCartDetail({ userId: decodedToken.id }))
-  //   }
-  // }, [decodedToken, dispatch, location.pathname])
   useEffect(() => {
     // Version Old(thiểu return về acc khi không được chọn)
     // const totalDeposit =
@@ -171,10 +166,6 @@ const CartStep2 = () => {
       return setIsModalOpen(true)
     }
     setLoadingPlace(true)
-    console.log(
-      '««««« addressDelivery »»»»»',
-      addressDelivery ? addressDelivery : user.user.address
-    )
     const finalProduct = carts.products
       .filter((product) => product.check)
       .map((product) => ({
@@ -201,8 +192,6 @@ const CartStep2 = () => {
       }, 2000)
     }
   }
-  console.log('««««« loadingPlace »»»»»', loadingPlace)
-  console.log('««««« totalCheckedPrice »»»»»', totalCheckedDeposit && totalCheckedDeposit)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleCancel = () => {
