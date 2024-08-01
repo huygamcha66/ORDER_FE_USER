@@ -24,7 +24,7 @@ const items = [
   },
   {
     label: (
-      <Link style={{ fontWeight: 700 }} to={'/bang-gia'}>
+      <Link style={{ fontWeight: 700 }} to={'/order/list-orders'}>
         ĐƠN HÀNG
       </Link>
     ),

@@ -12,7 +12,8 @@ const initialState = {
   isActive: false,
   isNull: false,
   error: '',
-  user: {}
+  user: {},
+  isUpdate: false
 }
 // Thunk để lấy thông tin chi tiết của người dùng dựa trên addressIP
 const detailMe = createAsyncThunk('user/detailMe', async (addressIP, { rejectWithValue }) => {
@@ -27,6 +28,20 @@ const detailMe = createAsyncThunk('user/detailMe', async (addressIP, { rejectWit
     }
   }
 })
+
+const updateMe = createAsyncThunk('user/updateMe', async (data, { rejectWithValue }) => {
+  try {
+    const response = await axios.patch(`${API_ROOT}/api/v1.0/auth/update-me`, data)
+    return response.data
+  } catch (error) {
+    if (error.response && error.response.data) {
+      return rejectWithValue(error.response.data)
+    } else {
+      throw error
+    }
+  }
+})
+
 
 const registerUser = createAsyncThunk('user/registerUser', async (data, { rejectWithValue }) => {
   try {
@@ -290,7 +305,26 @@ export const userSlice = createSlice({
         state.isLoading = false
         state.error = action.payload
         state.isNull = true
+      })
 
+    // get update me
+    builder
+      .addCase(updateMe.pending, (state) => {
+        state.isLoading = true
+        state.error = null
+        state.isUpdate = false
+      })
+      .addCase(updateMe.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.user = action.payload
+        state.isUpdate = true
+
+      })
+      .addCase(updateMe.rejected, (state, action) => {
+        console.log('««««« action »»»»»', action)
+        state.isLoading = false
+        state.error = action.payload
+        state.isUpdate = false
       })
   }
 })
@@ -305,7 +339,8 @@ export {
   changePasswordUser,
   sendLinkActiveUser,
   logoutUser,
-  detailMe
+  detailMe,
+  updateMe
 }
 // export const { login, logout } = userSlice.actions;
 // // Selectors: Là nơi dành cho các components bên dưới gọi bằng hook useSelector() để lấy dữ liệu từ trong kho redux store ra sử dụng

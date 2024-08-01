@@ -4,8 +4,10 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
-import { Col, Flex, Image, Modal, Row, Space } from 'antd'
-import { getDetailOrder } from '../../../../redux/orderSlice/orderSlice'
+import { Col, ConfigProvider, Flex, Image, Modal, Row, Space, Spin } from 'antd'
+import { complainOrder, getDetailOrder } from '../../../../redux/orderSlice/orderSlice'
+import TextArea from 'antd/es/input/TextArea'
+import { openNotificationWithIcon } from '../../../../components/Nofitication'
 
 const ProductItem = ({ cart }) => {
   return (
@@ -67,88 +69,116 @@ const ProductItem = ({ cart }) => {
 }
 
 const DetailOrder = () => {
-  const { buyProduct } = useSelector((state) => state.carts)
   const { detailOrder } = useSelector((state) => state.orders)
-  const [totalCheckedPrice, setTotalCheckedPrice] = useState(0)
-  const [totalCheckedDeposit, setTotalCheckedDeposit] = useState(0)
+  const [complain, setComplain] = useState()
+  const [loadingPlace, setLoadingPlace] = useState(false)
+
 
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const location = useLocation()
+
   useEffect(() => {
     dispatch(getDetailOrder(location.pathname.split('/')[3]))
   }, [location.pathname])
-  console.log('««««« detailOrder »»»»»', detailOrder)
+
   useEffect(() => {
-    const totalPrice = buyProduct.reduce(
-      (acc, value) => acc + value.price * 3625 * parseInt(value.quantity) * 1.03,
-      0
-    )
-    const totalDeposit = buyProduct.reduce(
-      (acc, value) => acc + value.price * 3625 * parseInt(value.quantity) * 0.7,
-      0
-    )
-    setTotalCheckedDeposit(totalDeposit)
-    setTotalCheckedPrice(totalPrice)
-  }, [buyProduct])
-  const handleSubmit = () => {}
+    setComplain(detailOrder && detailOrder.complainContent)
+  }, [detailOrder])
+  const handleSubmit = async () => {
+    setLoadingPlace(true)
+    try {
+      await dispatch(
+        complainOrder({
+          orderId: detailOrder.id,
+          content: complain,
+        })
+      ).unwrap()
+      openNotificationWithIcon('success', 'Khiếu nại thành công')
+    } catch (error) {
+      openNotificationWithIcon('error', 'Khiếu nại thất bại')
+    } finally {
+      setTimeout(() => {
+        // window.location.reload()
+        setLoadingPlace(false)
+      }, 2000)
+    }
+  }
 
   return (
     <>
-      <Row justify="center">
-        <Col xs={20}>
-          <div>
+      <ConfigProvider
+        theme={{
+          components: {
+            Input: {
+              hoverBorderColor: '#fb5731',
+              activeBorderColor: '#fb5731'
+            }
+          }
+        }}
+      >
+        <Row justify="center">
+          <Col xs={20}>
             <div>
-              <h2>Giỏ hàng</h2>
+              <div>
+                <h2>Giỏ hàng</h2>
 
-              <table
-                style={{
-                  width: '100%',
-                  borderCollapse: 'collapse',
-                  marginBottom: '1em'
-                }}
-              >
-                <thead>
-                  <tr>
-                    <th style={{ border: '1px solid #ddd', padding: '8px' }}>Sản phẩm</th>
-                    <th
-                      style={{
-                        border: '1px solid #ddd',
-                        padding: '8px',
-                        width: '7%'
-                      }}
-                    >
-                      Số lượng
-                    </th>
-                    <th style={{ border: '1px solid #ddd', padding: '8px' }}>Đơn giá</th>
-                    <th style={{ border: '1px solid #ddd', padding: '8px' }}>Tổng tiền</th>
-                  </tr>
-                </thead>
-                {detailOrder &&
-                  detailOrder.productList &&
-                  detailOrder.productList.map((cart, index) => (
-                    <ProductItem key={index} cart={cart} index={index} />
-                  ))}
-              </table>
+                <table
+                  style={{
+                    width: '100%',
+                    borderCollapse: 'collapse',
+                    marginBottom: '1em'
+                  }}
+                >
+                  <thead>
+                    <tr>
+                      <th style={{ border: '1px solid #ddd', padding: '8px' }}>Sản phẩm</th>
+                      <th
+                        style={{
+                          border: '1px solid #ddd',
+                          padding: '8px',
+                          width: '7%'
+                        }}
+                      >
+                        Số lượng
+                      </th>
+                      <th style={{ border: '1px solid #ddd', padding: '8px' }}>Đơn giá</th>
+                      <th style={{ border: '1px solid #ddd', padding: '8px' }}>Tổng tiền</th>
+                    </tr>
+                  </thead>
+                  {detailOrder &&
+                    detailOrder.productList &&
+                    detailOrder.productList.map((cart, index) => (
+                      <ProductItem key={index} cart={cart} index={index} />
+                    ))}
+                </table>
+                <Flex>
+                  {/* huyg */}
+                  <TextArea
+                    value={complain}
+                    disabled={detailOrder && detailOrder.complainContent}
+                    onChange={(e) => setComplain(e.target.value)}
+                    placeholder="Nhập lí do khiếu nại"
+                    autoSize={{
+                      minRows: 3,
+                      maxRows: 6
+                    }}
+                  />
+                </Flex>
+              </div>
             </div>
-          </div>
-          {buyProduct && buyProduct.length > 0 && (
             <Flex justify="space-between" className="wrapper_buy_step_1">
-              <Space>
-                <Space> Tổng tiền cọc (70%):</Space>
-                <span style={{ color: 'red' }}>
-                  {totalCheckedPrice &&
-                    parseInt(totalCheckedDeposit.toFixed(0)).toLocaleString('vi-VN')}
-                  đ
-                </span>
-              </Space>
-              <button onClick={handleSubmit} className="btn_step_1">
-                <Space style={{ padding: '5px' }}> Gửi đơn</Space>
-              </button>
+              {loadingPlace ? (
+                <Spin />
+              ) : (
+                <button disabled={detailOrder && detailOrder.complainContent} onClick={handleSubmit} className="btn_step_1">
+                  <Space style={{ padding: '5px' }}>{detailOrder && detailOrder.complainContent ? 'Đang xử lí' : 'Khiếu nại'}</Space>
+                </button>
+              )}
             </Flex>
-          )}
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+      </ConfigProvider>
+
     </>
   )
 }
