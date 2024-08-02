@@ -20,6 +20,7 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
   const [quantity, setQuantity] = useState(cart.quantity)
   const [api, contextHolder] = notification.useNotification()
   const dispatch = useDispatch()
+  const { user } = useSelector((state) => state.users)
 
   const handleQuantityChange = (e) => {
     const newQuantity = e.target.value
@@ -42,12 +43,12 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
     setIsModalOpen(false)
     openNotificationWithIcon('success', 'Xoá sản phẩm thành công')
   }
-
+  console.log('««««« user »»»»»', user && user.user && user.user.rate);
 
   return (
     <>
       {contextHolder}
-      <tbody>
+      {user && user.user && <tbody>
         <tr>
           <td style={{ border: '1px solid #ddd', padding: '8px' }}>
             <Flex justify="center">
@@ -118,7 +119,7 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
                 <Space style={{ width: '90px' }}>Phí tạm tính:</Space>
                 <span style={{ fontWeight: 'bold' }}>
                   {isCheck
-                    ? `${parseInt((cart.price * 3625 * quantity * 0.03).toFixed(0)).toLocaleString(
+                    ? `${parseInt((cart.price * 3625 * quantity * user.user.rate).toFixed(0)).toLocaleString(
                       'vi-VN'
                     )}
                     đ`
@@ -129,7 +130,7 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
                 <Space style={{ width: '90px' }}>Đặt cọc:</Space>
                 <span style={{ fontWeight: 'bold' }}>
                   {isCheck
-                    ? `${parseInt((cart.price * 3625 * quantity * 0.7 * 1.03).toFixed(0)).toLocaleString(
+                    ? `${parseInt((cart.price * 3625 * quantity * 0.7 * (1 + user.user.rate)).toFixed(0)).toLocaleString(
                       'vi-VN'
                     )}
                     đ`
@@ -140,7 +141,7 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
                 <Space style={{ width: '90px' }}>Tổng:</Space>
                 <span style={{ color: 'red', fontWeight: 'bold' }}>
                   {isCheck
-                    ? `${parseInt((cart.price * 3625 * quantity * 1.03).toFixed(0)).toLocaleString(
+                    ? `${parseInt((cart.price * 3625 * quantity * (1 + user.user.rate)).toFixed(0)).toLocaleString(
                       'vi-VN'
                     )}
                     đ`
@@ -186,14 +187,13 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
             </Flex>
           </td>
         </tr>
-      </tbody>
+      </tbody>}
     </>
   )
 })
 
 const Cart = () => {
   const { carts } = useSelector((state) => state.carts)
-  const { user } = useSelector((state) => state.users)
   const { decodedToken } = useDecodedToken('token')
   const dispatch = useDispatch()
 
@@ -201,6 +201,8 @@ const Cart = () => {
   const [totalCheckedPrice, setTotalCheckedPrice] = useState(0)
   const [checkedStates, setCheckedStates] = useState([])
   const [quantities, setQuantities] = useState([])
+  const { user } = useSelector((state) => state.users)
+
 
   const location = useLocation()
   // useEffect(() => {
@@ -225,17 +227,19 @@ const Cart = () => {
   }, [checkedStates])
 
   useEffect(() => {
-    const totalPrice =
-      carts &&
-      carts.products &&
-      carts.products.reduce((acc, cart, index) => {
-        if (checkedStates[index]) {
-          return acc + cart.price * 3625 * quantities[index]
-        }
-        return acc
-      }, 0)
-    setTotalCheckedPrice(totalPrice * 1.03)
-  }, [checkedStates, quantities, carts])
+    if (user && user.user) {
+      const totalPrice =
+        carts &&
+        carts.products &&
+        carts.products.reduce((acc, cart, index) => {
+          if (checkedStates[index]) {
+            return acc + cart.price * 3625 * quantities[index]
+          }
+          return acc
+        }, 0)
+      setTotalCheckedPrice(totalPrice * (1 + user.user.rate))
+    }
+  }, [checkedStates, quantities, carts, user])
 
   const handleCheckChange = async (index, isChecked, productId) => {
     const newCheckedStates = [...checkedStates]

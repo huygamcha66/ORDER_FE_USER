@@ -19,6 +19,7 @@ import useDecodedToken from '../../../components/UserInfor'
 
 const ProductItem = ({ cart, onDelete }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const { user } = useSelector((state) => state.users)
 
   const showModal = () => {
     setIsModalOpen(true)
@@ -33,94 +34,97 @@ const ProductItem = ({ cart, onDelete }) => {
     openNotificationWithIcon('success', 'Xoá sản phẩm thành công')
   }
   return (
-    <tbody>
-      <tr>
-        <td style={{ border: '1px solid #ddd', padding: '8px', width: '40%' }}>
-          <div style={{ display: 'flex' }}>
-            {cart.coverImageUrl.startsWith('https') ? (
-              <img
-                src={cart.coverImageUrl}
-                alt="Sản phẩm"
-                style={{
-                  width: '50px',
-                  marginRight: '10px',
-                  height: '50px'
-                }}
-              />
-            ) : (
-              <video
-                // className="hoverVideo"
-                className="video_thumbnail"
-                src={`https:${cart.coverImageUrl}`}
-                style={{ width: '50px', height: '50px', marginRight: '10px' }}
-                controls={false}
-              >
-                Trình duyệt không hỗ trợ ảnh
-              </video>
-            )}
-            <Space style={{ color: '#000' }}>{cart.name}</Space>
-          </div>
-        </td>
-        <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-          <Flex justify="center">{cart.quantity}</Flex>
-        </td>
-        <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-          <Flex justify="center">
-            {parseInt((cart.price * 3625 * 1.03).toFixed(0)).toLocaleString('vi-VN')} đ
-          </Flex>
-        </td>
-        <td
-          style={{
-            border: '1px solid #ddd',
-            padding: '8px',
-            fontWeight: 'bolder'
-          }}
-        >
-          <Flex justify="center">
-            {parseInt((cart.price * 3625 * 1.03 * cart.quantity).toFixed(0)).toLocaleString(
-              'vi-VN'
-            )}{' '}
-            đ
-          </Flex>
-        </td>
-        <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-          <Flex justify="center">
-            <button
-              onClick={showModal}
+    <>
+      {user && user.user && (
+        <tbody>
+          <tr>
+            <td style={{ border: '1px solid #ddd', padding: '8px', width: '40%' }}>
+              <div style={{ display: 'flex' }}>
+                {cart.coverImageUrl.startsWith('https') ? (
+                  <img
+                    src={cart.coverImageUrl}
+                    alt="Sản phẩm"
+                    style={{
+                      width: '50px',
+                      marginRight: '10px',
+                      height: '50px'
+                    }}
+                  />
+                ) : (
+                  <video
+                    // className="hoverVideo"
+                    className="video_thumbnail"
+                    src={`https:${cart.coverImageUrl}`}
+                    style={{ width: '50px', height: '50px', marginRight: '10px' }}
+                    controls={false}
+                  >
+                    Trình duyệt không hỗ trợ ảnh
+                  </video>
+                )}
+                <Space style={{ color: '#000' }}>{cart.name}</Space>
+              </div>
+            </td>
+            <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+              <Flex justify="center">{cart.quantity}</Flex>
+            </td>
+            <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+              <Flex justify="center">
+                {parseInt((cart.price * 3625 * (1 + user.user.rate)).toFixed(0)).toLocaleString('vi-VN')} đ
+              </Flex>
+            </td>
+            <td
               style={{
-                background: 'none',
-                border: 'none',
-                color: 'red',
-                cursor: 'pointer'
+                border: '1px solid #ddd',
+                padding: '8px',
+                fontWeight: 'bolder'
               }}
             >
-              <MdOutlineDelete style={{ width: '20px', height: '20px' }} />
-            </button>
-            <Modal
-              title="Bạn muốn xoá sản phẩm này chứ?"
-              open={isModalOpen}
-              onOk={handleConfirmDelete}
-              onCancel={handleCancel}
-              cancelButtonProps={{
-                style: {
-                  backgroundColor: '#f5222d',
-                  borderColor: '#f5222d',
-                  color: '#fff'
-                }
-              }}
-              okButtonProps={{
-                style: {
-                  backgroundColor: '#ccc',
-                  color: '#000'
-                }
-              }}
-              okText="Có"
-              cancelText="Không"
-            ></Modal>
-          </Flex>
-        </td>
-      </tr>
-    </tbody>
+              <Flex justify="center">
+                {parseInt((cart.price * 3625 * (1 + user.user.rate) * cart.quantity).toFixed(0)).toLocaleString(
+                  'vi-VN'
+                )}{' '}
+                đ
+              </Flex>
+            </td>
+            <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+              <Flex justify="center">
+                <button
+                  onClick={showModal}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: 'red',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <MdOutlineDelete style={{ width: '20px', height: '20px' }} />
+                </button>
+                <Modal
+                  title="Bạn muốn xoá sản phẩm này chứ?"
+                  open={isModalOpen}
+                  onOk={handleConfirmDelete}
+                  onCancel={handleCancel}
+                  cancelButtonProps={{
+                    style: {
+                      backgroundColor: '#f5222d',
+                      borderColor: '#f5222d',
+                      color: '#fff'
+                    }
+                  }}
+                  okButtonProps={{
+                    style: {
+                      backgroundColor: '#ccc',
+                      color: '#000'
+                    }
+                  }}
+                  okText="Có"
+                  cancelText="Không"
+                ></Modal>
+              </Flex>
+            </td>
+          </tr>
+        </tbody>
+      )}</>
   )
 }
 
@@ -131,6 +135,7 @@ const CartStep2 = () => {
   const { decodedToken } = useDecodedToken('token')
   const [addressDelivery, setAddressDelivery] = useState()
   const [loadingPlace, setLoadingPlace] = useState(false)
+
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -143,20 +148,22 @@ const CartStep2 = () => {
     //     if (value.check) return acc + value.price * 3625 * value.quantity * 0.7;
     //   }, 0);
     // improve: đọc comt
-    const totalDeposit =
-      carts &&
-      carts.products &&
-      carts.products.reduce((acc, value) => {
-        if (value.check) {
-          // Tính tiền đặt cọc cho sản phẩm nếu đã chọn
-          return acc + value.price * 3625 * value.quantity * 0.7 * 1.03
-        }
-        // Nếu sản phẩm không được chọn, trả lại giá trị hiện tại của acc
-        return acc
-      }, 0)
+    if (user && user.user) {
+      const totalDeposit =
+        carts &&
+        carts.products &&
+        carts.products.reduce((acc, value) => {
+          if (value.check) {
+            // Tính tiền đặt cọc cho sản phẩm nếu đã chọn
+            return acc + value.price * 3625 * value.quantity * 0.7 * (1 + user.user.rate)
+          }
+          // Nếu sản phẩm không được chọn, trả lại giá trị hiện tại của acc
+          return acc
+        }, 0)
+      setTotalCheckedDeposit(totalDeposit)
 
-    setTotalCheckedDeposit(totalDeposit)
-  }, [carts, success])
+    }
+  }, [carts, success, user])
 
   const handleSubmit = async () => {
     if (
