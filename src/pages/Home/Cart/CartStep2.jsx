@@ -167,7 +167,7 @@ const CartStep2 = () => {
 
   const handleSubmit = async () => {
     if (
-      user?.user?.accountBalance &&
+      (!user.user.accountBalance) || user?.user?.accountBalance &&
       parseInt(user.user.accountBalance.toFixed(0)) < parseInt(totalCheckedDeposit.toFixed(0))
     ) {
       return setIsModalOpen(true)

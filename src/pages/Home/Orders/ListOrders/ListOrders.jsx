@@ -62,16 +62,21 @@ const ProductItem = ({ order }) => {
           <td style={{ border: '1px solid #ddd', padding: '8px' }}>
             <Flex vertical>
               <Space style={{ padding: '4px 0px' }}>
-                <Space style={{ width: '80px' }}>Tiền hàng:</Space>
+                <Space style={{ width: '100px' }}>Tiền hàng:</Space>
                 {parseInt(order.purchaseFee + order.remaining).toLocaleString()}(vnđ)
               </Space>
               <Space style={{ padding: '4px 0px' }}>
-                <Space style={{ width: '80px' }}>Đã cọc:</Space>
+                <Space style={{ width: '100px' }}>Đã cọc:</Space>
                 {parseInt((order.purchaseFee)).toLocaleString()}
                 (vnđ)
               </Space>
               <Space style={{ padding: '4px 0px' }}>
-                <Space style={{ width: '80px' }}>Còn lại:</Space>
+                <Space style={{ width: '100px' }}>Đã thanh toán:</Space>
+                {parseInt((order.paidFee + order.deposit)).toLocaleString()}
+                (vnđ)
+              </Space>
+              <Space style={{ padding: '4px 0px' }}>
+                <Space style={{ width: '100px' }}>Còn lại:</Space>
                 {parseInt((order.remaining)).toLocaleString()}
                 (vnđ)
               </Space>

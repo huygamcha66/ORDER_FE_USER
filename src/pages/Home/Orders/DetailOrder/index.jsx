@@ -9,7 +9,7 @@ import { complainOrder, getDetailOrder } from '../../../../redux/orderSlice/orde
 import TextArea from 'antd/es/input/TextArea'
 import { openNotificationWithIcon } from '../../../../components/Nofitication'
 
-const ProductItem = ({ cart }) => {
+const ProductItem = ({ cart, rateOrder }) => {
   return (
     <tbody>
       <tr>
@@ -46,7 +46,12 @@ const ProductItem = ({ cart }) => {
         </td>
         <td style={{ border: '1px solid #ddd', padding: '8px' }}>
           <Flex justify="center">
-            {parseInt((cart.price * 3625 * 1.03).toFixed(0)).toLocaleString('vi-VN')} đ
+            {parseInt((cart.price * 3625).toFixed(0)).toLocaleString('vi-VN')} đ
+          </Flex>
+        </td>
+        <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+          <Flex justify="center">
+            {rateOrder * 100} %
           </Flex>
         </td>
         <td
@@ -57,9 +62,9 @@ const ProductItem = ({ cart }) => {
           }}
         >
           <Flex justify="center">
-            {parseInt((cart.price * 3625 * 1.03 * cart.quantity).toFixed(0)).toLocaleString(
+            {parseInt((cart.price * 3625 * cart.quantity * (1 + rateOrder)).toFixed(0)).toLocaleString(
               'vi-VN'
-            )}{' '}
+            )}
             đ
           </Flex>
         </td>
@@ -72,11 +77,9 @@ const DetailOrder = () => {
   const { detailOrder } = useSelector((state) => state.orders)
   const [complain, setComplain] = useState()
   const [loadingPlace, setLoadingPlace] = useState(false)
-
-
   const dispatch = useDispatch()
   const location = useLocation()
-
+  console.log('««««« detailOrder »»»»»', detailOrder);
   useEffect(() => {
     dispatch(getDetailOrder(location.pathname.split('/')[3]))
   }, [location.pathname])
@@ -84,6 +87,7 @@ const DetailOrder = () => {
   useEffect(() => {
     setComplain(detailOrder && detailOrder.complainContent)
   }, [detailOrder])
+
   const handleSubmit = async () => {
     setLoadingPlace(true)
     try {
@@ -142,15 +146,23 @@ const DetailOrder = () => {
                         Số lượng
                       </th>
                       <th style={{ border: '1px solid #ddd', padding: '8px' }}>Đơn giá</th>
+                      <th style={{ border: '1px solid #ddd', padding: '8px' }}>Phí mua hàng</th>
                       <th style={{ border: '1px solid #ddd', padding: '8px' }}>Tổng tiền</th>
                     </tr>
                   </thead>
                   {detailOrder &&
                     detailOrder.productList &&
                     detailOrder.productList.map((cart, index) => (
-                      <ProductItem key={index} cart={cart} index={index} />
+                      <ProductItem rateOrder={detailOrder.rateOrder} key={index} cart={cart} index={index} />
                     ))}
                 </table>
+                <Flex style={{ marginBottom: '20px' }} vertical>
+                  <Flex><Space style={{ width: '100px', marginBottom: '10px' }}>Tiền hàng:</Space> {parseInt(detailOrder.purchaseFee + detailOrder.remaining).toLocaleString()} VNĐ</Flex>
+                  <Flex><Space style={{ width: '100px', marginBottom: '10px' }}>Đã cọc:</Space> {parseInt(detailOrder.deposit).toLocaleString()} VNĐ</Flex>
+                  <Flex><Space style={{ width: '100px', marginBottom: '10px' }}>Đã trả:</Space> {parseInt(detailOrder.paidFee + detailOrder.deposit).toLocaleString()} VNĐ</Flex>
+                  <Flex><Space style={{ width: '100px' }}>Còn lại:</Space> {parseInt(detailOrder.remaining).toLocaleString()} VNĐ</Flex>
+                </Flex>
+
                 <Flex>
                   {/* huyg */}
                   <TextArea
