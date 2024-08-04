@@ -62,23 +62,27 @@ const ProductItem = ({ order }) => {
           <td style={{ border: '1px solid #ddd', padding: '8px' }}>
             <Flex vertical>
               <Space style={{ padding: '4px 0px' }}>
-                <Space style={{ width: '100px' }}>Tiền hàng:</Space>
-                {parseInt(order.purchaseFee + order.remaining).toLocaleString()}(vnđ)
+                <Space style={{ width: '120px' }}>Tiền hàng:</Space>
+                {parseInt(order.purchaseFee + order.remaining).toLocaleString()}(VND)
               </Space>
               <Space style={{ padding: '4px 0px' }}>
-                <Space style={{ width: '100px' }}>Đã cọc:</Space>
+                <Space style={{ width: '120px' }}>Đã cọc:</Space>
                 {parseInt((order.purchaseFee)).toLocaleString()}
-                (vnđ)
+                (VND)
               </Space>
               <Space style={{ padding: '4px 0px' }}>
-                <Space style={{ width: '100px' }}>Đã thanh toán:</Space>
-                {parseInt((order.paidFee + order.deposit)).toLocaleString()}
-                (vnđ)
+                <Space style={{ width: '120px' }}>Đã thanh toán:</Space>
+                {parseInt((order.paidFee)).toLocaleString()}
+                (VND)
               </Space>
               <Space style={{ padding: '4px 0px' }}>
-                <Space style={{ width: '100px' }}>Còn lại:</Space>
+                <Space style={{ width: '120px' }}>Phí vận chuyển:</Space>
+                {order.transportFee ? `${parseInt(order.transportFee).toLocaleString()} VNĐ ` : 'Đang cập nhật'}
+              </Space>
+              <Space style={{ padding: '4px 0px' }}>
+                <Space style={{ width: '120px' }}>Còn lại:</Space>
                 {parseInt((order.remaining)).toLocaleString()}
-                (vnđ)
+                (VND)
               </Space>
             </Flex>
           </td>
