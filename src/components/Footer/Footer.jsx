@@ -49,15 +49,19 @@ const Footer = () => {
             <Col xs={24} sm={8}>
               <Flex vertical>
                 <Space className="footer_header">HỖ TRỢ KHÁCH HÀNG</Space>
+                <a className="header_color_item" href="tel:0703.384.888">
+                  <Space>Hotline: 0703.384.888</Space>
+                  0703384888
+                </a>
                 <a className="header_color_item" href="tel:0931.943.439">
                   <Space>Hỗ trợ khách hàng: 0931.943.439</Space>
                 </a>
                 <a className="header_color_item" href="tel:0931.943.439">
                   <Space>Hỗ trợ nạp tiền: 0931.943.439</Space>
                 </a>
-                <a className="header_color_item" href="tel:0931.943.439">
+                {/* <a className="header_color_item" href="tel:0931.943.439">
                   <Space>Hỗ trợ giao nhận: 0931.943.439</Space>
-                </a>
+                </a> */}
                 <a className="header_color_item" href="tel:0931.943.439">
                   <Space>Hỗ trợ khiếu nại(huỷ đơn): 0931.943.439</Space>
                 </a>
