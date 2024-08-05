@@ -37,8 +37,10 @@ const ProductItem = ({ order }) => {
   const STATUS_ORDER_MAP = {
     1: 'Đã cọc',
     2: 'Đang mua hàng',
-    3: 'Đã về kho Trung Quốc',
-    4: 'Đang vận chuyển về Việt Nam',
+    // tuetc
+    // 3: 'Đã về kho Trung Quốc',
+    // 4: 'Đang vận chuyển về Việt Nam',
+    3: 'Đã mua hàng',
     5: 'Đã về kho VN',
     6: 'Sẵn sàng giao hàng',
     7: 'Hoàn thành',
