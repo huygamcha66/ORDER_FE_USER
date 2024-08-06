@@ -10,13 +10,13 @@ import { FaEye } from 'react-icons/fa'
 
 import { resetState } from '../../../../redux/cartSlice/cartSlice'
 import { listOrderMe } from '../../../../redux/orderSlice/orderSlice'
+import moment from 'moment-timezone'
 
 const ProductItem = ({ order }) => {
   const [quantity, setQuantity] = useState(1)
   const [api, contextHolder] = notification.useNotification()
   const dispatch = useDispatch()
   const { isDelete } = useSelector((state) => state.carts)
-  const { decodedToken } = useDecodedToken('token')
   console.log('««««« order »»»»»', order)
   // useEffect(() => {
   //   setQuantity(1);
@@ -59,13 +59,16 @@ const ProductItem = ({ order }) => {
             <Flex justify="center">{order._id}</Flex>
           </td>
           <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+            <Flex justify="center"> {moment(order.createdAt).tz('Asia/Ho_Chi_Minh').format('HH:mm:ss DD-MM-YYYY')}</Flex>
+          </td>
+          <td style={{ border: '1px solid #ddd', padding: '8px' }}>
             <Flex justify="center"> {STATUS_ORDER_MAP[order.status]}</Flex>
           </td>
           <td style={{ border: '1px solid #ddd', padding: '8px' }}>
             <Flex vertical>
               <Space style={{ padding: '4px 0px' }}>
                 <Space style={{ width: '120px' }}>Tiền hàng:</Space>
-                {parseInt(order.purchaseFee + order.remaining).toLocaleString()}(VND)
+                {parseInt(order.totalOrder).toLocaleString()}(VND)
               </Space>
               <Space style={{ padding: '4px 0px' }}>
                 <Space style={{ width: '120px' }}>Đã cọc:</Space>
@@ -186,7 +189,16 @@ const ListOrders = () => {
                     style={{
                       border: '1px solid #ddd',
                       padding: '8px',
-                      width: '30%'
+                      width: '15%'
+                    }}
+                  >
+                    Ngày mua hàng
+                  </th>
+                  <th
+                    style={{
+                      border: '1px solid #ddd',
+                      padding: '8px',
+                      width: '15%'
                     }}
                   >
                     Trạng thái
@@ -217,10 +229,6 @@ const ListOrders = () => {
                     <ProductItem
                       key={index}
                       order={order}
-                      index={index}
-                      isCheck={checkedStates[index]}
-                      onCheckChange={handleCheckChange}
-                      onQuantityChange={handleQuantityChange}
                     />
                   )
                 })

@@ -15,8 +15,10 @@ import { Checkbox, Col, Empty, Flex, Image, Input, Modal, notification, Row, Spa
 import useDecodedToken from '../../../components/UserInfor'
 import { MdOutlineDelete } from 'react-icons/md'
 import { openNotificationWithIcon } from '../../../components/Nofitication'
+import { API_ROOT } from '../../../utils/constants'
+import axios from 'axios'
 
-const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChange, onDelete }) => {
+const ProductItem = memo(({rate, cart, index, isCheck, onCheckChange, onQuantityChange, onDelete }) => {
   const [quantity, setQuantity] = useState(cart.quantity)
   const [api, contextHolder] = notification.useNotification()
   const dispatch = useDispatch()
@@ -43,7 +45,6 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
     setIsModalOpen(false)
     openNotificationWithIcon('success', 'Xoá sản phẩm thành công')
   }
-  console.log('««««« user »»»»»', user && user.user && user.user.rate);
 
   return (
     <>
@@ -91,7 +92,7 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
             <Input type="number" value={quantity} min={1} onChange={handleQuantityChange} />
           </td>
           <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-            {parseInt((cart.price * 3625).toFixed(0)).toLocaleString('vi-VN')} đ
+            {parseInt((cart.price * rate).toFixed(0)).toLocaleString('vi-VN')} đ
             <br />¥{cart.price.toLocaleString('zh-CN')}
           </td>
           <td
@@ -101,7 +102,7 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
               fontWeight: 'bolder'
             }}
           >
-            {parseInt((cart.price * 3625 * quantity).toFixed(0)).toLocaleString('vi-VN')} đ
+            {parseInt((cart.price * rate * quantity).toFixed(0)).toLocaleString('vi-VN')} đ
             <br />¥{(cart.price * quantity).toLocaleString('zh-CN')}
           </td>
           <td style={{ border: '1px solid #ddd', padding: '8px' }}>
@@ -110,7 +111,7 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
                 <Space style={{ width: '90px' }}>Tiền hàng:</Space>
                 <span style={{ fontWeight: 'bold' }}>
                   {isCheck
-                    ? `${parseInt((cart.price * 3625 * quantity).toFixed(0)).toLocaleString('vi-VN')}
+                    ? `${parseInt((cart.price * rate * quantity).toFixed(0)).toLocaleString('vi-VN')}
                     đ`
                     : 0}
                 </span>
@@ -119,7 +120,7 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
                 <Space style={{ width: '90px' }}>Phí tạm tính:</Space>
                 <span style={{ fontWeight: 'bold' }}>
                   {isCheck
-                    ? `${parseInt((cart.price * 3625 * quantity * user.user.rate).toFixed(0)).toLocaleString(
+                    ? `${parseInt((cart.price * rate * quantity * user.user.rate).toFixed(0)).toLocaleString(
                       'vi-VN'
                     )}
                     đ`
@@ -130,7 +131,7 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
                 <Space style={{ width: '90px' }}>Đặt cọc:</Space>
                 <span style={{ fontWeight: 'bold' }}>
                   {isCheck
-                    ? `${parseInt((cart.price * 3625 * quantity * 0.7 * (1 + user.user.rate)).toFixed(0)).toLocaleString(
+                    ? `${parseInt((cart.price * rate * quantity * 0.7 * (1 + user.user.rate)).toFixed(0)).toLocaleString(
                       'vi-VN'
                     )}
                     đ`
@@ -141,7 +142,7 @@ const ProductItem = memo(({ cart, index, isCheck, onCheckChange, onQuantityChang
                 <Space style={{ width: '90px' }}>Tổng:</Space>
                 <span style={{ color: 'red', fontWeight: 'bold' }}>
                   {isCheck
-                    ? `${parseInt((cart.price * 3625 * quantity * (1 + user.user.rate)).toFixed(0)).toLocaleString(
+                    ? `${parseInt((cart.price * rate * quantity * (1 + user.user.rate)).toFixed(0)).toLocaleString(
                       'vi-VN'
                     )}
                     đ`
@@ -202,15 +203,18 @@ const Cart = () => {
   const [checkedStates, setCheckedStates] = useState([])
   const [quantities, setQuantities] = useState([])
   const { user } = useSelector((state) => state.users)
-
-
-  const location = useLocation()
-  // useEffect(() => {
-  //   if (decodedToken) {
-  //     dispatch(getCartDetail({ userId: decodedToken.id }))
-  //   }
-  // }, [decodedToken, dispatch, location.pathname])
-
+  const [rate, setRate] = useState()
+  useEffect(() => {
+    const fetchRate = async () => {
+      try {
+        const payload = await axios.get(`${API_ROOT}/api/v1.0/rates/getCurrentRate`)
+        setRate(payload.data && payload.data.payload[0].value)
+      } catch (error) {
+        console.log('««««« error »»»»»', error);
+      }
+    }
+    fetchRate()
+  }, [])
   useEffect(() => {
     if (carts && carts.products) {
       const newCheckedStates = carts.products.map((cart) => cart.check)
@@ -227,19 +231,19 @@ const Cart = () => {
   }, [checkedStates])
 
   useEffect(() => {
-    if (user && user.user) {
+    if (user && user.user && rate) {
       const totalPrice =
         carts &&
         carts.products &&
         carts.products.reduce((acc, cart, index) => {
           if (checkedStates[index]) {
-            return acc + cart.price * 3625 * quantities[index]
+            return acc + cart.price * rate * quantities[index]
           }
           return acc
         }, 0)
       setTotalCheckedPrice(totalPrice * (1 + user.user.rate))
     }
-  }, [checkedStates, quantities, carts, user])
+  }, [checkedStates, quantities, carts, user, rate])
 
   const handleCheckChange = async (index, isChecked, productId) => {
     const newCheckedStates = [...checkedStates]
@@ -493,6 +497,7 @@ const Cart = () => {
                 {carts && carts.products ? (
                   carts.products.map((cart, index) => (
                     <ProductItem
+                      rate={rate}
                       key={index}
                       cart={cart}
                       index={index}

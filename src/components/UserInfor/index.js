@@ -17,23 +17,16 @@ const useDecodedToken = (tokenKey) => {
         const token = JSON.parse(localStorage.getItem(tokenKey))
           ? JSON.parse(localStorage.getItem(tokenKey))
           : false // Lấy token từ local storage
-        console.log('««««« token »»»»»', token);
         if (!token) {
           localStorage.clear()
         }
         if (token) {
-          console.log('««««« 123333 »»»»»', 123333);
           const decoded = jwtDecode(token) // Decode token
           const currentDate = Date.now() / 1000 // đổi sang giây
           // fix, không vo được dây
-          console.log('««««« currentDate »»»»»', currentDate);
-          console.log('«««««  decoded.exp »»»»»', decoded.exp);
           if (currentDate > decoded.exp) {
-            console.log('««««« 555 »»»»»', 555);
-            console.log('««««« decodedToken »»»»»', decoded.id);
             await dispatch(logoutUser(decoded.id)).unwind()
             localStorage.clear()
-            console.log('««««« 999 »»»»»', 999);
             navigate('/login')
           } else {
             setDecodedToken(decoded)

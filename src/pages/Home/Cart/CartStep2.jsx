@@ -16,8 +16,10 @@ const { TextArea } = Input
 import './Cart.css'
 import { openNotificationWithIcon } from '../../../components/Nofitication'
 import useDecodedToken from '../../../components/UserInfor'
+import axios from 'axios'
+import { API_ROOT } from '../../../utils/constants'
 
-const ProductItem = ({ cart, onDelete }) => {
+const ProductItem = ({ cart, onDelete, rate }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { user } = useSelector((state) => state.users)
 
@@ -67,10 +69,14 @@ const ProductItem = ({ cart, onDelete }) => {
             <td style={{ border: '1px solid #ddd', padding: '8px' }}>
               <Flex justify="center">{cart.quantity}</Flex>
             </td>
+
             <td style={{ border: '1px solid #ddd', padding: '8px' }}>
               <Flex justify="center">
-                {parseInt((cart.price * 3625 * (1 + user.user.rate)).toFixed(0)).toLocaleString('vi-VN')} đ
+                {parseInt((cart.price * rate * (1 + user.user.rate)).toFixed(0)).toLocaleString('vi-VN')} đ
               </Flex>
+            </td>
+            <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+              <Flex justify="center">{rate.toLocaleString()}</Flex>
             </td>
             <td
               style={{
@@ -80,12 +86,13 @@ const ProductItem = ({ cart, onDelete }) => {
               }}
             >
               <Flex justify="center">
-                {parseInt((cart.price * 3625 * (1 + user.user.rate) * cart.quantity).toFixed(0)).toLocaleString(
+                {parseInt((cart.price * rate * (1 + user.user.rate) * cart.quantity).toFixed(0)).toLocaleString(
                   'vi-VN'
                 )}{' '}
                 đ
               </Flex>
             </td>
+
             <td style={{ border: '1px solid #ddd', padding: '8px' }}>
               <Flex justify="center">
                 <button
@@ -135,7 +142,18 @@ const CartStep2 = () => {
   const { decodedToken } = useDecodedToken('token')
   const [addressDelivery, setAddressDelivery] = useState()
   const [loadingPlace, setLoadingPlace] = useState(false)
-
+  const [rate, setRate] = useState()
+  useEffect(() => {
+    const fetchRate = async () => {
+      try {
+        const payload = await axios.get(`${API_ROOT}/api/v1.0/rates/getCurrentRate`)
+        setRate(payload.data && payload.data.payload[0].value)
+      } catch (error) {
+        console.log('««««« error »»»»»', error);
+      }
+    }
+    fetchRate()
+  }, [])
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -145,17 +163,17 @@ const CartStep2 = () => {
     //   carts.products &&
     //   carts.products.reduce((acc, value) => {
     //     console.log("««««« value »»»»»", value);
-    //     if (value.check) return acc + value.price * 3625 * value.quantity * 0.7;
+    //     if (value.check) return acc + value.price * rate * value.quantity * 0.7;
     //   }, 0);
     // improve: đọc comt
-    if (user && user.user) {
+    if (user && user.user && rate) {
       const totalDeposit =
         carts &&
         carts.products &&
         carts.products.reduce((acc, value) => {
           if (value.check) {
             // Tính tiền đặt cọc cho sản phẩm nếu đã chọn
-            return acc + value.price * 3625 * value.quantity * 0.7 * (1 + user.user.rate)
+            return acc + value.price * rate * value.quantity * 0.7 * (1 + user.user.rate)
           }
           // Nếu sản phẩm không được chọn, trả lại giá trị hiện tại của acc
           return acc
@@ -163,7 +181,7 @@ const CartStep2 = () => {
       setTotalCheckedDeposit(totalDeposit)
 
     }
-  }, [carts, success, user])
+  }, [carts, success, user, rate])
 
   const handleSubmit = async () => {
     if (
@@ -186,7 +204,8 @@ const CartStep2 = () => {
           userId: decodedToken.id,
           productList: finalProduct,
           purchaseFee: totalCheckedDeposit.toFixed(0),
-          deliveryAddress: addressDelivery ? addressDelivery : user.user.address
+          deliveryAddress: addressDelivery ? addressDelivery : user.user.address,
+          rateMoney: rate
         })
       ).unwrap()
       openNotificationWithIcon('success', 'Đặt hàng thành công')
@@ -266,6 +285,7 @@ const CartStep2 = () => {
                           Số lượng
                         </th>
                         <th style={{ border: '1px solid #ddd', padding: '8px' }}>Đơn giá</th>
+                        <th style={{ border: '1px solid #ddd', padding: '8px' }}>Tỉ giá</th>
                         <th style={{ border: '1px solid #ddd', padding: '8px' }}>Tổng tiền</th>
                         <th
                           style={{
@@ -282,6 +302,7 @@ const CartStep2 = () => {
                         if (cart.check) {
                           return (
                             <ProductItem
+                              rate={rate}
                               onDelete={handleDelete}
                               key={index}
                               cart={cart}
