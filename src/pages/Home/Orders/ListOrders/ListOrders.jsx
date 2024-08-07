@@ -13,11 +13,9 @@ import { listOrderMe } from '../../../../redux/orderSlice/orderSlice'
 import moment from 'moment-timezone'
 
 const ProductItem = ({ order }) => {
-  const [quantity, setQuantity] = useState(1)
   const [api, contextHolder] = notification.useNotification()
   const dispatch = useDispatch()
   const { isDelete } = useSelector((state) => state.carts)
-  console.log('««««« order »»»»»', order)
   // useEffect(() => {
   //   setQuantity(1);
   // }, [cart]);
@@ -56,7 +54,7 @@ const ProductItem = ({ order }) => {
       <tbody>
         <tr>
           <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-            <Flex justify="center">{order._id}</Flex>
+            <Flex justify="center">{order.idOrderTq ? order.idOrderTq : 'Đang cập nhật'}</Flex>
           </td>
           <td style={{ border: '1px solid #ddd', padding: '8px' }}>
             <Flex justify="center"> {moment(order.createdAt).tz('Asia/Ho_Chi_Minh').format('HH:mm:ss DD-MM-YYYY')}</Flex>

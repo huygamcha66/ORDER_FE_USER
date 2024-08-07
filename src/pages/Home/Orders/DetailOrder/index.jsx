@@ -157,12 +157,13 @@ const DetailOrder = () => {
                     ))}
                 </table>
                 <Flex style={{ marginBottom: '20px' }} vertical>
-                  <Flex><Space style={{ width: '120px', marginBottom: '10px' }}>Tiền hàng:</Space> {parseInt(detailOrder.totalOrder).toLocaleString()} VNĐ</Flex>
-                  <Flex><Space style={{ width: '120px', marginBottom: '10px' }}>Tỉ giá:</Space> {parseInt(detailOrder.rateMoney).toLocaleString()} VNĐ</Flex>
-                  <Flex><Space style={{ width: '120px', marginBottom: '10px' }}>Đã cọc:</Space> {parseInt(detailOrder.deposit).toLocaleString()} VNĐ</Flex>
-                  <Flex><Space style={{ width: '120px', marginBottom: '10px' }}>Phí vận chuyển:</Space> {detailOrder.transportFee ? `${parseInt(detailOrder.transportFee).toLocaleString()} VNĐ ` : 'Đang cập nhật'} </Flex>
-                  <Flex><Space style={{ width: '120px', marginBottom: '10px' }}>Đã thanh toán:</Space> {parseInt(detailOrder.paidFee).toLocaleString()} VNĐ</Flex>
-                  <Flex><Space style={{ width: '120px' }}>Còn lại:</Space> {parseInt(detailOrder.remaining).toLocaleString()} VNĐ</Flex>
+                  <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Đã cọc:</Space> {parseInt(detailOrder.deposit).toLocaleString()} VNĐ</Flex>
+                  <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Phí vận chuyển nội địa Trung:</Space> {detailOrder.transportFeeTq ? `${parseInt(detailOrder.transportFeeTq).toLocaleString()} VNĐ ` : 'Đang cập nhật'} </Flex>
+                  <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Phí vận chuyển về VN:</Space> {detailOrder.transportFee ? `${parseInt(detailOrder.transportFee).toLocaleString()} VNĐ ` : 'Đang cập nhật'} </Flex>
+                  <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Tiền hàng:</Space> {parseInt(detailOrder.totalOrder + detailOrder.transportFeeTq).toLocaleString()} VNĐ</Flex>
+                  <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Giảm giá:</Space> {parseInt(detailOrder.orderDiscount).toLocaleString()} VNĐ</Flex>
+                  <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Đã thanh toán:</Space> {parseInt(detailOrder.paidFee).toLocaleString()} VNĐ</Flex>
+                  <Flex><Space style={{ width: '250px' }}>Còn lại:</Space> {parseInt(detailOrder.remaining + detailOrder.transportFeeTq - detailOrder.orderDiscount).toLocaleString()} VNĐ</Flex>
                 </Flex>
 
                 <Flex>
