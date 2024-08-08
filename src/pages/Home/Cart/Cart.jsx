@@ -18,7 +18,7 @@ import { openNotificationWithIcon } from '../../../components/Nofitication'
 import { API_ROOT } from '../../../utils/constants'
 import axios from 'axios'
 
-const ProductItem = memo(({rate, cart, index, isCheck, onCheckChange, onQuantityChange, onDelete }) => {
+const ProductItem = memo(({ rate, cart, index, isCheck, onCheckChange, onQuantityChange, onDelete }) => {
   const [quantity, setQuantity] = useState(cart.quantity)
   const [api, contextHolder] = notification.useNotification()
   const dispatch = useDispatch()
@@ -83,9 +83,13 @@ const ProductItem = memo(({rate, cart, index, isCheck, onCheckChange, onQuantity
                   Trình duyệt không hỗ trợ ảnh
                 </video>
               )}
-              <a target="_blank" className="cart_name" href={cart.productUrl}>
-                {cart.name}
-              </a>
+              <Flex vertical gap={10}>
+                <a style={{ color: '#000' }} target="_blank" href={cart.productUrl}>
+                  {cart.name}
+                </a>
+                <Space>  {cart.productSize}</Space>
+                <Space>  {cart.productColor}</Space>
+              </Flex>
             </div>
           </td>
           <td style={{ border: '1px solid #ddd', padding: '8px' }}>

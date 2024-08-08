@@ -36,9 +36,13 @@ const ProductItem = ({ cart, rateOrder }) => {
                 Trình duyệt không hỗ trợ ảnh
               </video>
             )}
-            <a style={{ color: '#000' }} target="_blank" href={cart.productUrl}>
-              {cart.name}
-            </a>
+            <Flex vertical gap={10}>
+              <a style={{ color: '#000' }} target="_blank" href={cart.productUrl}>
+                {cart.name}
+              </a>
+              <Space>  {cart.productSize}</Space>
+              <Space>  {cart.productColor }</Space>
+            </Flex>
           </div>
         </td>
         <td style={{ border: '1px solid #ddd', padding: '8px' }}>

@@ -63,7 +63,13 @@ const ProductItem = ({ cart, onDelete, rate }) => {
                     Trình duyệt không hỗ trợ ảnh
                   </video>
                 )}
-                <Space style={{ color: '#000' }}>{cart.name}</Space>
+                <Flex vertical gap={10}>
+                  <a style={{ color: '#000' }} target="_blank" href={cart.productUrl}>
+                    {cart.name}
+                  </a>
+                  <Space>  {cart.productSize}</Space>
+                  <Space>  {cart.productColor}</Space>
+                </Flex>
               </div>
             </td>
             <td style={{ border: '1px solid #ddd', padding: '8px' }}>
