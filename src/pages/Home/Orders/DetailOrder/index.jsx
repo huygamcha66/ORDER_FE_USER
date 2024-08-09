@@ -40,8 +40,13 @@ const ProductItem = ({ cart, rateOrder }) => {
               <a style={{ color: '#000' }} target="_blank" href={cart.productUrl}>
                 {cart.name}
               </a>
-              <Space>  {cart.productSize}</Space>
-              <Space>  {cart.productColor }</Space>
+              <div>
+                <div>
+                  {JSON.parse(cart.productMoreInfo).map((info, index) => (
+                    <Space key={index}>{info}</Space>
+                  ))}
+                </div>
+              </div>
             </Flex>
           </div>
         </td>

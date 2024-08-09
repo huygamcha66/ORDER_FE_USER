@@ -88,6 +88,7 @@ const logoutUser = createAsyncThunk('user/logoutUser', async (value, { rejectWit
     )
     // Xóa token khỏi local storage sau khi logout thành công
     localStorage.removeItem('token')
+    localStorage.removeItem('userId')
     return response.data
   } catch (error) {
     if (error.response && error.response.data) {
