@@ -66,11 +66,11 @@ const ProductItem = ({ order }) => {
             <Flex vertical>
               <Space style={{ padding: '4px 0px' }}>
                 <Space style={{ width: '120px' }}>Tiền hàng:</Space>
-                {parseInt(order.totalOrder).toLocaleString()}(VND)
+                {parseInt(order.totalOrder + order.transportFee + order.transportFeeTq).toLocaleString()}(VND)
               </Space>
               <Space style={{ padding: '4px 0px' }}>
                 <Space style={{ width: '120px' }}>Đã cọc:</Space>
-                {parseInt((order.purchaseFee)).toLocaleString()}
+                {parseInt((order.deposit)).toLocaleString()}
                 (VND)
               </Space>
               <Space style={{ padding: '4px 0px' }}>
@@ -79,12 +79,8 @@ const ProductItem = ({ order }) => {
                 (VND)
               </Space>
               <Space style={{ padding: '4px 0px' }}>
-                <Space style={{ width: '120px' }}>Phí vận chuyển:</Space>
-                {order.transportFee ? `${parseInt(order.transportFee).toLocaleString()} VNĐ ` : 'Đang cập nhật'}
-              </Space>
-              <Space style={{ padding: '4px 0px' }}>
-                <Space style={{ width: '120px' }}>Còn lại:</Space>
-                {parseInt((order.remaining)).toLocaleString()}
+                <Space style={{ width: '120px' }}>Cần phải trả:</Space>
+                {parseInt((order.totalOrder + order.transportFeeTq + order.transportFee - order.orderDiscount - order.paidFee)).toLocaleString()}
                 (VND)
               </Space>
             </Flex>

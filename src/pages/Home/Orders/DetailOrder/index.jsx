@@ -42,7 +42,7 @@ const ProductItem = ({ cart, rateOrder }) => {
               </a>
               <div>
                 <div>
-                  {JSON.parse(cart.productMoreInfo).map((info, index) => (
+                  { cart.productMoreInfo  && JSON.parse( cart.productMoreInfo).map((info, index) => (
                     <Space key={index}>{info}</Space>
                   ))}
                 </div>
