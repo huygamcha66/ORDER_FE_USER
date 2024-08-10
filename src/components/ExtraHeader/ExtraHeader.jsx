@@ -133,6 +133,7 @@ const ExtraHeader = () => {
   const navigate = useNavigate()
 
   const confirm = (e) => {
+    console.log('««««« decodedToken.id »»»»»', decodedToken.id);
     dispatch(logoutUser(decodedToken.id))
   }
 

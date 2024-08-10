@@ -9,7 +9,7 @@ import { complainOrder, getDetailOrder } from '../../../../redux/orderSlice/orde
 import TextArea from 'antd/es/input/TextArea'
 import { openNotificationWithIcon } from '../../../../components/Nofitication'
 
-const ProductItem = ({ cart, rateOrder }) => {
+const ProductItem = ({ cart, rateOrder, rateMoney }) => {
   return (
     <tbody>
       <tr>
@@ -55,7 +55,7 @@ const ProductItem = ({ cart, rateOrder }) => {
         </td>
         <td style={{ border: '1px solid #ddd', padding: '8px' }}>
           <Flex justify="center">
-            {parseInt((cart.price * 3625).toFixed(0)).toLocaleString('vi-VN')} đ
+            {parseInt((cart.price * rateMoney).toFixed(0)).toLocaleString('vi-VN')} đ
           </Flex>
         </td>
         <td style={{ border: '1px solid #ddd', padding: '8px' }}>
@@ -71,7 +71,7 @@ const ProductItem = ({ cart, rateOrder }) => {
           }}
         >
           <Flex justify="center">
-            {parseInt((cart.price * 3625 * cart.quantity * (1 + rateOrder)).toFixed(0)).toLocaleString(
+            {parseInt((cart.price * rateMoney * cart.quantity * (1 + rateOrder)).toFixed(0)).toLocaleString(
               'vi-VN'
             )}
             đ
@@ -162,17 +162,17 @@ const DetailOrder = () => {
                   {detailOrder &&
                     detailOrder.productList &&
                     detailOrder.productList.map((cart, index) => (
-                      <ProductItem rateOrder={detailOrder.rateOrder} key={index} cart={cart} index={index} />
+                      <ProductItem rateMoney={detailOrder.rateMoney} rateOrder={detailOrder.rateOrder} key={index} cart={cart} index={index} />
                     ))}
                 </table>
                 <Flex style={{ marginBottom: '20px' }} vertical>
-                  <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Đã cọc:</Space> {parseInt(detailOrder.deposit).toLocaleString()} VNĐ</Flex>
                   <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Phí vận chuyển nội địa Trung:</Space> {detailOrder.transportFeeTq ? `${parseInt(detailOrder.transportFeeTq).toLocaleString()} VNĐ ` : 'Đang cập nhật'} </Flex>
                   <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Phí vận chuyển về VN:</Space> {detailOrder.transportFee ? `${parseInt(detailOrder.transportFee).toLocaleString()} VNĐ ` : 'Đang cập nhật'} </Flex>
-                  <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Tiền hàng:</Space> {parseInt(detailOrder.totalOrder + detailOrder.transportFeeTq).toLocaleString()} VNĐ</Flex>
+                  <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Tiền sản phẩm:</Space> {parseInt(detailOrder.totalOrder).toLocaleString()} VNĐ</Flex>
+                  <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Tổng tiền hàng:</Space> {parseInt(detailOrder.totalOrder + detailOrder.transportFeeTq + detailOrder.transportFee).toLocaleString()} VNĐ</Flex>
+                  <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Đã cọc:</Space> {parseInt(detailOrder.paidFee).toLocaleString()} VNĐ</Flex>
                   <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Giảm giá:</Space> {parseInt(detailOrder.orderDiscount).toLocaleString()} VNĐ</Flex>
-                  <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Đã thanh toán:</Space> {parseInt(detailOrder.paidFee).toLocaleString()} VNĐ</Flex>
-                  <Flex><Space style={{ width: '250px' }}>Còn lại:</Space> {parseInt(detailOrder.remaining + detailOrder.transportFeeTq - detailOrder.orderDiscount).toLocaleString()} VNĐ</Flex>
+                  <Flex><Space style={{ width: '250px' }}>Còn lại:</Space> {parseInt(detailOrder.remaining).toLocaleString()} VNĐ</Flex>
                 </Flex>
 
                 <Flex>

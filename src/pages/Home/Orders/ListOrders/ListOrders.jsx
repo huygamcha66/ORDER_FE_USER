@@ -63,23 +63,8 @@ const ProductItem = ({ order }) => {
             <Flex justify="center"> {STATUS_ORDER_MAP[order.status]}</Flex>
           </td>
           <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-            <Flex vertical>
+            <Flex align='center' vertical>
               <Space style={{ padding: '4px 0px' }}>
-                <Space style={{ width: '120px' }}>Tiền hàng:</Space>
-                {parseInt(order.totalOrder + order.transportFee + order.transportFeeTq).toLocaleString()}(VND)
-              </Space>
-              <Space style={{ padding: '4px 0px' }}>
-                <Space style={{ width: '120px' }}>Đã cọc:</Space>
-                {parseInt((order.deposit)).toLocaleString()}
-                (VND)
-              </Space>
-              <Space style={{ padding: '4px 0px' }}>
-                <Space style={{ width: '120px' }}>Đã thanh toán:</Space>
-                {parseInt((order.paidFee)).toLocaleString()}
-                (VND)
-              </Space>
-              <Space style={{ padding: '4px 0px' }}>
-                <Space style={{ width: '120px' }}>Cần phải trả:</Space>
                 {parseInt((order.totalOrder + order.transportFeeTq + order.transportFee - order.orderDiscount - order.paidFee)).toLocaleString()}
                 (VND)
               </Space>
@@ -183,7 +168,7 @@ const ListOrders = () => {
                     style={{
                       border: '1px solid #ddd',
                       padding: '8px',
-                      width: '15%'
+                      width: '20%'
                     }}
                   >
                     Ngày mua hàng
@@ -201,10 +186,10 @@ const ListOrders = () => {
                     style={{
                       border: '1px solid #ddd',
                       padding: '8px',
-                      width: '30%'
+                      width: '25%'
                     }}
                   >
-                    Tổng giá tiền
+                    Tổng tiền đơn hàng
                   </th>
                   <th
                     style={{
