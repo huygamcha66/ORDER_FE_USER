@@ -170,9 +170,9 @@ const DetailOrder = () => {
                   <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Phí vận chuyển về VN:</Space> {detailOrder.transportFee ? `${parseInt(detailOrder.transportFee).toLocaleString()} VNĐ ` : 'Đang cập nhật'} </Flex>
                   <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Tiền sản phẩm:</Space> {parseInt(detailOrder.totalOrder).toLocaleString()} VNĐ</Flex>
                   <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Tổng tiền hàng:</Space> {parseInt(detailOrder.totalOrder + detailOrder.transportFeeTq + detailOrder.transportFee).toLocaleString()} VNĐ</Flex>
-                  <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Đã cọc:</Space> {parseInt(detailOrder.paidFee).toLocaleString()} VNĐ</Flex>
+                  <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Đã thanh toán:</Space> {parseInt(detailOrder.paidFee).toLocaleString()} VNĐ</Flex>
                   <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Giảm giá:</Space> {parseInt(detailOrder.orderDiscount).toLocaleString()} VNĐ</Flex>
-                  <Flex><Space style={{ width: '250px' }}>Còn lại:</Space> {parseInt(detailOrder.remaining).toLocaleString()} VNĐ</Flex>
+                  <Flex><Space style={{ width: '250px' }}>Cần thanh toán:</Space> {parseInt(detailOrder.totalOrder + detailOrder.transportFeeTq + detailOrder.transportFee - detailOrder.orderDiscount - detailOrder.paidFee).toLocaleString()} VNĐ</Flex>
                 </Flex>
 
                 <Flex>
