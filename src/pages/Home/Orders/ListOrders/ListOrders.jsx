@@ -65,7 +65,7 @@ const ProductItem = ({ order }) => {
           <td style={{ border: '1px solid #ddd', padding: '8px' }}>
             <Flex align='center' vertical>
               <Space style={{ padding: '4px 0px' }}>
-                {parseInt((order.totalOrder + order.transportFeeTq + order.transportFee - order.orderDiscount - order.paidFee)).toLocaleString()}
+                {parseInt((order.totalOrder + order.transportFeeTq + order.transportFee - order.orderDiscount)).toLocaleString()}
                 (VND)
               </Space>
             </Flex>

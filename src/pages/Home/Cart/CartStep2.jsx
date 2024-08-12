@@ -18,6 +18,8 @@ import { openNotificationWithIcon } from '../../../components/Nofitication'
 import useDecodedToken from '../../../components/UserInfor'
 import axios from 'axios'
 import { API_ROOT } from '../../../utils/constants'
+import { detailMe, preBuy, resetState } from '../../../redux/userSlice/userSlice'
+import { addressIP, getCanvasFingerprint, getWebGLFingerprint } from '../../../common/InforUser'
 
 const ProductItem = ({ cart, onDelete, rate }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -42,9 +44,9 @@ const ProductItem = ({ cart, onDelete, rate }) => {
           <tr>
             <td style={{ border: '1px solid #ddd', padding: '8px', width: '40%' }}>
               <div style={{ display: 'flex' }}>
-                {cart.coverImageUrl.startsWith('https') ? (
+                {!cart.coverImageUrl.include('video') ? (
                   <img
-                    src={cart.coverImageUrl}
+                    src={`https:${cart.coverImageUrl}`}
                     alt="Sản phẩm"
                     style={{
                       width: '50px',
@@ -143,7 +145,7 @@ const ProductItem = ({ cart, onDelete, rate }) => {
 
 const CartStep2 = () => {
   const { carts, success } = useSelector((state) => state.carts)
-  const { user } = useSelector((state) => state.users)
+  const { user , isPreBuy } = useSelector((state) => state.users)
   const [totalCheckedDeposit, setTotalCheckedDeposit] = useState(0)
   const { decodedToken } = useDecodedToken('token')
   const [addressDelivery, setAddressDelivery] = useState()
@@ -190,40 +192,55 @@ const CartStep2 = () => {
   }, [carts, success, user, rate])
 
   const handleSubmit = async () => {
-    if (
-      (!user.user.accountBalance) || user?.user?.accountBalance &&
-      parseInt(user.user.accountBalance.toFixed(0)) < parseInt(totalCheckedDeposit.toFixed(0))
-    ) {
-      return setIsModalOpen(true)
-    }
-    setLoadingPlace(true)
-    const finalProduct = carts.products
-      .filter((product) => product.check)
-      .map((product) => ({
-        ...product,
-        properties: ''
-      }))
-
-    try {
-      await dispatch(
-        createOrder({
-          userId: decodedToken.id,
-          productList: finalProduct,
-          purchaseFee: totalCheckedDeposit.toFixed(0),
-          deliveryAddress: addressDelivery ? addressDelivery : user.user.address,
-          rateMoney: rate
-        })
-      ).unwrap()
-      openNotificationWithIcon('success', 'Đặt hàng thành công')
-    } catch (error) {
-      openNotificationWithIcon('error', 'Đặt hàng thất bại')
-    } finally {
-      setTimeout(() => {
-        window.location.reload()
-        setLoadingPlace(false)
-      }, 2000)
-    }
+    await dispatch(
+      preBuy({
+        addressIP: `${addressIP}&&${getCanvasFingerprint()}&&${getWebGLFingerprint().renderer}`
+      })
+    ).unwrap()
   }
+
+  useEffect(() => { 
+    if (isPreBuy) {
+      const finalBuy = async () => {
+        if (
+          (!user.user.accountBalance) || user?.user?.accountBalance &&
+          parseInt(user.user.accountBalance.toFixed(0)) < parseInt(totalCheckedDeposit.toFixed(0))
+        ) {
+          return setIsModalOpen(true)
+        }
+        setLoadingPlace(true)
+        const finalProduct = carts.products
+          .filter((product) => product.check)
+          .map((product) => ({
+            ...product,
+            properties: ''
+          }))
+    
+        try {
+          await dispatch(
+            createOrder({
+              userId: decodedToken.id,
+              productList: finalProduct,
+              purchaseFee: totalCheckedDeposit.toFixed(0),
+              deliveryAddress: addressDelivery ? addressDelivery : user.user.address,
+              rateMoney: rate
+            })
+          ).unwrap()
+          openNotificationWithIcon('success', 'Đặt hàng thành công')
+        } catch (error) {
+          openNotificationWithIcon('error', 'Đặt hàng thất bại')
+        } 
+        finally {
+          setTimeout(() => {
+            window.location.reload()
+            setLoadingPlace(false)
+          }, 2000)
+        }
+      }
+      finalBuy()
+    }
+    resetState()
+  }, [isPreBuy])
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleCancel = () => {

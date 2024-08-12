@@ -21,7 +21,6 @@ import axios from 'axios'
 const ProductItem = memo(({ rate, cart, index, isCheck, onCheckChange, onQuantityChange, onDelete }) => {
   const [quantity, setQuantity] = useState(cart.quantity)
   const [api, contextHolder] = notification.useNotification()
-  const dispatch = useDispatch()
   const { user } = useSelector((state) => state.users)
 
   const handleQuantityChange = (e) => {
@@ -62,9 +61,9 @@ const ProductItem = memo(({ rate, cart, index, isCheck, onCheckChange, onQuantit
           </td>
           <td style={{ border: '1px solid #ddd', padding: '8px' }}>
             <div style={{ display: 'flex' }}>
-              {cart.coverImageUrl.startsWith('https') ? (
+              {!cart.coverImageUrl.includes('video') ? (
                 <img
-                  src={cart.coverImageUrl}
+                  src={`https:${cart.coverImageUrl}`}
                   alt="Sản phẩm"
                   style={{
                     width: '50px',

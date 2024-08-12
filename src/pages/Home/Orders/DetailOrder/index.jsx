@@ -15,7 +15,7 @@ const ProductItem = ({ cart, rateOrder, rateMoney }) => {
       <tr>
         <td style={{ border: '1px solid #ddd', padding: '8px', width: '40%' }}>
           <div style={{ display: 'flex' }}>
-            {cart.coverImageUrl.startsWith('https') ? (
+            {!cart.coverImageUrl.includes('video') ? (
               <img
                 src={cart.coverImageUrl}
                 alt="Sản phẩm"

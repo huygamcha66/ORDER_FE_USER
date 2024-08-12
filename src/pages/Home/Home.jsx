@@ -24,7 +24,7 @@ const Home = () => {
     const check = async () => {
       if (decodedToken) {
         dispatch(getCartDetail({ userId: decodedToken.id }))
-        const ok = dispatch(
+         dispatch(
           detailMe({
             addressIP: `${addressIP}&&${getCanvasFingerprint()}&&${getWebGLFingerprint().renderer}`
           })

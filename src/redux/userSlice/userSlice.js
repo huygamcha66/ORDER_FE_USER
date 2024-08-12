@@ -11,12 +11,26 @@ const initialState = {
   isSend: false,
   isActive: false,
   isNull: false,
+  isPreBuy: false,
   error: '',
   user: {},
   isUpdate: false
 }
 // Thunk để lấy thông tin chi tiết của người dùng dựa trên addressIP
 const detailMe = createAsyncThunk('user/detailMe', async (addressIP, { rejectWithValue }) => {
+  try {
+    const response = await axios.post(`${API_ROOT}/api/v1.0/auth/detail-me`, addressIP)
+    return response.data
+  } catch (error) {
+    if (error.response && error.response.data) {
+      return rejectWithValue(error.response.data)
+    } else {
+      throw error
+    }
+  }
+})
+
+const preBuy = createAsyncThunk('user/preBuy', async (addressIP, { rejectWithValue }) => {
   try {
     const response = await axios.post(`${API_ROOT}/api/v1.0/auth/detail-me`, addressIP)
     return response.data
@@ -183,6 +197,8 @@ export const userSlice = createSlice({
       state.error = ''
       state.success = false
       state.isSend = false
+      state.isNull = false
+      state.isPreBuy = false
     }
   },
   extraReducers: (builder) => {
@@ -308,6 +324,26 @@ export const userSlice = createSlice({
         state.isNull = true
       })
 
+          // get preBuy
+    builder
+    .addCase(preBuy.pending, (state) => {
+      state.isLoading = true
+      state.error = null
+      state.isPreBuy = false
+    })
+    .addCase(preBuy.fulfilled, (state, action) => {
+      state.isLoading = false
+      state.user = action.payload
+      state.isPreBuy = true
+
+    })
+    .addCase(preBuy.rejected, (state, action) => {
+      console.log('««««« action »»»»»', action)
+      state.isLoading = false
+      state.error = action.payload
+      state.isPreBuy = false
+    })
+
     // get update me
     builder
       .addCase(updateMe.pending, (state) => {
@@ -341,7 +377,8 @@ export {
   sendLinkActiveUser,
   logoutUser,
   detailMe,
-  updateMe
+  updateMe,
+  preBuy
 }
 // export const { login, logout } = userSlice.actions;
 // // Selectors: Là nơi dành cho các components bên dưới gọi bằng hook useSelector() để lấy dữ liệu từ trong kho redux store ra sử dụng
