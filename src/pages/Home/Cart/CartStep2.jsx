@@ -44,7 +44,7 @@ const ProductItem = ({ cart, onDelete, rate }) => {
           <tr>
             <td style={{ border: '1px solid #ddd', padding: '8px', width: '40%' }}>
               <div style={{ display: 'flex' }}>
-                {!cart.coverImageUrl.include('video') ? (
+                {!cart.coverImageUrl.includes('video') ? (
                   <img
                     src={`https:${cart.coverImageUrl}`}
                     alt="Sản phẩm"
@@ -69,8 +69,11 @@ const ProductItem = ({ cart, onDelete, rate }) => {
                   <a style={{ color: '#000' }} target="_blank" href={cart.productUrl}>
                     {cart.name}
                   </a>
-                  <Space>  {cart.productSize}</Space>
-                  <Space>  {cart.productColor}</Space>
+                  <div>
+                  {cart.productMoreInfo && JSON.parse(cart.productMoreInfo).map((info, index) => (
+                    <Space key={index}>{info}</Space>
+                  ))}
+                </div>
                 </Flex>
               </div>
             </td>
