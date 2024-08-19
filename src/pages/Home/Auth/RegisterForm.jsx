@@ -63,9 +63,9 @@ const RegisterForm = () => {
                     message: 'Số điện thoại không hợp lệ'
                   }
                 ]}
-                // validateStatus={
-                //   error && error.errors.phoneNumber ? "error" : undefined
-                // }
+              // validateStatus={
+              //   error && error.errors.phoneNumber ? "error" : undefined
+              // }
               >
                 <Input prefix={<PhoneOutlined />} placeholder="Số điện thoại" />
               </Form.Item>
@@ -81,12 +81,12 @@ const RegisterForm = () => {
                     message: 'Email không hợp lệ'
                   }
                 ]}
-                // validateStatus={
-                //   error && error.errors && error.errors.email
-                //     ? "error"
-                //     : undefined
-                // }
-                // help={error && error.errors ? error.errors.email : ""}
+              // validateStatus={
+              //   error && error.errors && error.errors.email
+              //     ? "error"
+              //     : undefined
+              // }
+              // help={error && error.errors ? error.errors.email : ""}
               >
                 <Input prefix={<MailOutlined />} placeholder="Email" />
               </Form.Item>

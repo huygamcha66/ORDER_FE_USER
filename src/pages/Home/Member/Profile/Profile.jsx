@@ -25,7 +25,9 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(false)
   const onFinish = async (values) => {
     setIsLoading(true)
-    dispatch(updateMe({ userName: values.userName, address: values.address, userId: user.user._id }));
+    dispatch(
+      updateMe({ userName: values.userName, address: values.address, userId: user.user._id })
+    )
   }
   useEffect(() => {
     if (error) {
@@ -91,9 +93,13 @@ const Profile = () => {
                       </Form.Item>
 
                       <Form.Item wrapperCol={{ xs: 16, offset: 6 }}>
-                        {!isLoading ? <Button type="primary" htmlType="submit" className="login-form-button">
-                          Lưu
-                        </Button> : <Spin />}
+                        {!isLoading ? (
+                          <Button type="primary" htmlType="submit" className="login-form-button">
+                            Lưu
+                          </Button>
+                        ) : (
+                          <Spin />
+                        )}
                       </Form.Item>
                     </Form>
                   </Card>
