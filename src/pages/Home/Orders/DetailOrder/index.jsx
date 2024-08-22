@@ -42,9 +42,10 @@ const ProductItem = ({ cart, rateOrder, rateMoney }) => {
               </a>
               <div>
                 <div>
-                  { cart.productMoreInfo  && JSON.parse( cart.productMoreInfo).map((info, index) => (
-                    <Space key={index}>{info}</Space>
-                  ))}
+                  {cart.productMoreInfo &&
+                    JSON.parse(cart.productMoreInfo).map((info, index) => (
+                      <Space key={index}>{info}</Space>
+                    ))}
                 </div>
               </div>
             </Flex>
@@ -59,9 +60,7 @@ const ProductItem = ({ cart, rateOrder, rateMoney }) => {
           </Flex>
         </td>
         <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-          <Flex justify="center">
-            {rateOrder * 100} %
-          </Flex>
+          <Flex justify="center">{rateOrder * 100} %</Flex>
         </td>
         <td
           style={{
@@ -71,9 +70,9 @@ const ProductItem = ({ cart, rateOrder, rateMoney }) => {
           }}
         >
           <Flex justify="center">
-            {parseInt((cart.price * rateMoney * cart.quantity * (1 + rateOrder)).toFixed(0)).toLocaleString(
-              'vi-VN'
-            )}
+            {parseInt(
+              (cart.price * rateMoney * cart.quantity * (1 + rateOrder)).toFixed(0)
+            ).toLocaleString('vi-VN')}
             đ
           </Flex>
         </td>
@@ -88,7 +87,6 @@ const DetailOrder = () => {
   const [loadingPlace, setLoadingPlace] = useState(false)
   const dispatch = useDispatch()
   const location = useLocation()
-  console.log('««««« detailOrder »»»»»', detailOrder);
   useEffect(() => {
     dispatch(getDetailOrder(location.pathname.split('/')[3]))
   }, [location.pathname])
@@ -100,13 +98,18 @@ const DetailOrder = () => {
   const handleSubmit = async () => {
     setLoadingPlace(true)
     try {
-      await dispatch(
-        complainOrder({
-          orderId: detailOrder.id,
-          content: complain,
-        })
-      ).unwrap()
-      openNotificationWithIcon('success', 'Khiếu nại thành công')
+      if (!complain) {
+        openNotificationWithIcon('error', 'Hãy nhập lí do khiếu nại')
+      } else {
+        await dispatch(
+          complainOrder({
+            orderId: detailOrder.id,
+            content: complain
+          })
+        ).unwrap()
+        openNotificationWithIcon('success', 'Khiếu nại thành công')
+        setComplain('')
+      }
     } catch (error) {
       openNotificationWithIcon('error', 'Khiếu nại thất bại')
     } finally {
@@ -162,21 +165,65 @@ const DetailOrder = () => {
                   {detailOrder &&
                     detailOrder.productList &&
                     detailOrder.productList.map((cart, index) => (
-                      <ProductItem rateMoney={detailOrder.rateMoney} rateOrder={detailOrder.rateOrder} key={index} cart={cart} index={index} />
+                      <ProductItem
+                        rateMoney={detailOrder.rateMoney}
+                        rateOrder={detailOrder.rateOrder}
+                        key={index}
+                        cart={cart}
+                        index={index}
+                      />
                     ))}
                 </table>
                 <Flex style={{ marginBottom: '20px' }} vertical>
-                  <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Phí vận chuyển nội địa Trung:</Space> {detailOrder.transportFeeTq ? `${parseInt(detailOrder.transportFeeTq).toLocaleString()} VNĐ ` : 'Đang cập nhật'} </Flex>
-                  <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Phí vận chuyển về VN:</Space> {detailOrder.transportFee ? `${parseInt(detailOrder.transportFee).toLocaleString()} VNĐ ` : 'Đang cập nhật'} </Flex>
-                  <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Tiền sản phẩm:</Space> {parseInt(detailOrder.totalOrder).toLocaleString()} VNĐ</Flex>
-                  <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Tổng tiền hàng:</Space> {parseInt(detailOrder.totalOrder + detailOrder.transportFeeTq + detailOrder.transportFee).toLocaleString()} VNĐ</Flex>
-                  <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Đã thanh toán:</Space> {parseInt(detailOrder.paidFee).toLocaleString()} VNĐ</Flex>
-                  <Flex><Space style={{ width: '250px', marginBottom: '10px' }}>Giảm giá:</Space> {parseInt(detailOrder.orderDiscount).toLocaleString()} VNĐ</Flex>
-                  <Flex><Space style={{ width: '250px' }}>Cần thanh toán:</Space> {parseInt(detailOrder.totalOrder + detailOrder.transportFeeTq + detailOrder.transportFee - detailOrder.orderDiscount - detailOrder.paidFee).toLocaleString()} VNĐ</Flex>
+                  <Flex>
+                    <Space style={{ width: '250px', marginBottom: '10px' }}>
+                      Phí vận chuyển nội địa Trung:
+                    </Space>{' '}
+                    {detailOrder.transportFeeTq
+                      ? `${parseInt(detailOrder.transportFeeTq).toLocaleString()} VNĐ `
+                      : 'Đang cập nhật'}{' '}
+                  </Flex>
+                  <Flex>
+                    <Space style={{ width: '250px', marginBottom: '10px' }}>
+                      Phí vận chuyển về VN:
+                    </Space>{' '}
+                    {detailOrder.transportFee
+                      ? `${parseInt(detailOrder.transportFee).toLocaleString()} VNĐ `
+                      : 'Đang cập nhật'}{' '}
+                  </Flex>
+                  <Flex>
+                    <Space style={{ width: '250px', marginBottom: '10px' }}>Tiền sản phẩm:</Space>{' '}
+                    {parseInt(detailOrder.totalOrder).toLocaleString()} VNĐ
+                  </Flex>
+                  <Flex>
+                    <Space style={{ width: '250px', marginBottom: '10px' }}>Tổng tiền hàng:</Space>{' '}
+                    {parseInt(
+                      detailOrder.totalOrder + detailOrder.transportFeeTq + detailOrder.transportFee
+                    ).toLocaleString()}{' '}
+                    VNĐ
+                  </Flex>
+                  <Flex>
+                    <Space style={{ width: '250px', marginBottom: '10px' }}>Đã thanh toán:</Space>{' '}
+                    {parseInt(detailOrder.paidFee).toLocaleString()} VNĐ
+                  </Flex>
+                  <Flex>
+                    <Space style={{ width: '250px', marginBottom: '10px' }}>Giảm giá:</Space>{' '}
+                    {parseInt(detailOrder.orderDiscount).toLocaleString()} VNĐ
+                  </Flex>
+                  <Flex>
+                    <Space style={{ width: '250px' }}>Cần thanh toán:</Space>{' '}
+                    {parseInt(
+                      detailOrder.totalOrder +
+                        detailOrder.transportFeeTq +
+                        detailOrder.transportFee -
+                        detailOrder.orderDiscount -
+                        detailOrder.paidFee
+                    ).toLocaleString()}{' '}
+                    VNĐ
+                  </Flex>
                 </Flex>
 
                 <Flex>
-                  {/* huyg */}
                   <TextArea
                     value={complain}
                     disabled={detailOrder && detailOrder.complainContent}
@@ -190,19 +237,25 @@ const DetailOrder = () => {
                 </Flex>
               </div>
             </div>
+
             <Flex justify="space-between" className="wrapper_buy_step_1">
               {loadingPlace ? (
                 <Spin />
               ) : (
-                <button disabled={detailOrder && detailOrder.complainContent} onClick={handleSubmit} className="btn_step_1">
-                  <Space style={{ padding: '5px' }}>{detailOrder && detailOrder.complainContent ? 'Đang xử lí' : 'Khiếu nại'}</Space>
+                <button
+                  disabled={detailOrder && detailOrder.complainContent}
+                  onClick={handleSubmit}
+                  className="btn_step_1"
+                >
+                  <Space style={{ padding: '5px' }}>
+                    {detailOrder && detailOrder.complainContent ? 'Đang xử lí' : 'Khiếu nại'}
+                  </Space>
                 </button>
               )}
             </Flex>
           </Col>
         </Row>
       </ConfigProvider>
-
     </>
   )
 }
