@@ -2,7 +2,7 @@
 /* eslint-disable semi */
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Col, ConfigProvider, Flex, Popconfirm, Row, Space } from 'antd'
+import { Avatar, Col, ConfigProvider, Flex, Popconfirm, Row, Space } from 'antd'
 import { Menu } from 'antd'
 import { FaRegUser } from 'react-icons/fa'
 import { LuShoppingCart } from 'react-icons/lu'
@@ -132,11 +132,9 @@ const ExtraHeader = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const confirm = (e) => {
-    console.log('««««« decodedToken.id »»»»»', decodedToken.id);
+  const confirm = () => {
     dispatch(logoutUser(decodedToken.id))
   }
-
   useEffect(() => {
     if (success) {
       localStorage.clear()
@@ -163,21 +161,6 @@ const ExtraHeader = () => {
       <div className="wrapper_extraHeader">
         <Row justify="center">
           <Col xs={24} lg={20}>
-            {/* <Row style={{ marginTop: "30px" }}>
-              <Col span={24}>
-                <Flex justify="space-between">
-                  <Space className="primary_color">
-                    Kho hàng Đà Nẵng: 0703414511
-                  </Space>
-                  <Space className="primary_color">
-                    Kho hàng Đà Nẵng: 0703414511
-                  </Space>
-                  <Space className="primary_color">
-                    Kho hàng Đà Nẵng: 0703414511
-                  </Space>
-                </Flex>
-              </Col>
-            </Row> */}
             <Row style={{ marginTop: '30px' }}>
               <Col span={24}>
                 <Flex justify="space-between">
@@ -220,13 +203,16 @@ const ExtraHeader = () => {
                           </Link>
                         </Flex>
                         <Link to={'/member/profile'}>
-                          <Flex
-                            align="center"
+                          <Avatar
                             className="custommlr extra_header_cart primary_color"
+                            style={{
+                              backgroundColor: '#fc785a',
+                              verticalAlign: 'middle'
+                            }}
+                            size="large"
                           >
-                            <FaRegUser className="icon primary_color" />
-                            Tài khoản
-                          </Flex>
+                            {decodedToken && decodedToken.email.slice(0, 1).toUpperCase()}
+                          </Avatar>
                         </Link>
                         <Flex className="wrapper_icon_text" align="center">
                           <Popconfirm

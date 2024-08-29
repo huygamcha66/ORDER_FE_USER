@@ -70,10 +70,11 @@ const ProductItem = ({ cart, onDelete, rate }) => {
                     {cart.name}
                   </a>
                   <div>
-                  {cart.productMoreInfo && JSON.parse(cart.productMoreInfo).map((info, index) => (
-                    <Space key={index}>{info}</Space>
-                  ))}
-                </div>
+                    {cart.productMoreInfo &&
+                      JSON.parse(cart.productMoreInfo).map((info, index) => (
+                        <Space key={index}>{info}</Space>
+                      ))}
+                  </div>
                 </Flex>
               </div>
             </td>
@@ -83,7 +84,10 @@ const ProductItem = ({ cart, onDelete, rate }) => {
 
             <td style={{ border: '1px solid #ddd', padding: '8px' }}>
               <Flex justify="center">
-                {parseInt((cart.price * rate * (1 + user.user.rate)).toFixed(0)).toLocaleString('vi-VN')} đ
+                {parseInt((cart.price * rate * (1 + user.user.rate)).toFixed(0)).toLocaleString(
+                  'vi-VN'
+                )}{' '}
+                đ
               </Flex>
             </td>
             <td style={{ border: '1px solid #ddd', padding: '8px' }}>
@@ -97,9 +101,9 @@ const ProductItem = ({ cart, onDelete, rate }) => {
               }}
             >
               <Flex justify="center">
-                {parseInt((cart.price * rate * (1 + user.user.rate) * cart.quantity).toFixed(0)).toLocaleString(
-                  'vi-VN'
-                )}{' '}
+                {parseInt(
+                  (cart.price * rate * (1 + user.user.rate) * cart.quantity).toFixed(0)
+                ).toLocaleString('vi-VN')}{' '}
                 đ
               </Flex>
             </td>
@@ -142,13 +146,14 @@ const ProductItem = ({ cart, onDelete, rate }) => {
             </td>
           </tr>
         </tbody>
-      )}</>
+      )}
+    </>
   )
 }
 
 const CartStep2 = () => {
   const { carts, success } = useSelector((state) => state.carts)
-  const { user , isPreBuy } = useSelector((state) => state.users)
+  const { user, isPreBuy } = useSelector((state) => state.users)
   const [totalCheckedDeposit, setTotalCheckedDeposit] = useState(0)
   const { decodedToken } = useDecodedToken('token')
   const [addressDelivery, setAddressDelivery] = useState()
@@ -160,7 +165,7 @@ const CartStep2 = () => {
         const payload = await axios.get(`${API_ROOT}/api/v1.0/rates/getCurrentRate`)
         setRate(payload.data && payload.data.payload[0].value)
       } catch (error) {
-        console.log('««««« error »»»»»', error);
+        console.log('««««« error »»»»»', error)
       }
     }
     fetchRate()
@@ -177,20 +182,16 @@ const CartStep2 = () => {
     //     if (value.check) return acc + value.price * rate * value.quantity * 0.7;
     //   }, 0);
     // improve: đọc comt
-    if (user && user.user && rate) {
-      const totalDeposit =
-        carts &&
-        carts.products &&
-        carts.products.reduce((acc, value) => {
-          if (value.check) {
-            // Tính tiền đặt cọc cho sản phẩm nếu đã chọn
-            return acc + value.price * rate * value.quantity * 0.7 * (1 + user.user.rate)
-          }
-          // Nếu sản phẩm không được chọn, trả lại giá trị hiện tại của acc
-          return acc
-        }, 0)
+    if (user?.user && rate) {
+      const totalDeposit = carts?.products?.reduce((acc, value) => {
+        if (value.check) {
+          // Tính tiền đặt cọc cho sản phẩm nếu đã chọn
+          return acc + value.price * rate * value.quantity * 0.7 * (1 + user.user.rate)
+        }
+        // Nếu sản phẩm không được chọn, trả lại giá trị hiện tại của acc
+        return acc
+      }, 0)
       setTotalCheckedDeposit(totalDeposit)
-
     }
   }, [carts, success, user, rate])
 
@@ -202,12 +203,14 @@ const CartStep2 = () => {
     ).unwrap()
   }
 
-  useEffect(() => { 
+  useEffect(() => {
     if (isPreBuy) {
       const finalBuy = async () => {
         if (
-          (!user.user.accountBalance) || user?.user?.accountBalance &&
-          parseInt(user.user.accountBalance.toFixed(0)) < parseInt(totalCheckedDeposit.toFixed(0))
+          !user.user.accountBalance ||
+          (user?.user?.accountBalance &&
+            parseInt(user.user.accountBalance.toFixed(0)) <
+              parseInt(totalCheckedDeposit.toFixed(0)))
         ) {
           return setIsModalOpen(true)
         }
@@ -218,7 +221,7 @@ const CartStep2 = () => {
             ...product,
             properties: ''
           }))
-    
+
         try {
           await dispatch(
             createOrder({
@@ -232,8 +235,7 @@ const CartStep2 = () => {
           openNotificationWithIcon('success', 'Đặt hàng thành công')
         } catch (error) {
           openNotificationWithIcon('error', 'Đặt hàng thất bại')
-        } 
-        finally {
+        } finally {
           setTimeout(() => {
             window.location.reload()
             setLoadingPlace(false)
