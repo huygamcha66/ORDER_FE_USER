@@ -46,7 +46,11 @@ const ProductItem = ({ cart, onDelete, rate }) => {
               <div style={{ display: 'flex' }}>
                 {!cart.coverImageUrl.includes('video') ? (
                   <img
-                    src={`https:${cart.coverImageUrl}`}
+                    src={
+                      cart.coverImageUrl.startsWith('https:')
+                        ? cart.coverImageUrl
+                        : `https:${cart.coverImageUrl}`
+                    }
                     alt="Sản phẩm"
                     style={{
                       width: '50px',
@@ -58,7 +62,11 @@ const ProductItem = ({ cart, onDelete, rate }) => {
                   <video
                     // className="hoverVideo"
                     className="video_thumbnail"
-                    src={`https:${cart.coverImageUrl}`}
+                    src={
+                      cart.coverImageUrl.startsWith('https:')
+                        ? cart.coverImageUrl
+                        : `https:${cart.coverImageUrl}`
+                    }
                     style={{ width: '50px', height: '50px', marginRight: '10px' }}
                     controls={false}
                   >
@@ -72,7 +80,7 @@ const ProductItem = ({ cart, onDelete, rate }) => {
                   <div>
                     {cart.productMoreInfo &&
                       JSON.parse(cart.productMoreInfo).map((info, index) => (
-                        <Space key={index}>{info}</Space>
+                        <Space key={index}>{info} </Space>
                       ))}
                   </div>
                 </Flex>

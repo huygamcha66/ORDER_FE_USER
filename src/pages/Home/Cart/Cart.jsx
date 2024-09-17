@@ -18,192 +18,205 @@ import { openNotificationWithIcon } from '../../../components/Nofitication'
 import { API_ROOT } from '../../../utils/constants'
 import axios from 'axios'
 
-const ProductItem = memo(({ rate, cart, index, isCheck, onCheckChange, onQuantityChange, onDelete }) => {
-  const [quantity, setQuantity] = useState(cart.quantity)
-  const [api, contextHolder] = notification.useNotification()
-  const { user } = useSelector((state) => state.users)
+const ProductItem = memo(
+  ({ rate, cart, index, isCheck, onCheckChange, onQuantityChange, onDelete }) => {
+    const [quantity, setQuantity] = useState(cart.quantity)
+    const [api, contextHolder] = notification.useNotification()
+    const { user } = useSelector((state) => state.users)
 
-  const handleQuantityChange = (e) => {
-    const newQuantity = e.target.value
-    setQuantity(newQuantity)
-    onQuantityChange(index, newQuantity, cart.productId)
-  }
+    const handleQuantityChange = (e) => {
+      const newQuantity = e.target.value
+      setQuantity(newQuantity)
+      onQuantityChange(index, newQuantity, cart.productId)
+    }
 
-  const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const showModal = () => {
-    setIsModalOpen(true)
-  }
+    const showModal = () => {
+      setIsModalOpen(true)
+    }
 
-  const handleCancel = () => {
-    setIsModalOpen(false)
-  }
+    const handleCancel = () => {
+      setIsModalOpen(false)
+    }
 
-  const handleConfirmDelete = () => {
-    onDelete(cart.productId)
-    setIsModalOpen(false)
-    openNotificationWithIcon('success', 'Xoá sản phẩm thành công')
-  }
+    const handleConfirmDelete = () => {
+      onDelete(cart.productId)
+      setIsModalOpen(false)
+      openNotificationWithIcon('success', 'Xoá sản phẩm thành công')
+    }
 
-  return (
-    <>
-      {contextHolder}
-      {user && user.user && <tbody>
-        <tr>
-          <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-            <Flex justify="center">
-              <Checkbox
-                type="checkbox"
-                checked={isCheck}
-                onChange={() => onCheckChange(index, !isCheck, cart.productId)}
-              />
-            </Flex>
-          </td>
-          <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-            <div style={{ display: 'flex' }}>
-              {!cart.coverImageUrl.includes('video') ? (
-                <img
-                  src={`https:${cart.coverImageUrl}`}
-                  alt="Sản phẩm"
-                  style={{
-                    width: '50px',
-                    marginRight: '10px',
-                    height: '50px'
-                  }}
-                />
-              ) : (
-                <video
-                  // className="hoverVideo"
-                  className="video_thumbnail"
-                  src={`https:${cart.coverImageUrl}`}
-                  style={{ width: '50px', height: '50px', marginRight: '10px' }}
-                  controls={false}
-                >
-                  Trình duyệt không hỗ trợ ảnh
-                </video>
-              )}
-              <Flex vertical gap={10}>
-                <a style={{ color: '#000' }} target="_blank" href={cart.productUrl}>
-                  {cart.name}
-                </a>
-                <div>
-                  {cart.productMoreInfo && JSON.parse(cart.productMoreInfo).map((info, index) => (
-                    <Space key={index}>{info}</Space>
-                  ))}
+    return (
+      <>
+        {contextHolder}
+        {user && user.user && (
+          <tbody>
+            <tr>
+              <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                <Flex justify="center">
+                  <Checkbox
+                    type="checkbox"
+                    checked={isCheck}
+                    onChange={() => onCheckChange(index, !isCheck, cart.productId)}
+                  />
+                </Flex>
+              </td>
+              <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                <div style={{ display: 'flex' }}>
+                  {!cart.coverImageUrl.includes('video') ? (
+                    <img
+                      src={
+                        cart.coverImageUrl.startsWith('https:')
+                          ? cart.coverImageUrl
+                          : `https:${cart.coverImageUrl}`
+                      }
+                      alt="Sản phẩm"
+                      style={{
+                        width: '50px',
+                        marginRight: '10px',
+                        height: '50px'
+                      }}
+                    />
+                  ) : (
+                    <video
+                      // className="hoverVideo"
+                      className="video_thumbnail"
+                      src={
+                        cart.coverImageUrl.startsWith('https:')
+                          ? cart.coverImageUrl
+                          : `https:${cart.coverImageUrl}`
+                      }
+                      style={{ width: '50px', height: '50px', marginRight: '10px' }}
+                      controls={false}
+                    >
+                      Trình duyệt không hỗ trợ ảnh
+                    </video>
+                  )}
+                  <Flex vertical gap={10}>
+                    <a style={{ color: '#000' }} target="_blank" href={cart.productUrl}>
+                      {cart.name}
+                    </a>
+                    <div>
+                      {cart.productMoreInfo &&
+                        JSON.parse(cart.productMoreInfo).map((info, index) => (
+                          <Space key={index}>{info} </Space>
+                        ))}
+                    </div>
+                  </Flex>
                 </div>
-              </Flex>
-            </div>
-          </td>
-          <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-            <Input type="number" value={quantity} min={1} onChange={handleQuantityChange} />
-          </td>
-          <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-            {parseInt((cart.price * rate).toFixed(0)).toLocaleString('vi-VN')} đ
-            <br />¥{cart.price.toLocaleString('zh-CN')}
-          </td>
-          <td
-            style={{
-              border: '1px solid #ddd',
-              padding: '8px',
-              fontWeight: 'bolder'
-            }}
-          >
-            {parseInt((cart.price * rate * quantity).toFixed(0)).toLocaleString('vi-VN')} đ
-            <br />¥{(cart.price * quantity).toLocaleString('zh-CN')}
-          </td>
-          <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-            <div>
-              <div style={{ padding: '4px 0px' }}>
-                <Space style={{ width: '90px' }}>Tiền hàng:</Space>
-                <span style={{ fontWeight: 'bold' }}>
-                  {isCheck
-                    ? `${parseInt((cart.price * rate * quantity).toFixed(0)).toLocaleString('vi-VN')}
-                    đ`
-                    : 0}
-                </span>
-              </div>
-              <div style={{ padding: '4px 0px' }}>
-                <Space style={{ width: '90px' }}>Phí tạm tính:</Space>
-                <span style={{ fontWeight: 'bold' }}>
-                  {isCheck
-                    ? `${parseInt((cart.price * rate * quantity * user.user.rate).toFixed(0)).toLocaleString(
-                      'vi-VN'
-                    )}
-                    đ`
-                    : 0}
-                </span>
-              </div>
-              <div style={{ padding: '4px 0px' }}>
-                <Space style={{ width: '90px' }}>Đặt cọc:</Space>
-                <span style={{ fontWeight: 'bold' }}>
-                  {isCheck
-                    ? `${parseInt((cart.price * rate * quantity * 0.7 * (1 + user.user.rate)).toFixed(0)).toLocaleString(
-                      'vi-VN'
-                    )}
-                    đ`
-                    : 0}
-                </span>
-              </div>
-              <div style={{ padding: '4px 0px' }}>
-                <Space style={{ width: '90px' }}>Tổng:</Space>
-                <span style={{ color: 'red', fontWeight: 'bold' }}>
-                  {isCheck
-                    ? `${parseInt((cart.price * rate * quantity * (1 + user.user.rate)).toFixed(0)).toLocaleString(
-                      'vi-VN'
-                    )}
-                    đ`
-                    : 0}
-                </span>
-              </div>
-            </div>
-          </td>
-          <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-            <Flex justify="center">
-              <button
-                onClick={showModal}
+              </td>
+              <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                <Input type="number" value={quantity} min={1} onChange={handleQuantityChange} />
+              </td>
+              <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                {parseInt((cart.price * rate).toFixed(0)).toLocaleString('vi-VN')} đ
+                <br />¥{cart.price.toLocaleString('zh-CN')}
+              </td>
+              <td
                 style={{
-                  background: 'none',
-                  border: 'none',
-                  color: 'red',
-                  cursor: 'pointer'
+                  border: '1px solid #ddd',
+                  padding: '8px',
+                  fontWeight: 'bolder'
                 }}
               >
-                <MdOutlineDelete style={{ width: '20px', height: '20px' }} />
-              </button>
-              <Modal
-                title="Bạn muốn xoá sản phẩm này chứ?"
-                open={isModalOpen}
-                onOk={handleConfirmDelete}
-                onCancel={handleCancel}
-                cancelButtonProps={{
-                  style: {
-                    backgroundColor: '#f5222d',
-                    borderColor: '#f5222d',
-                    color: '#fff'
-                  }
-                }}
-                okButtonProps={{
-                  style: {
-                    backgroundColor: '#ccc',
-                    color: '#000'
-                  }
-                }}
-                okText="Có"
-                cancelText="Không"
-              ></Modal>
-            </Flex>
-          </td>
-        </tr>
-      </tbody>}
-    </>
-  )
-})
+                {parseInt((cart.price * rate * quantity).toFixed(0)).toLocaleString('vi-VN')} đ
+                <br />¥{(cart.price * quantity).toLocaleString('zh-CN')}
+              </td>
+              <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                <div>
+                  <div style={{ padding: '4px 0px' }}>
+                    <Space style={{ width: '90px' }}>Tiền hàng:</Space>
+                    <span style={{ fontWeight: 'bold' }}>
+                      {isCheck
+                        ? `${parseInt((cart.price * rate * quantity).toFixed(0)).toLocaleString('vi-VN')}
+                    đ`
+                        : 0}
+                    </span>
+                  </div>
+                  <div style={{ padding: '4px 0px' }}>
+                    <Space style={{ width: '90px' }}>Phí tạm tính:</Space>
+                    <span style={{ fontWeight: 'bold' }}>
+                      {isCheck
+                        ? `${parseInt(
+                            (cart.price * rate * quantity * user.user.rate).toFixed(0)
+                          ).toLocaleString('vi-VN')}
+                    đ`
+                        : 0}
+                    </span>
+                  </div>
+                  <div style={{ padding: '4px 0px' }}>
+                    <Space style={{ width: '90px' }}>Đặt cọc:</Space>
+                    <span style={{ fontWeight: 'bold' }}>
+                      {isCheck
+                        ? `${parseInt(
+                            (cart.price * rate * quantity * 0.7 * (1 + user.user.rate)).toFixed(0)
+                          ).toLocaleString('vi-VN')}
+                    đ`
+                        : 0}
+                    </span>
+                  </div>
+                  <div style={{ padding: '4px 0px' }}>
+                    <Space style={{ width: '90px' }}>Tổng:</Space>
+                    <span style={{ color: 'red', fontWeight: 'bold' }}>
+                      {isCheck
+                        ? `${parseInt(
+                            (cart.price * rate * quantity * (1 + user.user.rate)).toFixed(0)
+                          ).toLocaleString('vi-VN')}
+                    đ`
+                        : 0}
+                    </span>
+                  </div>
+                </div>
+              </td>
+              <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                <Flex justify="center">
+                  <button
+                    onClick={showModal}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: 'red',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <MdOutlineDelete style={{ width: '20px', height: '20px' }} />
+                  </button>
+                  <Modal
+                    title="Bạn muốn xoá sản phẩm này chứ?"
+                    open={isModalOpen}
+                    onOk={handleConfirmDelete}
+                    onCancel={handleCancel}
+                    cancelButtonProps={{
+                      style: {
+                        backgroundColor: '#f5222d',
+                        borderColor: '#f5222d',
+                        color: '#fff'
+                      }
+                    }}
+                    okButtonProps={{
+                      style: {
+                        backgroundColor: '#ccc',
+                        color: '#000'
+                      }
+                    }}
+                    okText="Có"
+                    cancelText="Không"
+                  ></Modal>
+                </Flex>
+              </td>
+            </tr>
+          </tbody>
+        )}
+      </>
+    )
+  }
+)
 
 const Cart = () => {
   const { carts } = useSelector((state) => state.carts)
   const { decodedToken } = useDecodedToken('token')
   const dispatch = useDispatch()
-console.log('««««« carts »»»»»', carts);
+  console.log('««««« carts »»»»»', carts)
   const [allCheck, setAllCheck] = useState(false)
   const [totalCheckedPrice, setTotalCheckedPrice] = useState(0)
   const [checkedStates, setCheckedStates] = useState([])
@@ -216,7 +229,7 @@ console.log('««««« carts »»»»»', carts);
         const payload = await axios.get(`${API_ROOT}/api/v1.0/rates/getCurrentRate`)
         setRate(payload.data && payload.data.payload[0].value)
       } catch (error) {
-        console.log('««««« error »»»»»', error);
+        console.log('««««« error »»»»»', error)
       }
     }
     fetchRate()
@@ -266,15 +279,14 @@ console.log('««««« carts »»»»»', carts);
             newQuantity: quantities[index]
           })
         ).unwrap()
-
       } catch (error) {
         // Xử lý lỗi nếu có
-        console.log('««««« error »»»»»', error);
+        console.log('««««« error »»»»»', error)
       } finally {
-        setIsUpdating(false);
+        setIsUpdating(false)
       }
-    };
-    await updateCartProducts();
+    }
+    await updateCartProducts()
   }
 
   const handleAllCheckChange = async () => {
@@ -305,7 +317,6 @@ console.log('««««« carts »»»»»', carts);
     const newAllCheck = !allCheck
     setAllCheck(newAllCheck)
     setCheckedStates(new Array(carts.products.length).fill(newAllCheck))
-
   }
 
   const handleQuantityChange = async (index, newQuantity, productId) => {
@@ -323,15 +334,14 @@ console.log('««««« carts »»»»»', carts);
             newQuantity: newQuantity
           })
         ).unwrap()
-
       } catch (error) {
         // Xử lý lỗi nếu có
-        console.log('««««« error »»»»»', error);
+        console.log('««««« error »»»»»', error)
       } finally {
-        setIsUpdating(false);
+        setIsUpdating(false)
       }
-    };
-    await updateCartProducts();
+    }
+    await updateCartProducts()
   }
 
   const navigate = useNavigate()
@@ -399,23 +409,22 @@ console.log('««««« carts »»»»»', carts);
     dispatch(deleteProductFromCart({ userId: decodedToken.id, productId }))
   }
 
-  const [isUpdating, setIsUpdating] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false)
 
   useEffect(() => {
     const handleBeforeUnload = (event) => {
       if (isUpdating) {
-        event.preventDefault();
-        event.returnValue = ''; // Cần để hiển thị hộp thoại cảnh báo trên một số trình duyệt
+        event.preventDefault()
+        event.returnValue = '' // Cần để hiển thị hộp thoại cảnh báo trên một số trình duyệt
       }
-    };
+    }
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('beforeunload', handleBeforeUnload)
 
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [isUpdating]);
-
+      window.removeEventListener('beforeunload', handleBeforeUnload)
+    }
+  }, [isUpdating])
 
   return (
     <>
