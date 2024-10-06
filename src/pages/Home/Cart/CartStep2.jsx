@@ -167,6 +167,7 @@ const CartStep2 = () => {
   const [addressDelivery, setAddressDelivery] = useState()
   const [loadingPlace, setLoadingPlace] = useState(false)
   const [rate, setRate] = useState()
+
   useEffect(() => {
     const fetchRate = async () => {
       try {
@@ -403,10 +404,11 @@ const CartStep2 = () => {
                     footer={null}
                   >
                     <Flex justify="center">
-                      <Image
+                      Nội dung chuyển khoản: {decodedToken.email}
+                      {/* <Image
                         width={350}
                         src="https://pub-50bb58cfabdd4b93abb4e154d0eada9e.r2.dev/zalo.jpg"
-                      />
+                      /> */}
                     </Flex>
                   </Modal>
                 </Flex>
