@@ -8,8 +8,11 @@ import { Col, ConfigProvider, Flex, Image, Modal, Row, Space, Spin } from 'antd'
 import { complainOrder, getDetailOrder } from '../../../../redux/orderSlice/orderSlice'
 import TextArea from 'antd/es/input/TextArea'
 import { openNotificationWithIcon } from '../../../../components/Nofitication'
+import { STATUS_ORDER_MAP } from '../../../../utils/constants'
+// STATUS_ORDER_MAP
+const ProductItem = ({ cart, rateOrder, rateMoney, status }) => {
+  console.log('««««« cart.status »»»»»', cart)
 
-const ProductItem = ({ cart, rateOrder, rateMoney }) => {
   return (
     <tbody>
       <tr>
@@ -44,7 +47,7 @@ const ProductItem = ({ cart, rateOrder, rateMoney }) => {
                 <div>
                   {cart.productMoreInfo &&
                     JSON.parse(cart.productMoreInfo).map((info, index) => (
-                      <Space key={index}>{info} </Space>
+                      <Space key={index}>{info}</Space>
                     ))}
                 </div>
               </div>
@@ -75,6 +78,15 @@ const ProductItem = ({ cart, rateOrder, rateMoney }) => {
             ).toLocaleString('vi-VN')}
             đ
           </Flex>
+        </td>
+        <td
+          style={{
+            border: '1px solid #ddd',
+            padding: '8px',
+            fontWeight: 'bolder'
+          }}
+        >
+          <Flex justify="center">{STATUS_ORDER_MAP[status]}</Flex>
         </td>
       </tr>
     </tbody>
@@ -160,6 +172,7 @@ const DetailOrder = () => {
                       <th style={{ border: '1px solid #ddd', padding: '8px' }}>Đơn giá</th>
                       <th style={{ border: '1px solid #ddd', padding: '8px' }}>Phí mua hàng</th>
                       <th style={{ border: '1px solid #ddd', padding: '8px' }}>Tổng tiền</th>
+                      <th style={{ border: '1px solid #ddd', padding: '8px' }}>Trạng thái</th>
                     </tr>
                   </thead>
                   {detailOrder &&
@@ -168,6 +181,7 @@ const DetailOrder = () => {
                       <ProductItem
                         rateMoney={detailOrder.rateMoney}
                         rateOrder={detailOrder.rateOrder}
+                        status={detailOrder.status}
                         key={index}
                         cart={cart}
                         index={index}
@@ -176,7 +190,13 @@ const DetailOrder = () => {
                 </table>
                 <Flex style={{ marginBottom: '20px' }} vertical>
                   <Flex>
-                    <Space style={{ width: '250px', marginBottom: '10px' }}>
+                    <Space style={{ width: '250px', marginBottom: '20px' }}>
+                      Địa chỉ giao hàng:
+                    </Space>{' '}
+                    {detailOrder.deliveryAddress}{' '}
+                  </Flex>
+                  <Flex>
+                    <Space style={{ width: '250px', marginBottom: '20px' }}>
                       Phí vận chuyển nội địa Trung:
                     </Space>{' '}
                     {detailOrder.transportFeeTq
@@ -184,7 +204,7 @@ const DetailOrder = () => {
                       : 'Đang cập nhật'}{' '}
                   </Flex>
                   <Flex>
-                    <Space style={{ width: '250px', marginBottom: '10px' }}>
+                    <Space style={{ width: '250px', marginBottom: '20px' }}>
                       Phí vận chuyển về VN:
                     </Space>{' '}
                     {detailOrder.transportFee
@@ -192,22 +212,22 @@ const DetailOrder = () => {
                       : 'Đang cập nhật'}{' '}
                   </Flex>
                   <Flex>
-                    <Space style={{ width: '250px', marginBottom: '10px' }}>Tiền sản phẩm:</Space>{' '}
+                    <Space style={{ width: '250px', marginBottom: '20px' }}>Tiền sản phẩm:</Space>{' '}
                     {parseInt(detailOrder.totalOrder).toLocaleString()} VNĐ
                   </Flex>
                   <Flex>
-                    <Space style={{ width: '250px', marginBottom: '10px' }}>Tổng tiền hàng:</Space>{' '}
+                    <Space style={{ width: '250px', marginBottom: '20px' }}>Tổng tiền hàng:</Space>{' '}
                     {parseInt(
                       detailOrder.totalOrder + detailOrder.transportFeeTq + detailOrder.transportFee
                     ).toLocaleString()}{' '}
                     VNĐ
                   </Flex>
                   <Flex>
-                    <Space style={{ width: '250px', marginBottom: '10px' }}>Đã thanh toán:</Space>{' '}
+                    <Space style={{ width: '250px', marginBottom: '20px' }}>Đã thanh toán:</Space>{' '}
                     {parseInt(detailOrder.paidFee).toLocaleString()} VNĐ
                   </Flex>
                   <Flex>
-                    <Space style={{ width: '250px', marginBottom: '10px' }}>Giảm giá:</Space>{' '}
+                    <Space style={{ width: '250px', marginBottom: '20px' }}>Giảm giá:</Space>{' '}
                     {parseInt(detailOrder.orderDiscount).toLocaleString()} VNĐ
                   </Flex>
                   <Flex>
@@ -248,7 +268,11 @@ const DetailOrder = () => {
                   className="btn_step_1"
                 >
                   <Space style={{ padding: '5px' }}>
-                    {detailOrder && detailOrder.complainContent ? 'Đang xử lí' : 'Khiếu nại'}
+                    {detailOrder.status === 9
+                      ? 'Đã xử lí'
+                      : detailOrder && detailOrder.complainContent
+                        ? 'Đang xử lí'
+                        : 'Khiếu nại'}
                   </Space>
                 </button>
               )}

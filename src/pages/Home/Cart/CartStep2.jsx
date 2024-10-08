@@ -11,7 +11,21 @@ import {
 import { jwtDecode } from 'jwt-decode'
 import { createOrder } from '../../../redux/orderSlice/orderSlice'
 import { MdOutlineDelete } from 'react-icons/md'
-import { Col, Flex, Image, Modal, Row, Space, Input, ConfigProvider, Spin, Empty } from 'antd'
+import {
+  Col,
+  Flex,
+  Image,
+  Modal,
+  Row,
+  Space,
+  Input,
+  ConfigProvider,
+  Spin,
+  Empty,
+  Form,
+  Button,
+  Alert
+} from 'antd'
 const { TextArea } = Input
 import './Cart.css'
 import { openNotificationWithIcon } from '../../../components/Nofitication'
@@ -167,6 +181,7 @@ const CartStep2 = () => {
   const [addressDelivery, setAddressDelivery] = useState()
   const [loadingPlace, setLoadingPlace] = useState(false)
   const [rate, setRate] = useState()
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     const fetchRate = async () => {
@@ -205,11 +220,17 @@ const CartStep2 = () => {
   }, [carts, success, user, rate])
 
   const handleSubmit = async () => {
-    await dispatch(
-      preBuy({
-        addressIP: `${addressIP}&&${getCanvasFingerprint()}&&${getWebGLFingerprint().renderer}`
-      })
-    ).unwrap()
+    if (!addressDelivery) {
+      setError(true)
+    } else {
+      setError(false)
+
+      await dispatch(
+        preBuy({
+          addressIP: `${addressIP}&&${getCanvasFingerprint()}&&${getWebGLFingerprint().renderer}`
+        })
+      ).unwrap()
+    }
   }
 
   useEffect(() => {
@@ -353,7 +374,10 @@ const CartStep2 = () => {
                     {/* huyg */}
                     <TextArea
                       value={addressDelivery}
-                      onChange={(e) => setAddressDelivery(e.target.value)}
+                      onChange={(e) => {
+                        setError(false)
+                        setAddressDelivery(e.target.value)
+                      }}
                       placeholder="Nhập địa chỉ nhận hàng"
                       autoSize={{
                         minRows: 3,
@@ -361,6 +385,48 @@ const CartStep2 = () => {
                       }}
                     />
                   </Flex>
+                  {error && <Alert message="Nhập địa chỉ nhận hàng" type="error" showIcon />}
+                  {/* <Form
+                    name="basic"
+                    initialValues={{
+                      remember: true
+                    }}
+                    onFinish
+                    // onFinishFailed={onFinishFailed}
+                    autoComplete="off"
+                  >
+                    <Form.Item
+                      label="Username"
+                      name="username"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Vui lòng nhập nội khiếu nại!'
+                        }
+                      ]}
+                    >
+                      <TextArea
+                        value={addressDelivery}
+                        onChange={(e) => setAddressDelivery(e.target.value)}
+                        placeholder="Nhập địa chỉ nhận hàng"
+                        autoSize={{
+                          minRows: 3,
+                          maxRows: 6
+                        }}
+                      />
+                    </Form.Item>
+
+                    <Form.Item
+                      wrapperCol={{
+                        offset: 8,
+                        span: 16
+                      }}
+                    >
+                      <Button type="primary" htmlType="submit">
+                        Submit
+                      </Button>
+                    </Form.Item>
+                  </Form> */}
                 </div>
               </div>
               {carts.products && carts.products.length > 0 && (
