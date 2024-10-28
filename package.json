@@ -17,6 +17,7 @@
     "axios": "^1.7.1",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
+    "eslint-plugin-import": "^2.31.0",
     "file-saver": "^2.0.5",
     "jwt-decode": "^4.0.0",
     "moment-timezone": "^0.5.45",

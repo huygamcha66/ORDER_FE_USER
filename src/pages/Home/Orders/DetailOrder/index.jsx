@@ -107,30 +107,30 @@ const DetailOrder = () => {
     setComplain(detailOrder && detailOrder.complainContent)
   }, [detailOrder])
 
-  const handleSubmit = async () => {
-    setLoadingPlace(true)
-    try {
-      if (!complain) {
-        openNotificationWithIcon('error', 'Hãy nhập lí do khiếu nại')
-      } else {
-        await dispatch(
-          complainOrder({
-            orderId: detailOrder.id,
-            content: complain
-          })
-        ).unwrap()
-        openNotificationWithIcon('success', 'Khiếu nại thành công')
-        setComplain('')
-      }
-    } catch (error) {
-      openNotificationWithIcon('error', 'Khiếu nại thất bại')
-    } finally {
-      setTimeout(() => {
-        // window.location.reload()
-        setLoadingPlace(false)
-      }, 2000)
-    }
-  }
+  // const handleSubmit = async () => {
+  //   setLoadingPlace(true)
+  //   try {
+  //     if (!complain) {
+  //       openNotificationWithIcon('error', 'Hãy nhập lí do khiếu nại')
+  //     } else {
+  //       await dispatch(
+  //         complainOrder({
+  //           orderId: detailOrder.id,
+  //           content: complain
+  //         })
+  //       ).unwrap()
+  //       openNotificationWithIcon('success', 'Khiếu nại thành công')
+  //       setComplain('')
+  //     }
+  //   } catch (error) {
+  //     openNotificationWithIcon('error', 'Khiếu nại thất bại')
+  //   } finally {
+  //     setTimeout(() => {
+  //       // window.location.reload()
+  //       setLoadingPlace(false)
+  //     }, 2000)
+  //   }
+  // }
 
   return (
     <>
@@ -257,7 +257,7 @@ const DetailOrder = () => {
                 </Flex>
               </div>
             </div>
-
+            {/* 
             <Flex justify="space-between" className="wrapper_buy_step_1">
               {loadingPlace ? (
                 <Spin />
@@ -276,7 +276,7 @@ const DetailOrder = () => {
                   </Space>
                 </button>
               )}
-            </Flex>
+            </Flex> */}
           </Col>
         </Row>
       </ConfigProvider>
