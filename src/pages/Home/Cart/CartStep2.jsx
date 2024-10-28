@@ -248,8 +248,7 @@ const CartStep2 = () => {
         const finalProduct = carts.products
           .filter((product) => product.check)
           .map((product) => ({
-            ...product,
-            properties: ''
+            ...product
           }))
 
         try {

@@ -2,7 +2,7 @@
 // eslint-disable-next-line semi
 // http://127.0.0.1:3200
 // https://tatcadichvu.com
-export const API_ROOT = 'https://tatcadichvu.com'
+export const API_ROOT = 'http://localhost:3200'
 export const phoneNumberRegex = /^(0|\+84)[3|5|7|8|9][0-9]{8}$/
 export const emailRegex = /^([\w-\\.]+@([\w-]+\.)+[\w-]{2,4})?$/
 export const passwordRegex = /^[A-Za-z\d!@#$%^&*]{6}$/

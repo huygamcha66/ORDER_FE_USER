@@ -66,12 +66,34 @@ const deleteProductFromCart = createAsyncThunk(
 
 const updateProductFromCart = createAsyncThunk(
   'cart/updateProductFromCart',
-  async ({ userId, productId, newQuantity, check }, { rejectWithValue }) => {
+  async ({ userId, productId, newQuantity, check, location }, { rejectWithValue }) => {
     try {
       const response = await axios.patch(`${API_ROOT}/api/v1.0/cart/update-product`, {
         userId,
         productId,
         newQuantity,
+        check,
+        // đang ở cụm sản phẩm nào
+        location
+      })
+      return response.data
+    } catch (error) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data)
+      } else {
+        throw error
+      }
+    }
+  }
+)
+
+const checkAllProductInOneCluster = createAsyncThunk(
+  'cart/updateProductFromCart',
+  async ({ userId, productId, newQuantity, check, location }, { rejectWithValue }) => {
+    try {
+      const response = await axios.patch(`${API_ROOT}/api/v1.0/cart/update-manyProduct`, {
+        userId,
+        location,
         check
       })
       return response.data
@@ -188,4 +210,10 @@ const { reducer, actions } = cartSlice
 export const { resetState } = actions
 export const { setBuyProduct } = actions
 export default reducer
-export { getCartDetail, addProductToCart, deleteProductFromCart, updateProductFromCart }
+export {
+  getCartDetail,
+  addProductToCart,
+  deleteProductFromCart,
+  updateProductFromCart,
+  checkAllProductInOneCluster
+}
