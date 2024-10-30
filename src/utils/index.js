@@ -18,3 +18,13 @@ export const feeService = (value) => {
     return 1
   }
 }
+
+export const totalPriceOrder = (totalPrice, rate) => {
+  return totalPrice * rate + (totalPrice * rate * feeService(totalPrice * rate)) / 100
+  // (
+  //   Number(priceCluster[index].totalPrice * rate) +
+  //   (Number(priceCluster[index].totalPrice * rate) *
+  //     priceCluster[index].feeService) /
+  //     100
+  // )
+}

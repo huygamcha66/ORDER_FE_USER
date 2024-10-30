@@ -1,10 +1,10 @@
 import { Checkbox, Flex, Input, Modal, notification, Space } from 'antd'
-import { memo, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { MdOutlineDelete } from 'react-icons/md'
 import { useSelector } from 'react-redux'
 
 const ProductItem = memo(
-    ({ product, cart, index, isCheck, onCheckChange, onQuantityChange, onDelete, handleChangeSelected, selected, }) => {
+    ({ product, cart, index, onQuantityChange, onDelete, handleChangeSelected, selected, rate }) => {
         const [quantity, setQuantity] = useState(product.quantity)
         const [api, contextHolder] = notification.useNotification()
         const { user } = useSelector((state) => state.users)
@@ -25,8 +25,8 @@ const ProductItem = memo(
             setIsModalOpen(false)
         }
 
-        const handleConfirmDelete = () => {
-            onDelete(cart.productId)
+        const handleConfirmDelete = (productId) => {
+            onDelete(productId)
             setIsModalOpen(false)
             openNotificationWithIcon('success', 'Xoá sản phẩm thành công')
         }
@@ -94,7 +94,7 @@ const ProductItem = memo(
                             <Input type="number" value={quantity} min={1} onChange={handleQuantityChange} />
                         </td>
                         <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-                            {parseInt((product.price).toFixed(0)).toLocaleString('vi-VN')} đ
+                            {parseInt((product.price * rate).toFixed(0)).toLocaleString('vi-VN')} đ
                             <br />¥{product.price.toLocaleString('zh-CN')}
                         </td>
                         <td
@@ -104,7 +104,7 @@ const ProductItem = memo(
                                 fontWeight: 'bolder'
                             }}
                         >
-                            {parseInt((product.price * quantity).toFixed(0)).toLocaleString('vi-VN')} đ
+                            {parseInt((product.price * quantity * rate).toFixed(0)).toLocaleString('vi-VN')} đ
                             <br />¥{(product.price * quantity).toLocaleString('zh-CN')}
                         </td>
                         <td style={{ border: '1px solid #ddd', padding: '8px' }}>
@@ -123,7 +123,7 @@ const ProductItem = memo(
                                 <Modal
                                     title="Bạn muốn xoá sản phẩm này chứ?"
                                     open={isModalOpen}
-                                    onOk={handleConfirmDelete}
+                                    onOk={() => handleConfirmDelete(product.productId)}
                                     onCancel={handleCancel}
                                     cancelButtonProps={{
                                         style: {
