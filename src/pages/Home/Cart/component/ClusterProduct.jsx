@@ -20,10 +20,13 @@ const ClusterProduct = ({
   userId,
   setPriceCluster,
   priceCluster,
-  updatePriceCluster
+  handleConfirmDelete
 }) => {
   //  ** Redux
   const dispatch = useDispatch()
+
+  // lấy ra giá trị trong priceCluster ứng với từng cluster
+  const matchedCluster = priceCluster?.find((cluster) => cluster.index === item._id)
 
   // ** State
   // lưu cụm sản phẩm để thay đổi giá theo số lượng(ảo)
@@ -163,7 +166,7 @@ const ClusterProduct = ({
   }
 
   useEffect(() => {
-    setPriceCluster(index, clusterItem)
+    setPriceCluster(item._id, clusterItem)
   }, [clusterItem, selected])
 
   // xoá 1 product
@@ -199,37 +202,6 @@ const ClusterProduct = ({
   }
 
   const handleCancel = () => {
-    setIsModalOpen(false)
-  }
-
-  const handleConfirmDelete = async () => {
-    try {
-      // Sau khi xóa, cập nhật lại selected và priceCluster
-      // setSelected([])
-
-      // updatePriceCluster
-      updatePriceCluster((prevPriceCluster) =>
-        prevPriceCluster.filter((cluster) => cluster.index !== index)
-      )
-      setClusterItem([])
-
-      // updatePriceCluster((prevPriceCluster) =>
-      //   prevPriceCluster.map((cluster) => console.log(cluster, index))
-      // )
-
-      // Thực hiện xóa cluster
-      await dispatch(
-        deleteCluster({
-          userId: userId,
-          productClusterId: item._id
-        })
-      ).unwrap()
-
-      // Hiển thị thông báo thành công
-      openNotificationWithIcon('success', 'Xoá cụm sản phẩm')
-    } catch (error) {
-      console.log('««««« error »»»»»', error)
-    }
     setIsModalOpen(false)
   }
 
@@ -327,7 +299,10 @@ const ClusterProduct = ({
                         <Modal
                           title="Bạn muốn xoá cụm sản phẩm này chứ?"
                           open={isModalOpen}
-                          onOk={handleConfirmDelete}
+                          onOk={() => {
+                            handleConfirmDelete(userId, item._id)
+                            setIsModalOpen(false)
+                          }}
                           onCancel={handleCancel}
                           cancelButtonProps={{
                             style: {
@@ -383,22 +358,21 @@ const ClusterProduct = ({
                 {' '}
                 <div>
                   Tiền hàng:{' '}
-                  {priceCluster[index]
-                    ? parseInt(
-                        Number(priceCluster[index].totalPrice * rate).toFixed(0)
-                      ).toLocaleString('vi-VN')
+                  {matchedCluster
+                    ? parseInt(Number(matchedCluster.totalPrice * rate).toFixed(0)).toLocaleString(
+                        'vi-VN'
+                      )
                     : 0}{' '}
                   đ
                 </div>
-                <div>Phí dịch vụ: {priceCluster[index] ? priceCluster[index].feeService : 3} %</div>
+                <div>Phí dịch vụ: {matchedCluster ? matchedCluster.feeService : 3} %</div>
                 <div>
                   Tổng giá tiền:{' '}
-                  {priceCluster[index]
+                  {matchedCluster
                     ? parseInt(
                         (
-                          Number(priceCluster[index].totalPrice * rate) +
-                          (Number(priceCluster[index].totalPrice * rate) *
-                            priceCluster[index].feeService) /
+                          Number(matchedCluster.totalPrice * rate) +
+                          (Number(matchedCluster.totalPrice * rate) * matchedCluster.feeService) /
                             100
                         ).toFixed(0)
                       ).toLocaleString('vi-VN')
