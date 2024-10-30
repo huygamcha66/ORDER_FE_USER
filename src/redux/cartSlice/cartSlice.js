@@ -48,25 +48,25 @@ const addProductToCart = createAsyncThunk(
 )
 
 // Thunk để xóa sản phẩm khỏi giỏ hàng
-const deleteProductFromCart = createAsyncThunk(
-  'cart/deleteProduct',
-  async (productData, { rejectWithValue }) => {
-    try {
-      const response = await axios.patch(`${API_ROOT}/api/v1.0/cart/delete-product`, productData)
-      return response.data
-    } catch (error) {
-      if (error.response && error.response.data) {
-        return rejectWithValue(error.response.data)
-      } else {
-        throw error
-      }
-    }
-  }
-)
+// const deleteProductFromCart = createAsyncThunk(
+//   'cart/deleteProduct',
+//   async (productData, { rejectWithValue }) => {
+//     try {
+//       const response = await axios.patch(`${API_ROOT}/api/v1.0/cart/delete-product`, productData)
+//       return response.data
+//     } catch (error) {
+//       if (error.response && error.response.data) {
+//         return rejectWithValue(error.response.data)
+//       } else {
+//         throw error
+//       }
+//     }
+//   }
+// )
 
 const updateProductFromCart = createAsyncThunk(
   'cart/updateProductFromCart',
-  async ({ userId, productId, newQuantity, check, location }, { rejectWithValue }) => {
+  async ({ userId, productId, newQuantity, check, productClusterId }, { rejectWithValue }) => {
     try {
       const response = await axios.patch(`${API_ROOT}/api/v1.0/cart/update-product`, {
         userId,
@@ -74,7 +74,7 @@ const updateProductFromCart = createAsyncThunk(
         newQuantity,
         check,
         // đang ở cụm sản phẩm nào
-        location
+        productClusterId
       })
       return response.data
     } catch (error) {
@@ -88,13 +88,56 @@ const updateProductFromCart = createAsyncThunk(
 )
 
 const checkAllProductInOneCluster = createAsyncThunk(
-  'cart/updateProductFromCart',
-  async ({ userId, productId, newQuantity, check, location }, { rejectWithValue }) => {
+  'cart/checkAllProductInOneCluster',
+  async ({ userId, productClusterId, check }, { rejectWithValue }) => {
     try {
       const response = await axios.patch(`${API_ROOT}/api/v1.0/cart/update-manyProduct`, {
         userId,
-        location,
+        productClusterId,
         check
+      })
+      return response.data
+    } catch (error) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data)
+      } else {
+        throw error
+      }
+    }
+  }
+)
+
+const deleteProductFromCart = createAsyncThunk(
+  'cart/deleteProductFromCart',
+  async ({ userId, productId, location }, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(`${API_ROOT}/api/v1.0/cart/delete-product`, {
+        params: {
+          userId,
+          productId,
+          location
+        }
+      })
+      return response.data
+    } catch (error) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data)
+      } else {
+        throw error
+      }
+    }
+  }
+)
+
+const deleteCluster = createAsyncThunk(
+  'cart/deleteCluster',
+  async ({ userId, productClusterId }, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(`${API_ROOT}/api/v1.0/cart/delete-cluster`, {
+        params: {
+          userId,
+          productClusterId
+        }
       })
       return response.data
     } catch (error) {
@@ -201,6 +244,26 @@ const cartSlice = createSlice({
         state.success = false
         state.isDelete = false
       })
+
+    builder
+      .addCase(deleteCluster.pending, (state) => {
+        state.isLoading = true
+        state.error = null
+        state.success = false
+        state.isDelete = false
+      })
+      .addCase(deleteCluster.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.carts = action.payload.payload
+        state.success = true
+        state.isDelete = true
+      })
+      .addCase(deleteCluster.rejected, (state, action) => {
+        state.isLoading = false
+        state.error = action.payload
+        state.success = false
+        state.isDelete = false
+      })
   }
 })
 
@@ -215,5 +278,6 @@ export {
   addProductToCart,
   deleteProductFromCart,
   updateProductFromCart,
-  checkAllProductInOneCluster
+  checkAllProductInOneCluster,
+  deleteCluster
 }

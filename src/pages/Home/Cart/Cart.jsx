@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable quotes */
-import { memo, useEffect, useState } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import {
@@ -11,7 +11,19 @@ import {
 } from '../../../redux/cartSlice/cartSlice'
 import { jwtDecode } from 'jwt-decode'
 import './Cart.css'
-import { Button, Checkbox, Col, Empty, Flex, Image, Input, Modal, notification, Row, Space } from 'antd'
+import {
+  Button,
+  Checkbox,
+  Col,
+  Empty,
+  Flex,
+  Image,
+  Input,
+  Modal,
+  notification,
+  Row,
+  Space
+} from 'antd'
 import useDecodedToken from '../../../components/UserInfor'
 import { MdOutlineDelete } from 'react-icons/md'
 import { openNotificationWithIcon } from '../../../components/Nofitication'
@@ -19,8 +31,6 @@ import { API_ROOT } from '../../../utils/constants'
 import axios from 'axios'
 import ClusterProduct from './component/ClusterProduct'
 import { feeService } from '../../../utils'
-
-
 
 const Cart = () => {
   const { carts } = useSelector((state) => state.carts)
@@ -33,44 +43,60 @@ const Cart = () => {
   const { user } = useSelector((state) => state.users)
   const [rate, setRate] = useState()
 
+  const navigate = useNavigate()
+
   // dsach tổng, phí dịch vụ của từng cluster
   const [priceCluster, setPriceCluster] = useState([])
 
+  // hàm tình tổng của các cluster
   const handleCalculatorPriceCluster = (index, item) => {
     const totalAmount = item.reduce((acc, product) => {
       if (product.check) {
-        return acc + product.price * product.quantity;
+        return acc + product.price * product.quantity
       }
-      return acc;
-    }, 0);
+      return acc
+    }, 0)
 
     const newCluster = {
       index: index,
       totalPrice: totalAmount,
-      feeService: feeService(totalAmount)
-    };
+      // lưu theo giá trung, tính phí dịch vụ theo giá việt
+      feeService: feeService(totalAmount * rate)
+    }
 
     // nếu chạy đồng thời thì phải dùng callback để update liên tục
     //https://chatgpt.com/c/671f24c0-5750-800a-8916-d695d98731d8 nick (vy)
-    setPriceCluster(prevPriceCluster => {
+    setPriceCluster((prevPriceCluster) => {
       // Tìm xem cluster đã tồn tại hay chưa
-      const hasCluster = prevPriceCluster.findIndex(cluster => cluster.index === index);
-      let updatedPriceCluster;
+      const hasCluster = prevPriceCluster.findIndex((cluster) => cluster.index === index)
+      let updatedPriceCluster
 
       if (hasCluster !== -1) {
         // Cập nhật cluster hiện có
-        updatedPriceCluster = [...prevPriceCluster];
-        updatedPriceCluster[hasCluster] = newCluster;
+        updatedPriceCluster = [...prevPriceCluster]
+        updatedPriceCluster[hasCluster] = newCluster
       } else {
         // Thêm cluster mới
-        updatedPriceCluster = [...prevPriceCluster, newCluster];
+        updatedPriceCluster = [...prevPriceCluster, newCluster]
       }
 
-      return updatedPriceCluster;
-    });
-  };
+      return updatedPriceCluster
+    })
+  }
 
+  // tính tổng giá tiền trước khi mua hàng (kiểm tra với ví tiền)
+  const totalPrice = useMemo(() => {
+    const total = priceCluster.reduce((acc, cluster) => {
+      const clusterTotal =
+        (cluster.totalPrice * rate + (cluster.totalPrice * rate * cluster.feeService) / 100) * 0.7
+      return acc + clusterTotal
+    }, 0)
 
+    // Nhân kết quả cuối cùng với 70%
+    return total
+  }, [priceCluster])
+
+  // tỉ giá việt - trung
   useEffect(() => {
     const fetchRate = async () => {
       try {
@@ -83,14 +109,12 @@ const Cart = () => {
     fetchRate()
   }, [])
 
-
   const handlePlaceOrder = async () => {
-    // console.log('««««« carts.productClusters »»»»»', carts.productClusters);
-    // console.log('««««« priceCluster »»»»»', priceCluster);
-    // console.log("««««« totalCheckedPrice »»»»»", totalCheckedPrice);
-    // if (!totalCheckedPrice) {
-    //   return openNotificationWithIcon('error', 'Vui lòng chọn sản phẩm')
-    // }
+    if (!totalPrice) {
+      return openNotificationWithIcon('error', 'Vui lòng chọn sản phẩm')
+    } else {
+      navigate('/cart/step2')
+    }
     // improve: dùng unwrap() để sử dụng async await đối với js redux-thunk
     // sử dụng trycatch để bắt lỗi
     // const updateCartProducts = async () => {
@@ -177,7 +201,15 @@ const Cart = () => {
               <>
                 {carts.productClusters.map((item, index) => (
                   <div style={{ marginBottom: '1rem' }} key={index}>
-                    <ClusterProduct priceCluster={priceCluster} setPriceCluster={handleCalculatorPriceCluster} userId={user.user?._id} item={item} index={index} />
+                    <ClusterProduct
+                      rate={rate}
+                      priceCluster={priceCluster}
+                      updatePriceCluster={setPriceCluster}
+                      setPriceCluster={handleCalculatorPriceCluster}
+                      userId={user.user?._id}
+                      item={item}
+                      index={index}
+                    />
                   </div>
                 ))}
               </>
@@ -190,8 +222,20 @@ const Cart = () => {
           </div>
         </Col>
         <Col xs={20}>
-          <Space style={{ display: 'flex', justifyContent: 'end', marginBottom: '1rem' }}>
-            <Button onClick={handlePlaceOrder}>Đặt hàng</Button>
+          <Space
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              marginBottom: '1rem',
+              alignItems: 'center'
+            }}
+          >
+            <Space style={{ fontSize: '18px', color: 'red', fontWeight: 600 }}>
+              Tổng tiền: {Number(totalPrice.toFixed(0)).toLocaleString('vi-VN')} VNĐ
+            </Space>
+            <Button type="primary" onClick={handlePlaceOrder}>
+              Đặt hàng
+            </Button>
           </Space>
         </Col>
       </Row>
