@@ -13,7 +13,8 @@ const initialState = {
   error: null,
   buyProduct: [],
   success: false,
-  isDelete: false
+  isDelete: false,
+  isDeleteCluster: false
 }
 
 // Thunk để lấy chi tiết giỏ hàng
@@ -163,6 +164,7 @@ const cartSlice = createSlice({
       state.success = false
       state.isSend = false
       state.isDelete = false
+      state.isDeleteCluster = false
     }
     // Các reducer đồng bộ nếu cần
   },
@@ -248,15 +250,11 @@ const cartSlice = createSlice({
     builder
       .addCase(deleteCluster.pending, (state) => {
         state.isLoading = true
-        state.error = null
-        state.success = false
-        state.isDelete = false
       })
       .addCase(deleteCluster.fulfilled, (state, action) => {
         state.isLoading = false
+        state.isDeleteCluster = true
         state.carts = action.payload.payload
-        state.success = true
-        state.isDelete = true
       })
       .addCase(deleteCluster.rejected, (state, action) => {
         state.isLoading = false
