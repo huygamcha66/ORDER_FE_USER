@@ -105,7 +105,6 @@ const orderSlice = createSlice({
       })
       .addCase(createOrder.fulfilled, (state, action) => {
         state.isLoading = false
-        // state.orders.push(action.payload)s
         state.orders = action.payload
       })
       .addCase(createOrder.rejected, (state, action) => {
@@ -151,12 +150,10 @@ const orderSlice = createSlice({
         state.error = null
       })
       .addCase(getDetailOrder.fulfilled, (state, action) => {
-        console.log('««««« actions »»»»»', actions)
         state.isLoading = false
         state.detailOrder = action.payload
       })
       .addCase(getDetailOrder.rejected, (state, action) => {
-        console.log('««««« action »»»»»', action)
         state.isLoading = false
         state.error = action.payload
       })

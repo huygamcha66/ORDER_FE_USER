@@ -103,7 +103,7 @@ const PriceListCon = () => {
     {
       key: '4',
       name: '< 5m3',
-      age: '22.600.000đ',
+      age: '2.260.000đ',
       address: '	3.100.000đ',
       four: '	3.100.000đ'
     }

@@ -18,7 +18,6 @@ const Cart = () => {
   const [productClusters, setProductClusters] = useState(carts || [])
   const navigate = useNavigate()
   const [priceCluster, setPriceCluster] = useState([])
-  const firstRender = useRef(true)
 
   const handleCalculatorPriceCluster = (index, item) => {
     const totalAmount = item.reduce((acc, product) => {
@@ -52,7 +51,7 @@ const Cart = () => {
   const totalPrice = useMemo(() => {
     const total = priceCluster.reduce((acc, cluster) => {
       const clusterTotal =
-        (cluster.totalPrice * rate + (cluster.totalPrice * rate * cluster.feeService) / 100) * 0.7
+        cluster.totalPrice * rate + (cluster.totalPrice * rate * cluster.feeService) / 100
       return acc + clusterTotal
     }, 0)
 
@@ -103,63 +102,87 @@ const Cart = () => {
         prevPriceCluster.filter((cluster) => cluster.index !== productClusterId)
       )
 
-      openNotificationWithIcon('success', 'Xoá cụm sản phẩm')
+      openNotificationWithIcon('success', 'Xoá cụm sản phẩm thành công')
     } catch (error) {
       console.log('Error deleting cluster:', error)
     }
   }
   useEffect(() => {
-    // Cập nhật productClusters khi carts thay đổi
-    console.log('«««««  carts»»»»»', carts, isDeleteCluster)
     setProductClusters(carts)
   }, [carts, isDeleteCluster])
-  console.log('««««« productClusters »»»»»', productClusters)
+
   return (
     <Row justify="center">
-      <Col xs={20}>
-        <div>
-          <h2>Giỏ hàng</h2>
-          {productClusters && productClusters.productClusters ? (
-            <>
-              {productClusters.productClusters.map((item) => {
-                return (
-                  // fix bug xoá, thay đổi key của component
-                  <div style={{ marginBottom: '1rem' }} key={item._id}>
-                    <ClusterProduct
-                      rate={rate}
-                      priceCluster={priceCluster}
-                      setPriceCluster={handleCalculatorPriceCluster}
-                      userId={user.user?._id}
-                      item={item}
-                      index={item._id}
-                      handleConfirmDelete={handleConfirmDelete}
-                    />
-                  </div>
-                )
-              })}
-            </>
-          ) : (
-            <Empty style={{ marginTop: '30px' }} description={<span>Không có sản phẩm nào</span>} />
-          )}
-        </div>
-      </Col>
-      <Col xs={20}>
-        <Space
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            marginBottom: '1rem',
-            alignItems: 'center'
-          }}
-        >
-          <Space style={{ fontSize: '18px', color: 'red', fontWeight: 600 }}>
-            Tổng tiền: {Number(totalPrice.toFixed(0)).toLocaleString('vi-VN')} VNĐ
-          </Space>
-          <Button type="primary" onClick={handlePlaceOrder}>
-            Đặt hàng
-          </Button>
-        </Space>
-      </Col>
+      {carts.productClusters && carts.productClusters.length ? (
+        <>
+          {' '}
+          <Col xs={20}>
+            <div>
+              <h2>Giỏ hàng</h2>
+              {productClusters && productClusters.productClusters ? (
+                <>
+                  {productClusters.productClusters.map((item) => {
+                    return (
+                      // fix bug xoá, thay đổi key của component
+                      <div style={{ marginBottom: '1rem' }} key={item._id}>
+                        <ClusterProduct
+                          rate={rate}
+                          priceCluster={priceCluster}
+                          setPriceCluster={handleCalculatorPriceCluster}
+                          userId={user.user?._id}
+                          item={item}
+                          index={item._id}
+                          handleConfirmDelete={handleConfirmDelete}
+                        />
+                      </div>
+                    )
+                  })}
+                </>
+              ) : (
+                <Empty
+                  style={{ marginTop: '30px' }}
+                  description={<span>Không có sản phẩm nào</span>}
+                />
+              )}
+            </div>
+          </Col>
+          <Col xs={20}>
+            <Space
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                marginBottom: '1rem',
+                marginTop: '1rem',
+                alignItems: 'center'
+              }}
+            >
+              <Space
+                style={{
+                  fontSize: '18px',
+                  color: 'red',
+                  fontWeight: 600,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'start'
+                }}
+              >
+                <Space>
+                  Tổng tiền: {Number(+totalPrice.toFixed(0)).toLocaleString('vi-VN')} VNĐ
+                </Space>
+                <Space>
+                  Tiền cọc (70%): {Number((+totalPrice * 0.7).toFixed(0)).toLocaleString('vi-VN')}
+                  VNĐ
+                </Space>
+              </Space>
+              <Button type="primary" onClick={handlePlaceOrder}>
+                Đặt hàng
+              </Button>
+            </Space>
+          </Col>
+        </>
+      ) : (
+        <Empty style={{ marginTop: '30px' }} description={<span>Không có sản phẩm nào</span>} />
+      )}
     </Row>
   )
 }

@@ -195,7 +195,9 @@ const ExtraHeader = () => {
                                     color: '#fb5731'
                                   }}
                                 >
-                                  {carts && carts.products ? carts.products.length : 0}
+                                  {carts && carts.productClusters
+                                    ? carts.productClusters.length
+                                    : 0}
                                 </Space>
                                 Giỏ hàng
                               </span>

@@ -31,15 +31,6 @@ const ProductItemCart2 = memo(
         {user && user.user && (
           <tr>
             <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-              <Flex justify="center">
-                {/* <Checkbox
-                  type="checkbox"
-                  onChange={() => handleChangeSelected(product.productId)}
-                  checked={selected.includes(product.productId)}
-                /> */}
-              </Flex>
-            </td>
-            <td style={{ border: '1px solid #ddd', padding: '8px' }}>
               <div style={{ display: 'flex' }}>
                 {!product.coverImageUrl?.includes('video') ? (
                   <img
@@ -96,42 +87,6 @@ const ProductItemCart2 = memo(
             >
               {parseInt((product.price * quantity * rate).toFixed(0)).toLocaleString('vi-VN')} đ
               <br />¥{(product.price * quantity).toLocaleString('zh-CN')}
-            </td>
-            <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-              <Flex justify="center">
-                {/* <button
-                  onClick={showModal}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: 'red',
-                    cursor: 'pointer'
-                  }}
-                >
-                  <MdOutlineDelete style={{ width: '20px', height: '20px' }} />
-                </button> */}
-                <Modal
-                  title="Bạn muốn xoá sản phẩm này chứ?"
-                  open={isModalOpen}
-                  onOk={() => handleConfirmDelete(product.productId)}
-                  onCancel={handleCancel}
-                  cancelButtonProps={{
-                    style: {
-                      backgroundColor: '#f5222d',
-                      borderColor: '#f5222d',
-                      color: '#fff'
-                    }
-                  }}
-                  okButtonProps={{
-                    style: {
-                      backgroundColor: '#ccc',
-                      color: '#000'
-                    }
-                  }}
-                  okText="Có"
-                  cancelText="Không"
-                ></Modal>
-              </Flex>
             </td>
           </tr>
         )}

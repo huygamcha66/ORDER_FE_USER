@@ -1,4 +1,4 @@
-import { Checkbox, Modal, Space } from 'antd'
+import { Checkbox, Flex, Modal, Space } from 'antd'
 import { MdOutlineDelete } from 'react-icons/md'
 // import ProductItem from './ProductItem'
 import { useEffect, useState } from 'react'
@@ -94,54 +94,17 @@ const ClusterProductCart2 = ({ rate, item, index, userId, setPriceCluster, price
             >
               <thead>
                 <tr>
-                  <th style={{ border: '1px solid #ddd', padding: '8px', width: '10%' }}>
-                    <span>{selected.length === item.products.length ? '✓' : ' '}</span>
-                  </th>
-                  <th style={{ border: '1px solid #ddd', padding: '8px', width: '30%' }}>
+                  <th style={{ border: '1px solid #ddd', padding: '8px', width: '40%' }}>
                     Sản phẩm
                   </th>
                   <th style={{ border: '1px solid #ddd', padding: '8px', width: '10%' }}>
                     Số lượng
                   </th>
-                  <th style={{ border: '1px solid #ddd', padding: '8px', width: '15%' }}>
+                  <th style={{ border: '1px solid #ddd', padding: '8px', width: '20%' }}>
                     Đơn giá
                   </th>
                   <th style={{ border: '1px solid #ddd', padding: '8px', width: '20%' }}>
                     Tổng tiền
-                  </th>
-                  <th style={{ border: '1px solid #ddd', padding: '8px', width: '5%' }}>
-                    <button
-                      onClick={showModal}
-                      style={{
-                        background: 'none',
-                        border: 'none',
-                        color: 'red',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      <MdOutlineDelete style={{ width: '20px', height: '20px' }} />
-                    </button>
-                    <Modal
-                      title="Bạn muốn xoá cụm sản phẩm này chứ?"
-                      open={isModalOpen}
-                      onOk={handleConfirmDelete}
-                      onCancel={handleCancel}
-                      cancelButtonProps={{
-                        style: {
-                          backgroundColor: '#f5222d',
-                          borderColor: '#f5222d',
-                          color: '#fff'
-                        }
-                      }}
-                      okButtonProps={{
-                        style: {
-                          backgroundColor: '#ccc',
-                          color: '#000'
-                        }
-                      }}
-                      okText="Có"
-                      cancelText="Không"
-                    />
                   </th>
                 </tr>
               </thead>
@@ -174,9 +137,8 @@ const ClusterProductCart2 = ({ rate, item, index, userId, setPriceCluster, price
               alignItems: 'center'
             }}
           >
-            <Space>
-              {' '}
-              <div>
+            <Flex vertical>
+              <div style={{ paddingBottom: '10px' }}>
                 Tiền hàng:{' '}
                 {priceCluster[index]
                   ? parseInt(
@@ -185,7 +147,10 @@ const ClusterProductCart2 = ({ rate, item, index, userId, setPriceCluster, price
                   : 0}{' '}
                 đ
               </div>
-              <div>Phí dịch vụ: {priceCluster[index] ? priceCluster[index].feeService : 3} %</div>
+              <div style={{ paddingBottom: '10px' }}>
+                {' '}
+                Phí dịch vụ: {priceCluster[index] ? priceCluster[index].feeService : 3} %
+              </div>
               <div>
                 Tổng giá tiền:{' '}
                 {priceCluster[index]
@@ -200,10 +165,10 @@ const ClusterProductCart2 = ({ rate, item, index, userId, setPriceCluster, price
                   : 0}{' '}
                 đ
               </div>
-            </Space>
+            </Flex>
             <Space>
               Đóng gỗ
-              <Checkbox type="checkbox" onChange={handleBox} checked={isBox} />
+              <Checkbox disabled type="checkbox" onChange={handleBox} checked={isBox} />
             </Space>
           </Space>
         </>

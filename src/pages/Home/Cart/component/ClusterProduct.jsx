@@ -176,7 +176,7 @@ const ClusterProduct = ({
       await dispatch(
         deleteProductFromCart({
           userId: userId,
-          location: +index,
+          productClusterId: index,
           productId: productId
         })
       ).unwrap()
@@ -188,6 +188,8 @@ const ClusterProduct = ({
 
       // Cập nhật lại selected để loại bỏ sản phẩm đã xóa (nếu nó đã được chọn)
       setSelected((prevSelected) => prevSelected.filter((id) => id !== productId))
+
+      openNotificationWithIcon('success', 'Xoá sản phẩm thành công')
     } catch (error) {
       // Xử lý lỗi nếu có
       console.log('««««« error »»»»»', error)
@@ -355,30 +357,33 @@ const ClusterProduct = ({
               }}
             >
               <Space>
-                {' '}
-                <div>
-                  Tiền hàng:{' '}
-                  {matchedCluster
-                    ? parseInt(Number(matchedCluster.totalPrice * rate).toFixed(0)).toLocaleString(
-                        'vi-VN'
-                      )
-                    : 0}{' '}
-                  đ
-                </div>
-                <div>Phí dịch vụ: {matchedCluster ? matchedCluster.feeService : 3} %</div>
-                <div>
-                  Tổng giá tiền:{' '}
-                  {matchedCluster
-                    ? parseInt(
-                        (
-                          Number(matchedCluster.totalPrice * rate) +
-                          (Number(matchedCluster.totalPrice * rate) * matchedCluster.feeService) /
-                            100
-                        ).toFixed(0)
-                      ).toLocaleString('vi-VN')
-                    : 0}{' '}
-                  đ
-                </div>
+                <Flex vertical>
+                  <div style={{ paddingBottom: '10px' }}>
+                    Tiền hàng:{' '}
+                    {matchedCluster
+                      ? parseInt(
+                          Number(matchedCluster.totalPrice * rate).toFixed(0)
+                        ).toLocaleString('vi-VN')
+                      : 0}{' '}
+                    đ
+                  </div>
+                  <div style={{ paddingBottom: '10px' }}>
+                    Phí dịch vụ: {matchedCluster ? matchedCluster.feeService : 3} %
+                  </div>
+                  <div>
+                    Tổng giá tiền:{' '}
+                    {matchedCluster
+                      ? parseInt(
+                          (
+                            Number(matchedCluster.totalPrice * rate) +
+                            (Number(matchedCluster.totalPrice * rate) * matchedCluster.feeService) /
+                              100
+                          ).toFixed(0)
+                        ).toLocaleString('vi-VN')
+                      : 0}{' '}
+                    đ
+                  </div>
+                </Flex>
               </Space>
               <Space>
                 Đóng gỗ

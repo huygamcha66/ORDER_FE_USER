@@ -11,8 +11,6 @@ import { openNotificationWithIcon } from '../../../../components/Nofitication'
 import { STATUS_ORDER_MAP } from '../../../../utils/constants'
 // STATUS_ORDER_MAP
 const ProductItem = ({ cart, rateOrder, rateMoney, status }) => {
-  console.log('««««« cart.status »»»»»', cart)
-
   return (
     <tbody>
       <tr>
@@ -212,13 +210,26 @@ const DetailOrder = () => {
                       : 'Đang cập nhật'}{' '}
                   </Flex>
                   <Flex>
+                    {detailOrder.boxFee ? (
+                      <>
+                        <Space style={{ width: '250px', marginBottom: '20px' }}>Phí đóng gỗ:</Space>{' '}
+                        `${parseInt(detailOrder.boxFee).toLocaleString()} VNĐ `
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </Flex>
+                  <Flex>
                     <Space style={{ width: '250px', marginBottom: '20px' }}>Tiền sản phẩm:</Space>{' '}
                     {parseInt(detailOrder.totalOrder).toLocaleString()} VNĐ
                   </Flex>
                   <Flex>
                     <Space style={{ width: '250px', marginBottom: '20px' }}>Tổng tiền hàng:</Space>{' '}
                     {parseInt(
-                      detailOrder.totalOrder + detailOrder.transportFeeTq + detailOrder.transportFee
+                      detailOrder.totalOrder +
+                        detailOrder.transportFeeTq +
+                        detailOrder.transportFee +
+                        detailOrder.boxFee
                     ).toLocaleString()}{' '}
                     VNĐ
                   </Flex>
@@ -235,25 +246,13 @@ const DetailOrder = () => {
                     {parseInt(
                       detailOrder.totalOrder +
                         detailOrder.transportFeeTq +
+                        detailOrder.boxFee +
                         detailOrder.transportFee -
                         detailOrder.orderDiscount -
                         detailOrder.paidFee
                     ).toLocaleString()}{' '}
                     VNĐ
                   </Flex>
-                </Flex>
-
-                <Flex>
-                  <TextArea
-                    value={complain}
-                    disabled={detailOrder && detailOrder.complainContent}
-                    onChange={(e) => setComplain(e.target.value)}
-                    placeholder="Nhập lí do khiếu nại"
-                    autoSize={{
-                      minRows: 3,
-                      maxRows: 6
-                    }}
-                  />
                 </Flex>
               </div>
             </div>

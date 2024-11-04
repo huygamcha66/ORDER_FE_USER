@@ -110,13 +110,13 @@ const checkAllProductInOneCluster = createAsyncThunk(
 
 const deleteProductFromCart = createAsyncThunk(
   'cart/deleteProductFromCart',
-  async ({ userId, productId, location }, { rejectWithValue }) => {
+  async ({ userId, productId, productClusterId }, { rejectWithValue }) => {
     try {
       const response = await axios.delete(`${API_ROOT}/api/v1.0/cart/delete-product`, {
         params: {
           userId,
           productId,
-          location
+          productClusterId
         }
       })
       return response.data
