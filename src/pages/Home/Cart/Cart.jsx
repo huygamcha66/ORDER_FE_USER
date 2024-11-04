@@ -175,7 +175,7 @@ const Cart = () => {
                 </Space>
               </Space>
               <Button type="primary" onClick={handlePlaceOrder}>
-                Đặt hàngg
+                Đặt hànggg
               </Button>
             </Space>
           </Col>
