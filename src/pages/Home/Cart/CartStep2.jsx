@@ -167,10 +167,10 @@ const CartStep2 = () => {
           } finally {
             openNotificationWithIcon('success', 'Đặt hàng thành công')
 
-            setTimeout(() => {
-              window.location.reload()
-              setLoadingPlace(false)
-            }, 2000)
+            // setTimeout(() => {
+            //   window.location.reload()
+            //   setLoadingPlace(false)
+            // }, 2000)
           }
         }
       } else {

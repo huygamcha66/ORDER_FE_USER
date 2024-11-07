@@ -55,3 +55,15 @@ export const allOrdersService = async ({ userId }) => {
     throw error // Ném lỗi để xử lý trong phần gọi hàm
   }
 }
+
+export const allHistoryUpdate = async ({ productId }) => {
+  try {
+    const response = await axios.get(`${API_ROOT}/api/v1.0/orders/history/${productId}`)
+    console.log('««««« response »»»»»', response)
+
+    return response.data
+  } catch (error) {
+    console.error('API call error:', error)
+    throw error // Ném lỗi để xử lý trong phần gọi hàm
+  }
+}
