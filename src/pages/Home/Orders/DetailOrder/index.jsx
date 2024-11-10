@@ -331,22 +331,27 @@ const DetailOrder = ({ cart }) => {
                         <th
                           style={{ border: '1px solid #dddddd', textAlign: 'left', padding: '8px' }}
                         >
-                          Product Name
+                          Tên sản phẩm
                         </th>
                         <th
                           style={{ border: '1px solid #dddddd', textAlign: 'left', padding: '8px' }}
                         >
-                          Date
+                          Ngày cập nhật
                         </th>
                         <th
                           style={{ border: '1px solid #dddddd', textAlign: 'left', padding: '8px' }}
                         >
-                          Old Quantity
+                          Số lượng chưa thay đổi
                         </th>
                         <th
                           style={{ border: '1px solid #dddddd', textAlign: 'left', padding: '8px' }}
                         >
-                          New Quantity
+                          Số lượng đã thay đổi
+                        </th>
+                        <th
+                          style={{ border: '1px solid #dddddd', textAlign: 'left', padding: '8px' }}
+                        >
+                          Cọc thêm/Hoàn trả
                         </th>
                       </tr>
                     </thead>
@@ -419,6 +424,15 @@ const DetailOrder = ({ cart }) => {
                               }}
                             >
                               {item.newQuantity !== undefined ? item.newQuantity : 'No newQuantity'}
+                            </td>
+                            <td
+                              style={{
+                                border: '1px solid #dddddd',
+                                textAlign: 'left',
+                                padding: '8px'
+                              }}
+                            >
+                              {item.refund || 'Không thay đổi'}
                             </td>
                           </tr>
                         ))
