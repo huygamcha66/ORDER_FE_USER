@@ -56,11 +56,7 @@ const ProductItem = ({ order, cart, rateOrder, rateMoney, status }) => {
           </div>
         </td>
         <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-          {order && order.length !== 0 ? (
-            <Flex justify="center">{order.quantity}</Flex>
-          ) : (
-            <Flex justify="center">{cart.quantity}</Flex>
-          )}
+          <Flex justify="center">{cart.quantity}</Flex>
         </td>
         <td style={{ border: '1px solid #ddd', padding: '8px' }}>
           <Flex justify="center">
@@ -185,7 +181,8 @@ const DetailOrder = ({ cart }) => {
     }
   }, [detailOrder])
 
-  console.log(history.flat().map((item) => item.name))
+  console.log('data showing: ', detailOrder.tempProductList)
+  const tempHistory = detailOrder.tempProductList
 
   return (
     <>
@@ -256,7 +253,7 @@ const DetailOrder = ({ cart }) => {
                       Phí vận chuyển nội địa Trung:
                     </Space>{' '}
                     {detailOrder.transportFeeTq
-                      ? `${parseInt(detailOrder.transportFeeTq).toLocaleString()} VNĐ `
+                      ? `${Math.round(detailOrder.transportFeeTq).toLocaleString()} VNĐ `
                       : 'Đang cập nhật'}{' '}
                   </Flex>
                   <Flex>
@@ -264,14 +261,14 @@ const DetailOrder = ({ cart }) => {
                       Phí vận chuyển về VN:
                     </Space>{' '}
                     {detailOrder.transportFee
-                      ? `${parseInt(detailOrder.transportFee).toLocaleString()} VNĐ `
+                      ? `${Math.round(detailOrder.transportFee).toLocaleString()} VNĐ `
                       : 'Đang cập nhật'}{' '}
                   </Flex>
                   <Flex>
                     {detailOrder.boxFee ? (
                       <>
                         <Space style={{ width: '250px', marginBottom: '20px' }}>Phí đóng gỗ:</Space>{' '}
-                        `${parseInt(detailOrder.boxFee).toLocaleString()} VNĐ `
+                        `${Math.round(detailOrder.boxFee).toLocaleString()} VNĐ `
                       </>
                     ) : (
                       <></>
@@ -279,11 +276,11 @@ const DetailOrder = ({ cart }) => {
                   </Flex>
                   <Flex>
                     <Space style={{ width: '250px', marginBottom: '20px' }}>Tiền sản phẩm:</Space>{' '}
-                    {parseInt(detailOrder.totalOrder).toLocaleString()} VNĐ
+                    {Math.round(detailOrder.totalOrder).toLocaleString()} VNĐ
                   </Flex>
                   <Flex>
                     <Space style={{ width: '250px', marginBottom: '20px' }}>Tổng tiền hàng:</Space>{' '}
-                    {parseInt(
+                    {Math.round(
                       detailOrder.totalOrder +
                         detailOrder.transportFeeTq +
                         detailOrder.transportFee +
@@ -293,15 +290,15 @@ const DetailOrder = ({ cart }) => {
                   </Flex>
                   <Flex>
                     <Space style={{ width: '250px', marginBottom: '20px' }}>Đã thanh toán:</Space>{' '}
-                    {parseInt(detailOrder.paidFee).toLocaleString()} VNĐ
+                    {Math.round(detailOrder.paidFee).toLocaleString()} VNĐ
                   </Flex>
                   <Flex>
                     <Space style={{ width: '250px', marginBottom: '20px' }}>Giảm giá:</Space>{' '}
-                    {parseInt(detailOrder.orderDiscount).toLocaleString()} VNĐ
+                    {Math.round(detailOrder.orderDiscount).toLocaleString()} VNĐ
                   </Flex>
                   <Flex>
                     <Space style={{ width: '250px' }}>Cần thanh toán:</Space>{' '}
-                    {parseInt(
+                    {Math.round(
                       detailOrder.totalOrder +
                         detailOrder.transportFeeTq +
                         detailOrder.boxFee +
@@ -314,47 +311,222 @@ const DetailOrder = ({ cart }) => {
                 </Flex>
               </div>
             </div>
+            <h2>Số lượng đang chờ xác nhận thay đổi</h2>
             <div>
+              {tempHistory === null ? (
+                <p></p>
+              ) : tempHistory && tempHistory.length > 0 ? (
+                <table
+                  style={{
+                    width: '100%',
+                    borderCollapse: 'collapse',
+                    marginBottom: '1em'
+                  }}
+                >
+                  <thead>
+                    <tr>
+                      <th
+                        style={{
+                          border: '1px solid #dddddd',
+                          textAlign: 'center',
+                          padding: '8px'
+                        }}
+                      >
+                        #
+                      </th>
+                      <th
+                        style={{
+                          border: '1px solid #dddddd',
+                          textAlign: 'center',
+                          padding: '8px'
+                        }}
+                      >
+                        Tên sản phẩm
+                      </th>
+                      <th
+                        style={{
+                          border: '1px solid #dddddd',
+                          textAlign: 'center',
+                          padding: '8px'
+                        }}
+                      >
+                        Ngày cập nhật
+                      </th>
+                      <th
+                        style={{
+                          border: '1px solid #dddddd',
+                          textAlign: 'center',
+                          padding: '8px'
+                        }}
+                      >
+                        Số lượng chưa thay đổi
+                      </th>
+                      <th
+                        style={{
+                          border: '1px solid #dddddd',
+                          textAlign: 'center',
+                          padding: '8px'
+                        }}
+                      >
+                        Số lượng đã thay đổi
+                      </th>
+                      <th
+                        style={{
+                          border: '1px solid #dddddd',
+                          textAlign: 'center',
+                          padding: '8px'
+                        }}
+                      >
+                        Hoàn trả
+                      </th>
+                      <th
+                        style={{
+                          border: '1px solid #dddddd',
+                          textAlign: 'center',
+                          padding: '8px'
+                        }}
+                      >
+                        Cọc thêm
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {loading ? (
+                      <tr
+                        style={{
+                          border: '1px solid #dddddd',
+                          textAlign: 'left',
+                          padding: '8px'
+                        }}
+                      >
+                        <td colSpan="3">Loading...</td>
+                      </tr>
+                    ) : tempHistory.length === 0 ? (
+                      <p>Không có</p> // Hiển thị khi không có dữ liệu
+                    ) : (
+                      tempHistory.flat().map((item, index) => (
+                        <tr key={index}>
+                          <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                            <Flex justify="center">{index + 1}</Flex>
+                          </td>
+                          <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                            <Flex justify="center">{item.name ? item.name : 'No name'}</Flex>
+                          </td>
+                          <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                            <Flex justify="center">
+                              {item.createdDate
+                                ? new Date(item.createdDate).toLocaleString()
+                                : 'No date'}
+                            </Flex>
+                          </td>
+                          <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                            <Flex justify="center">
+                              {item.oldQuantity !== undefined ? item.oldQuantity : 'No oldQuantity'}
+                            </Flex>
+                          </td>
+                          <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                            <Flex justify="center">
+                              {item.quantity !== undefined ? item.quantity : 'No newQuantity'}
+                            </Flex>
+                          </td>
+                          <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                            <Flex justify="center">
+                              {item.refund > 0
+                                ? `${Math.round(item.refund).toLocaleString()} đ`
+                                : ''}
+                            </Flex>
+                          </td>
+                          <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                            <Flex justify="center">
+                              {item.refund < 0
+                                ? `${Math.abs(Math.round(item.refund)).toLocaleString()} đ`
+                                : ''}
+                            </Flex>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              ) : (
+                <p>Không có số lượng nào chờ xác nhận thay đổi</p>
+              )}
+            </div>
+            <div style={{ marginBottom: '30px' }}>
               <h2>Lịch sử thay đổi số lượng sản phẩm</h2>
-              <div>
+              <div style={{ marginBottom: '30px' }}>
                 {history === null ? (
                   <p>Loading...</p>
                 ) : history.length > 0 ? (
-                  <table style={{ borderCollapse: 'collapse', width: '100%' }}>
+                  <table
+                    style={{
+                      width: '100%',
+                      borderCollapse: 'collapse',
+                      marginBottom: '1em'
+                    }}
+                  >
                     <thead>
                       <tr>
                         <th
-                          style={{ border: '1px solid #dddddd', textAlign: 'left', padding: '8px' }}
+                          style={{
+                            border: '1px solid #dddddd',
+                            textAlign: 'center',
+                            padding: '8px'
+                          }}
                         >
                           #
                         </th>
                         <th
-                          style={{ border: '1px solid #dddddd', textAlign: 'left', padding: '8px' }}
+                          style={{
+                            border: '1px solid #dddddd',
+                            textAlign: 'center',
+                            padding: '8px'
+                          }}
                         >
                           Tên sản phẩm
                         </th>
                         <th
-                          style={{ border: '1px solid #dddddd', textAlign: 'left', padding: '8px' }}
+                          style={{
+                            border: '1px solid #dddddd',
+                            textAlign: 'center',
+                            padding: '8px'
+                          }}
                         >
                           Ngày cập nhật
                         </th>
                         <th
-                          style={{ border: '1px solid #dddddd', textAlign: 'left', padding: '8px' }}
+                          style={{
+                            border: '1px solid #dddddd',
+                            textAlign: 'center',
+                            padding: '8px'
+                          }}
                         >
                           Số lượng chưa thay đổi
                         </th>
                         <th
-                          style={{ border: '1px solid #dddddd', textAlign: 'left', padding: '8px' }}
+                          style={{
+                            border: '1px solid #dddddd',
+                            textAlign: 'center',
+                            padding: '8px'
+                          }}
                         >
                           Số lượng đã thay đổi
                         </th>
                         <th
-                          style={{ border: '1px solid #dddddd', textAlign: 'left', padding: '8px' }}
+                          style={{
+                            border: '1px solid #dddddd',
+                            textAlign: 'center',
+                            padding: '8px'
+                          }}
                         >
                           Hoàn trả
                         </th>
                         <th
-                          style={{ border: '1px solid #dddddd', textAlign: 'left', padding: '8px' }}
+                          style={{
+                            border: '1px solid #dddddd',
+                            textAlign: 'center',
+                            padding: '8px'
+                          }}
                         >
                           Cọc thêm
                         </th>
@@ -362,91 +534,54 @@ const DetailOrder = ({ cart }) => {
                     </thead>
                     <tbody>
                       {loading ? (
-                        <tr
-                          style={{
-                            border: '1px solid #dddddd',
-                            textAlign: 'left',
-                            padding: '8px'
-                          }}
-                        >
+                        <tr>
                           <td colSpan="3">Loading...</td>
                         </tr>
                       ) : history.length === 0 ? (
                         <p>No data available</p> // Hiển thị khi không có dữ liệu
                       ) : (
                         history.flat().map((item, index) => (
-                          <tr
-                            style={{
-                              border: '1px solid #dddddd',
-                              textAlign: 'left',
-                              padding: '8px'
-                            }}
-                            key={index}
-                          >
-                            <td
-                              style={{
-                                border: '1px solid #dddddd',
-                                textAlign: 'left',
-                                padding: '8px'
-                              }}
-                            >
-                              {index + 1}
+                          <tr key={index}>
+                            <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                              <Flex justify="center">{index + 1}</Flex>
                             </td>
-                            <td
-                              style={{
-                                border: '1px solid #dddddd',
-                                textAlign: 'left',
-                                padding: '8px'
-                              }}
-                            >
-                              {item.name ? item.name : 'No name'}
+                            <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                              <Flex justify="center">{item.name ? item.name : 'No name'}</Flex>
                             </td>
-                            <td
-                              style={{
-                                border: '1px solid #dddddd',
-                                textAlign: 'left',
-                                padding: '8px'
-                              }}
-                            >
-                              {item.createdDate
-                                ? new Date(item.createdDate).toLocaleString()
-                                : 'No date'}
+                            <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                              <Flex justify="center">
+                                {item.createdDate
+                                  ? new Date(item.createdDate).toLocaleString()
+                                  : 'No date'}
+                              </Flex>
                             </td>
-                            <td
-                              style={{
-                                border: '1px solid #dddddd',
-                                textAlign: 'left',
-                                padding: '8px'
-                              }}
-                            >
-                              {item.oldQuantity !== undefined ? item.oldQuantity : 'No oldQuantity'}
+                            <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                              <Flex justify="center">
+                                {item.oldQuantity !== undefined
+                                  ? item.oldQuantity
+                                  : 'No oldQuantity'}
+                              </Flex>
                             </td>
-                            <td
-                              style={{
-                                border: '1px solid #dddddd',
-                                textAlign: 'left',
-                                padding: '8px'
-                              }}
-                            >
-                              {item.newQuantity !== undefined ? item.newQuantity : 'No newQuantity'}
+                            <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                              <Flex justify="center">
+                                {item.newQuantity !== undefined
+                                  ? item.newQuantity
+                                  : 'No newQuantity'}
+                              </Flex>
                             </td>
-                            <td
-                              style={{
-                                border: '1px solid #dddddd',
-                                textAlign: 'left',
-                                padding: '8px'
-                              }}
-                            >
-                              {item.refund > 0 ? `${item.refund.toLocaleString()} đ` : ''}
+                            <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                              <Flex justify="center">
+                                {item.refund > 0
+                                  ? `${Math.round(item.refund).toLocaleString()} đ`
+                                  : ''}
+                              </Flex>
                             </td>
-                            <td
-                              style={{
-                                border: '1px solid #dddddd',
-                                textAlign: 'left',
-                                padding: '8px'
-                              }}
-                            >
-                              {item.refund < 0 ? `${Math.abs(item.refund).toLocaleString()} đ` : ''}
+                            <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                              <Flex justify="center">
+                                {item.refund < 0
+                                  ? `${Math.abs(Math.round(item.refund)).toLocaleString()} đ`
+                                  : ''}
+                              </Flex>
                             </td>
                           </tr>
                         ))
@@ -454,7 +589,7 @@ const DetailOrder = ({ cart }) => {
                     </tbody>
                   </table>
                 ) : (
-                  <p>Không có</p>
+                  <p>Không có lịch sử thay đổi số lượng sản phẩm</p>
                 )}
               </div>
             </div>
