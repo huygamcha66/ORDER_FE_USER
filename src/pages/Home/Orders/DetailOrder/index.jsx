@@ -351,7 +351,12 @@ const DetailOrder = ({ cart }) => {
                         <th
                           style={{ border: '1px solid #dddddd', textAlign: 'left', padding: '8px' }}
                         >
-                          Cọc thêm/Hoàn trả
+                          Hoàn trả
+                        </th>
+                        <th
+                          style={{ border: '1px solid #dddddd', textAlign: 'left', padding: '8px' }}
+                        >
+                          Cọc thêm
                         </th>
                       </tr>
                     </thead>
@@ -432,7 +437,16 @@ const DetailOrder = ({ cart }) => {
                                 padding: '8px'
                               }}
                             >
-                              {item.refund || 'Không thay đổi'}
+                              {item.refund > 0 ? `${item.refund.toLocaleString()} đ` : ''}
+                            </td>
+                            <td
+                              style={{
+                                border: '1px solid #dddddd',
+                                textAlign: 'left',
+                                padding: '8px'
+                              }}
+                            >
+                              {item.refund < 0 ? `${Math.abs(item.refund).toLocaleString()} đ` : ''}
                             </td>
                           </tr>
                         ))
