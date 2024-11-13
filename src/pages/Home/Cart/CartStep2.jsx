@@ -164,15 +164,14 @@ const CartStep2 = () => {
             })
           } catch (error) {
             console.error('Lỗi khi gọi API:', error)
-          } finally {
-            openNotificationWithIcon('success', 'Đặt hàng thành công')
-
-            // setTimeout(() => {
-            //   window.location.reload()
-            //   setLoadingPlace(false)
-            // }, 2000)
           }
         }
+        openNotificationWithIcon('success', 'Đặt hàng thành công')
+
+        setTimeout(() => {
+          window.location.reload()
+          setLoadingPlace(false)
+        }, 2000)
       } else {
         console.log('Số dư tài khoản không đủ để thực hiện đặt hàng')
       }
