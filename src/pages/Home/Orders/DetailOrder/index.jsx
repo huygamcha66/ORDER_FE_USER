@@ -253,7 +253,7 @@ const DetailOrder = ({ cart }) => {
                       Phí vận chuyển nội địa Trung:
                     </Space>{' '}
                     {detailOrder.transportFeeTq
-                      ? `${parseInt(detailOrder.transportFeeTq).toLocaleString()} VNĐ `
+                      ? `${Math.round(detailOrder.transportFeeTq).toLocaleString()} VNĐ `
                       : 'Đang cập nhật'}{' '}
                   </Flex>
                   <Flex>
@@ -261,14 +261,14 @@ const DetailOrder = ({ cart }) => {
                       Phí vận chuyển về VN:
                     </Space>{' '}
                     {detailOrder.transportFee
-                      ? `${parseInt(detailOrder.transportFee).toLocaleString()} VNĐ `
+                      ? `${Math.round(detailOrder.transportFee).toLocaleString()} VNĐ `
                       : 'Đang cập nhật'}{' '}
                   </Flex>
                   <Flex>
                     {detailOrder.boxFee ? (
                       <>
                         <Space style={{ width: '250px', marginBottom: '20px' }}>Phí đóng gỗ:</Space>{' '}
-                        `${parseInt(detailOrder.boxFee).toLocaleString()} VNĐ `
+                        `${Math.round(detailOrder.boxFee).toLocaleString()} VNĐ `
                       </>
                     ) : (
                       <></>
@@ -276,11 +276,11 @@ const DetailOrder = ({ cart }) => {
                   </Flex>
                   <Flex>
                     <Space style={{ width: '250px', marginBottom: '20px' }}>Tiền sản phẩm:</Space>{' '}
-                    {parseInt(detailOrder.totalOrder).toLocaleString()} VNĐ
+                    {Math.round(detailOrder.totalOrder).toLocaleString()} VNĐ
                   </Flex>
                   <Flex>
                     <Space style={{ width: '250px', marginBottom: '20px' }}>Tổng tiền hàng:</Space>{' '}
-                    {parseInt(
+                    {Math.round(
                       detailOrder.totalOrder +
                         detailOrder.transportFeeTq +
                         detailOrder.transportFee +
@@ -290,15 +290,15 @@ const DetailOrder = ({ cart }) => {
                   </Flex>
                   <Flex>
                     <Space style={{ width: '250px', marginBottom: '20px' }}>Đã thanh toán:</Space>{' '}
-                    {parseInt(detailOrder.paidFee).toLocaleString()} VNĐ
+                    {Math.round(detailOrder.paidFee).toLocaleString()} VNĐ
                   </Flex>
                   <Flex>
                     <Space style={{ width: '250px', marginBottom: '20px' }}>Giảm giá:</Space>{' '}
-                    {parseInt(detailOrder.orderDiscount).toLocaleString()} VNĐ
+                    {Math.round(detailOrder.orderDiscount).toLocaleString()} VNĐ
                   </Flex>
                   <Flex>
                     <Space style={{ width: '250px' }}>Cần thanh toán:</Space>{' '}
-                    {parseInt(
+                    {Math.round(
                       detailOrder.totalOrder +
                         detailOrder.transportFeeTq +
                         detailOrder.boxFee +
@@ -431,12 +431,16 @@ const DetailOrder = ({ cart }) => {
                           </td>
                           <td style={{ border: '1px solid #ddd', padding: '8px' }}>
                             <Flex justify="center">
-                              {item.refund > 0 ? `${item.refund.toLocaleString()} đ` : ''}
+                              {item.refund > 0
+                                ? `${Math.round(item.refund).toLocaleString()} đ`
+                                : ''}
                             </Flex>
                           </td>
                           <td style={{ border: '1px solid #ddd', padding: '8px' }}>
                             <Flex justify="center">
-                              {item.refund < 0 ? `${Math.abs(item.refund).toLocaleString()} đ` : ''}
+                              {item.refund < 0
+                                ? `${Math.abs(Math.round(item.refund)).toLocaleString()} đ`
+                                : ''}
                             </Flex>
                           </td>
                         </tr>
@@ -567,13 +571,15 @@ const DetailOrder = ({ cart }) => {
                             </td>
                             <td style={{ border: '1px solid #ddd', padding: '8px' }}>
                               <Flex justify="center">
-                                {item.refund > 0 ? `${item.refund.toLocaleString()} đ` : ''}
+                                {item.refund > 0
+                                  ? `${Math.round(item.refund).toLocaleString()} đ`
+                                  : ''}
                               </Flex>
                             </td>
                             <td style={{ border: '1px solid #ddd', padding: '8px' }}>
                               <Flex justify="center">
                                 {item.refund < 0
-                                  ? `${Math.abs(item.refund).toLocaleString()} đ`
+                                  ? `${Math.abs(Math.round(item.refund)).toLocaleString()} đ`
                                   : ''}
                               </Flex>
                             </td>
