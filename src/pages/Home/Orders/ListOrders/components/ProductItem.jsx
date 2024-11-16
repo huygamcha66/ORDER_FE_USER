@@ -56,7 +56,7 @@ const ProductItem = ({ order, handleUpdate }) => {
               </Link>
             </Flex>
           </td>
-          <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+          {/* <td style={{ border: '1px solid #ddd', padding: '8px' }}>
             <Flex justify="center">
               <Button
                 onClick={showModal}
@@ -67,7 +67,7 @@ const ProductItem = ({ order, handleUpdate }) => {
                 Xác nhận
               </Button>
             </Flex>
-          </td>
+          </td> */}
         </tr>
       </tbody>
       <Modal title="Xác nhận thay đổi" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
