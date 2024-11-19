@@ -120,61 +120,57 @@ const CartStep2 = () => {
   }, [carts])
 
   const handlePlaceOrder = async () => {
-    if (!addressDelivery) {
-      return setError(true)
-    } else {
-      if (
-        !user.user.accountBalance ||
-        (user.user.accountBalance &&
-          parseInt(user.user.accountBalance.toFixed(0)) > parseInt(totalPriceDeposit.toFixed(0)))
-      ) {
-        // Lọc và gọi API cho mỗi cluster có sản phẩm được chọn
-        const clustersWithSelectedProducts = carts.productClusters.filter((cluster) =>
-          cluster.products.some((product) => product.check)
-        ) // Lọc clusters có ít nhất một sản phẩm check = true
-        setLoadingPlace(true)
+    if (
+      !user.user.accountBalance ||
+      (user.user.accountBalance &&
+        parseInt(user.user.accountBalance.toFixed(0)) > parseInt(totalPriceDeposit.toFixed(0)))
+    ) {
+      // Lọc và gọi API cho mỗi cluster có sản phẩm được chọn
+      const clustersWithSelectedProducts = carts.productClusters.filter((cluster) =>
+        cluster.products.some((product) => product.check)
+      ) // Lọc clusters có ít nhất một sản phẩm check = true
+      setLoadingPlace(true)
 
-        for (const [index, item] of clustersWithSelectedProducts.entries()) {
-          let ids = item.products
-            .filter((product) => product.check)
-            .map((product) => product.productId) // Lấy các product ID có check là true
+      for (const [index, item] of clustersWithSelectedProducts.entries()) {
+        let ids = item.products
+          .filter((product) => product.check)
+          .map((product) => product.productId) // Lấy các product ID có check là true
 
-          const selectedProducts = item.products.filter((product) => product.check === true)
-          const clusterId = priceCluster[index].clusterId
-          const totalPriceBeforeFeeService = priceCluster[index].totalPrice
+        const selectedProducts = item.products.filter((product) => product.check === true)
+        const clusterId = priceCluster[index].clusterId
+        const totalPriceBeforeFeeService = priceCluster[index].totalPrice
 
-          // Gọi hàm removeProductFromCart trước
-          try {
-            // Sau khi xóa sản phẩm, gọi addNewOrderService
-            await addNewOrderService({
-              clusterId,
-              productList: selectedProducts,
-              userId: user.user?._id,
-              deliveryAddress: addressDelivery,
-              rateMoney: rate,
-              rateOrder: feeService(totalPriceBeforeFeeService * rate) / 100, //(phí giao dịch)
-              totalPriceBeforeFeeService: +totalPriceBeforeFeeService,
-              check: item.check // Đóng gỗ
-            })
+        // Gọi hàm removeProductFromCart trước
+        try {
+          // Sau khi xóa sản phẩm, gọi addNewOrderService
+          await addNewOrderService({
+            clusterId,
+            productList: selectedProducts,
+            userId: user.user?._id,
+            deliveryAddress: user.user?.address,
+            rateMoney: rate,
+            rateOrder: feeService(totalPriceBeforeFeeService * rate) / 100, //(phí giao dịch)
+            totalPriceBeforeFeeService: +totalPriceBeforeFeeService,
+            check: item.check // Đóng gỗ
+          })
 
-            await removeProductFromCart({
-              userId: user.user?._id,
-              productClusterId: clusterId,
-              ids
-            })
-          } catch (error) {
-            console.error('Lỗi khi gọi API:', error)
-          }
+          await removeProductFromCart({
+            userId: user.user?._id,
+            productClusterId: clusterId,
+            ids
+          })
+        } catch (error) {
+          console.error('Lỗi khi gọi API:', error)
         }
-        openNotificationWithIcon('success', 'Đặt hàng thành công')
-
-        setTimeout(() => {
-          window.location.reload()
-          setLoadingPlace(false)
-        }, 2000)
-      } else {
-        console.log('Số dư tài khoản không đủ để thực hiện đặt hàng')
       }
+      openNotificationWithIcon('success', 'Đặt hàng thành công')
+
+      setTimeout(() => {
+        window.location.reload()
+        setLoadingPlace(false)
+      }, 2000)
+    } else {
+      console.log('Số dư tài khoản không đủ để thực hiện đặt hàng')
     }
   }
 
@@ -214,7 +210,7 @@ const CartStep2 = () => {
             </div>
           </Col>
           <Col xs={20}>
-            <Flex>
+            {/* <Flex>
               <TextArea
                 value={addressDelivery}
                 onChange={(e) => {
@@ -227,8 +223,8 @@ const CartStep2 = () => {
                   maxRows: 6
                 }}
               />
-            </Flex>
-            {error && <Alert message="Nhập địa chỉ nhận hàng" type="error" showIcon />}
+            </Flex> */}
+            {/* {error && <Alert message="Nhập địa chỉ nhận hàng" type="error" showIcon />} */}
             <Space
               style={{
                 display: 'flex',

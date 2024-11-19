@@ -86,7 +86,7 @@ const ListOrders = () => {
                   >
                     Xem chi tiết
                   </th>
-                  <th
+                  {/* <th
                     style={{
                       border: '1px solid #ddd',
                       padding: '8px',
@@ -94,7 +94,7 @@ const ListOrders = () => {
                     }}
                   >
                     Xác nhận thay đổi
-                  </th>
+                  </th> */}
                 </tr>
               </thead>
               {allOrders ? (
