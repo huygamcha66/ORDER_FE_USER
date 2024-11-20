@@ -57,6 +57,15 @@ const ListOrders = () => {
                       width: '15%'
                     }}
                   >
+                    Mã vận đơn
+                  </th>
+                  <th
+                    style={{
+                      border: '1px solid #ddd',
+                      padding: '8px',
+                      width: '15%'
+                    }}
+                  >
                     Ngày mua hàng
                   </th>
                   <th
@@ -86,15 +95,6 @@ const ListOrders = () => {
                   >
                     Xem chi tiết
                   </th>
-                  {/* <th
-                    style={{
-                      border: '1px solid #ddd',
-                      padding: '8px',
-                      width: '10%'
-                    }}
-                  >
-                    Xác nhận thay đổi
-                  </th> */}
                 </tr>
               </thead>
               {allOrders ? (

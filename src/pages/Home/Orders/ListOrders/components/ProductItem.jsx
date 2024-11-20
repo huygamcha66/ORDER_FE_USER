@@ -28,6 +28,9 @@ const ProductItem = ({ order, handleUpdate }) => {
       <tbody>
         <tr>
           <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+            <Flex justify="center">{order.ktdnId ? order.ktdnId : 'Đang cập nhật'}</Flex>
+          </td>
+          <td style={{ border: '1px solid #ddd', padding: '8px' }}>
             <Flex justify="center">{order.idOrderTq ? order.idOrderTq : 'Đang cập nhật'}</Flex>
           </td>
           <td style={{ border: '1px solid #ddd', padding: '8px' }}>
