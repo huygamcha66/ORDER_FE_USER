@@ -204,7 +204,8 @@ const ExtraHeader = () => {
                             </Flex>
                           </Link>
                         </Flex>
-                        <Link to={'/member/profile'}>
+                        {/* tuetc */}
+                        {/* <Link to={'/member/profile'}>
                           <Avatar
                             className="custommlr extra_header_cart primary_color"
                             style={{
@@ -215,7 +216,7 @@ const ExtraHeader = () => {
                           >
                             {decodedToken && decodedToken.email.slice(0, 1).toUpperCase()}
                           </Avatar>
-                        </Link>
+                        </Link> */}
                         <Flex className="wrapper_icon_text" align="center">
                           <Popconfirm
                             title="Đăng xuất"
