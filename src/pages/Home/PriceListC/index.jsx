@@ -351,7 +351,7 @@ const PriceListCon = () => {
                 <span style={{ color: '$000000' }}>
                   <em>
                     &#8211; Order Kiều Nghĩa ko áp dụng làm tròn, cân nặng sẽ được tính chính xác
-                    tới 0.1kg
+                    tới 0,2kg
                   </em>
                 </span>
               </div>
